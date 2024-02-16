@@ -1,0 +1,24 @@
+[gd_scene load_steps=4 format=3 uid="uid://th68cjmxi5n1"]
+
+[ext_resource type="Script" path="res://Scripts/Entities/tower_shot.gd" id="1_242mw"]
+[ext_resource type="Texture2D" uid="uid://cnqvgmcl8iubh" path="res://Assets/Effects/energy_effect_base.png" id="2_e4it5"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_bv23t"]
+radius = 20.0998
+
+[node name="TowerShot" type="CharacterBody2D"]
+z_index = 1
+script = ExtResource("1_242mw")
+
+[node name="EnergyEffectBase" type="Sprite2D" parent="."]
+scale = Vector2(1.45467, 1.9375)
+texture = ExtResource("2_e4it5")
+offset = Vector2(20, -5)
+region_enabled = true
+region_rect = Rect2(1.47474, 100.92, 30.2763, 24.1184)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(31, -11)
+shape = SubResource("CircleShape2D_bv23t")
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]

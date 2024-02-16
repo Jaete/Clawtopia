@@ -1,0 +1,49 @@
+[gd_scene load_steps=9 format=3 uid="uid://8svp56na4uhu"]
+
+[ext_resource type="Script" path="res://Scripts/Entities/pescador.gd" id="1_pc2af"]
+[ext_resource type="Texture2D" uid="uid://dwk5f3lrxkjrf" path="res://Assets/Enemies/gatinho1.png" id="2_xgjpt"]
+[ext_resource type="Script" path="res://Scripts/FSM/Enemy/StateMachine.gd" id="3_sidal"]
+[ext_resource type="Script" path="res://Scripts/FSM/Enemy/State.gd" id="4_3vk3m"]
+[ext_resource type="Script" path="res://Scripts/FSM/Enemy/Move.gd" id="5_v6w5n"]
+[ext_resource type="Script" path="res://Scripts/FSM/Enemy/Attack.gd" id="6_t6ree"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_kkaxn"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_18bn7"]
+size = Vector2(4, 5.05263)
+
+[node name="Enemy" type="CharacterBody2D"]
+script = ExtResource("1_pc2af")
+
+[node name="TowerDetector" type="Area2D" parent="."]
+monitorable = false
+linear_damp = 34.386
+
+[node name="Area" type="CollisionShape2D" parent="TowerDetector"]
+position = Vector2(2, -6)
+scale = Vector2(15.26, 9.78)
+shape = SubResource("CircleShape2D_kkaxn")
+
+[node name="BodyShape" type="CollisionShape2D" parent="."]
+position = Vector2(4, -20)
+scale = Vector2(9.5, 9.5)
+shape = SubResource("RectangleShape2D_18bn7")
+debug_color = Color(1, 0.00784314, 0.0509804, 0.419608)
+
+[node name="Sprite" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(0, -20)
+texture = ExtResource("2_xgjpt")
+
+[node name="StateMachine" type="Node2D" parent="." node_paths=PackedStringArray("initial_state")]
+script = ExtResource("3_sidal")
+initial_state = NodePath("Move")
+
+[node name="State" type="Node2D" parent="StateMachine"]
+script = ExtResource("4_3vk3m")
+
+[node name="Move" type="Node2D" parent="StateMachine"]
+script = ExtResource("5_v6w5n")
+
+[node name="Attack" type="Node2D" parent="StateMachine"]
+script = ExtResource("6_t6ree")

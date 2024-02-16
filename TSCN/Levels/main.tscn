@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://bqku3cuovs80r"]
+
+[ext_resource type="PackedScene" uid="uid://dmcurj0frprmx" path="res://TSCN/Objects/tower.tscn" id="1_wad2i"]
+[ext_resource type="PackedScene" uid="uid://8svp56na4uhu" path="res://TSCN/Objects/enemy.tscn" id="2_5n6e4"]
+
+[node name="Main" type="Node2D"]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(288, 64)
+
+[node name="Tower" parent="." instance=ExtResource("1_wad2i")]
+texture_filter = 1
+
+[node name="Inimigo" parent="." instance=ExtResource("2_5n6e4")]
+position = Vector2(385.821, 373.954)
+rotation = 0.00174499

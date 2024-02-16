@@ -1,0 +1,35 @@
+[gd_scene load_steps=5 format=3 uid="uid://bj12wsjmkstqo"]
+
+[ext_resource type="Texture2D" uid="uid://ddx6w0lj1ji2k" path="res://icon.svg" id="2_k7i7q"]
+[ext_resource type="PackedScene" uid="uid://botmm88gjb1o0" path="res://TSCN/Levels/teste.tscn" id="2_y8h5s"]
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_tdnxn"]
+vertices = PackedVector2Array(-2, -3, 1154, -3, 1156, 647, -2, 647)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(-2, -3, 1154, -3, 1156, 647, -2, 647)])
+source_geometry_group_name = &"navigation_polygon_source_group"
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bsadk"]
+size = Vector2(124, 125)
+
+[node name="Main" type="Node2D"]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(576, 320)
+
+[node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
+navigation_polygon = SubResource("NavigationPolygon_tdnxn")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+
+[node name="Sprite2D" type="Sprite2D" parent="StaticBody2D"]
+position = Vector2(1026, 86)
+texture = ExtResource("2_k7i7q")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(1026, 86.5)
+shape = SubResource("RectangleShape2D_bsadk")
+debug_color = Color(0.988235, 0.113725, 0, 0.419608)
+
+[node name="CharacterBody2D" parent="." instance=ExtResource("2_y8h5s")]
+position = Vector2(160, 93)
