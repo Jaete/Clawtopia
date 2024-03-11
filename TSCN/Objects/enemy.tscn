@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://8svp56na4uhu"]
+[gd_scene load_steps=10 format=3 uid="uid://8svp56na4uhu"]
 
 [ext_resource type="Script" path="res://Scripts/Entities/pescador.gd" id="1_pc2af"]
 [ext_resource type="Texture2D" uid="uid://dwk5f3lrxkjrf" path="res://Assets/Enemies/gatinho1.png" id="2_xgjpt"]
@@ -12,7 +12,10 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_18bn7"]
 size = Vector2(4, 5.05263)
 
-[node name="Enemy" type="CharacterBody2D"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cqndw"]
+size = Vector2(20, 53)
+
+[node name="Enemy" type="CharacterBody2D" groups=["Enemy"]]
 script = ExtResource("1_pc2af")
 
 [node name="TowerDetector" type="Area2D" parent="."]
@@ -47,3 +50,10 @@ script = ExtResource("5_v6w5n")
 
 [node name="Attack" type="Node2D" parent="StateMachine"]
 script = ExtResource("6_t6ree")
+
+[node name="Body" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Body"]
+position = Vector2(4, -19)
+scale = Vector2(1.96, 1)
+shape = SubResource("RectangleShape2D_cqndw")

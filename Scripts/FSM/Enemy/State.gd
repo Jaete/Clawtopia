@@ -4,9 +4,7 @@ extends Node2D
 signal state_transition()
 
 @onready var state_machine: EnemyStateMachine = get_parent()
-@onready var tower_shot: PackedScene = preload("res://TSCN/Objects/tower_shot.tscn")
 @onready var enemy: Enemy = $"../.."
-@onready var nav: NavigationAgent2D = $"../../NavigationAgent2D"
 
 func enter() -> void:
 	pass

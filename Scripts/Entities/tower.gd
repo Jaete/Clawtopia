@@ -1,6 +1,7 @@
 class_name Tower extends Node2D
 
 var targets: Array = []
+var current_target: Node2D
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
