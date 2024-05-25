@@ -11,9 +11,14 @@ config_version=5
 [application]
 
 config/name="Clawtopia Demo"
-run/main_scene="res://TSCN/Levels/main.tscn"
+run/main_scene="res://TSCN/Objects/scene_manager.tscn"
 config/features=PackedStringArray("4.2", "GL Compatibility")
 config/icon="res://icon.svg"
+
+[debug]
+
+settings/stdout/print_fps=true
+settings/stdout/verbose_stdout=true
 
 [file_customization]
 
@@ -30,8 +35,24 @@ LeftClick={
 "events": [Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"button_mask":0,"position":Vector2(0, 0),"global_position":Vector2(0, 0),"factor":1.0,"button_index":1,"canceled":false,"pressed":false,"double_click":false,"script":null)
 ]
 }
+RightClick={
+"deadzone": 0.5,
+"events": [Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"button_mask":2,"position":Vector2(264, 9),"global_position":Vector2(268, 50),"factor":1.0,"button_index":2,"canceled":false,"pressed":true,"double_click":false,"script":null)
+]
+}
+
+[memory]
+
+limits/multithreaded_server/rid_pool_prealloc=120
+
+[physics]
+
+2d/run_on_separate_thread=true
+2d/solver/solver_iterations=8
 
 [rendering]
 
-renderer/rendering_method="gl_compatibility"
+textures/canvas_textures/default_texture_filter=0
 renderer/rendering_method.mobile="gl_compatibility"
+driver/threads/thread_model=2
+anti_aliasing/screen_space_roughness_limiter/enabled=false

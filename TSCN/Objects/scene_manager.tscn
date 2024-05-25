@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://br3ocq6sjisxt"]
+
+[ext_resource type="PackedScene" uid="uid://b2q33b0eyy2xh" path="res://TSCN/Levels/Level1.tscn" id="1_wx06w"]
+
+[node name="SceneManager" type="Node"]
+
+[node name="Director" parent="." instance=ExtResource("1_wx06w")]

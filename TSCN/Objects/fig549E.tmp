@@ -1,0 +1,64 @@
+[gd_scene load_steps=10 format=3 uid="uid://bj7bbr5ol0ip5"]
+
+[ext_resource type="Script" path="res://Scripts/Entities/fighter.gd" id="1_3ud1g"]
+[ext_resource type="Texture2D" uid="uid://dwk5f3lrxkjrf" path="res://Assets/Enemies/gatinho1.png" id="1_b6b62"]
+[ext_resource type="Script" path="res://Scripts/FSM/Ally/Fighters/StateMachine.gd" id="2_jjyqv"]
+[ext_resource type="Script" path="res://Scripts/FSM/Ally/Fighters/Idle.gd" id="3_7ucl0"]
+[ext_resource type="Script" path="res://Scripts/FSM/Ally/Fighters/Attack.gd" id="4_w6472"]
+[ext_resource type="Script" path="res://Scripts/FSM/Ally/Fighters/State.gd" id="5_kfxcm"]
+[ext_resource type="Script" path="res://Scripts/Debug/FighterDEBUGgd.gd" id="6_2k1c0"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_555wn"]
+radius = 120.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mjswu"]
+size = Vector2(26, 32)
+
+[node name="Fighter" type="Node2D"]
+texture_filter = 1
+script = ExtResource("1_3ud1g")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_b6b62")
+offset = Vector2(-2, 0)
+
+[node name="FSM" type="Node2D" parent="."]
+script = ExtResource("2_jjyqv")
+
+[node name="Idle" type="Node2D" parent="FSM"]
+script = ExtResource("3_7ucl0")
+
+[node name="Attack" type="Node2D" parent="FSM"]
+script = ExtResource("4_w6472")
+
+[node name="Cooldown" type="Timer" parent="FSM/Attack"]
+
+[node name="State" type="Node2D" parent="FSM"]
+script = ExtResource("5_kfxcm")
+
+[node name="Detector" type="Area2D" parent="."]
+monitorable = false
+
+[node name="Radius" type="CollisionShape2D" parent="Detector"]
+position = Vector2(0, 17)
+scale = Vector2(1, 0.5)
+shape = SubResource("CircleShape2D_555wn")
+
+[node name="Body" type="CharacterBody2D" parent="." groups=["Comrade", "Fighter"]]
+
+[node name="Hitbox" type="CollisionShape2D" parent="Body"]
+position = Vector2(0, 3)
+shape = SubResource("RectangleShape2D_mjswu")
+debug_color = Color(0.996078, 0, 0.188235, 0.419608)
+
+[node name="Label" type="Label" parent="."]
+offset_left = -18.0
+offset_top = -46.0
+offset_right = 22.0
+offset_bottom = -23.0
+text = "teste"
+script = ExtResource("6_2k1c0")
+
+[connection signal="body_entered" from="Detector" to="FSM/Idle" method="_on_detector_body_entered"]
+[connection signal="body_entered" from="Detector" to="FSM/Attack" method="_on_detector_body_entered"]
+[connection signal="body_exited" from="Detector" to="FSM/Attack" method="_on_detector_body_exited"]

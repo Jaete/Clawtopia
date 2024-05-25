@@ -1,0 +1,13 @@
+[gd_scene load_steps=2 format=3 uid="uid://bya5i4lhhq143"]
+
+[ext_resource type="Script" path="res://Scripts/Debug/DebugButton.gd" id="1_03220"]
+
+[node name="Spawn_Cat" type="Button"]
+offset_left = 418.0
+offset_top = 35.0
+offset_right = 498.0
+offset_bottom = 71.0
+text = "Função do botão"
+script = ExtResource("1_03220")
+
+[connection signal="pressed" from="." to="." method="_on_pressed"]

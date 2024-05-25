@@ -1,0 +1,39 @@
+[gd_resource type="SpriteFrames" load_steps=6 format=3 uid="uid://clwnjxujla82v"]
+
+[ext_resource type="Texture2D" uid="uid://cew7ytymvo2to" path="res://Assets/Enemies/aliadoeinimigo_andando_96x192px_4frames.png" id="1_3w7ef"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_oiqyq"]
+atlas = ExtResource("1_3w7ef")
+region = Rect2(0, 48, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_i3o5j"]
+atlas = ExtResource("1_3w7ef")
+region = Rect2(48, 48, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lkgmb"]
+atlas = ExtResource("1_3w7ef")
+region = Rect2(96, 48, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_oykqe"]
+atlas = ExtResource("1_3w7ef")
+region = Rect2(144, 48, 48, 48)
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_oiqyq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_i3o5j")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lkgmb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_oykqe")
+}],
+"loop": true,
+"name": &"Walk",
+"speed": 5.0
+}]

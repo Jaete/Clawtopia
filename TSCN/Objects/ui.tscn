@@ -1,0 +1,85 @@
+[gd_scene load_steps=7 format=3 uid="uid://ckw71eqqie810"]
+
+[ext_resource type="Script" path="res://Scripts/Debug/Debug_Camera_Controls.gd" id="1_qq53n"]
+[ext_resource type="PackedScene" uid="uid://bya5i4lhhq143" path="res://TSCN/DEBUG/test_button.tscn" id="2_00o0u"]
+[ext_resource type="Script" path="res://Scripts/Director/BuildTower.gd" id="3_1u3x5"]
+[ext_resource type="Script" path="res://Scripts/Director/Label.gd" id="3_kxuiu"]
+[ext_resource type="Texture2D" uid="uid://c2csnpqohe588" path="res://Assets/Towers/torreA.png" id="4_ig0ik"]
+[ext_resource type="Texture2D" uid="uid://cx0ybxv2navwe" path="res://Assets/Towers/placeholder.png" id="4_qiua6"]
+
+[node name="CanvasLayer" type="CanvasLayer"]
+script = ExtResource("1_qq53n")
+
+[node name="HUD" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+
+[node name="AddFighterTower" type="Button" parent="HUD"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 36.0
+offset_top = -228.0
+offset_right = 135.0
+offset_bottom = -24.0
+grow_vertical = 0
+icon = ExtResource("4_ig0ik")
+script = ExtResource("3_1u3x5")
+
+[node name="AddArtistTower" type="Button" parent="HUD"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 144.0
+offset_top = -228.0
+offset_right = 240.0
+offset_bottom = -24.0
+grow_vertical = 0
+icon = ExtResource("4_qiua6")
+expand_icon = true
+script = ExtResource("3_1u3x5")
+
+[node name="ControlButtons" type="HFlowContainer" parent="HUD"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -126.0
+offset_right = 126.0
+offset_bottom = 96.0
+grow_horizontal = 2
+alignment = 1
+
+[node name="Spawn_Cat" parent="HUD/ControlButtons" instance=ExtResource("2_00o0u")]
+z_index = 1
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+text = "Release the kitties"
+
+[node name="Zoom out" type="Button" parent="HUD/ControlButtons"]
+layout_mode = 2
+text = "Zoom out"
+
+[node name="Zoom in" type="Button" parent="HUD/ControlButtons"]
+layout_mode = 2
+text = "Zoom in"
+
+[node name="Label" type="Label" parent="HUD"]
+layout_mode = 0
+offset_right = 480.0
+offset_bottom = 228.0
+theme_override_font_sizes/font_size = 75
+uppercase = true
+script = ExtResource("3_kxuiu")
+
+[connection signal="pressed" from="HUD/AddFighterTower" to="HUD/AddFighterTower" method="_on_pressed"]
+[connection signal="pressed" from="HUD/AddArtistTower" to="HUD/AddArtistTower" method="_on_pressed"]
+[connection signal="pressed" from="HUD/ControlButtons/Zoom out" to="." method="_on_zoom_out_pressed"]
+[connection signal="pressed" from="HUD/ControlButtons/Zoom in" to="." method="_on_zoom_in_pressed"]

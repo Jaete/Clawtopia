@@ -1,22 +1,20 @@
 class_name EnemyState
-extends Node2D
+extends Node
 
 signal state_transition()
 
 @onready var state_machine: EnemyStateMachine = get_parent()
 @onready var enemy: Enemy = $"../.."
+@onready var navigation: NavigationAgent2D = $"../../NavigationAgent2D"
 
-func enter() -> void:
-	pass
-
-func exit() -> void:
+func enter(generic_param: Variant) -> void:
 	pass
 
 func update(_delta: float) -> void:
 	pass
 
-func change_state(state: String) -> void:
-	state_transition.emit(self, state)
+func exit() -> void:
+	pass
 
-func logger_divider(string: String):
-	print("\n#====== " + string + "======#\n")
+func change_state(state: String, generic_param: Variant = null) -> void:
+	state_transition.emit(self, state, generic_param)

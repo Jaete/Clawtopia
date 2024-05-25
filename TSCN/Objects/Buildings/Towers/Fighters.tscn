@@ -1,0 +1,34 @@
+[gd_scene load_steps=4 format=3 uid="uid://bev6fst8u44s4"]
+
+[ext_resource type="Script" path="res://Scripts/Entities/Tower.gd" id="1_8tsxa"]
+[ext_resource type="Texture2D" uid="uid://c2csnpqohe588" path="res://Assets/Towers/torreA.png" id="2_lknnc"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5q6i3"]
+size = Vector2(64, 178)
+
+[node name="Tower" type="Area2D"]
+script = ExtResource("1_8tsxa")
+
+[node name="NavigationBody" type="StaticBody2D" parent="."]
+position = Vector2(0, -8)
+collision_layer = 2147483648
+input_pickable = true
+
+[node name="NavigationBake" type="CollisionPolygon2D" parent="NavigationBody"]
+visible = false
+polygon = PackedVector2Array(0, 24, -48, 0, 0, -24, 48, 0)
+
+[node name="Sprite" type="Sprite2D" parent="."]
+position = Vector2(0, -80)
+texture = ExtResource("2_lknnc")
+
+[node name="InteractableArea" type="CollisionShape2D" parent="."]
+position = Vector2(0, -79)
+shape = SubResource("RectangleShape2D_5q6i3")
+
+[node name="GridArea" type="Area2D" parent="."]
+
+[node name="Area" type="CollisionPolygon2D" parent="GridArea"]
+polygon = PackedVector2Array(-48, -8, 0, -32, 48, -8, 0, 16)
+
+[connection signal="input_event" from="." to="." method="_on_input_event"]

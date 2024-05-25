@@ -1,59 +1,71 @@
-[gd_scene load_steps=10 format=3 uid="uid://8svp56na4uhu"]
+[gd_scene load_steps=10 format=3 uid="uid://clk2tdxshwp3i"]
 
-[ext_resource type="Script" path="res://Scripts/Entities/pescador.gd" id="1_pc2af"]
-[ext_resource type="Texture2D" uid="uid://dwk5f3lrxkjrf" path="res://Assets/Enemies/gatinho1.png" id="2_xgjpt"]
+[ext_resource type="Script" path="res://Scripts/Entities/enemy.gd" id="1_mob5j"]
+[ext_resource type="Texture2D" uid="uid://ccjglxq6s5c86" path="res://Assets/Enemies/test_kitten_artstyle64.png" id="2_5ouxd"]
 [ext_resource type="Script" path="res://Scripts/FSM/Enemy/StateMachine.gd" id="3_sidal"]
 [ext_resource type="Script" path="res://Scripts/FSM/Enemy/State.gd" id="4_3vk3m"]
+[ext_resource type="Script" path="res://Scripts/FSM/Enemy/Idle.gd" id="4_w8vnm"]
 [ext_resource type="Script" path="res://Scripts/FSM/Enemy/Move.gd" id="5_v6w5n"]
-[ext_resource type="Script" path="res://Scripts/FSM/Enemy/Attack.gd" id="6_t6ree"]
+[ext_resource type="Script" path="res://TSCN/DEBUG/EnemyDEBUGLabel.gd" id="7_itahq"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_kkaxn"]
+[sub_resource type="CircleShape2D" id="CircleShape2D_o5mxq"]
+radius = 17.0294
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_18bn7"]
-size = Vector2(4, 5.05263)
+[sub_resource type="CircleShape2D" id="CircleShape2D_7nk51"]
+radius = 120.0
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_cqndw"]
-size = Vector2(20, 53)
+[node name="Enemy" type="CharacterBody2D"]
+y_sort_enabled = true
+script = ExtResource("1_mob5j")
 
-[node name="Enemy" type="CharacterBody2D" groups=["Enemy"]]
-script = ExtResource("1_pc2af")
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
+target_desired_distance = 256.0
+avoidance_enabled = true
+radius = 5.0
+neighbor_distance = 48.0
+debug_path_custom_color = Color(1, 0.239216, 0.239216, 1)
 
-[node name="TowerDetector" type="Area2D" parent="."]
-monitorable = false
-linear_damp = 34.386
+[node name="PhysicsBody" type="CollisionShape2D" parent="."]
+scale = Vector2(1, 0.5)
+shape = SubResource("CircleShape2D_o5mxq")
+disabled = true
+debug_color = Color(0.984314, 0, 0.337255, 0.419608)
 
-[node name="Area" type="CollisionShape2D" parent="TowerDetector"]
-position = Vector2(2, -6)
-scale = Vector2(15.26, 9.78)
-shape = SubResource("CircleShape2D_kkaxn")
+[node name="AnimatedSprite2D" type="Sprite2D" parent="."]
+y_sort_enabled = true
+texture = ExtResource("2_5ouxd")
+offset = Vector2(0, -24)
 
-[node name="BodyShape" type="CollisionShape2D" parent="."]
-position = Vector2(4, -20)
-scale = Vector2(9.5, 9.5)
-shape = SubResource("RectangleShape2D_18bn7")
-debug_color = Color(1, 0.00784314, 0.0509804, 0.419608)
-
-[node name="Sprite" type="Sprite2D" parent="."]
-texture_filter = 1
-position = Vector2(0, -20)
-texture = ExtResource("2_xgjpt")
-
-[node name="StateMachine" type="Node2D" parent="." node_paths=PackedStringArray("initial_state")]
+[node name="FSM" type="Node" parent="."]
 script = ExtResource("3_sidal")
-initial_state = NodePath("Move")
 
-[node name="State" type="Node2D" parent="StateMachine"]
+[node name="State" type="Node" parent="FSM"]
 script = ExtResource("4_3vk3m")
 
-[node name="Move" type="Node2D" parent="StateMachine"]
+[node name="Idle" type="Node" parent="FSM"]
+script = ExtResource("4_w8vnm")
+
+[node name="Move" type="Node" parent="FSM"]
 script = ExtResource("5_v6w5n")
 
-[node name="Attack" type="Node2D" parent="StateMachine"]
-script = ExtResource("6_t6ree")
+[node name="DEBUG" type="RichTextLabel" parent="."]
+visible = false
+z_index = 1
+offset_left = -6.0
+offset_top = -74.0
+offset_right = 115.0
+offset_bottom = -34.0
+text = "eh o exto"
+fit_content = true
+script = ExtResource("7_itahq")
 
-[node name="Body" type="Area2D" parent="."]
+[node name="AllyDetector" type="Area2D" parent="."]
+collision_layer = 2
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Body"]
-position = Vector2(4, -19)
-scale = Vector2(1.96, 1)
-shape = SubResource("RectangleShape2D_cqndw")
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AllyDetector"]
+y_sort_enabled = true
+position = Vector2(0, -8)
+scale = Vector2(1, 0.5)
+shape = SubResource("CircleShape2D_7nk51")
+
+[connection signal="velocity_computed" from="NavigationAgent2D" to="FSM/Move" method="_on_navigation_agent_2d_velocity_computed"]
