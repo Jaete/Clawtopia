@@ -2,21 +2,25 @@
 
 [ext_resource type="Script" path="res://Scripts/Entities/Building/Building.cs" id="1_lxpyl"]
 
-[node name="Building" type="Area2D" node_paths=PackedStringArray("static_body", "body_shape", "interaction_shape", "sprite")]
+[node name="Building" type="Area2D" node_paths=PackedStringArray("static_body", "body_shape", "interaction_shape", "grid_shape", "sprite")]
 script = ExtResource("1_lxpyl")
 static_body = NodePath("NavigationBody")
 body_shape = NodePath("NavigationBody/Shape")
 interaction_shape = NodePath("Shape")
+grid_shape = NodePath("GridArea/Shape")
 sprite = NodePath("Sprite")
 
 [node name="NavigationBody" type="StaticBody2D" parent="."]
 collision_layer = 2147483648
 
 [node name="Shape" type="CollisionPolygon2D" parent="NavigationBody"]
-position = Vector2(0, -48)
 build_mode = 1
 
 [node name="Sprite" type="Sprite2D" parent="."]
-offset = Vector2(-52, -224)
 
 [node name="Shape" type="CollisionShape2D" parent="."]
+debug_color = Color(0.891755, 0.000238729, 0.789262, 0.42)
+
+[node name="GridArea" type="Area2D" parent="."]
+
+[node name="Shape" type="CollisionPolygon2D" parent="GridArea"]

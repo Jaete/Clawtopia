@@ -6,7 +6,8 @@ using System.Linq;
 
 public partial class Director : Node {
     public bool currently_baking = false;
-    public Array<int> buildings_to_bake = new Array<int>();
+    public Array<Building> buildings_to_bake = new Array<Building>();
+    public NavigationRegion2D region;
 
     public Godot.Collections.Dictionary game_modes = (Dictionary)new Godot.Collections.Dictionary<string, Variant>();
     public GameMode current_mode;
@@ -33,8 +34,9 @@ public partial class Director : Node {
         foreach (var node in nodes) {
             if (node is Building) {
                 building_count++;
-                buildings_to_bake.Add(building_count);
                 Building building = (Building)node;
+                buildings_to_bake.Add(building);
+                building.rebake_add_building();
                 if (building.data.type == "Tower") { 
                     building.self_index = tower_count;
                     tower_count++;
@@ -42,12 +44,23 @@ public partial class Director : Node {
             }
         }
         GD.Print("Build to bake ->", buildings_to_bake);
+        region = GetNode<NavigationRegion2D>("/root/Game/SceneManager/Level/Navigation");
+        GD.Print("Director started baking.");
+        region.BakeNavigationPolygon();
+        buildings_to_bake.Clear();
         current_mode = (GameMode)game_modes["SimulationMode"];
     }
 
     public void change_mode(String mode, String building, String type) {
         building_type = building;
-        tower_type = type;
+        switch (building_type) {
+            case "Tower":
+                tower_type = type;
+                break;
+            case "Resource":
+                resource_build_type = type;
+                break;
+        }
         current_mode.exit();
         current_mode = (GameMode)game_modes[mode];
         current_mode.enter();

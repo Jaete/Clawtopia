@@ -20,29 +20,27 @@ public partial class BuildMode : GameMode {
         initialize();
     }
     public override void enter() {
-        String building_path;
+        String building_path = "res://TSCN/Entities/Building.tscn";
         switch (director.building_type) {
             case "Tower":
-                building_path = "res://TSCN/Objects/Buildings/Towers/" + director.tower_type + ".tscn";
                 instantiate_building(building_path);
                 director.tower_count++;
                 director.building_count++;
-                current_building.Name = director.tower_type + "_T1(" + director.tower_count + ")";
+                current_building.Name = director.tower_type + "_T1_" + director.tower_count;
+                current_building.data = (BuildingData)GD.Load("res://Resources/Buildings/Towers/Fighters/Fighters.tres");
                 break;
             case "Commune":
-                building_path = "res://TSCN/Objects/Buildings/Base/GreatCommune.tscn";
                 instantiate_building(building_path);
                 director.building_count++;
                 current_building.Name = "GreatCommune";
                 break;
             case "Resource":
-                building_path = "res://TSCN/Objects/Buildings/Resource/" + director.resource_build_type + ".tscn";
                 instantiate_building(building_path);
                 director.resource_build_count++;
                 current_building.Name = "" + director.resource_build_type + "_" + director.resource_build_count;
                 break;
         }
-        director.AddChild(current_building);
+        current_level.AddChild(current_building);
         mouse_position = current_level.GetGlobalMousePosition();
         current_building.GlobalPosition = mouse_position;
     }
@@ -93,15 +91,15 @@ public partial class BuildMode : GameMode {
         float y_difference = mouse_position.Y + current_building.GlobalPosition.Y;
         float new_x = 0;
         float new_y = 0;
-        if (x_difference >= (TILE_SIZE_X / 2)) {
+        if (x_difference > (TILE_SIZE_X / 2)) {
             new_x = (TILE_SIZE_X / 2);
 
-        } else if (x_difference <= (TILE_SIZE_X / 2) * -1) {
+        } else if (x_difference < (TILE_SIZE_X / 2) * -1) {
             new_x = (TILE_SIZE_X / 2) * -1;
         }
-        if (y_difference >= (TILE_SIZE_Y / 2)) {
+        if (y_difference > (TILE_SIZE_Y / 2)) {
             new_y = (TILE_SIZE_Y / 2);
-        } else if (y_difference <= (TILE_SIZE_Y / 2) * -1) {
+        } else if (y_difference < (TILE_SIZE_Y / 2) * -1) {
             new_y = (TILE_SIZE_Y / 2) * -1;
         }
         current_building.GlobalPosition = new Vector2(
