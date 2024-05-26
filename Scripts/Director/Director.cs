@@ -26,7 +26,6 @@ public partial class Director : Node {
         foreach (var node in nodes) {
             if(node is GameMode) {
                 var gameMode = (GameMode)node;
-                GD.Print("Setting game mode-> ", gameMode.Name);
                 gameMode.ModeTransition += change_mode;
                 game_modes[gameMode.Name] = gameMode;
             }
@@ -44,9 +43,7 @@ public partial class Director : Node {
                 }   
             }
         }
-        GD.Print("Build to bake ->", buildings_to_bake);
         region = GetNode<NavigationRegion2D>("/root/Game/SceneManager/Level/Navigation");
-        GD.Print("Director started baking.");
         region.BakeNavigationPolygon();
         buildings_to_bake.Clear();
         current_mode = (GameMode)game_modes["SimulationMode"];
@@ -68,7 +65,6 @@ public partial class Director : Node {
     }
 
     public override void _Process(double delta) {
-        GD.Print("Current mode: ", current_mode);
         current_mode.update();
     }
 }

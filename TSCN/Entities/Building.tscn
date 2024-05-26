@@ -3,6 +3,7 @@
 [ext_resource type="Script" path="res://Scripts/Entities/Building/Building.cs" id="1_lxpyl"]
 
 [node name="Building" type="Area2D" node_paths=PackedStringArray("static_body", "body_shape", "interaction_shape", "grid_shape", "sprite")]
+priority = 1
 script = ExtResource("1_lxpyl")
 static_body = NodePath("NavigationBody")
 body_shape = NodePath("NavigationBody/Shape")
@@ -26,3 +27,6 @@ collision_layer = 2147483648
 collision_mask = 2147483648
 
 [node name="Shape" type="CollisionPolygon2D" parent="GridArea"]
+
+[connection signal="input_event" from="." to="." method="_on_input_event"]
+[connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]

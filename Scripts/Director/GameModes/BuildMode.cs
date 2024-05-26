@@ -23,10 +23,11 @@ public partial class BuildMode : GameMode {
         String building_path = "res://TSCN/Entities/Building.tscn";
         switch (director.building_type) {
             case "Tower":
-                instantiate_building(building_path);
                 director.tower_count++;
                 director.building_count++;
-                current_building.Name = director.tower_type + "_T1_" + director.tower_count;
+                instantiate_building(building_path);
+                current_building.self_index = director.tower_count;
+                current_building.Name = director.tower_type + "_T1_" + current_building.self_index;
                 current_building.data = (BuildingData)GD.Load("res://Resources/Buildings/Towers/Fighters/Fighters.tres");
                 break;
             case "Commune":
@@ -40,6 +41,7 @@ public partial class BuildMode : GameMode {
                 current_building.Name = "" + director.resource_build_type + "_" + director.resource_build_count;
                 break;
         }
+        current_building.InputPickable = false;
         current_level.AddChild(current_building);
         mouse_position = current_level.GetGlobalMousePosition();
         current_building.GlobalPosition = mouse_position;
@@ -57,6 +59,8 @@ public partial class BuildMode : GameMode {
     }
 
     private void cancel_building() {
+        director.tower_count--;
+        director.building_count--;
         current_building.QueueFree();
         EmitSignal("ModeTransition", "SimulationMode", "", "");
     }
@@ -66,6 +70,7 @@ public partial class BuildMode : GameMode {
             current_building.rebake_add_building();
             current_building.Modulate = REGULAR_COLOR;
             current_building.rebake();
+            current_building.InputPickable = true;
             EmitSignal("ModeTransition", "SimulationMode", "", "");
         }
     }

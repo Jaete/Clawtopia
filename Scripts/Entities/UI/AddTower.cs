@@ -11,7 +11,6 @@ public partial class AddTower : Button
         if (director == null) {
             director = GetNode<Director>("/root/Game/Director");
         }
-        GD.Print("Teste.");
         director.current_mode.EmitSignal("ModeTransition", "BuildMode", building.type, building.name);
     }
 }

@@ -22,6 +22,15 @@ window/stretch/mode="viewport"
 
 project/assembly_name="Clawtopia Cs"
 
+[file_customization]
+
+folder_colors={
+"res://Assets/": "green",
+"res://Resources/": "purple",
+"res://Scripts/": "red",
+"res://TSCN/": "yellow"
+}
+
 [input]
 
 LeftClick={

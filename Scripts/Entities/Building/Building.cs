@@ -49,6 +49,7 @@ public partial class Building : Area2D {
     public void set_rebake() {
         GD.Print("" + Name + " moving navigation obstacle to region.");
         static_body.Name = "Obstacle_Region_" + data.type + "_" + self_index;
+        GD.Print("" + static_body.Name + " being moved to region.");
         static_body.Reparent(region);
         director.currently_baking = true;
     }
@@ -88,4 +89,13 @@ public partial class Building : Area2D {
             director.buildings_to_bake[0].rebake();
         }
     }
+
+    public override void _InputEvent(Viewport viewport, InputEvent @event, int shapeIdx) {
+        if (@event.IsActionPressed("LeftClick") && director.current_mode is not BuildMode) {
+            GD.Print("Input event from building.");
+            UI ui = GetNode<UI>("/root/Game/UI");
+            ui.instantiate_window("TowerMenu", this);
+        }
+    }
+
 }

@@ -26,7 +26,6 @@ public partial class BuildingData : Resource
             case "Resource":
                 break;
             case "Tower":
-                GD.Print("Initializing tower");
                 level = 1;
                 obstacle_shape = (ConcavePolygonShape2D)GD.Load("res://Resources/Buildings/Towers/Fighters/obstacle_shape.tres");
                 interaction_shape = (RectangleShape2D)GD.Load("res://Resources/Buildings/Towers/Fighters/interaction_shape.tres");
@@ -41,9 +40,7 @@ public partial class BuildingData : Resource
                 }
                 break;
             case "GreatCommune":
-                GD.Print("Initializing GreatCommune");
                 level = 1;
-                GD.Print("Loading GC Texture");
                 sprite_texture = (Texture2D)GD.Load("res://Assets/Buildings/building_01_tavern.png");
                 sprite_offset = new Vector2(-32, -64);
                 sprite_size = new Vector2(0.3f, 0.3f);

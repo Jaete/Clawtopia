@@ -1,23 +1,16 @@
-[gd_scene load_steps=4 format=3 uid="uid://dg1278ax8xp1f"]
+[gd_scene load_steps=5 format=3 uid="uid://dg1278ax8xp1f"]
 
-[ext_resource type="Script" path="res://Scripts/Entities/AddTower.cs" id="1_1eydm"]
+[ext_resource type="Script" path="res://Scripts/Entities/UI/AddTower.cs" id="1_1eydm"]
+[ext_resource type="Script" path="res://Scripts/Entities/UI/UI.cs" id="1_mmgiv"]
 [ext_resource type="Texture2D" uid="uid://bna0wfmf6ixwd" path="res://Assets/Buildings/torreA.png" id="2_0w2yq"]
 [ext_resource type="Resource" uid="uid://c3xdisvexuxgq" path="res://Resources/Buildings/Towers/Fighters/Fighters.tres" id="2_17h5a"]
 
 [node name="UI" type="CanvasLayer"]
+script = ExtResource("1_mmgiv")
 
-[node name="Screen" type="Control" parent="."]
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="HBoxContainer" type="HFlowContainer" parent="Screen"]
+[node name="HBoxContainer" type="HFlowContainer" parent="."]
 clip_contents = true
 layout_direction = 1
-layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
@@ -25,10 +18,10 @@ offset_top = -218.0
 offset_right = 413.0
 grow_vertical = 0
 
-[node name="Fighters" type="Control" parent="Screen/HBoxContainer"]
+[node name="Fighters" type="Control" parent="HBoxContainer"]
 layout_mode = 2
 
-[node name="Button" type="Button" parent="Screen/HBoxContainer/Fighters"]
+[node name="Button" type="Button" parent="HBoxContainer/Fighters"]
 layout_direction = 2
 layout_mode = 2
 offset_left = 31.0
@@ -40,8 +33,8 @@ grow_vertical = 0
 script = ExtResource("1_1eydm")
 building = ExtResource("2_17h5a")
 
-[node name="TorreA" type="Sprite2D" parent="Screen/HBoxContainer/Fighters"]
+[node name="TorreA" type="Sprite2D" parent="HBoxContainer/Fighters"]
 position = Vector2(79.5, 104)
 texture = ExtResource("2_0w2yq")
 
-[connection signal="pressed" from="Screen/HBoxContainer/Fighters/Button" to="Screen/HBoxContainer/Fighters/Button" method="OnPressed"]
+[connection signal="pressed" from="HBoxContainer/Fighters/Button" to="HBoxContainer/Fighters/Button" method="OnPressed"]
