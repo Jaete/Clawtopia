@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://biyro53k4fy7v"]
+
+[ext_resource type="Script" path="res://Scripts/Director/GameModes/BuildMode.cs" id="1_ysnw4"]
+
+[node name="BuildMode" type="Node"]
+script = ExtResource("1_ysnw4")

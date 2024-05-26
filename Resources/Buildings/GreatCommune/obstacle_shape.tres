@@ -1,0 +1,4 @@
+[gd_resource type="ConcavePolygonShape2D" format=3 uid="uid://cf6k0j6hvsgj1"]
+
+[resource]
+segments = PackedVector2Array(0, 96, -96, 48, 0, 0, 96, 48)

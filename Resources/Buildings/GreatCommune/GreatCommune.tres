@@ -1,0 +1,10 @@
+[gd_resource type="Resource" load_steps=2 format=3 uid="uid://byglexam8jwef"]
+
+[ext_resource type="Script" path="res://Scripts/Entities/Building/BuildingData.cs" id="1_r233n"]
+
+[resource]
+resource_local_to_scene = true
+script = ExtResource("1_r233n")
+type = "GreatCommune"
+name = "Grande Comuna"
+HP = 10000

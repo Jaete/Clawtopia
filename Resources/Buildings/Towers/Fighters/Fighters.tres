@@ -1,0 +1,10 @@
+[gd_resource type="Resource" load_steps=2 format=3 uid="uid://c3xdisvexuxgq"]
+
+[ext_resource type="Script" path="res://Scripts/Entities/Building/BuildingData.cs" id="1_nfxbb"]
+
+[resource]
+resource_local_to_scene = true
+script = ExtResource("1_nfxbb")
+type = "Tower"
+name = "Fighters"
+HP = 2000

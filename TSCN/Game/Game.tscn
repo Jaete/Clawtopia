@@ -1,0 +1,16 @@
+[gd_scene load_steps=5 format=3 uid="uid://xemhpfheo8jx"]
+
+[ext_resource type="PackedScene" uid="uid://cwky3bhs42sy8" path="res://TSCN/Systems/SceneManager.tscn" id="1_85gth"]
+[ext_resource type="PackedScene" uid="uid://4bjsjso63cdu" path="res://TSCN/Systems/Director.tscn" id="2_4apo7"]
+[ext_resource type="PackedScene" uid="uid://biyro53k4fy7v" path="res://TSCN/Systems/GameModes/BuildMode.tscn" id="3_rgtfs"]
+[ext_resource type="PackedScene" uid="uid://dx1ar78jg5hmu" path="res://TSCN/Systems/GameModes/SimulationMode.tscn" id="4_dnk3u"]
+
+[node name="Game" type="Node"]
+
+[node name="SceneManager" parent="." instance=ExtResource("1_85gth")]
+
+[node name="Director" parent="." instance=ExtResource("2_4apo7")]
+
+[node name="BuildMode" parent="." instance=ExtResource("3_rgtfs")]
+
+[node name="SimulationMode" parent="." instance=ExtResource("4_dnk3u")]

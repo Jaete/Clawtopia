@@ -1,0 +1,50 @@
+[gd_scene load_steps=7 format=3 uid="uid://bvbkhjbnxmobc"]
+
+[ext_resource type="PackedScene" uid="uid://b66xbgk13d2tp" path="res://TSCN/Entities/Building.tscn" id="1_i02f4"]
+[ext_resource type="Script" path="res://Scripts/Entities/Building/BuildingData.cs" id="2_kese6"]
+[ext_resource type="Resource" uid="uid://c3xdisvexuxgq" path="res://Resources/Buildings/Towers/Fighters/Fighters.tres" id="3_jc6ss"]
+
+[sub_resource type="Resource" id="Resource_v34yd"]
+resource_local_to_scene = true
+script = ExtResource("2_kese6")
+type = "GreatCommune"
+name = "Grande Comuna"
+HP = 10000
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_1eas2"]
+vertices = PackedVector2Array(1124, 293, 608, 636, 24, 351, 581, 15)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(609, 648, 3, 352, 581, 4, 1145, 292)])
+source_geometry_group_name = &"navigation_polygon_source_group"
+
+[sub_resource type="Resource" id="Resource_vji62"]
+resource_local_to_scene = true
+script = ExtResource("2_kese6")
+type = "Tower"
+name = "Fighters"
+HP = 2000
+
+[node name="Level" type="Node2D"]
+
+[node name="Building" parent="." instance=ExtResource("1_i02f4")]
+position = Vector2(440, 204)
+is_pre_spawned = true
+data = SubResource("Resource_v34yd")
+
+[node name="Navigation" type="NavigationRegion2D" parent="."]
+navigation_polygon = SubResource("NavigationPolygon_1eas2")
+
+[node name="Building2" parent="." instance=ExtResource("1_i02f4")]
+position = Vector2(663, 230)
+is_pre_spawned = true
+data = SubResource("Resource_vji62")
+
+[node name="Building3" parent="." instance=ExtResource("1_i02f4")]
+position = Vector2(495, 396)
+is_pre_spawned = true
+data = ExtResource("3_jc6ss")
+
+[node name="Building4" parent="." instance=ExtResource("1_i02f4")]
+position = Vector2(810, 317)
+is_pre_spawned = true
+data = ExtResource("3_jc6ss")

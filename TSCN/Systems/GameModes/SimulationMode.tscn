@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://dx1ar78jg5hmu"]
+
+[ext_resource type="Script" path="res://Scripts/Director/GameModes/SimulationMode.cs" id="1_qov7i"]
+
+[node name="SimulationMode" type="Node"]
+script = ExtResource("1_qov7i")
