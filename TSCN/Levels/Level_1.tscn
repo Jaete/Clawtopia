@@ -303,10 +303,11 @@ tile_size = Vector2i(48, 24)
 sources/0 = SubResource("TileSetAtlasSource_3gfqj")
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_1eas2"]
-vertices = PackedVector2Array(1130, 348, 600, 613, 46, 336, 576, 71)
+vertices = PackedVector2Array(1142, 348, 600, 619, 34, 336, 576, 65)
 polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
 outlines = Array[PackedVector2Array]([PackedVector2Array(600, 624, 24, 336, 576, 60, 1152, 348)])
 source_geometry_group_name = &"navigation_polygon_source_group"
+agent_radius = 5.0
 
 [sub_resource type="Resource" id="Resource_jvhlc"]
 resource_local_to_scene = true

@@ -24,8 +24,9 @@ public partial class Director : Node {
     public override void _Ready() {
         Array<Node> nodes = GetParent().GetChildren();
         foreach (var node in nodes) {
-            if(node is GameMode) { 
+            if(node is GameMode) {
                 var gameMode = (GameMode)node;
+                GD.Print("Setting game mode-> ", gameMode.Name);
                 gameMode.ModeTransition += change_mode;
                 game_modes[gameMode.Name] = gameMode;
             }
@@ -67,6 +68,7 @@ public partial class Director : Node {
     }
 
     public override void _Process(double delta) {
+        GD.Print("Current mode: ", current_mode);
         current_mode.update();
     }
 }

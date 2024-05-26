@@ -4,11 +4,14 @@ using System;
 public partial class AddTower : Button
 {
     public Director director;
-
     
-    public BuildingData tower;
+    [Export] public BuildingData building;
 
-    public override void _Ready() {
-        director = (Director)GetNode("root/Game/Director");
+    public void OnPressed() {
+        if (director == null) {
+            director = GetNode<Director>("/root/Game/Director");
+        }
+        GD.Print("Teste.");
+        director.current_mode.EmitSignal("ModeTransition", "BuildMode", building.type, building.name);
     }
 }

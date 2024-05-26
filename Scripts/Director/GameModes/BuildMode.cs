@@ -58,14 +58,15 @@ public partial class BuildMode : GameMode {
 
     private void cancel_building() {
         current_building.QueueFree();
-        EmitSignal("ModeTransition", "SimulationMode");
+        EmitSignal("ModeTransition", "SimulationMode", "", "");
     }
 
     private void confirm_building() {
         if (!is_overlapping_buildings) {
             current_building.rebake_add_building();
             current_building.Modulate = REGULAR_COLOR;
-            EmitSignal("ModeTransition", "SimulationMode");
+            current_building.rebake();
+            EmitSignal("ModeTransition", "SimulationMode", "", "");
         }
     }
 
@@ -78,6 +79,9 @@ public partial class BuildMode : GameMode {
                 break;
             }
         }
+        if(overlapping_areas.Count == 0) {
+            is_overlapping_buildings = false;    
+        }
         if (is_overlapping_buildings) {
             current_building.Modulate = ERROR_COLOR;
         } else {
@@ -88,7 +92,7 @@ public partial class BuildMode : GameMode {
     private void move_preview() {
         mouse_position = current_level.GetGlobalMousePosition();
         float x_difference = mouse_position.X - current_building.GlobalPosition.X;
-        float y_difference = mouse_position.Y + current_building.GlobalPosition.Y;
+        float y_difference = mouse_position.Y - current_building.GlobalPosition.Y;
         float new_x = 0;
         float new_y = 0;
         if (x_difference > (TILE_SIZE_X / 2)) {
