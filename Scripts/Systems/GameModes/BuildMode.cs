@@ -13,37 +13,39 @@ public partial class BuildMode : GameMode {
 
     public Vector2 mouse_position;
 
+    public String building_type;
+
     public Building current_building;
     public bool is_overlapping_buildings = false;
-
-    public override void _Ready() {
-        initialize();
-    }
     public override void enter() {
-        String building_path = "res://TSCN/Entities/Building.tscn";
-        switch (director.building_type) {
-            case "Tower":
-                director.tower_count++;
-                director.building_count++;
-                instantiate_building(building_path);
-                current_building.self_index = director.tower_count;
-                current_building.Name = director.tower_type + "_T1_" + current_building.self_index;
-                current_building.data = (BuildingData)GD.Load("res://Resources/Buildings/Towers/Fighters/Fighters.tres");
-                break;
-            case "Commune":
-                instantiate_building(building_path);
-                director.building_count++;
-                current_building.Name = "GreatCommune";
-                break;
-            case "Resource":
-                instantiate_building(building_path);
-                director.resource_build_count++;
-                current_building.Name = "" + director.resource_build_type + "_" + director.resource_build_count;
-                break;
+        String building_path = "res://TSCN/Entities/Buildings/Building.tscn";
+        GD.Print("Entering build mode before switch");
+        GD.Print("Building type on enter function -> ", building_type);
+        if(building_type == "Tower") {
+            GD.Print("Setting tower");
+            mode_manager.tower_count++;
+            mode_manager.building_count++;
+            instantiate_building(building_path);
+            current_building.self_index = mode_manager.tower_count;
+            current_building.Name = mode_manager.tower_type + "_T1_" + current_building.self_index;
+            current_building.data = (BuildingData)GD.Load("res://Resources/Buildings/Towers/Fighters/Fighters.tres");
         }
+        if(building_type == "Commune"){
+           GD.Print("Setting commune");
+           instantiate_building(building_path);
+           mode_manager.building_count++;
+           current_building.Name = "GreatCommune";   
+        }    
+        if(building_type == "Resource"){
+            GD.Print("Setting resource");
+            instantiate_building(building_path);
+            mode_manager.resource_build_count++;
+            current_building.Name = "" + mode_manager.resource_build_type + "_" + mode_manager.resource_build_count;
+        }
+        GD.Print("Entering build mode after switch");
         current_building.InputPickable = false;
-        current_level.AddChild(current_building);
-        mouse_position = current_level.GetGlobalMousePosition();
+        mode_manager.current_level.AddChild(current_building);
+        mouse_position = mode_manager.current_level.GetGlobalMousePosition();
         current_building.GlobalPosition = mouse_position;
     }
 
@@ -59,8 +61,8 @@ public partial class BuildMode : GameMode {
     }
 
     private void cancel_building() {
-        director.tower_count--;
-        director.building_count--;
+        mode_manager.tower_count--;
+        mode_manager.building_count--;
         current_building.QueueFree();
         EmitSignal("ModeTransition", "SimulationMode", "", "");
     }
@@ -95,7 +97,7 @@ public partial class BuildMode : GameMode {
     }
 
     private void move_preview() {
-        mouse_position = current_level.GetGlobalMousePosition();
+        mouse_position = mode_manager.current_level.GetGlobalMousePosition();
         float x_difference = mouse_position.X - current_building.GlobalPosition.X;
         float y_difference = mouse_position.Y - current_building.GlobalPosition.Y;
         float new_x = 0;
@@ -119,7 +121,8 @@ public partial class BuildMode : GameMode {
     }
 
     private void instantiate_building(String building_path) {
-        PackedScene building_scene = (PackedScene)ResourceLoader.Load(building_path);
+        PackedScene building_scene = (PackedScene)GD.Load(building_path);
         current_building = (Building)building_scene.Instantiate();
+        GD.Print("Current building -> ", current_building);
     }
 }

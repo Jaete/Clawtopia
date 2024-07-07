@@ -1,0 +1,56 @@
+[gd_scene load_steps=10 format=3 uid="uid://bmsm4gighni7j"]
+
+[ext_resource type="Texture2D" uid="uid://davy57qg772li" path="res://Assets/Characters/Allies/test_kitten_artstyle64.png" id="1_3yjby"]
+[ext_resource type="Script" path="res://Scripts/Entities/Characters/Allies/Ally.cs" id="1_j85o6"]
+[ext_resource type="Resource" uid="uid://b8qad67ji18c5" path="res://Resources/Characters/Allies/Attributes/Fighters.tres" id="2_sum56"]
+[ext_resource type="Script" path="res://Scripts/Entities/Characters/Allies/StateMachine.cs" id="4_s2psk"]
+[ext_resource type="Script" path="res://Scripts/Entities/Characters/Allies/Military/FSM/MilitaryIdle.cs" id="5_ubxv6"]
+[ext_resource type="Script" path="res://Scripts/Entities/Characters/Allies/Military/FSM/MilitaryMove.cs" id="6_adt58"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_enf31"]
+radius = 15.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_5wvpy"]
+radius = 120.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_k3qf3"]
+radius = 50.0
+
+[node name="Ally" type="CharacterBody2D" node_paths=PackedStringArray("state_machine", "agent")]
+script = ExtResource("1_j85o6")
+attributes = ExtResource("2_sum56")
+state_machine = NodePath("FSM")
+agent = NodePath("Navigation")
+
+[node name="Sprite" type="Sprite2D" parent="."]
+texture = ExtResource("1_3yjby")
+offset = Vector2(0, -24)
+
+[node name="Body" type="CollisionShape2D" parent="."]
+scale = Vector2(1, 0.5)
+shape = SubResource("CircleShape2D_enf31")
+
+[node name="FSM" type="Node" parent="."]
+script = ExtResource("4_s2psk")
+
+[node name="Idle" type="Node" parent="FSM"]
+script = ExtResource("5_ubxv6")
+
+[node name="Move" type="Node" parent="FSM"]
+script = ExtResource("6_adt58")
+
+[node name="Navigation" type="NavigationAgent2D" parent="."]
+
+[node name="Vision" type="Area2D" parent="."]
+
+[node name="Range" type="CollisionShape2D" parent="Vision"]
+scale = Vector2(1, 0.5)
+shape = SubResource("CircleShape2D_5wvpy")
+debug_color = Color(0.455, 0.7, 0, 0.419608)
+
+[node name="Attack" type="Area2D" parent="."]
+
+[node name="Range" type="CollisionShape2D" parent="Attack"]
+scale = Vector2(1, 0.5)
+shape = SubResource("CircleShape2D_k3qf3")
+debug_color = Color(0.7, 0.0466667, 0, 0.419608)

@@ -5,8 +5,9 @@ using System.IO;
 public partial class Building : Area2D {
     
     public NavigationRegion2D region;
-    public Director director;
+    public BuildMode building_mode;
 
+    public ModeManager mode_manager;
     
     public int self_index;
     public bool placed;
@@ -25,7 +26,8 @@ public partial class Building : Area2D {
     }
 
     public void initialize() {
-        director = GetNode<Director>("/root/Game/Director");
+        mode_manager = GetNode<ModeManager>("/root/Game/ModeManager");
+        building_mode = GetNode<BuildMode>("/root/Game/ModeManager/BuildMode");
         region = GetNode<NavigationRegion2D>("../Navigation");
         static_body = GetNode<StaticBody2D>("NavigationBody");
         data.initialize();
@@ -37,21 +39,17 @@ public partial class Building : Area2D {
         sprite.Scale = data.sprite_size;
         interaction_shape.Position = data.interaction_offset;
         if(data.type.Equals("GreatCommune")) {
-            GD.Print("Naming great commune");
             Name = data.type;
         } else {
             Name = data.name + "_" + data.type + "_" + self_index;
         }
         region.BakeFinished += free_to_rebake;
-        GD.Print("Initialize finished ->", Name);
     }
 
     public void set_rebake() {
-        GD.Print("" + Name + " moving navigation obstacle to region.");
         static_body.Name = "Obstacle_Region_" + data.type + "_" + self_index;
-        GD.Print("" + static_body.Name + " being moved to region.");
         static_body.Reparent(region);
-        director.currently_baking = true;
+        mode_manager.currently_baking = true;
     }
 
     public void rebake_add_building() {
@@ -59,43 +57,38 @@ public partial class Building : Area2D {
             set_rebake();
             return;
         }
-        if (director.current_mode is BuildMode) {
+        if (mode_manager.current_mode is BuildMode) {
             set_rebake();
             return;
         }
     }
 
     public void rebake_remove_building() {
-        if (!director.currently_baking) {
+        if (!mode_manager.currently_baking) {
             StaticBody2D obstacle = (StaticBody2D)region.GetNode("Obstacle_Region_" + data.type + "_" + self_index);
             obstacle.Reparent(this);
             region.BakeNavigationPolygon(true);
-            director.currently_baking = true;
+            mode_manager.currently_baking = true;
         }
     }
 
     public void rebake() {
-        GD.Print("Rebaking.");
         region.BakeNavigationPolygon();
     }
 
     public void free_to_rebake() {
-        GD.Print("Bake finished.");
-        director.currently_baking = false;
+        mode_manager.currently_baking = false;
         placed = true;
-        if(director.buildings_to_bake.Count > 0) {
-            GD.Print("There's other building to bake.");
-            director.buildings_to_bake[0].rebake_add_building();
-            director.buildings_to_bake[0].rebake();
+        if(mode_manager.buildings_to_bake.Count > 0) {
+            mode_manager.buildings_to_bake[0].rebake_add_building();
+            mode_manager.buildings_to_bake[0].rebake();
         }
     }
 
     public override void _InputEvent(Viewport viewport, InputEvent @event, int shapeIdx) {
-        if (@event.IsActionPressed("LeftClick") && director.current_mode is not BuildMode) {
-            GD.Print("Input event from building.");
+        if (@event.IsActionPressed("LeftClick") && mode_manager.current_mode is not BuildMode) {
             UI ui = GetNode<UI>("/root/Game/UI");
             ui.instantiate_window("TowerMenu", this);
         }
     }
-
 }

@@ -8,19 +8,13 @@ public partial class GameHUD : Control
 
     public override void _Ready() {
         remove_tower_button = GetNode<Button>("Button");
-        remove_tower_button.Pressed += OnButtonPressed;
+        remove_tower_button.Pressed += Remove_tower;
     }
 
-    public void remove_tower() {
-        GD.Print("Removendo -> ",  building);
+    public void Remove_tower() {
         building.rebake_remove_building();
         building.rebake();
         building.QueueFree();
         this.QueueFree();
     }
-
-    public void OnButtonPressed() {
-        remove_tower();
-    }
-
 }

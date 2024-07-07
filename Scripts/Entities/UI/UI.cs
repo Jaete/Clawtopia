@@ -30,5 +30,4 @@ public partial class UI : CanvasLayer
             }
         }
     }
-
 }

@@ -1,0 +1,10 @@
+[gd_resource type="Resource" load_steps=2 format=3 uid="uid://b8qad67ji18c5"]
+
+[ext_resource type="Script" path="res://Scripts/Entities/Characters/Allies/Attributes.cs" id="1_t51ea"]
+
+[resource]
+script = ExtResource("1_t51ea")
+hp = 200
+damage = 25
+move_speed = 150.0
+attack_speed = 1.0
