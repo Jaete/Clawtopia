@@ -8,7 +8,7 @@ public partial class MilitaryIdle : AllyState
     Director director;
 
     public override void _Ready(){
-        self = (Ally)GetParent().GetParent();
+        self = GetParent().GetParent<Ally>();
         MouseRightClicked += Start_move;
     }
 
@@ -16,7 +16,7 @@ public partial class MilitaryIdle : AllyState
         self.Velocity = Vector2.Zero;
     }
 
-    public override void Update(){
+    public override void Update(double _delta){
         GD.Print("I'm idle.");
     }
 

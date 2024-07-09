@@ -26,40 +26,38 @@ public partial class ModeManager : Node2D
     }
 
     public void Initialize() {
-        director = (Director)GetNode("/root/Game/Director");
-        current_level = (Node2D)GetNode("/root/Game/LevelManager/Level");
+        director = GetNode<Director>("/root/Game/Director");
+        current_level = GetNode<Node2D>("/root/Game/LevelManager/Level");
         Set_game_modes();
         Set_initial_buildings();
-        current_mode = (GameMode)game_modes["SimulationMode"];
+        current_mode = (GameMode) game_modes["SimulationMode"];
     }
 
     public void Change_mode(String mode, String building, String type) {
-        current_mode.exit();
+        current_mode.Exit();
         current_mode = (GameMode)game_modes[mode];
-        if(current_mode is BuildMode){
-            BuildMode build_mode = (BuildMode)current_mode;
+        if (current_mode is BuildMode build_mode) {
             build_mode.building_type = building;
             switch (build_mode.building_type) {
-            case "Tower":
-                tower_type = type;
-                break;
-            case "Resource":
-                resource_build_type = type;
-                break;
+                case "Tower":
+                    tower_type = type;
+                    break;
+                case "Resource":
+                    resource_build_type = type;
+                    break;
             }
         }
-        current_mode.enter();
+        current_mode.Enter();
     }
 
     public override void _Process(double delta) {
-        current_mode.update();
+        current_mode.Update();
     }
 
     public void Set_game_modes(){
         Array<Node> modes = GetChildren();
         foreach (var mode in modes) {
-            if(mode is GameMode) {
-                var gameMode = (GameMode)mode;
+            if (mode is GameMode gameMode) {
                 gameMode.ModeTransition += Change_mode;
                 game_modes[gameMode.Name] = gameMode;
             }
@@ -73,8 +71,8 @@ public partial class ModeManager : Node2D
                 building_count++;
                 Building building = build;
                 buildings_to_bake.Add(building);
-                building.rebake_add_building();
-                if (building.data.type == "Tower") { 
+                building.Rebake_add_building();
+                if (building.data.TYPE == "Tower") { 
                     building.self_index = tower_count;
                     tower_count++;
                 }   

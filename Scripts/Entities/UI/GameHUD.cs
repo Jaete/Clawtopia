@@ -12,8 +12,8 @@ public partial class GameHUD : Control
     }
 
     public void Remove_tower() {
-        building.rebake_remove_building();
-        building.rebake();
+        building.Rebake_remove_building();
+        building.Rebake();
         building.QueueFree();
         this.QueueFree();
     }

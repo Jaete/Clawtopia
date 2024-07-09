@@ -19,16 +19,16 @@ public partial class GameMode : Node2D {
     public ModeManager mode_manager;
 
     public override void _Ready(){
-        director = (Director)GetNode("/root/Game/Director");
-        mode_manager = (ModeManager)GetParent();
-        MousePressed += detect_pressed;
-        MouseReleased += detect_released;
+        director = GetNode<Director>("/root/Game/Director");
+        mode_manager = GetParent<ModeManager>();
+        MousePressed += Detect_pressed;
+        MouseReleased += Detect_released;
     }
 
-    public virtual void enter() { }
-    public virtual void exit() { }
-    public virtual void update() { }
+    public virtual void Enter() { }
+    public virtual void Exit() { }
+    public virtual void Update() { }
 
-    public virtual void detect_pressed(Vector2 coords) { }
-    public virtual void detect_released(Vector2 coords) { }
+    public virtual void Detect_pressed(Vector2 coords) { }
+    public virtual void Detect_released(Vector2 coords) { }
 }

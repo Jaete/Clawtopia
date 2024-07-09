@@ -9,7 +9,7 @@ public partial class UI : CanvasLayer
 
     Building Building;
 
-    public void instantiate_window(String window, Building building = null) {
+    public void Instantiate_window(String window, Building building = null) {
         switch (window) {
             case "TowerMenu":
                 current_window = tower_menu.Instantiate<Control>(); 

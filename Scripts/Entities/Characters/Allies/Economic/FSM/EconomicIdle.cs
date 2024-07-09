@@ -1,30 +1,31 @@
 using Godot;
 using System;
 
-public partial class EconomicIdle : AllyState
-{
-    [Signal]
-    public delegate void MouseRightClickedEventHandler(Vector2 coords);
+public partial class EconomicIdle : AllyState {
+
     Director director;
 
     public override void _Ready(){
-        self = (Ally)GetParent().GetParent();
-        MouseRightClicked += start_move;
+        self = GetParent().GetParent<Ally>();
+        MouseRightClicked += When_move_started;
     }
 
     public override void Enter(){
         self.Velocity = Vector2.Zero;
+       /* TODO
+        Tocar animacao de idle quando houver
+       */
     }
 
-    public override void Update(){
-        GD.Print("I'm idle.");
+    public override void Update(double _delta){
+        /*Nao faz nada, afinal e estado Idle*/
+        GD.Print("I'm idle"); // <- Apenas para DEBUG, sera removido depois
     }
 
     public override void Exit(){
-        base.Exit();
     }
 
-    public void start_move(Vector2 coords){
+    public void When_move_started(Vector2 coords){
         Change_state("Move");
         Set_target_position(coords);
     }

@@ -22,11 +22,20 @@ public partial class StateMachine : Node
 
     public override void _PhysicsProcess(double delta){
         if(!in_transition){
-            current_state.Update();
+            current_state.Update(delta);
         }
     }
 
     public virtual void Change_state(AllyState current, String next){
+        in_transition = true;
+        if(current.Name == next) {
+            return;
+        }
+        current_state.Exit();
+        current_state = (AllyState)states[next]; ;
+        current_state.Enter();
+        in_transition = false;
+
     }
 }
 

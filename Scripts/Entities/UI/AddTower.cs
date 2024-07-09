@@ -11,6 +11,6 @@ public partial class AddTower : Button
         if (mode_manager == null) {
             mode_manager = GetNode<ModeManager>("/root/Game/ModeManager");
         }
-        mode_manager.current_mode.EmitSignal("ModeTransition", "BuildMode", building.type, building.name);
+        mode_manager.current_mode.EmitSignal("ModeTransition", "BuildMode", building.TYPE, building.NAME);
     }
 }

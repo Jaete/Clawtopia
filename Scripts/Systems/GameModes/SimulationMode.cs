@@ -14,10 +14,10 @@ public partial class SimulationMode : GameMode {
     public Vector2 shape_size;
     public Vector2 shape_position;
     
-    public override void enter() {  }
-    public override void exit() {  }
+    public override void Enter() {  }
+    public override void Exit() {  }
 
-    public override void update() {
+    public override void Update() {
         if (dragging) {
             shape_size = mode_manager.current_level.GetGlobalMousePosition() - starting_point;
             shape_position = shape_size / 2;
@@ -30,7 +30,7 @@ public partial class SimulationMode : GameMode {
             }
         }
     }
-    public override void detect_pressed(Vector2 coords) {
+    public override void Detect_pressed(Vector2 coords) {
         starting_point = coords;
         dragging = true;
         selection_area = new Area2D();
@@ -44,7 +44,7 @@ public partial class SimulationMode : GameMode {
         selection_area.GlobalPosition = starting_point;
     }
 
-    public override void detect_released(Vector2 coords) {
+    public override void Detect_released(Vector2 coords) {
         //Godot.Collections.Array<Ally> allies = new Godot.Collections.Array<Ally>();
         Godot.Collections.Array<Node2D> overlapping_bodies = selection_area.GetOverlappingBodies();
         if (overlapping_bodies.Count != 0) {

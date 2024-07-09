@@ -1,11 +1,11 @@
-[gd_scene load_steps=13 format=3 uid="uid://bvbkhjbnxmobc"]
+[gd_scene load_steps=11 format=3 uid="uid://bvbkhjbnxmobc"]
 
 [ext_resource type="PackedScene" uid="uid://b66xbgk13d2tp" path="res://TSCN/Entities/Buildings/Building.tscn" id="1_i02f4"]
-[ext_resource type="Script" path="res://Scripts/Entities/Building/BuildingData.cs" id="2_fobiu"]
 [ext_resource type="Texture2D" uid="uid://byktwr760ajkf" path="res://Assets/Tileset/64tiles.png" id="2_h1802"]
 [ext_resource type="Texture2D" uid="uid://ktja41kuapx" path="res://Assets/Tileset/tiles_teste.png" id="3_rvqsc"]
-[ext_resource type="PackedScene" uid="uid://bmsm4gighni7j" path="res://TSCN/Entities/Characters/Allies/Ally.tscn" id="4_v4po1"]
-[ext_resource type="Resource" uid="uid://byglexam8jwef" path="res://Resources/Buildings/GreatCommune/GreatCommune.tres" id="6_31tqd"]
+[ext_resource type="Resource" uid="uid://byglexam8jwef" path="res://Resources/Buildings/GreatCommune/GreatCommune.tres" id="4_4q3wm"]
+[ext_resource type="PackedScene" uid="uid://bmsm4gighni7j" path="res://TSCN/Entities/Characters/Allies/Military/Military.tscn" id="5_kat8d"]
+[ext_resource type="Resource" uid="uid://c3xdisvexuxgq" path="res://Resources/Buildings/Towers/Fighters/Fighters.tres" id="5_w7opv"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_3gfqj"]
 texture = ExtResource("3_rvqsc")
@@ -481,20 +481,6 @@ outlines = Array[PackedVector2Array]([PackedVector2Array(600, 624, 24, 336, 576,
 source_geometry_group_name = &"navigation_polygon_source_group"
 agent_radius = 5.0
 
-[sub_resource type="Resource" id="Resource_mm23o"]
-resource_local_to_scene = true
-script = ExtResource("2_fobiu")
-type = "GreatCommune"
-name = "Grande Comuna"
-HP = 10000
-
-[sub_resource type="Resource" id="Resource_v8mvy"]
-resource_local_to_scene = true
-script = ExtResource("2_fobiu")
-type = "Tower"
-name = "Fighters"
-HP = 2000
-
 [node name="Level" type="Node2D"]
 
 [node name="TileMap" type="TileMap" parent="."]
@@ -511,16 +497,17 @@ navigation_polygon = SubResource("NavigationPolygon_1eas2")
 [node name="Building" parent="." instance=ExtResource("1_i02f4")]
 position = Vector2(360, 276)
 is_pre_spawned = true
-data = SubResource("Resource_mm23o")
+data = ExtResource("4_4q3wm")
 
 [node name="Building2" parent="." instance=ExtResource("1_i02f4")]
 position = Vector2(720, 228)
 is_pre_spawned = true
-data = SubResource("Resource_v8mvy")
+data = ExtResource("5_w7opv")
 
-[node name="Ally" parent="." instance=ExtResource("4_v4po1")]
+[node name="Ally" parent="." instance=ExtResource("5_kat8d")]
 position = Vector2(659, 488)
 
 [node name="Building3" parent="." instance=ExtResource("1_i02f4")]
 position = Vector2(56.8809, 330.471)
-data = ExtResource("6_31tqd")
+is_pre_spawned = true
+data = ExtResource("5_w7opv")

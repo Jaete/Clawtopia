@@ -7,8 +7,6 @@ public partial class Ally : CharacterBody2D
     [Export]
     public Attributes attributes;
     [Export]
-    public AllyType type;
-    [Export]
     public StateMachine state_machine;
     [Export]
     public NavigationAgent2D agent;
@@ -16,6 +14,6 @@ public partial class Ally : CharacterBody2D
 
     public override void _Ready()
     {
-        current_level = (Node2D)GetNode("/root/Game/LevelManager/Level");
+        current_level = GetNode<Node2D>("/root/Game/LevelManager/Level");
     }
 }

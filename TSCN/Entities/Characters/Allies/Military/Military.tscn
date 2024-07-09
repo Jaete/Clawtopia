@@ -1,0 +1,54 @@
+[gd_scene load_steps=9 format=3 uid="uid://bmsm4gighni7j"]
+
+[ext_resource type="Script" path="res://Scripts/Entities/Characters/Allies/Ally.cs" id="1_0vnlj"]
+[ext_resource type="Resource" uid="uid://b8qad67ji18c5" path="res://Resources/Characters/Allies/Attributes/Fighters.tres" id="2_28t8o"]
+[ext_resource type="Script" path="res://Scripts/Entities/Characters/Allies/StateMachine.cs" id="3_qm2h6"]
+[ext_resource type="Script" path="res://Scripts/Entities/Characters/Allies/Military/FSM/MilitaryIdle.cs" id="4_kg72r"]
+[ext_resource type="Script" path="res://Scripts/Entities/Characters/Allies/Military/FSM/MilitaryMove.cs" id="5_b5d1x"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_enf31"]
+radius = 15.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_5wvpy"]
+radius = 120.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_k3qf3"]
+radius = 50.0
+
+[node name="Military" type="CharacterBody2D" node_paths=PackedStringArray("state_machine", "agent")]
+script = ExtResource("1_0vnlj")
+attributes = ExtResource("2_28t8o")
+state_machine = NodePath("FSM")
+agent = NodePath("Navigation")
+
+[node name="Sprite" type="AnimatedSprite2D" parent="."]
+offset = Vector2(0, -24)
+
+[node name="Body" type="CollisionShape2D" parent="."]
+scale = Vector2(1, 0.5)
+shape = SubResource("CircleShape2D_enf31")
+
+[node name="FSM" type="Node" parent="."]
+script = ExtResource("3_qm2h6")
+
+[node name="Idle" type="Node" parent="FSM"]
+script = ExtResource("4_kg72r")
+
+[node name="Move" type="Node" parent="FSM"]
+script = ExtResource("5_b5d1x")
+
+[node name="Navigation" type="NavigationAgent2D" parent="."]
+
+[node name="Vision" type="Area2D" parent="."]
+
+[node name="Range" type="CollisionShape2D" parent="Vision"]
+scale = Vector2(1, 0.5)
+shape = SubResource("CircleShape2D_5wvpy")
+debug_color = Color(0.455, 0.7, 0, 0.419608)
+
+[node name="Attack" type="Area2D" parent="."]
+
+[node name="Range" type="CollisionShape2D" parent="Attack"]
+scale = Vector2(1, 0.5)
+shape = SubResource("CircleShape2D_k3qf3")
+debug_color = Color(0.7, 0.0466667, 0, 0.419608)
