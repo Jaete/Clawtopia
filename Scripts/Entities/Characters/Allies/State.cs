@@ -9,13 +9,18 @@ public partial class AllyState : Node
 
     [Signal]
     public delegate void StateTransitionEventHandler(AllyState current, String next);
-    [Signal]
-    public delegate void MouseRightClickedEventHandler(Vector2 coords);
 
     public Ally self;
+    public SimulationMode simulation_mode;
+    public Controller controller;
+    public bool interacted_with_building;
+    
     public override void _Ready() {
         self = GetParent().GetParent<Ally>();
+        controller = GetNode<Controller>("/root/Game/Controller");
+        simulation_mode = GetNode<SimulationMode>("/root/Game/ModeManager/SimulationMode");
         self.agent.VelocityComputed += On_velocity_computed;
+        controller.MouseRightPressed += When_mouse_right_clicked;
     }
     public virtual void Enter(){
 
@@ -28,7 +33,7 @@ public partial class AllyState : Node
         
     }
 
-    public void Change_state(String next){
+    public void Change_state(string next){
         EmitSignal("StateTransition", this, next);
     }
 
@@ -36,8 +41,12 @@ public partial class AllyState : Node
         self.agent.TargetPosition = coords;
     }
 
-    public virtual void On_velocity_computed(Vector2 safe_velocity) {
+    public void On_velocity_computed(Vector2 safe_velocity) {
         self.Velocity = safe_velocity;
         self.MoveAndSlide();
+    }
+
+    public virtual void When_mouse_right_clicked(Vector2 coords){
+        
     }
 }

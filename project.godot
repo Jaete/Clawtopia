@@ -10,9 +10,9 @@ config_version=5
 
 [application]
 
-config/name="Clawtopia Cs"
+config/name="Clawtopia Cs 4.3"
 run/main_scene="res://TSCN/Game/Game.tscn"
-config/features=PackedStringArray("4.2", "C#", "Forward Plus")
+config/features=PackedStringArray("4.3", "C#", "Forward Plus")
 
 [display]
 

@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://bdiafybhm6xh4"]
 
-[ext_resource type="Script" path="res://Scripts/Entities/UI/GameHUD.cs" id="1_r73ki"]
+[ext_resource type="Script" path="res://Scripts/Entities/UI/GameHUD.cs" id="1_5opv1"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ucp4r"]
 bg_color = Color(0.859528, 0.36252, 0.353407, 1)
@@ -13,38 +13,29 @@ Button/styles/hover = SubResource("StyleBoxFlat_ucp4r")
 Button/styles/normal = SubResource("StyleBoxFlat_gkkhb")
 
 [node name="GameHUD" type="Control"]
+custom_minimum_size = Vector2(500, 200)
 layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 725.0
-offset_top = 485.0
-grow_horizontal = 2
-grow_vertical = 2
+anchors_preset = 0
 mouse_filter = 1
-script = ExtResource("1_r73ki")
+script = ExtResource("1_5opv1")
 
 [node name="Background" type="ColorRect" parent="."]
 layout_mode = 1
-anchors_preset = 3
-anchor_left = 1.0
-anchor_top = 1.0
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -427.0
-offset_top = -163.0
-grow_horizontal = 0
-grow_vertical = 0
+grow_horizontal = 2
+grow_vertical = 2
 mouse_filter = 1
 color = Color(0, 0, 0, 0.290196)
 
 [node name="Button" type="Button" parent="."]
 layout_mode = 0
-offset_left = 133.0
-offset_top = 39.0
-offset_right = 288.0
-offset_bottom = 120.0
+offset_left = 12.0
+offset_top = 10.0
+offset_right = 100.0
+offset_bottom = 60.0
 theme = SubResource("Theme_u8ux8")
-text = "Remover Torre"
+text = "Remover"
 
 [connection signal="pressed" from="Button" to="." method="_on_button_pressed"]

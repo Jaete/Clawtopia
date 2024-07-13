@@ -1,6 +1,7 @@
 using Godot;
 using System;
 using System.Linq;
+using Godot.Collections;
 
 public partial class SimulationMode : GameMode {
 
@@ -9,10 +10,14 @@ public partial class SimulationMode : GameMode {
     public CollisionShape2D selection_polygon;
     public SelectionBox visual_selection;
 
-    public bool dragging = false;
+    public bool dragging;
+    public bool interacted_with_building;
+    
     public Vector2 starting_point;
     public Vector2 shape_size;
     public Vector2 shape_position;
+    public Array<Ally> selected_allies = new();
+    public Building building_to_interact;
     
     public override void Enter() {  }
     public override void Exit() {  }
@@ -21,55 +26,53 @@ public partial class SimulationMode : GameMode {
         if (dragging) {
             shape_size = mode_manager.current_level.GetGlobalMousePosition() - starting_point;
             shape_position = shape_size / 2;
-            selection_shape.Size = shape_size.Abs();
+            visual_selection.selection_shape.Size = shape_size.Abs();
             selection_polygon.Position = shape_position;
-            visual_selection.selection_shape = this.selection_shape;
             visual_selection.Position = shape_position;
-            if(IsInstanceValid(visual_selection)){
-                visual_selection.QueueRedraw();
-            }
+            visual_selection.QueueRedraw();
         }
     }
-    public override void Detect_pressed(Vector2 coords) {
+    public override void When_detect_pressed(Vector2 coords) {
         starting_point = coords;
-        dragging = true;
         selection_area = new Area2D();
         selection_polygon = new CollisionShape2D();
         selection_shape = new RectangleShape2D();
         visual_selection = new SelectionBox();
         selection_polygon.Shape = selection_shape;
+        selection_area.SetCollisionMask(2);
+        visual_selection.selection_shape = selection_shape;
         selection_area.AddChild(selection_polygon);
         selection_area.AddChild(visual_selection);
         AddChild(selection_area);
         selection_area.GlobalPosition = starting_point;
+        dragging = true;
     }
 
-    public override void Detect_released(Vector2 coords) {
-        //Godot.Collections.Array<Ally> allies = new Godot.Collections.Array<Ally>();
-        Godot.Collections.Array<Node2D> overlapping_bodies = selection_area.GetOverlappingBodies();
-        if (overlapping_bodies.Count != 0) {
-            foreach (var body in overlapping_bodies) {
-                if(body is Ally ally) {
-                    director.selected_allies.Add(ally);
+    public override void When_detect_released(Vector2 coords) {
+        var overlapping_bodies = selection_area.GetOverlappingBodies();
+        foreach (var ally in selected_allies){
+            ally.currently_selected = false;
+        }
+        selected_allies.Clear();
+        if (overlapping_bodies.Count != 0){
+            foreach (var body in overlapping_bodies){
+                if (body is Ally ally){
+                    selected_allies.Add(ally);
+                    ally.currently_selected = true;
                 }
             }
-        }else{
-            director.selected_allies.Clear();
         }
         dragging = false;
         selection_area.QueueFree();
         visual_selection.QueueFree();
     }
 
-    public override void _Input(InputEvent @event) {
-        var eventButton = @event as InputEventMouseButton;
-        if (eventButton != null && eventButton.Pressed && eventButton.ButtonIndex == MouseButton.Left) {
-           EmitSignal("MousePressed", mode_manager.current_level.GetGlobalMousePosition());
-        }
-        if (eventButton != null && !eventButton.Pressed && eventButton.ButtonIndex == MouseButton.Left) {
-            EmitSignal("MouseReleased", mode_manager.current_level.GetGlobalMousePosition());
-        }
+    public void When_about_to_interact_with_building(Building building){
+        building_to_interact = building;
     }
-
+    
+    public void When_interaction_with_building_removed(){
+        building_to_interact = null;
+    }
     
 }

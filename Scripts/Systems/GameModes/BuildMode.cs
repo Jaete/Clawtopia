@@ -3,11 +3,6 @@ using System;
 
 public partial class BuildMode : GameMode {
 
-
-    public Color OK_COLOR = new Color("2eff3f81");
-    public Color ERROR_COLOR = new Color("ba000079");
-    public Color REGULAR_COLOR = new Color(1, 1, 1, 1);
-
     public const int TILE_SIZE_X = 48;
     public const int TILE_SIZE_Y = 24;
 
@@ -20,23 +15,27 @@ public partial class BuildMode : GameMode {
     public override void Enter() {
         String building_path = "res://TSCN/Entities/Buildings/Building.tscn";
         if(building_type == "Tower") {
-            mode_manager.tower_count++;
+            mode_manager.fighters_tower_count++;
             mode_manager.building_count++;
             Instantiate_building(building_path);
-            current_building.self_index = mode_manager.tower_count;
+            current_building.self_index = mode_manager.fighters_tower_count;
             current_building.Name = mode_manager.tower_type + "_T1_" + current_building.self_index;
             current_building.data = GD.Load<BuildingData>("res://Resources/Buildings/Towers/Fighters/Fighters.tres");
         }
         if(building_type == "Commune"){
-           Instantiate_building(building_path);
+           mode_manager.great_commune_count++;
            mode_manager.building_count++;
+           Instantiate_building(building_path);
+           current_building.self_index = mode_manager.great_commune_count;
            current_building.Name = "GreatCommune";   
            current_building.data = GD.Load<BuildingData>("res://Resources/Buildings/GreatCommune/GreatCommune.tres");
         }    
         if(building_type == "Resource"){
+            mode_manager.salmon_cottage_count++;
+            mode_manager.building_count++;
             Instantiate_building(building_path);
-            mode_manager.resource_build_count++;
-            current_building.Name = "" + mode_manager.resource_build_type + "_" + mode_manager.resource_build_count;
+            current_building.self_index = mode_manager.salmon_cottage_count;
+            current_building.Name = "" + mode_manager.resource_build_type + "_" + current_building.self_index;
         }
         current_building.InputPickable = false;
         mode_manager.current_level.AddChild(current_building);
@@ -56,7 +55,7 @@ public partial class BuildMode : GameMode {
     }
 
     private void Cancel_building() {
-        mode_manager.tower_count--;
+        mode_manager.fighters_tower_count--;
         mode_manager.building_count--;
         current_building.QueueFree();
         EmitSignal("ModeTransition", "SimulationMode", "", "");
@@ -65,7 +64,7 @@ public partial class BuildMode : GameMode {
     private void Confirm_building() {
         if (!is_overlapping_buildings) {
             current_building.Rebake_add_building();
-            current_building.Modulate = REGULAR_COLOR;
+            current_building.Modulate = current_building.REGULAR_COLOR;
             current_building.Rebake();
             current_building.InputPickable = true;
             EmitSignal("ModeTransition", "SimulationMode", "", "");
@@ -85,9 +84,9 @@ public partial class BuildMode : GameMode {
             is_overlapping_buildings = false;    
         }
         if (is_overlapping_buildings) {
-            current_building.Modulate = ERROR_COLOR;
+            current_building.Modulate = current_building.ERROR_COLOR;
         } else {
-            current_building.Modulate = OK_COLOR;
+            current_building.Modulate = current_building.OK_COLOR;
         }
     }
 

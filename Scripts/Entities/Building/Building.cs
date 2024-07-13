@@ -2,11 +2,22 @@ using Godot;
 using System;
 using System.IO;
 
-public partial class Building : Area2D {
+public partial class Building : Area2D
+{
+
+    [Signal]
+    public delegate void AboutToInteractEventHandler(Building self);
+    [Signal]
+    public delegate void RemovedInteractionEventHandler();
+    
+    public Color OK_COLOR = new Color("2eff3f81");
+    public Color ERROR_COLOR = new Color("ba000079");
+    public Color REGULAR_COLOR = new Color(1, 1, 1);
+    public Color HOVER_COLOR = new Color(1.3f, 1.3f, 1.3f);
     
     public NavigationRegion2D region;
+    public SimulationMode simulation_mode;
     public BuildMode building_mode;
-
     public ModeManager mode_manager;
     
     public int self_index;
@@ -24,12 +35,13 @@ public partial class Building : Area2D {
     public override void _Ready() {
         Initialize();
     }
-
+    
     public void Initialize() {
         mode_manager = GetNode<ModeManager>("/root/Game/ModeManager");
         building_mode = GetNode<BuildMode>("/root/Game/ModeManager/BuildMode");
         region = GetNode<NavigationRegion2D>("../Navigation");
         static_body = GetNode<StaticBody2D>("NavigationBody");
+        simulation_mode = GetNode<SimulationMode>("/root/Game/ModeManager/SimulationMode");
         data.initialize();
         body_shape.Polygon = data.OBSTACLE_SHAPE.Segments;
         interaction_shape.Shape = data.INTERACTION_SHAPE;
@@ -38,12 +50,18 @@ public partial class Building : Area2D {
         sprite.Offset = data.OFFSET;
         sprite.Scale = data.SCALE;
         interaction_shape.Position = data.INTERACTION_OFFSET;
-        if(data.TYPE.Equals("GreatCommune")) {
+        sprite.RegionEnabled = false;
+        if (data.NEEDS_REGION){
+            sprite.RegionEnabled = true;
+            sprite.RegionRect = data.REGION_RECT;
+        }
+        Name = data.NAME + "_" + data.TYPE + "_" + self_index;
+        if (data.TYPE.Equals("GreatCommune")){
             Name = data.TYPE;
-        } else {
-            Name = data.NAME + "_" + data.TYPE + "_" + self_index;
         }
         region.BakeFinished += When_free_to_rebake;
+        AboutToInteract += simulation_mode.When_about_to_interact_with_building;
+        RemovedInteraction += simulation_mode.When_interaction_with_building_removed;
     }
 
     public void Set_rebake() {
@@ -63,11 +81,11 @@ public partial class Building : Area2D {
         }
     }
 
-    public void Rebake_remove_building() {
+    public void Remove_building_and_rebake() {
         if (!mode_manager.currently_baking) {
             StaticBody2D obstacle = region.GetNode<StaticBody2D>("Obstacle_Region_" + data.TYPE + "_" + self_index);
             obstacle.Reparent(this);
-            region.BakeNavigationPolygon(true);
+            Rebake();
             mode_manager.currently_baking = true;
         }
     }
@@ -82,13 +100,31 @@ public partial class Building : Area2D {
         if(mode_manager.buildings_to_bake.Count > 0) {
             mode_manager.buildings_to_bake[0].Rebake_add_building();
             mode_manager.buildings_to_bake[0].Rebake();
+            mode_manager.buildings_to_bake.RemoveAt(0);
         }
     }
 
     public override void _InputEvent(Viewport viewport, InputEvent @event, int shapeIdx) {
         if (@event.IsActionPressed("LeftClick") && mode_manager.current_mode is not BuildMode) {
             UI ui = (UI)GetNode("/root/Game/UI");
-            ui.Instantiate_window("TowerMenu", this);
+            ui.Instantiate_window("BuildingMenu", this);
+        }
+    }
+
+    public override void _MouseEnter(){
+        if (mode_manager.current_mode is SimulationMode){
+            Modulate = HOVER_COLOR;
+            if (simulation_mode.selected_allies.Count > 0){
+                EmitSignal("AboutToInteract", this);
+            }
+        }
+    }
+    public override void _MouseExit(){
+        if (mode_manager.current_mode is SimulationMode){
+            Modulate = REGULAR_COLOR;
+            if (simulation_mode.selected_allies.Count > 0){
+                EmitSignal("RemovedInteraction");
+            }
         }
     }
 }

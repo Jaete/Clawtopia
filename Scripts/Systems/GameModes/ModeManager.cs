@@ -5,15 +5,18 @@ using System;
 public partial class ModeManager : Node2D
 {
     public bool currently_baking = false;
-    public Array<Building> buildings_to_bake = new Array<Building>();
+    public Array<Building> buildings_to_bake = new();
     public NavigationRegion2D region;
 
-    public Godot.Collections.Dictionary game_modes = (Dictionary)new Godot.Collections.Dictionary<string, Variant>();
+    public Dictionary game_modes = (Dictionary) new Dictionary<string, Variant>();
     public GameMode current_mode;
     public int building_count;
 
     public string tower_type;
-    public int tower_count;
+    
+    public int fighters_tower_count;
+    public int great_commune_count;
+    public int salmon_cottage_count;
 
     public String resource_build_type;
     public int resource_build_count;
@@ -57,9 +60,9 @@ public partial class ModeManager : Node2D
     public void Set_game_modes(){
         Array<Node> modes = GetChildren();
         foreach (var mode in modes) {
-            if (mode is GameMode gameMode) {
-                gameMode.ModeTransition += Change_mode;
-                game_modes[gameMode.Name] = gameMode;
+            if (mode is GameMode game_mode) {
+                game_mode.ModeTransition += Change_mode;
+                game_modes[game_mode.Name] = game_mode;
             }
         }
     }
@@ -70,12 +73,24 @@ public partial class ModeManager : Node2D
             if (node is Building build){
                 building_count++;
                 Building building = build;
+                if (building.data.TYPE == "Tower") {
+                    if (building.Name.ToString().Contains("Lutadores")){
+                        building.self_index = fighters_tower_count;
+                        fighters_tower_count++;
+                    }
+                }
+                if (building.data.TYPE == "Resource") { 
+                    if (building.Name.ToString().Contains("Pescador")){
+                        building.self_index = salmon_cottage_count;
+                        salmon_cottage_count++;
+                    }
+                }
+                if (building.data.TYPE == "GreatCommune") { 
+                    building.self_index = great_commune_count;
+                    great_commune_count++;
+                }
                 buildings_to_bake.Add(building);
                 building.Rebake_add_building();
-                if (building.data.TYPE == "Tower") { 
-                    building.self_index = tower_count;
-                    tower_count++;
-                }   
             }
         }
         region = GetNode<NavigationRegion2D>("/root/Game/LevelManager/Level/Navigation");

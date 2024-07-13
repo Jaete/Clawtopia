@@ -1,23 +1,27 @@
 using Godot;
 using System;
+using Godot.Collections;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
 
 public partial class StateMachine : Node
 {
-    public Godot.Collections.Dictionary states = new Godot.Collections.Dictionary();
+    public Dictionary states = new();
     public AllyState current_state;
     public bool in_transition;
+    
+    [Export] 
+    public AllyState default_state;
 
     public override void _Ready(){
-        Godot.Collections.Array<Node> node_states = GetChildren();
+        Array<Node> node_states = GetChildren();
         foreach(var node in node_states){
             if (node is AllyState state){
                 state.StateTransition += Change_state;
                 states[state.Name] = state;
             }
         }
-        current_state = (AllyState)states["Idle"];
+        current_state = (AllyState)states[default_state.Name];
     }
 
     public override void _PhysicsProcess(double delta){
@@ -35,7 +39,6 @@ public partial class StateMachine : Node
         current_state = (AllyState)states[next]; ;
         current_state.Enter();
         in_transition = false;
-
     }
 }
 

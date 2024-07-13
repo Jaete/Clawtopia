@@ -11,7 +11,8 @@ public partial class Ally : CharacterBody2D
     [Export]
     public NavigationAgent2D agent;
     public Node2D current_level;
-
+    public bool currently_selected;
+    
     public override void _Ready()
     {
         current_level = GetNode<Node2D>("/root/Game/LevelManager/Level");

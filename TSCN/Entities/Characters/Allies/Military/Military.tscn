@@ -28,8 +28,9 @@ offset = Vector2(0, -24)
 scale = Vector2(1, 0.5)
 shape = SubResource("CircleShape2D_enf31")
 
-[node name="FSM" type="Node" parent="."]
+[node name="FSM" type="Node" parent="." node_paths=PackedStringArray("default_state")]
 script = ExtResource("3_qm2h6")
+default_state = NodePath("Idle")
 
 [node name="Idle" type="Node" parent="FSM"]
 script = ExtResource("4_kg72r")

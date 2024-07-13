@@ -1,15 +1,9 @@
+using System.Runtime.CompilerServices;
+using System.Threading;
 using Godot;
-using System;
 
 public partial class EconomicIdle : AllyState {
-
-    Director director;
-
-    public override void _Ready(){
-        self = GetParent().GetParent<Ally>();
-        MouseRightClicked += When_move_started;
-    }
-
+    
     public override void Enter(){
         self.Velocity = Vector2.Zero;
        /* TODO
@@ -25,16 +19,11 @@ public partial class EconomicIdle : AllyState {
     public override void Exit(){
     }
 
-    public void When_move_started(Vector2 coords){
-        Change_state("Move");
-        Set_target_position(coords);
-    }
-
-    public override void _Input(InputEvent @event){
-        if(@event is InputEventMouseButton mouseEvent){
-            if(mouseEvent.ButtonMask == MouseButtonMask.Right){
-                EmitSignal("MouseRightClicked", mouseEvent.GlobalPosition);
-            }
+    public override void When_mouse_right_clicked(Vector2 coords){
+        if (self.currently_selected){
+            Change_state("Move");
+            Set_target_position(coords);
+            interacted_with_building = simulation_mode.building_to_interact != null;
         }
     }
 }

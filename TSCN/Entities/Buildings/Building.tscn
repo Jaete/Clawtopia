@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://b66xbgk13d2tp"]
+[gd_scene load_steps=3 format=3 uid="uid://b66xbgk13d2tp"]
 
 [ext_resource type="Script" path="res://Scripts/Entities/Building/Building.cs" id="1_lxpyl"]
+[ext_resource type="Script" path="res://Scripts/TOWER_Debug.cs" id="2_fydp1"]
 
 [node name="Building" type="Area2D" node_paths=PackedStringArray("static_body", "body_shape", "interaction_shape", "grid_shape", "sprite")]
 priority = 1
@@ -18,8 +19,10 @@ collision_layer = 2147483648
 build_mode = 1
 
 [node name="Sprite" type="Sprite2D" parent="."]
+region_rect = Rect2(0, 0, 98, 97)
 
 [node name="Shape" type="CollisionShape2D" parent="."]
+position = Vector2(0, -6)
 debug_color = Color(0.891755, 0.000238729, 0.789262, 0.42)
 
 [node name="GridArea" type="Area2D" parent="."]
@@ -27,6 +30,11 @@ collision_layer = 2147483648
 collision_mask = 2147483648
 
 [node name="Shape" type="CollisionPolygon2D" parent="GridArea"]
+
+[node name="DEBUG" type="Label" parent="."]
+offset_right = 40.0
+offset_bottom = 23.0
+script = ExtResource("2_fydp1")
 
 [connection signal="input_event" from="." to="." method="_on_input_event"]
 [connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]

@@ -1,0 +1,21 @@
+[gd_resource type="Resource" load_steps=5 format=3 uid="uid://clrqpofa5wh8x"]
+
+[ext_resource type="Shape2D" uid="uid://hckfayy4ot3" path="res://Resources/Buildings/Economy/Salmon/obstacle_shape.tres" id="1_mloes"]
+[ext_resource type="Shape2D" uid="uid://b10u8onqhp5v0" path="res://Resources/Buildings/Economy/Salmon/interaction_shape.tres" id="2_g831w"]
+[ext_resource type="Texture2D" uid="uid://bcpg5sr1jfr4a" path="res://Assets/Buildings/Structures2.png" id="3_726f5"]
+[ext_resource type="Script" path="res://Scripts/Entities/Building/BuildingData.cs" id="4_grkxa"]
+
+[resource]
+script = ExtResource("4_grkxa")
+OFFSET = Vector2(3, -7.25)
+SCALE = Vector2(1, 1)
+INTERACTION_OFFSET = Vector2(0, 0)
+OBSTACLE_SHAPE = ExtResource("1_mloes")
+INTERACTION_SHAPE = ExtResource("2_g831w")
+GRID_SHAPE = ExtResource("1_mloes")
+SPRITE_TEXTURE = ExtResource("3_726f5")
+TYPE = "Resource"
+NAME = "Cabana do Pescador"
+HP = 500
+NEEDS_REGION = true
+REGION_RECT = Rect2(0, 0, 98, 97)

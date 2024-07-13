@@ -1,9 +1,9 @@
 [gd_resource type="Resource" load_steps=5 format=3 uid="uid://c3xdisvexuxgq"]
 
-[ext_resource type="Shape2D" uid="uid://kji4e4x8mqau" path="res://Resources/Buildings/Towers/Fighters/obstacle_shape.tres" id="1_14cge"]
 [ext_resource type="Script" path="res://Scripts/Entities/Building/BuildingData.cs" id="1_nfxbb"]
-[ext_resource type="Shape2D" uid="uid://bxduxqwjvh5ji" path="res://Resources/Buildings/Towers/Fighters/interaction_shape.tres" id="2_k5e3q"]
-[ext_resource type="Texture2D" uid="uid://bna0wfmf6ixwd" path="res://Assets/Buildings/torreA.png" id="4_aqgiq"]
+[ext_resource type="Shape2D" uid="uid://kji4e4x8mqau" path="res://Resources/Buildings/Towers/Fighters/obstacle_shape.tres" id="1_xusfr"]
+[ext_resource type="Shape2D" uid="uid://bxduxqwjvh5ji" path="res://Resources/Buildings/Towers/Fighters/interaction_shape.tres" id="2_gt731"]
+[ext_resource type="Texture2D" uid="uid://bna0wfmf6ixwd" path="res://Assets/Buildings/torreA.png" id="3_w284w"]
 
 [resource]
 resource_local_to_scene = true
@@ -11,10 +11,12 @@ script = ExtResource("1_nfxbb")
 OFFSET = Vector2(0, -72)
 SCALE = Vector2(1, 1)
 INTERACTION_OFFSET = Vector2(0, -72)
-obstacle_shape = ExtResource("1_14cge")
-interaction_shape = ExtResource("2_k5e3q")
-grid_shape = ExtResource("1_14cge")
-sprite_texture = ExtResource("4_aqgiq")
-type = "Tower"
-name = "Fighters"
+OBSTACLE_SHAPE = ExtResource("1_xusfr")
+INTERACTION_SHAPE = ExtResource("2_gt731")
+GRID_SHAPE = ExtResource("1_xusfr")
+SPRITE_TEXTURE = ExtResource("3_w284w")
+TYPE = "Tower"
+NAME = "Torre de Lutadores"
 HP = 2000
+NEEDS_REGION = false
+REGION_RECT = Rect2(0, 0, 0, 0)
