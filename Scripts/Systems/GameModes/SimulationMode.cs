@@ -44,7 +44,7 @@ public partial class SimulationMode : GameMode
         }
     }
     public override void When_detect_pressed(Vector2 coords) {
-        if (mode_manager.current_mode is not SimulationMode){
+        if (!(mode_manager.current_mode is SimulationMode)){
             return;
         }
         starting_point = coords;
