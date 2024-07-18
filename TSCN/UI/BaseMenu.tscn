@@ -1,10 +1,13 @@
-[gd_scene format=3 uid="uid://n5nsi4usmryr"]
+[gd_scene load_steps=2 format=3 uid="uid://n5nsi4usmryr"]
+
+[ext_resource type="Script" path="res://Scripts/Entities/UI/BaseMenu.cs" id="1_d8kja"]
 
 [node name="BaseMenu" type="Control"]
 custom_minimum_size = Vector2(500, 200)
 layout_mode = 3
 anchors_preset = 0
 mouse_filter = 1
+script = ExtResource("1_d8kja")
 
 [node name="Background" type="ColorRect" parent="."]
 layout_mode = 1
