@@ -3,8 +3,8 @@ using System;
 
 public partial class BuildMode : GameMode {
 
-    public const int TILE_SIZE_X = 48;
-    public const int TILE_SIZE_Y = 24;
+    public int TILE_SIZE_X = 48;
+    public int TILE_SIZE_Y = 24;
 
     public Vector2 mouse_position;
 

@@ -21,5 +21,5 @@ grow_vertical = 0
 size_flags_horizontal = 3
 mouse_filter = 0
 
-[node name="GameHUD" parent="HBoxContainer" instance=ExtResource("2_4hf2e")]
+[node name="BaseMenu" parent="HBoxContainer" instance=ExtResource("2_4hf2e")]
 layout_mode = 2

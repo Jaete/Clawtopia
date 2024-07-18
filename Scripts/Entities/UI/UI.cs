@@ -4,9 +4,11 @@ using System;
 public partial class UI : CanvasLayer
 {
     public PackedScene building_menu = GD.Load<PackedScene>("res://TSCN/UI/BuildingMenu.tscn");
+    public PackedScene communist_menu = GD.Load<PackedScene>("res://TSCN/UI/CommunistMenu.tscn");
     public PackedScene base_menu = GD.Load<PackedScene>("res://TSCN/UI/BaseMenu.tscn");
 
     public Control current_window;
+    public BuildingMenu building_menu_control;
 
     public Building Building;
 
@@ -14,40 +16,62 @@ public partial class UI : CanvasLayer
 
     public bool is_resetting_ui;
 
+    public UIMode ui_mode;
+    public ModeManager mode_manager;
+
     public override void _Ready(){
-        container = GetNode<HFlowContainer>("HBoxContainer");
+        CallDeferred("Initialize");
     }
 
+    public void Initialize(){
+        container = GetNode<HFlowContainer>("HBoxContainer");
+        mode_manager = GetNode<ModeManager>("/root/Game/ModeManager");
+        ui_mode = (UIMode) mode_manager.game_modes["UIMode"];
+    }
+    
     public void Instantiate_window(String window, Building building = null) {
         switch (window) {
             case "BuildingMenu":
-                current_window = building_menu.Instantiate<Control>(); 
-                if (building != null) {
-                    GameHUD game_hud = (GameHUD)current_window;
-                    game_hud.building = building;
-                    game_hud.Name = "BuildingMenu";
+                if (building != null){
+                    building_menu_control = building_menu.Instantiate<BuildingMenu>();
+                    building_menu_control.building = building;
+                    building_menu_control.Name = "BuildingMenu";
+                    current_window = building_menu_control;
                 }
-                var base_menu_instance = GetNodeOrNull<Control>("HBoxContainer/GameHUD");
-                base_menu_instance?.QueueFree();
-                container.AddChild(current_window);
+                break;
+            case "CommunistMenu":
+                current_window = communist_menu.Instantiate<CommunistMenu>();
+                current_window.Name = "CommunistMenu";
                 break;
         }
+        var previous_menu = GetNodeOrNull("HBoxContainer").GetChild<Control>(0);
+        if (previous_menu.Name == current_window.Name){
+            return;
+        }
+        previous_menu.QueueFree();
+        container.AddChild(current_window);
+    }
+    
+    public void Reset_ui(){
+        is_resetting_ui = true;
+        var previous_menu = GetNodeOrNull("HBoxContainer").GetChild<Control>(0);
+        previous_menu.QueueFree();
+        current_window = base_menu.Instantiate<Control>();
+        current_window.Name = "BaseMenu";
+        container.AddChild(current_window);
+        is_resetting_ui = false;
     }
 
-    public override void _UnhandledInput(InputEvent @event) {
-        if (@event.IsActionPressed("LeftClick")) {
-            if (current_window != null && current_window.Name != "GameHUD" && !is_resetting_ui) {
-                Reset_ui();
-            }
+    public void Enter_ui_mode(){
+        if (mode_manager.current_mode is SimulationMode){
+            mode_manager.Change_mode(ui_mode.Name, "", "");    
         }
     }
 
-    public void Reset_ui(){
-        is_resetting_ui = true;
-        current_window.QueueFree();
-        current_window = base_menu.Instantiate<Control>();
-        current_window.Name = "GameHUD";
-        container.AddChild(current_window);
-        is_resetting_ui = false;
+    public void Leave_ui_mode(){
+        if (mode_manager.current_mode is UIMode) {
+            var simulation_mode = (SimulationMode) mode_manager.game_modes["SimulationMode"];
+            mode_manager.Change_mode(simulation_mode.Name, "", "");        
+        }
     }
 }

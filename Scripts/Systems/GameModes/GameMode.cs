@@ -15,12 +15,10 @@ public partial class GameMode : Node2D {
     
     public Controller controller;
 
+    public Rid map_RID;
+
     public override void _Ready(){
-        director = GetNode<Director>("/root/Game/Director");
-        mode_manager = GetParent<ModeManager>();
-        controller = GetNode<Controller>("/root/Game/Controller");
-        controller.MousePressed += When_detect_pressed;
-        controller.MouseReleased += When_detect_released;
+        Initialize();
     }
 
     public virtual void Enter() { }
@@ -29,4 +27,13 @@ public partial class GameMode : Node2D {
 
     public virtual void When_detect_pressed(Vector2 coords) { }
     public virtual void When_detect_released(Vector2 coords) { }
+
+    public void Initialize(){
+        director = GetNode<Director>("/root/Game/Director");
+        mode_manager = GetParent<ModeManager>();
+        controller = GetNode<Controller>("/root/Game/Controller");
+        controller.MousePressed += When_detect_pressed;
+        controller.MouseReleased += When_detect_released;
+    }
 }
+

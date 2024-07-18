@@ -4,12 +4,12 @@ using System;
 public partial class MilitaryIdle : AllyState
 {
     public override void _Ready(){
-        self = GetParent().GetParent<Ally>();
+        ally = GetParent().GetParent<Ally>();
         controller.MouseRightPressed += Start_move;
     }
 
     public override void Enter(){
-        self.Velocity = Vector2.Zero;
+        ally.Velocity = Vector2.Zero;
     }
 
     public override void Update(double _delta){

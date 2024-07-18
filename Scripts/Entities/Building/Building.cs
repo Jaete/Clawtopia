@@ -27,7 +27,7 @@ public partial class Building : Area2D
     [Export] public BuildingData data;
     [Export] public StaticBody2D static_body;
     [Export] public CollisionPolygon2D body_shape;
-    [Export] public CollisionShape2D interaction_shape;
+    [Export] public CollisionPolygon2D interaction_shape;
     [Export] public CollisionPolygon2D grid_shape;
     [Export] public Sprite2D sprite;
 
@@ -44,12 +44,12 @@ public partial class Building : Area2D
         simulation_mode = GetNode<SimulationMode>("/root/Game/ModeManager/SimulationMode");
         data.initialize();
         body_shape.Polygon = data.OBSTACLE_SHAPE.Segments;
-        interaction_shape.Shape = data.INTERACTION_SHAPE;
+        interaction_shape.Polygon = data.INTERACTION_SHAPE.Segments;
+        interaction_shape.Position = data.INTERACTION_OFFSET;
         grid_shape.Polygon = data.GRID_SHAPE.Segments;
         sprite.Texture = data.SPRITE_TEXTURE;
         sprite.Offset = data.OFFSET;
         sprite.Scale = data.SCALE;
-        interaction_shape.Position = data.INTERACTION_OFFSET;
         sprite.RegionEnabled = false;
         if (data.NEEDS_REGION){
             sprite.RegionEnabled = true;
@@ -90,7 +90,7 @@ public partial class Building : Area2D
         }
     }
 
-    public void Rebake() {
+    public void Rebake(){
         region.BakeNavigationPolygon();
     }
 
@@ -101,13 +101,6 @@ public partial class Building : Area2D
             mode_manager.buildings_to_bake[0].Rebake_add_building();
             mode_manager.buildings_to_bake[0].Rebake();
             mode_manager.buildings_to_bake.RemoveAt(0);
-        }
-    }
-
-    public override void _InputEvent(Viewport viewport, InputEvent @event, int shapeIdx) {
-        if (@event.IsActionPressed("LeftClick") && mode_manager.current_mode is not BuildMode) {
-            UI ui = (UI)GetNode("/root/Game/UI");
-            ui.Instantiate_window("BuildingMenu", this);
         }
     }
 

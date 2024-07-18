@@ -1,22 +1,7 @@
-[gd_resource type="Resource" load_steps=5 format=3 uid="uid://byglexam8jwef"]
+[gd_resource type="Resource" load_steps=2 format=3 uid="uid://byglexam8jwef"]
 
 [ext_resource type="Script" path="res://Scripts/Entities/Building/BuildingData.cs" id="1_r233n"]
-[ext_resource type="Shape2D" uid="uid://cf6k0j6hvsgj1" path="res://Resources/Buildings/GreatCommune/obstacle_shape.tres" id="1_ru6ey"]
-[ext_resource type="Shape2D" uid="uid://cgrlifd37kl3b" path="res://Resources/Buildings/GreatCommune/interaction_shape.tres" id="2_33mb6"]
-[ext_resource type="Texture2D" uid="uid://c26jfh8k3v372" path="res://Assets/Buildings/building_01_tavern.png" id="4_a1s27"]
 
 [resource]
 resource_local_to_scene = true
 script = ExtResource("1_r233n")
-OFFSET = Vector2(-32, -64)
-SCALE = Vector2(0.3, 0.3)
-INTERACTION_OFFSET = Vector2(-25, -50)
-OBSTACLE_SHAPE = ExtResource("1_ru6ey")
-INTERACTION_SHAPE = ExtResource("2_33mb6")
-GRID_SHAPE = ExtResource("1_ru6ey")
-SPRITE_TEXTURE = ExtResource("4_a1s27")
-TYPE = "GreatCommune"
-NAME = "Grande Comuna"
-HP = 10000
-NEEDS_REGION = false
-REGION_RECT = Rect2(0, 0, 0, 0)

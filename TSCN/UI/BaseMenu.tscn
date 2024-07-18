@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://n5nsi4usmryr"]
 
-[node name="GameHUD" type="Control"]
+[node name="BaseMenu" type="Control"]
 custom_minimum_size = Vector2(500, 200)
 layout_mode = 3
 anchors_preset = 0

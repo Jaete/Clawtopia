@@ -1,0 +1,165 @@
+[gd_scene load_steps=23 format=3 uid="uid://d2qw1opgfwuq7"]
+
+[ext_resource type="Script" path="res://Scripts/Entities/Characters/Allies/Ally.cs" id="1_krock"]
+[ext_resource type="Resource" uid="uid://cg7alavmqxtqn" path="res://Resources/Characters/Allies/Attributes/Communist.tres" id="2_scpxa"]
+[ext_resource type="Script" path="res://Scripts/Entities/Characters/Allies/StateMachine.cs" id="3_6nj7e"]
+[ext_resource type="Texture2D" uid="uid://l4xdlbxm02bu" path="res://Assets/Characters/Allies/kato-magico-andar-baixo-ezgif.com-gif-to-sprite-converter.png" id="3_q7ik0"]
+[ext_resource type="Script" path="res://Scripts/Entities/Characters/Allies/Economic/FSM/EconomicIdle.cs" id="4_0xplg"]
+[ext_resource type="Texture2D" uid="uid://dreqehb3doa21" path="res://Assets/Characters/Allies/kato-magico-andar-ezgif.com-gif-to-sprite-converter_1.png" id="4_d4byk"]
+[ext_resource type="Script" path="res://Scripts/Entities/Characters/Allies/Economic/FSM/EconomicMove.cs" id="5_lja63"]
+[ext_resource type="Script" path="res://Scripts/Entities/Characters/Allies/Economic/FSM/Collecting.cs" id="6_8eob7"]
+[ext_resource type="Texture2D" uid="uid://davy57qg772li" path="res://Assets/Characters/Allies/test_kitten_artstyle64.png" id="6_58dkx"]
+[ext_resource type="Script" path="res://Scripts/ECO_Debug.cs" id="8_4ycqe"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kfa45"]
+atlas = ExtResource("3_q7ik0")
+region = Rect2(0, 0, 69, 70)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_04tjj"]
+atlas = ExtResource("3_q7ik0")
+region = Rect2(69, 0, 69, 70)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_eyoyy"]
+atlas = ExtResource("3_q7ik0")
+region = Rect2(138, 0, 69, 70)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_w8nf0"]
+atlas = ExtResource("3_q7ik0")
+region = Rect2(207, 0, 69, 70)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_oi8dx"]
+atlas = ExtResource("4_d4byk")
+region = Rect2(0, 0, 69, 77)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5sayb"]
+atlas = ExtResource("4_d4byk")
+region = Rect2(69, 0, 69, 77)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nylyn"]
+atlas = ExtResource("4_d4byk")
+region = Rect2(138, 0, 69, 77)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_17avf"]
+atlas = ExtResource("4_d4byk")
+region = Rect2(207, 0, 69, 77)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gktgm"]
+atlas = ExtResource("4_d4byk")
+region = Rect2(276, 0, 69, 77)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tkp6u"]
+atlas = ExtResource("4_d4byk")
+region = Rect2(0, 77, 69, 77)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_df878"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kfa45")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_04tjj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_04tjj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_eyoyy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_w8nf0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_w8nf0")
+}],
+"loop": true,
+"name": &"Run down",
+"speed": 11.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_oi8dx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5sayb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nylyn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_17avf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gktgm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tkp6u")
+}],
+"loop": true,
+"name": &"Run up",
+"speed": 11.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_gmab3"]
+radius = 21.095
+
+[node name="Economic" type="CharacterBody2D" node_paths=PackedStringArray("state_machine", "agent", "sprite")]
+y_sort_enabled = true
+collision_layer = 2
+input_pickable = true
+script = ExtResource("1_krock")
+attributes = ExtResource("2_scpxa")
+state_machine = NodePath("FSM")
+agent = NodePath("Navigation")
+sprite = NodePath("Sprite")
+
+[node name="Sprite" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_df878")
+animation = &"Run up"
+autoplay = "Run down"
+frame_progress = 0.161387
+offset = Vector2(0, -32)
+
+[node name="Body" type="CollisionShape2D" parent="."]
+position = Vector2(-1, -28)
+rotation = 1.55943
+scale = Vector2(1, 0.5)
+
+[node name="FSM" type="Node" parent="." node_paths=PackedStringArray("default_state")]
+script = ExtResource("3_6nj7e")
+default_state = NodePath("Idle")
+
+[node name="Idle" type="Node" parent="FSM"]
+script = ExtResource("4_0xplg")
+
+[node name="Move" type="Node" parent="FSM"]
+script = ExtResource("5_lja63")
+
+[node name="Collecting" type="Node" parent="FSM"]
+script = ExtResource("6_8eob7")
+
+[node name="Navigation" type="NavigationAgent2D" parent="."]
+navigation_layers = 15
+debug_enabled = true
+debug_path_custom_color = Color(1, 0.33, 0.33, 1)
+
+[node name="PLACEHOLDER" type="Sprite2D" parent="."]
+visible = false
+y_sort_enabled = true
+position = Vector2(0, -14)
+texture = ExtResource("6_58dkx")
+offset = Vector2(0, -12)
+
+[node name="Label" type="Label" parent="."]
+visible = false
+offset_right = 40.0
+offset_bottom = 23.0
+script = ExtResource("8_4ycqe")
+
+[node name="Interaction" type="Area2D" parent="."]
+visible = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Interaction"]
+position = Vector2(0, -26)
+scale = Vector2(1, 1.5)
+shape = SubResource("CircleShape2D_gmab3")

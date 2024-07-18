@@ -7,6 +7,7 @@
 [node name="Fighters" type="Control"]
 layout_mode = 3
 anchors_preset = 0
+scale = Vector2(0.5, 0.5)
 
 [node name="Button" type="Button" parent="."]
 layout_direction = 2

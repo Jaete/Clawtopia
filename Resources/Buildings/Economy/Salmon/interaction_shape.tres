@@ -1,4 +1,4 @@
-[gd_resource type="RectangleShape2D" format=3 uid="uid://b10u8onqhp5v0"]
+[gd_resource type="ConcavePolygonShape2D" format=3 uid="uid://mhj6bkino47b"]
 
 [resource]
-size = Vector2(96, 84)
+segments = PackedVector2Array(-103.5, 29.5, -75.5, 13.5, -75.5, -45.5, 34.5, -103.5, 76.5, -60.5, 75.5, -4.5, 108.5, 10.5, -13.5, 74.5)

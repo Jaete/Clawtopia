@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://bdiafybhm6xh4"]
 
-[ext_resource type="Script" path="res://Scripts/Entities/UI/GameHUD.cs" id="1_5opv1"]
+[ext_resource type="Script" path="res://Scripts/Entities/UI/BuildingMenu.cs" id="1_5opv1"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ucp4r"]
 bg_color = Color(0.859528, 0.36252, 0.353407, 1)
@@ -35,6 +35,7 @@ offset_left = 12.0
 offset_top = 10.0
 offset_right = 100.0
 offset_bottom = 60.0
+mouse_filter = 1
 theme = SubResource("Theme_u8ux8")
 text = "Remover"
 

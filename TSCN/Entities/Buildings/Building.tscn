@@ -1,11 +1,13 @@
-[gd_scene load_steps=3 format=3 uid="uid://b66xbgk13d2tp"]
+[gd_scene load_steps=4 format=3 uid="uid://b66xbgk13d2tp"]
 
 [ext_resource type="Script" path="res://Scripts/Entities/Building/Building.cs" id="1_lxpyl"]
+[ext_resource type="Texture2D" uid="uid://drdjlmxxqquc3" path="res://Assets/Buildings/64construcoes.png" id="2_0oyyu"]
 [ext_resource type="Script" path="res://Scripts/TOWER_Debug.cs" id="2_fydp1"]
 
-[node name="Building" type="Area2D" node_paths=PackedStringArray("static_body", "body_shape", "interaction_shape", "grid_shape", "sprite")]
+[node name="Area2D" type="Area2D" node_paths=PackedStringArray("static_body", "body_shape", "interaction_shape", "grid_shape", "sprite")]
 priority = 1
 script = ExtResource("1_lxpyl")
+is_pre_spawned = null
 static_body = NodePath("NavigationBody")
 body_shape = NodePath("NavigationBody/Shape")
 interaction_shape = NodePath("Shape")
@@ -16,14 +18,16 @@ sprite = NodePath("Sprite")
 collision_layer = 2147483648
 
 [node name="Shape" type="CollisionPolygon2D" parent="NavigationBody"]
-build_mode = 1
+polygon = PackedVector2Array(0, 48, -96, 0, 0, -40, 96, 0)
 
 [node name="Sprite" type="Sprite2D" parent="."]
-region_rect = Rect2(0, 0, 98, 97)
+texture = ExtResource("2_0oyyu")
+offset = Vector2(0, -32)
+region_enabled = true
+region_rect = Rect2(33, 346, 132, 131)
 
-[node name="Shape" type="CollisionShape2D" parent="."]
-position = Vector2(0, -6)
-debug_color = Color(0.891755, 0.000238729, 0.789262, 0.42)
+[node name="Shape" type="CollisionPolygon2D" parent="."]
+position = Vector2(-1.5, -1.5)
 
 [node name="GridArea" type="Area2D" parent="."]
 collision_layer = 2147483648
