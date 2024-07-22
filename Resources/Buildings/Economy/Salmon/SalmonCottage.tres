@@ -15,6 +15,7 @@ INTERACTION_SHAPE = ExtResource("2_g831w")
 GRID_SHAPE = ExtResource("1_mloes")
 SPRITE_TEXTURE = ExtResource("3_nb4k6")
 TYPE = "Resource"
+RESOURCE_TYPE = "Salmon"
 NAME = "Cabana do Pescador"
 HP = 500
 NEEDS_REGION = true

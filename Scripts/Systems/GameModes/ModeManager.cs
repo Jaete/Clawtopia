@@ -21,6 +21,8 @@ public partial class ModeManager : Node2D
     public String resource_build_type;
     public int resource_build_count;
 
+    public int house_count;
+
     public Director director;
     public Node2D current_level;
 

@@ -19,6 +19,7 @@ public partial class Building : Area2D
     public SimulationMode simulation_mode;
     public BuildMode building_mode;
     public ModeManager mode_manager;
+    public LevelManager level_manager;
     
     public int self_index;
     public bool placed;
@@ -31,6 +32,8 @@ public partial class Building : Area2D
     [Export] public CollisionPolygon2D grid_shape;
     [Export] public Sprite2D sprite;
 
+    public string resource_type;
+
 
     public override void _Ready() {
         Initialize();
@@ -41,7 +44,9 @@ public partial class Building : Area2D
         building_mode = GetNode<BuildMode>("/root/Game/ModeManager/BuildMode");
         region = GetNode<NavigationRegion2D>("../Navigation");
         static_body = GetNode<StaticBody2D>("NavigationBody");
+        GD.Print("STATIC DESSA BUILDIG: ", static_body);
         simulation_mode = GetNode<SimulationMode>("/root/Game/ModeManager/SimulationMode");
+        level_manager = GetNode<LevelManager>("/root/Game/LevelManager");
         data.initialize();
         body_shape.Polygon = data.OBSTACLE_SHAPE.Segments;
         interaction_shape.Polygon = data.INTERACTION_SHAPE.Segments;
@@ -62,6 +67,30 @@ public partial class Building : Area2D
         region.BakeFinished += When_free_to_rebake;
         AboutToInteract += simulation_mode.When_about_to_interact_with_building;
         RemovedInteraction += simulation_mode.When_interaction_with_building_removed;
+        CallDeferred("Add_self_on_list");
+    }
+
+    public void Add_self_on_list(){
+        switch (data.RESOURCE_TYPE){
+            case "Salmon":
+                GD.Print("Try to add salmon");
+                resource_type = "Salmon";
+                level_manager.salmon_buildings.Insert(level_manager.salmon_buildings.Count, this);
+                GD.Print("salmon added");
+                break;
+            case "Catnip":
+                resource_type = "Catnip";
+                level_manager.catnip_buildings.Add(this);
+                break;
+            case "Sand":
+                resource_type = "Sand";
+                level_manager.sand_buildings.Add(this);
+                break;
+            default:
+                resource_type = null;
+                break;
+        }
+        GD.Print("Kek?");
     }
 
     public void Set_rebake() {
