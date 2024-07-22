@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://xemhpfheo8jx"]
+[gd_scene load_steps=10 format=3 uid="uid://xemhpfheo8jx"]
 
 [ext_resource type="PackedScene" uid="uid://cwky3bhs42sy8" path="res://TSCN/Systems/LevelManager.tscn" id="1_85gth"]
 [ext_resource type="PackedScene" uid="uid://4bjsjso63cdu" path="res://TSCN/Systems/Director.tscn" id="2_4apo7"]
@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://dg1278ax8xp1f" path="res://TSCN/UI/UI.tscn" id="5_72vwo"]
 [ext_resource type="Script" path="res://Scripts/Systems/GameModes/UIMode.cs" id="7_r6kcy"]
 [ext_resource type="Script" path="res://Scripts/Systems/Controller/Controller.cs" id="7_tf822"]
+[ext_resource type="Script" path="res://Scripts/Systems/Camera/CameraController.cs" id="9_s0om1"]
 
 [node name="Game" type="Node2D"]
 y_sort_enabled = true
@@ -30,3 +31,8 @@ script = ExtResource("7_r6kcy")
 
 [node name="Controller" type="Node2D" parent="."]
 script = ExtResource("7_tf822")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+anchor_mode = 0
+enabled = false
+script = ExtResource("9_s0om1")
