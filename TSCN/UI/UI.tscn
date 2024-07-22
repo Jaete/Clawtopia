@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://dg1278ax8xp1f"]
+[gd_scene load_steps=4 format=3 uid="uid://dg1278ax8xp1f"]
 
 [ext_resource type="Script" path="res://Scripts/Entities/UI/UI.cs" id="1_mmgiv"]
 [ext_resource type="PackedScene" uid="uid://n5nsi4usmryr" path="res://TSCN/UI/BaseMenu.tscn" id="2_4hf2e"]
+[ext_resource type="PackedScene" uid="uid://iev22enkbmga" path="res://TSCN/UI/resources_count.tscn" id="3_vj4q2"]
 
 [node name="UI" type="CanvasLayer"]
 script = ExtResource("1_mmgiv")
@@ -23,3 +24,10 @@ mouse_filter = 0
 
 [node name="BaseMenu" parent="HBoxContainer" instance=ExtResource("2_4hf2e")]
 layout_mode = 2
+
+[node name="ResourcesCount" parent="." instance=ExtResource("3_vj4q2")]
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+grow_horizontal = 1
+grow_vertical = 1

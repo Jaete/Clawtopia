@@ -1,0 +1,63 @@
+[gd_scene load_steps=4 format=3 uid="uid://iev22enkbmga"]
+
+[ext_resource type="Texture2D" uid="uid://mr0sswy0n0bo" path="res://Assets/UI/chestnut-leaf.png" id="1_ru4er"]
+[ext_resource type="Texture2D" uid="uid://fcsvuv1qbkh1" path="res://Assets/UI/salmon.png" id="2_4ctsg"]
+[ext_resource type="Texture2D" uid="uid://ubb6fkfhgi3l" path="res://Assets/UI/stockpiles.png" id="3_nlvd8"]
+
+[node name="ResourcesCount" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 0
+offset_left = 8.0
+offset_top = 467.0
+offset_right = 221.0
+offset_bottom = 643.0
+color = Color(0.168627, 0.168627, 0.168627, 0.8)
+
+[node name="Chestnut-leaf" type="Sprite2D" parent="."]
+position = Vector2(40.6, 502.6)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("1_ru4er")
+
+[node name="Salmon" type="Sprite2D" parent="."]
+position = Vector2(40.6, 555.6)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("2_4ctsg")
+
+[node name="Stockpiles" type="Sprite2D" parent="."]
+position = Vector2(40.6, 608.6)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("3_nlvd8")
+
+[node name="CatnipLabel" type="Label" parent="."]
+layout_mode = 0
+offset_left = 91.0
+offset_top = 485.0
+offset_right = 147.0
+offset_bottom = 519.0
+theme_override_font_sizes/font_size = 24
+text = "1000"
+
+[node name="SalmonLabel" type="Label" parent="."]
+layout_mode = 0
+offset_left = 91.0
+offset_top = 539.0
+offset_right = 147.0
+offset_bottom = 573.0
+theme_override_font_sizes/font_size = 24
+text = "1000"
+
+[node name="SandLabel" type="Label" parent="."]
+layout_mode = 0
+offset_left = 91.0
+offset_top = 591.0
+offset_right = 147.0
+offset_bottom = 625.0
+theme_override_font_sizes/font_size = 24
+text = "1000"

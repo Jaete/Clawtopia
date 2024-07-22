@@ -22,7 +22,7 @@ public partial class StateMachine : Node
             }
         }
         current_state = (AllyState)states[default_state.Name];
-        current_state.is_current_state = true;
+        current_state.Enter();
     }
 
     public override void _PhysicsProcess(double delta){
@@ -38,10 +38,8 @@ public partial class StateMachine : Node
             return;
         }
         current_state.Exit();
-        current_state.is_current_state = false;
         current_state = (AllyState)states[next]; ;
         current_state.Enter();
-        current_state.is_current_state = true;
         in_transition = false;
     }
 }

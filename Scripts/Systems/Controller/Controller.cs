@@ -19,17 +19,17 @@ public partial class Controller : Node
 
 	public override void _Input(InputEvent @event){
 		var event_button = @event as InputEventMouseButton;
-		if (event_button != null && event_button.Pressed && event_button.ButtonIndex == MouseButton.Left){
-			EmitSignal("MousePressed", mode_manager.current_level.GetGlobalMousePosition());
+		if (event_button is { Pressed: true, ButtonIndex: MouseButton.Left }){
+			EmitSignal("MousePressed", mode_manager.current_level.GetLocalMousePosition());
 		}
-		if (event_button != null && !event_button.Pressed && event_button.ButtonIndex == MouseButton.Left){
-			EmitSignal("MouseReleased", mode_manager.current_level.GetGlobalMousePosition());
+		if (event_button is { Pressed: false, ButtonIndex: MouseButton.Left }){
+			EmitSignal("MouseReleased", mode_manager.current_level.GetLocalMousePosition());
 		}
-		if (event_button != null && event_button.DoubleClick && event_button.ButtonIndex == MouseButton.Left){
-			EmitSignal("MouseDoubleClicked", mode_manager.current_level.GetGlobalMousePosition());
+		if (event_button is { DoubleClick: true, ButtonIndex: MouseButton.Left }){
+			EmitSignal("MouseDoubleClicked", mode_manager.current_level.GetLocalMousePosition());
 		}
-		if (event_button != null && event_button.Pressed && event_button.ButtonIndex == MouseButton.Right){
-			EmitSignal("MouseRightPressed", mode_manager.current_level.GetGlobalMousePosition());
+		if (event_button is { Pressed: true, ButtonIndex: MouseButton.Right }){
+			EmitSignal("MouseRightPressed", mode_manager.current_level.GetLocalMousePosition());
 		}
 	}
 }

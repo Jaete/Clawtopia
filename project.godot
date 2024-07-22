@@ -16,7 +16,6 @@ config/features=PackedStringArray("4.2", "C#", "Forward Plus")
 
 [display]
 
-window/stretch/mode="viewport"
 window/vsync/vsync_mode=0
 
 [dotnet]

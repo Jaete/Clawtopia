@@ -113,6 +113,13 @@ state_machine = NodePath("FSM")
 agent = NodePath("Navigation")
 sprite = NodePath("Sprite")
 
+[node name="SelectionCircle" type="Line2D" parent="."]
+visible = false
+position = Vector2(-3, 0)
+points = PackedVector2Array(-11, -10, -14, -8, -16, -4, -16, 1, -13, 5, -8, 8, 1, 10, 12, 10, 19, 9, 24, 6, 28, 2, 29, -4, 28, -7, 26, -9, 22, -11, 16, -12, 1, -12, -11, -10)
+width = 2.0
+default_color = Color(1, 0.24, 0.24, 1)
+
 [node name="Sprite" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_df878")
 animation = &"Run up"
