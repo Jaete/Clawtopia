@@ -3,8 +3,8 @@ using System;
 
 public partial class BuildMode : GameMode {
 
-    public int TILE_SIZE_X = 48;
-    public int TILE_SIZE_Y = 24;
+    public int TILE_SIZE_X = 64;
+    public int TILE_SIZE_Y = 32;
 
     public Vector2 mouse_position;
 
@@ -36,6 +36,15 @@ public partial class BuildMode : GameMode {
             Instantiate_building(building_path);
             current_building.self_index = mode_manager.salmon_cottage_count;
             current_building.Name = "" + mode_manager.resource_build_type + "_" + current_building.self_index;
+            current_building.data = GD.Load<BuildingData>("res://Resources/Buildings/Economy/Salmon/SalmonCottage.tres");
+        }
+        if (building_type == "House"){
+            mode_manager.house_count++;
+            mode_manager.building_count++;
+            Instantiate_building(building_path);
+            current_building.self_index = mode_manager.house_count;
+            current_building.Name = "" + mode_manager.resource_build_type + "_" + current_building.self_index;
+            current_building.data = GD.Load<BuildingData>("res://Resources/Buildings/House/House.tres");
         }
         current_building.InputPickable = false;
         mode_manager.current_level.AddChild(current_building);

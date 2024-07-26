@@ -16,6 +16,7 @@ INTERACTION_SHAPE = ExtResource("2_fcrmy")
 GRID_SHAPE = ExtResource("1_xusfr")
 SPRITE_TEXTURE = ExtResource("3_oneiv")
 TYPE = "Tower"
+RESOURCE_TYPE = ""
 NAME = "Torre de Lutadores"
 HP = 2000
 NEEDS_REGION = true

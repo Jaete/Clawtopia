@@ -11,6 +11,7 @@ public partial class BuildingData : Resource
     [Export] public ConcavePolygonShape2D GRID_SHAPE;
     [Export] public Texture2D SPRITE_TEXTURE;    
     [Export] public String TYPE;
+    [Export] public String RESOURCE_TYPE;
     [Export] public String NAME;
     [Export] public int HP;
     [Export] public bool NEEDS_REGION = false;

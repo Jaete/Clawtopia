@@ -2,6 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://cwky3bhs42sy8" path="res://TSCN/Systems/LevelManager.tscn" id="1_85gth"]
 [ext_resource type="PackedScene" uid="uid://4bjsjso63cdu" path="res://TSCN/Systems/Director.tscn" id="2_4apo7"]
+[ext_resource type="Script" path="res://Scripts/Systems/LevelManager.cs" id="2_14iyr"]
 [ext_resource type="PackedScene" uid="uid://biyro53k4fy7v" path="res://TSCN/Systems/GameModes/BuildMode.tscn" id="3_rgtfs"]
 [ext_resource type="Script" path="res://Scripts/Systems/GameModes/ModeManager.cs" id="4_43tbe"]
 [ext_resource type="PackedScene" uid="uid://dx1ar78jg5hmu" path="res://TSCN/Systems/GameModes/SimulationMode.tscn" id="4_dnk3u"]
@@ -14,6 +15,7 @@
 y_sort_enabled = true
 
 [node name="LevelManager" parent="." instance=ExtResource("1_85gth")]
+script = ExtResource("2_14iyr")
 
 [node name="Director" parent="." instance=ExtResource("2_4apo7")]
 

@@ -27,7 +27,7 @@ public partial class SimulationMode : GameMode
 
     public override void _Ready(){
         Initialize();
-        tile_map = GetNode<TileMap>("/root/Game/LevelManager/Level/TileMap");
+        tile_map = GetNode<TileMap>("/root/Game/LevelManager/Level/Navigation/TileMap");
     }
 
     public override void Enter() {  }
@@ -101,6 +101,8 @@ public partial class SimulationMode : GameMode
             if (area_in_front.GetParent() is Ally ally){
                 selected_allies.Add(ally);
                 ally.currently_selected = true;
+                var selection_circle = ally.GetNode<Line2D>("SelectionCircle");
+                selection_circle.Visible = true;
                 ui.Instantiate_window("CommunistMenu");
             }
         }else{
@@ -108,6 +110,8 @@ public partial class SimulationMode : GameMode
                 if (area.GetParent() is Ally ally){
                     selected_allies.Add(ally);
                     ally.currently_selected = true;
+                    var selection_circle = ally.GetNode<Line2D>("SelectionCircle");
+                    selection_circle.Visible = true;
                 }
             }
             ui.Instantiate_window("CommunistMenu");
@@ -134,6 +138,8 @@ public partial class SimulationMode : GameMode
     public void Clear_selected_allies(){
         foreach (var ally in selected_allies){
             ally.currently_selected = false;
+            var selection_circle = ally.GetNode<Line2D>("SelectionCircle");
+            selection_circle.Visible = false;
         }
         selected_allies.Clear();
     }
