@@ -23,6 +23,9 @@ public partial class Ally : CharacterBody2D
     public bool delivering;
     public Vector2 current_resource_last_position = new();
     public int resource_current_quantity;
+    public bool ally_is_building;
+    public bool interacted_with_building;
+    public Building construction_to_build;
     
     // REFERENCIA PARA O LEVEL MANAGER, QUE TERÁ OS DADOS DE RECURSO DO JOGADOR
     public LevelManager level_manager;
@@ -32,7 +35,7 @@ public partial class Ally : CharacterBody2D
     }
 
     public void Initialize(){
-        current_level = GetNode<Node2D>("/root/Game/LevelManager/Level");
         level_manager = GetNode<LevelManager>("/root/Game/LevelManager");
+        current_level = level_manager.GetNode<Node2D>("Level");
     }
 }

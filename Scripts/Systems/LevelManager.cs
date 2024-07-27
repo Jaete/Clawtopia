@@ -15,7 +15,7 @@ public partial class LevelManager : Node2D
 	public Array<Building> salmon_buildings = new();
 	public Array<Building> catnip_buildings = new();
 	public Array<Building> sand_buildings = new();
-	// AS CONSTRUCOES VAO INSERIR A SI MESMAS AQUI
+	// AS CONSTRUCOES VAO INSERIR A SI MESMAS AQUI SEMPRE QUE INSTANCIADAS
 
 	public UI ui;
 	public Control res_count;

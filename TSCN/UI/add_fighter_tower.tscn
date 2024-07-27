@@ -18,6 +18,7 @@ offset_right = 54.0
 offset_bottom = 52.0
 grow_horizontal = 2
 grow_vertical = 0
+mouse_filter = 1
 script = ExtResource("1_73fny")
 building = ExtResource("2_7ijhs")
 

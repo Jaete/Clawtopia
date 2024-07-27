@@ -1,6 +1,7 @@
 using Godot;
 using System;
 using System.IO;
+using Godot.Collections;
 
 public partial class Building : Area2D
 {
@@ -23,6 +24,15 @@ public partial class Building : Area2D
     
     public int self_index;
     public bool placed;
+    public bool is_built;
+    
+    // TIMER PARA TICK DE TEMPO DE CONSTRUCAO
+    public SceneTreeTimer build_tick_timer;
+    // TEMPO EM SEGUNDOS POR TICK
+    public float TICK_TIME = 1.0f;
+    public int progress;
+    public int max_progress = 50;
+    public Array<Ally> current_builders = new();
 
     [Export] public bool is_pre_spawned = false;
     [Export] public BuildingData data;
@@ -44,7 +54,6 @@ public partial class Building : Area2D
         building_mode = GetNode<BuildMode>("/root/Game/ModeManager/BuildMode");
         region = GetNode<NavigationRegion2D>("../Navigation");
         static_body = GetNode<StaticBody2D>("NavigationBody");
-        GD.Print("STATIC DESSA BUILDIG: ", static_body);
         simulation_mode = GetNode<SimulationMode>("/root/Game/ModeManager/SimulationMode");
         level_manager = GetNode<LevelManager>("/root/Game/LevelManager");
         data.initialize();
@@ -67,16 +76,15 @@ public partial class Building : Area2D
         region.BakeFinished += When_free_to_rebake;
         AboutToInteract += simulation_mode.When_about_to_interact_with_building;
         RemovedInteraction += simulation_mode.When_interaction_with_building_removed;
+        building_mode.ConstructionStarted += When_construction_started;
         CallDeferred("Add_self_on_list");
     }
 
     public void Add_self_on_list(){
         switch (data.RESOURCE_TYPE){
             case "Salmon":
-                GD.Print("Try to add salmon");
                 resource_type = "Salmon";
                 level_manager.salmon_buildings.Insert(level_manager.salmon_buildings.Count, this);
-                GD.Print("salmon added");
                 break;
             case "Catnip":
                 resource_type = "Catnip";
@@ -89,8 +97,7 @@ public partial class Building : Area2D
             default:
                 resource_type = null;
                 break;
-        }
-        GD.Print("Kek?");
+        }   
     }
 
     public void Set_rebake() {
@@ -102,6 +109,7 @@ public partial class Building : Area2D
     public void Rebake_add_building() {
         if (is_pre_spawned) {
             Set_rebake();
+            is_built = true;
             return;
         }
         if (mode_manager.current_mode is BuildMode) {
@@ -133,9 +141,28 @@ public partial class Building : Area2D
         }
     }
 
+    public void When_construction_started(Building building){
+        if (is_built){ return; }
+        progress = 0;
+        build_tick_timer = GetTree().CreateTimer(TICK_TIME);
+        build_tick_timer.Timeout += When_construction_time_elapsed;
+    }
+    public void When_construction_time_elapsed(){
+        if (is_built){ return;}
+        var next_progress = progress + current_builders.Count;
+        if (next_progress < max_progress){
+            progress = next_progress;
+            build_tick_timer = GetTree().CreateTimer(TICK_TIME);
+            build_tick_timer.Timeout += When_construction_time_elapsed;
+            return;
+        }
+        building_mode.EmitSignal("BuildCompleted", this);
+        is_built = true;
+    }
+
     public override void _MouseEnter(){
         if (mode_manager.current_mode is SimulationMode){
-            Modulate = HOVER_COLOR;
+            Modulate = is_built ? HOVER_COLOR : OK_COLOR;
             if (simulation_mode.selected_allies.Count > 0){
                 EmitSignal("AboutToInteract", this);
             }
@@ -143,7 +170,7 @@ public partial class Building : Area2D
     }
     public override void _MouseExit(){
         if (mode_manager.current_mode is SimulationMode){
-            Modulate = REGULAR_COLOR;
+            Modulate = is_built ? REGULAR_COLOR : OK_COLOR;
             if (simulation_mode.selected_allies.Count > 0){
                 EmitSignal("RemovedInteraction");
             }

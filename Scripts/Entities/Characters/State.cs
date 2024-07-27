@@ -1,41 +1,31 @@
 using Godot;
-using Godot.Collections;
 using System;
-using System.Diagnostics;
-using static Godot.WebSocketPeer;
 
-public partial class AllyState : Node
+
+public partial class State : Node
 {
-    public const string CATNIP = "catnip";
-    public const string SALMON = "salmon";
-    public const string SAND  = "sand";
-
     [Signal]
-    public delegate void StateTransitionEventHandler(AllyState current, String next);
-
-    public Ally ally;
+    public delegate void StateTransitionEventHandler(State current, String next);
     
+    //STRINGS
+    public const string SALMON = "salmon";
+    public const string CATNIP = "catnip";
+    public const string SAND = "sand";
+    
+    // VARIAVEIS DE REFERENCIA
+    public Ally self;
     public SimulationMode simulation_mode;
+    public BuildMode build_mode;
     public ModeManager mode_manager;
-    
     public Controller controller;
-    
-    public bool interacted_with_building;
-    
-    
-    
     public override void _Ready() {
         Initialize();
     }
-    
-    public virtual void Enter(){
-    }
-
-    public virtual void Update(double _delta) {
-    }
-
-    public virtual void Exit(){
-    }
+    public virtual void Enter(){}
+    public virtual void Update(double _delta){}
+    public virtual void Exit(){}
+    public virtual void When_mouse_right_clicked(Vector2 coords){}
+    public virtual void When_navigation_finished(){}
 
     /// <summary>
     /// Inicializacao basica para todos os estados.
@@ -45,33 +35,58 @@ public partial class AllyState : Node
     /// já realiza este trabalho.
     /// </summary>
     public void Initialize(){
-        ally = GetParent().GetParent<Ally>();
+        self = GetParent().GetParent<Ally>();
         controller = GetNode<Controller>("/root/Game/Controller");
         mode_manager = GetNode<ModeManager>("/root/Game/ModeManager");
         simulation_mode = mode_manager.GetNode<SimulationMode>("SimulationMode");
-        ally.agent.VelocityComputed += When_velocity_computed;
-        controller.MouseRightPressed += When_mouse_right_clicked;
-        ally.agent.NavigationFinished += When_navigation_finished;
+        build_mode = mode_manager.GetNode<BuildMode>("BuildMode");
+        self.agent.VelocityComputed += When_velocity_computed;
+        build_mode.ConstructionStarted += When_build_started;
+        build_mode.BuildCompleted += When_build_completed;
     }
 
     public void Change_state(string next){
         EmitSignal("StateTransition", this, next);
     }
-
+    
     public void Set_target_position(Vector2 coords){
-        ally.agent.TargetPosition = coords;
-        
+        self.agent.TargetPosition = coords;
     }
-
+    public void When_build_started(Building building){
+        if (!self.currently_selected){ return; }
+        self.ally_is_building = true;
+        self.construction_to_build = building;
+        Set_target_position(self.construction_to_build.GlobalPosition);
+        Change_state("Move");
+    }
+    public void When_build_completed(Building building){
+        if (build_mode.current_constructors.Contains(self)){
+            self.ally_is_building = false;
+            Change_state("Idle");
+        }
+    }
     public void When_velocity_computed(Vector2 safe_velocity) {
-        ally.Velocity = safe_velocity * ally.attributes.move_speed;
-        ally.MoveAndSlide();
+        self.Velocity = safe_velocity * self.attributes.move_speed;
+        self.MoveAndSlide();
     }
-
-    public virtual void When_mouse_right_clicked(Vector2 coords){
-    }
-
-    public virtual void When_navigation_finished(){
+    public void Choose_next_target_position(Vector2 coords){
+        if (!self.currently_selected) return;
+        self.interacted_with_building = simulation_mode.building_to_interact != null;
+        if (self.interacted_with_building){
+            Set_target_position(recalculate_coords(
+                self.GlobalPosition,
+                simulation_mode.building_to_interact.GlobalPosition));
+            self.interacted_building = simulation_mode.building_to_interact;
+        }else if (Is_interacting_with_water_at(coords)){
+            self.interacted_resource = "salmon"; // VARIAVEL NO ALIADO BASE PARA REFERENCIA
+            self.interacted_building = null;
+            self.current_resource_last_position = Get_closest_water_coord();
+            Set_target_position(self.current_resource_last_position);
+        }else{
+            self.interacted_resource = null;
+            self.interacted_building = null;
+            Set_target_position(coords);
+        }
     }
     
     /// <summary>
@@ -91,13 +106,24 @@ public partial class AllyState : Node
         );
         return new_coords;
     }
-
+    /// <summary>
+    /// Verifica se esta interagindo com um tile de agua, usando DataLayer no Tileset.
+    /// Pressupoe-se que nao esta interagindo com uma estrutura ou inimigo, pois a verificacao
+    /// deles é feita primeiro.
+    /// </summary>
+    /// <param name="coords">A posicao global do clique.</param>
+    /// <returns> <c>bool</c> Se é agua ou não.</returns>
     public bool Is_interacting_with_water_at(Vector2 coords){
         var map_coords = simulation_mode.tile_map.LocalToMap(coords);
         var data = simulation_mode.tile_map.GetCellTileData(0, map_coords, true);
         return (bool) data.GetCustomData("is_water");
     }
-
+    
+    /// <summary>
+    /// Procura todos os tiles de agua no cenario e retorna as coordenadas globais do
+    /// tile mais proximo.
+    /// </summary>
+    /// <returns> <c>Vector2</c> Coordenadas globais do tile mais proximo.</returns>
     public Vector2 Get_closest_water_coord(){
         var tilemap = simulation_mode.tile_map;
         var water_tiles = tilemap.GetUsedCellsById(1);
@@ -107,55 +133,36 @@ public partial class AllyState : Node
             var global_tile_pos = tilemap.ToGlobal(local_tile_pos);
             if (closest_tile == default){
                 closest_tile = global_tile_pos;
-            }else if (ally.GlobalPosition.DistanceSquaredTo(closest_tile) > ally.GlobalPosition.DistanceSquaredTo(global_tile_pos)){
+            }else if (self.GlobalPosition.DistanceSquaredTo(closest_tile) > self.GlobalPosition.DistanceSquaredTo(global_tile_pos)){
                 closest_tile = global_tile_pos;
             }
         }
         return closest_tile;
     }
 
-    public void Choose_next_target_position(Vector2 coords){
-        if (!ally.currently_selected) return;
-        interacted_with_building = simulation_mode.building_to_interact != null;
-        if (interacted_with_building){
-            Set_target_position(recalculate_coords(
-                ally.GlobalPosition,
-                simulation_mode.building_to_interact.GlobalPosition));
-            ally.interacted_building = simulation_mode.building_to_interact;
-        }else if (Is_interacting_with_water_at(coords)){
-            ally.interacted_resource = "salmon"; // VARIAVEL NO ALIADO BASE PARA REFERENCIA
-            ally.interacted_building = null;
-            ally.current_resource_last_position = Get_closest_water_coord();
-            Set_target_position(ally.current_resource_last_position);
-        }else{
-            ally.interacted_resource = null;
-            ally.interacted_building = null;
-            Set_target_position(coords);
-        }
-        Change_state("Move");
-    }
-
+    /// <summary>
+    /// Procura todos os nodes de construcoes do recurso especifico no cenario
+    /// e retorna as coordenadas globais da construcao mais proxima.
+    ///
+    /// Utiliza-se da funcao <c>Compare_distance_to_building</c> para evitar repeticao
+    /// de codigo.
+    /// </summary>
+    /// <returns> <c>Vector2</c> Coordenadas globais da construcao mais proxima</returns>
     public Vector2 Get_closest_resource_building(Vector2 coords, string resource){
-        /* Logica: 
-         * Pega a coordenada do aliado e procura em todos os nodes de construcao daquele recurso
-         * Esses nodes ficam no level manager na hora do load da fase
-         * Calcula o distanceTo e retorna a coordenada do node mais proximo
-         */
-        GD.Print("SALMON BUILDINGS: ", ally.level_manager.salmon_buildings);
         Vector2 closest_building_position = default;
         switch (resource){
             case SALMON:
-                foreach (var building in ally.level_manager.salmon_buildings){
+                foreach (var building in self.level_manager.salmon_buildings){
                     closest_building_position = Compare_distance_to_building(coords, closest_building_position, building);
                 }
                 break;
             case CATNIP:
-                foreach (var building in ally.level_manager.catnip_buildings){ 
+                foreach (var building in self.level_manager.catnip_buildings){ 
                     closest_building_position = Compare_distance_to_building(coords, closest_building_position, building);
                 }
                 break;
             case SAND:
-                foreach (var building in ally.level_manager.sand_buildings){ 
+                foreach (var building in self.level_manager.sand_buildings){ 
                     closest_building_position = Compare_distance_to_building(coords, closest_building_position, building);
                 }
                 break;
@@ -174,5 +181,4 @@ public partial class AllyState : Node
         }
         return closest_building_position;
     }
-
 }
