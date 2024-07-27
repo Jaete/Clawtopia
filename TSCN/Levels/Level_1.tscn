@@ -8,8 +8,8 @@
 [ext_resource type="Resource" uid="uid://rbysc2ofq5sq" path="res://Resources/Buildings/House/House.tres" id="13_r3s7s"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_1eas2"]
-vertices = PackedVector2Array(1446.96, 367.031, 611.961, 793.789, -236.68, 367.031, 611.961, -56.7891)
-polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
+vertices = PackedVector2Array(611, -56, 1446, 367, 611, 793, 298, 326, 298, 314, 32, 459, -237, 367, -106, 390, -106, 378, 160, 245)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3, 4), PackedInt32Array(5, 3, 2), PackedInt32Array(5, 2, 6, 7), PackedInt32Array(8, 7, 6), PackedInt32Array(8, 6, 0, 9), PackedInt32Array(0, 4, 9)])
 outlines = Array[PackedVector2Array]([PackedVector2Array(612, 805, -259, 367, 612, -68, 1469, 367)])
 parsed_geometry_type = 1
 source_geometry_group_name = &"navigation_polygon_source_group"

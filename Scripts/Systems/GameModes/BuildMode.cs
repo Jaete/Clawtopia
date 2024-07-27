@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using Godot.Collections;
 
 public partial class BuildMode : GameMode {
 
@@ -12,6 +13,8 @@ public partial class BuildMode : GameMode {
 
     public Building current_building;
     public bool is_overlapping_buildings = false;
+
+    public Array<Ally> current_constructors;
     public override void Enter() {
         String building_path = "res://TSCN/Entities/Buildings/Building.tscn";
         if(building_type == "Tower") {
@@ -50,6 +53,7 @@ public partial class BuildMode : GameMode {
         mode_manager.current_level.AddChild(current_building);
         mouse_position = mode_manager.current_level.GetGlobalMousePosition();
         current_building.GlobalPosition = mouse_position;
+        current_constructors = GetNode<SimulationMode>("../SimulationMode").selected_allies;
     }
 
     public override void Update() {
@@ -73,9 +77,10 @@ public partial class BuildMode : GameMode {
     private void Confirm_building() {
         if (!is_overlapping_buildings) {
             current_building.Rebake_add_building();
-            current_building.Modulate = current_building.REGULAR_COLOR;
             current_building.Rebake();
             current_building.InputPickable = true;
+            EmitSignal("ConstructionStarted", current_building);
+            BuildCompleted += When_building_completed;
             EmitSignal("ModeTransition", "SimulationMode", "", "");
         }
     }
@@ -126,5 +131,10 @@ public partial class BuildMode : GameMode {
     private void Instantiate_building(String building_path) {
         PackedScene building_scene = GD.Load<PackedScene>(building_path);
         current_building = (Building)building_scene.Instantiate();
+    }
+
+    public void When_building_completed(Building building){
+        building.Modulate = building.REGULAR_COLOR;
+        building.current_builders.Clear();
     }
 }

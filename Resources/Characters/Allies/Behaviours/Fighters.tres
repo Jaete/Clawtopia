@@ -1,6 +1,0 @@
-[gd_resource type="Resource" load_steps=2 format=3 uid="uid://cmi65woysvaax"]
-
-[ext_resource type="Script" path="res://Scripts/Entities/Characters/Allies/Behaviour.cs" id="1_per1b"]
-
-[resource]
-script = ExtResource("1_per1b")

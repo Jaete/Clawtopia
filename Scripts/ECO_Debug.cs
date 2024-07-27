@@ -11,7 +11,6 @@ public partial class ECO_Debug : Label
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta){
-		Text = ally.current_state.Name + "\n" +
-		       "States: " + ally.states;
+		Text = ally.current_state.Name +"\n" + ally.current_state.self.ally_is_building;
 	}
 }

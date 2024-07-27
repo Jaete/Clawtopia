@@ -64,16 +64,14 @@ public partial class UI : CanvasLayer
 
     public void Enter_ui_mode(){
         if (mode_manager.current_mode is SimulationMode){
-            GD.Print("Entrei na UI Mode");
-            mode_manager.Change_mode(ui_mode.Name, "", "");    
+            mode_manager.Change_mode(ui_mode.Name, "", "");
         }
     }
 
     public void Leave_ui_mode(){
         if (mode_manager.current_mode is UIMode) {
-            GD.Print("Sai da UI Mode");
             var simulation_mode = (SimulationMode) mode_manager.game_modes["SimulationMode"];
-            mode_manager.Change_mode(simulation_mode.Name, "", "");        
+            mode_manager.Change_mode(simulation_mode.Name, "", "");
         }
     }
 }
