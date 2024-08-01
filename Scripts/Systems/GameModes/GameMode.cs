@@ -6,7 +6,11 @@ using System.Threading;
 public partial class GameMode : Node2D {
     [Signal]
     public delegate void ModeTransitionEventHandler(String mode, String building, String type);
-    
+
+    [Signal]
+    public delegate void ConstructionStartedEventHandler(Building building);
+    [Signal]
+    public delegate void BuildCompletedEventHandler(Building building);
 
     public Director director;
     public Node2D current_level;

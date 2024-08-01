@@ -6,23 +6,30 @@ using System.Runtime.Serialization;
 
 public partial class StateMachine : Node
 {
+    public NavigationAgent2D navigation;
+    public Controller controller;
+    
     public Dictionary states = new();
-    public AllyState current_state;
+    public State current_state;
     public bool in_transition;
     
     [Export] 
-    public AllyState default_state;
+    public State default_state;
 
     public override void _Ready(){
+        navigation = GetNode<NavigationAgent2D>("../Navigation");
+        controller = GetNode<Controller>("/root/Game/Controller");
         Array<Node> node_states = GetChildren();
         foreach(var node in node_states){
-            if (node is AllyState state){
+            if (node is State state){
                 state.StateTransition += Change_state;
                 states[state.Name] = state;
             }
         }
-        current_state = (AllyState)states[default_state.Name];
+        current_state = (State)states[default_state.Name];
         current_state.Enter();
+        controller.MouseRightPressed += When_mouse_right_clicked;
+        navigation.NavigationFinished += When_navigation_finished;
     }
 
     public override void _PhysicsProcess(double delta){
@@ -31,16 +38,24 @@ public partial class StateMachine : Node
         }
     }
 
-    public virtual void Change_state(AllyState current, String next){
+    public virtual void Change_state(State current, String next){
         in_transition = true;
         if(current.Name == next) {
             in_transition = false;
             return;
         }
         current_state.Exit();
-        current_state = (AllyState)states[next]; ;
+        current_state = (State)states[next]; ;
         current_state.Enter();
         in_transition = false;
+    }
+    
+    public void When_mouse_right_clicked(Vector2 coords){
+        current_state.When_mouse_right_clicked(coords);
+    }
+
+    public void When_navigation_finished(){
+        current_state.When_navigation_finished();
     }
 }
 

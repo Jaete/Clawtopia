@@ -1,15 +1,15 @@
 using Godot;
 using System;
 
-public partial class MilitaryIdle : AllyState
+public partial class MilitaryIdle : State
 {
     public override void _Ready(){
-        ally = GetParent().GetParent<Ally>();
+        self = GetParent().GetParent<Ally>();
         controller.MouseRightPressed += Start_move;
     }
 
     public override void Enter(){
-        ally.Velocity = Vector2.Zero;
+        self.Velocity = Vector2.Zero;
     }
 
     public override void Update(double _delta){
@@ -17,7 +17,6 @@ public partial class MilitaryIdle : AllyState
     }
 
     public override void Exit(){
-        base.Exit();
     }
 
     public void Start_move(Vector2 coords){

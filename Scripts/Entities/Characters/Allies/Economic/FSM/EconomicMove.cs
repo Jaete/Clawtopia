@@ -1,7 +1,7 @@
 using Godot;
 using Godot.Collections;
 
-public partial class EconomicMove : AllyState
+public partial class EconomicMove : State
 {
     public bool is_current_state;
     public override void Enter(){
@@ -13,17 +13,17 @@ public partial class EconomicMove : AllyState
     }
 
     public void Move(){
-        var next_path_pos = ally.agent.GetNextPathPosition();
-        var new_velocity = ally.GlobalPosition.DirectionTo(next_path_pos);
-        if (ally.agent.AvoidanceEnabled){
-            ally.agent.Velocity = new_velocity.Normalized();
+        var next_path_pos = self.agent.GetNextPathPosition();
+        var new_velocity = self.GlobalPosition.DirectionTo(next_path_pos);
+        if (self.agent.AvoidanceEnabled){
+            self.agent.Velocity = new_velocity.Normalized();
         }else{
             When_velocity_computed(new_velocity.Normalized());
         }
-        if (Input.IsActionPressed("RightClick") && ally.currently_selected){
-            Set_target_position(ally.GetGlobalMousePosition());
+        if (Input.IsActionPressed("RightClick") && self.currently_selected){
+            Set_target_position(self.GetGlobalMousePosition());
         }
-        Check_animation_direction(ally.Velocity);
+        Check_animation_direction(self.Velocity);
     }
 
     public override void Exit(){
@@ -31,12 +31,17 @@ public partial class EconomicMove : AllyState
     }
 
     public override void When_mouse_right_clicked(Vector2 coords){
+        if (!self.currently_selected){ return; }
         Choose_next_target_position(coords);
     }
 
     public override void When_navigation_finished(){
-        if (interacted_with_building){
-            switch (ally.interacted_building.data.TYPE){
+        if (self.ally_is_building){
+            Change_state("Building");
+            return;
+        }
+        if (self.interacted_with_building){
+            switch (self.interacted_building.data.TYPE){
                 case "GreatCommune":
                     Change_state("Taking_shelter");
                     return;
@@ -44,30 +49,31 @@ public partial class EconomicMove : AllyState
                     Change_state("Collecting");
                     return;
             }
+            if (!self.interacted_building.is_built){
+                self.construction_to_build = self.interacted_building;
+                Change_state("Building");
+                return;
+            }
         }
-        if (ally.interacted_resource != null && !ally.delivering){
-            GD.Print("COLLECTING");
+        if (self.interacted_resource != null && !self.delivering){
             Change_state("Collecting");
             return;
-        } if (ally.delivering){
-            GD.Print("DELIVERING");
-            GD.Print("Last pos: ", ally.current_resource_last_position);
-            GD.Print("I HAVE: ", ally.resource_current_quantity);
-            Set_target_position(ally.current_resource_last_position);
-            switch (ally.interacted_resource){
+        }
+        if (self.delivering){
+            Set_target_position(self.current_resource_last_position);
+            switch (self.interacted_resource){
                 case CATNIP:
-                    ally.level_manager.EmitSignal("ResourceDelivered", CATNIP, ally.resource_current_quantity);
+                    self.level_manager.EmitSignal("ResourceDelivered", CATNIP, self.resource_current_quantity);
                     break;
                 case SALMON:
-                    ally.level_manager.EmitSignal("ResourceDelivered", SALMON, ally.resource_current_quantity);
+                    self.level_manager.EmitSignal("ResourceDelivered", SALMON, self.resource_current_quantity);
                     break;
                 case SAND:
-                    ally.level_manager.EmitSignal("ResourceDelivered", SAND, ally.resource_current_quantity);
+                    self.level_manager.EmitSignal("ResourceDelivered", SAND, self.resource_current_quantity);
                     break;
             }
-            ally.resource_current_quantity = 0;
-            ally.delivering = false;
-            GD.Print("my target pos: ", ally.agent.TargetPosition);
+            self.resource_current_quantity = 0;
+            self.delivering = false;
             return;
         }
         Change_state("Idle");
@@ -76,23 +82,23 @@ public partial class EconomicMove : AllyState
     public void Check_animation_direction(Vector2 current_velocity){
         // PARA DIREITA E BAIXO
         if (current_velocity.X > 0 && current_velocity.Y > 0){
-            ally.sprite.Play("Run down");
-            ally.sprite.FlipH = false;
+            self.sprite.Play("Run down");
+            self.sprite.FlipH = false;
         }
         // PARA A ESQUERDA E BAIXO
         if (current_velocity.X < 0 && current_velocity.Y > 0){
-            ally.sprite.Play("Run down");
-            ally.sprite.FlipH = true;
+            self.sprite.Play("Run down");
+            self.sprite.FlipH = true;
         }
         // PARA A ESQUERDA E CIMA
         if (current_velocity.X < 0 && current_velocity.Y < 0){
-            ally.sprite.Play("Run up");
-            ally.sprite.FlipH = true;
+            self.sprite.Play("Run up");
+            self.sprite.FlipH = true;
         }
         // PARA A DIREITA E CIMA
         if (current_velocity.X > 0 && current_velocity.Y < 0){
-            ally.sprite.Play("Run up");
-            ally.sprite.FlipH = false;
+            self.sprite.Play("Run up");
+            self.sprite.FlipH = false;
         }
     }
 }

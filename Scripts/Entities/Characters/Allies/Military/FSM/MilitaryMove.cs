@@ -1,7 +1,7 @@
 using Godot;
 using System;
 
-public partial class MilitaryMove : AllyState
+public partial class MilitaryMove : State
 {
     public override void Enter(){
     }
