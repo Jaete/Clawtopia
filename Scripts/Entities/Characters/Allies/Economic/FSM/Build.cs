@@ -16,7 +16,7 @@ public partial class Build : State
 
 	public override void When_mouse_right_clicked(Vector2 coords){
 		if (!self.currently_selected){ return; }
-		Choose_next_target_position(coords);
+		Choose_next_target_position_ECONOMIC(coords);
 		Change_state("Move");
 	}
 	public override void When_navigation_finished(){}

@@ -20,3 +20,4 @@ NAME = "Cabana do Pescador"
 HP = 500
 NEEDS_REGION = true
 REGION_RECT = Rect2(7, 12, 211, 177)
+max_progress = 50

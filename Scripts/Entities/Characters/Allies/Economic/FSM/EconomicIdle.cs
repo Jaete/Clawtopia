@@ -4,11 +4,8 @@ using Godot;
 
 public partial class EconomicIdle : State
 {
-    public bool is_current_state;
-
     public override void Enter(){
         self.Velocity = Vector2.Zero;
-        is_current_state = true;
         /* TODO
          Tocar animacao de idle quando houver
         */
@@ -20,12 +17,11 @@ public partial class EconomicIdle : State
     }
 
     public override void Exit(){
-        is_current_state = false;
     }
 
     public override void When_mouse_right_clicked(Vector2 coords){
-        if (!self.currently_selected){ return; }
-        Choose_next_target_position(coords);
+        if(!self.currently_selected){ return; }
+        Choose_next_target_position_ECONOMIC(coords);
         Change_state("Move");
     }
 }
