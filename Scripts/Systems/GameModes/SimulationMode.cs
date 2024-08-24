@@ -96,14 +96,14 @@ public partial class SimulationMode : GameMode
             var area_in_front = Select_top_unit(overlapping_areas);
             if (area_in_front is Building building){
                 selected_buildings.Add(building);
-                ui.Instantiate_window("BuildingMenu", building);
+                ui.Instantiate_window(Constants.BUILDING_MENU, building);
             }
             if (area_in_front.GetParent() is Ally ally){
                 selected_allies.Add(ally);
                 ally.currently_selected = true;
                 var selection_circle = ally.GetNode<Line2D>("SelectionCircle");
                 selection_circle.Visible = true;
-                ui.Instantiate_window("CommunistMenu");
+                ui.Instantiate_window(Constants.COMMUNIST_MENU);
             }
         }else{
             foreach (var area in overlapping_areas){
@@ -114,7 +114,7 @@ public partial class SimulationMode : GameMode
                     selection_circle.Visible = true;
                 }
             }
-            ui.Instantiate_window("CommunistMenu");
+            ui.Instantiate_window(Constants.COMMUNIST_MENU);
         }
         Erase_selection_box();
     }

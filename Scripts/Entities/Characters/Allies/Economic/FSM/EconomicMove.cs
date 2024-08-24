@@ -30,10 +30,10 @@ public partial class EconomicMove : State
                 return;
             }
             switch (self.interacted_building.data.TYPE){
-                case "GreatCommune":
+                case Constants.TOWER:
                     Change_state("Taking_shelter");
                     return;
-                case "Resource":
+                case Constants.RESOURCE:
                     Seek_resource(self.interacted_building.data.RESOURCE_TYPE);
                     return;
             }

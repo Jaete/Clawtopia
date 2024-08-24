@@ -31,17 +31,17 @@ public partial class UI : CanvasLayer
     
     public void Instantiate_window(String window, Building building = null) {
         switch (window) {
-            case "BuildingMenu":
+            case Constants.BUILDING_MENU:
                 if (building != null){
                     building_menu_control = building_menu.Instantiate<BuildingMenu>();
                     building_menu_control.building = building;
-                    building_menu_control.Name = "BuildingMenu";
+                    building_menu_control.Name = Constants.COMMUNIST_MENU;
                     current_window = building_menu_control;
                 }
                 break;
-            case "CommunistMenu":
+            case Constants.COMMUNIST_MENU:
                 current_window = communist_menu.Instantiate<CommunistMenu>();
-                current_window.Name = "CommunistMenu";
+                current_window.Name = Constants.COMMUNIST_MENU;
                 break;
         }
         var previous_menu = GetNodeOrNull("HBoxContainer").GetChild<Control>(0);
@@ -57,7 +57,7 @@ public partial class UI : CanvasLayer
         var previous_menu = GetNodeOrNull("HBoxContainer").GetChild<Control>(0);
         previous_menu.QueueFree();
         current_window = base_menu.Instantiate<Control>();
-        current_window.Name = "BaseMenu";
+        current_window.Name = Constants.BASE_MENU;
         container.AddChild(current_window);
         is_resetting_ui = false;
     }

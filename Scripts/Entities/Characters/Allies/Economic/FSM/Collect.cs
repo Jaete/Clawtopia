@@ -7,7 +7,7 @@ public partial class Collect : State
 	// TIMER PARA TICK DE RECURSO COLETADO
 	public SceneTreeTimer resource_tick_timer;
 	// IDENTIFICADOR DO RECURSO SENDO COLETADO ATUALMENTE
-	public string currently_collecting = null;
+	public string currently_collecting;
 	// CAPACIDADE MAXIMA DE RECURSO DA UNIDADE
 	[Export] public int MAX_QUANTITY = 15;
 	// QUANTIDADE ATUAL
@@ -30,7 +30,7 @@ public partial class Collect : State
 
 	public override void Exit(){
 		resource_tick_timer.Timeout -= When_ticked;
-      currently_collecting = null; // NA SAIDA DO ESTADO, MODIFICAR PARA NULL
+		currently_collecting = null; // NA SAIDA DO ESTADO, MODIFICAR PARA NULL
 	}
 
 	public void When_ticked(){

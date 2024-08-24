@@ -9,6 +9,7 @@ public partial class BuildingMenu : Control
     public ModeManager mode_manager;
 
     public override void _Ready() {
+        Name = Constants.BUILDING_MENU;
         mode_manager = GetNode<ModeManager>("/root/Game/ModeManager");
         ui = GetNode<UI>("/root/Game/UI");
         remove_tower_button = GetNode<Button>("Button");
