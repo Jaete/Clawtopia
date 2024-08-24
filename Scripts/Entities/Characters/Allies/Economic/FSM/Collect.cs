@@ -9,13 +9,13 @@ public partial class Collect : State
 	// IDENTIFICADOR DO RECURSO SENDO COLETADO ATUALMENTE
 	public string currently_collecting = null;
 	// CAPACIDADE MAXIMA DE RECURSO DA UNIDADE
-	public int MAX_QUANTITY = 15;
+	[Export] public int MAX_QUANTITY = 15;
 	// QUANTIDADE ATUAL
 	
 	// CONSTANTE DE QUANTOS AUMENTA POR TICK
-	public int QUANTITY_PER_TICK = 3;
+	[Export] public float QUANTITY_PER_TICK = 3;
 	// TEMPO EM SEGUNDOS POR TICK
-	public float TICK_TIME = 1.0f;
+	[Export] public float TICK_TIME = 1.0f;
 	public override void Enter(){
 		// SEMPRE QUE ENTRAR NO ESTADO COLLECTING, MODIFICAR A VARIAVEL ACIMA
 		currently_collecting = self.interacted_resource;
@@ -53,7 +53,7 @@ public partial class Collect : State
 
 	public override void When_mouse_right_clicked(Vector2 coords){
 		if (!self.currently_selected){ return; }
-		Choose_next_target_position(coords);
+		Choose_next_target_position_ECONOMIC(coords);
 		Change_state("Move");
 	}
 }

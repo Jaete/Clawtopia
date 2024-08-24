@@ -21,3 +21,4 @@ NAME = "Torre de Lutadores"
 HP = 2000
 NEEDS_REGION = true
 REGION_RECT = Rect2(15, 640, 100, 129)
+max_progress = 75

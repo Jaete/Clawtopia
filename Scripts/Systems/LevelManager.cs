@@ -36,15 +36,15 @@ public partial class LevelManager : Node2D
 
 	public void When_resource_delivered(string resource, int quantity){
 		switch (resource){
-			case "catnip":
+			case Constants.CATNIP:
 				catnip_quantity += quantity;
 				catnip_label.Text = $"{catnip_quantity}";
 				break;
-			case "salmon":
+			case Constants.SALMON:
 				salmon_quantity += quantity;
 				salmon_label.Text = $"{salmon_quantity}";
 				break;
-			case "sand":
+			case Constants.SAND:
 				sand_quantity += quantity;
 				sand_label.Text = $"{sand_quantity}";
 				break;

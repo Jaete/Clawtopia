@@ -16,9 +16,9 @@ public partial class BuildingData : Resource
     [Export] public int HP;
     [Export] public bool NEEDS_REGION = false;
     [Export] public Rect2 REGION_RECT;
-    
+    [Export] public int max_progress;
     public int level;
-
+    
     public void initialize() {
         level = 1;
     }

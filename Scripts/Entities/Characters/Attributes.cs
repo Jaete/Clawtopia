@@ -15,4 +15,7 @@ public partial class Attributes : Resource
     public int vision_range;
     [Export]
     public int attack_range;
+
+    public const string MILITARY = "Military";
+    public const string ECONOMIC = "Economic";
 }
