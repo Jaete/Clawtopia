@@ -44,10 +44,10 @@ public partial class ModeManager : Node2D
         if (current_mode is BuildMode build_mode) {
             build_mode.building_type = building;
             switch (build_mode.building_type) {
-                case "Tower":
+                case Constants.TOWER:
                     tower_type = type;
                     break;
-                case "Resource":
+                case Constants.RESOURCE:
                     resource_build_type = type;
                     break;
             }
@@ -75,19 +75,19 @@ public partial class ModeManager : Node2D
             if (node is Building build){
                 building_count++;
                 Building building = build;
-                if (building.data.TYPE == "Tower") {
-                    if (building.Name.ToString().Contains("Lutadores")){
+                if (building.data.TYPE == Constants.TOWER) {
+                    if (building.Name.ToString().Contains(Constants.FIGHTERS)){
                         building.self_index = fighters_tower_count;
                         fighters_tower_count++;
                     }
                 }
-                if (building.data.TYPE == "Resource") { 
-                    if (building.Name.ToString().Contains("Pescador")){
+                if (building.data.TYPE == Constants.RESOURCE) { 
+                    if (building.Name.ToString().Contains(Constants.COMMUNIST)){
                         building.self_index = salmon_cottage_count;
                         salmon_cottage_count++;
                     }
                 }
-                if (building.data.TYPE == "GreatCommune") { 
+                if (building.data.TYPE == Constants.COMMUNE) { 
                     building.self_index = great_commune_count;
                     great_commune_count++;
                 }

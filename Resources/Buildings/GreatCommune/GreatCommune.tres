@@ -5,3 +5,13 @@
 [resource]
 resource_local_to_scene = true
 script = ExtResource("1_r233n")
+OFFSET = Vector2(0, 0)
+SCALE = Vector2(0, 0)
+INTERACTION_OFFSET = Vector2(0, 0)
+TYPE = ""
+TOWER_TYPE = ""
+RESOURCE_TYPE = ""
+HP = 0
+NEEDS_REGION = false
+REGION_RECT = Rect2(0, 0, 0, 0)
+max_progress = 0

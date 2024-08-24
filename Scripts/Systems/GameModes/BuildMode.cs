@@ -9,15 +9,15 @@ public partial class BuildMode : GameMode {
 
     public Vector2 mouse_position;
 
-    public String building_type;
+    public string building_type;
 
     public Building current_building;
     public bool is_overlapping_buildings = false;
 
     public Array<Ally> current_constructors;
     public override void Enter() {
-        String building_path = "res://TSCN/Entities/Buildings/Building.tscn";
-        if(building_type == "Tower") {
+        String building_path = Constants.BUILDING_PATH;
+        if(building_type == Constants.TOWER) {
             mode_manager.fighters_tower_count++;
             mode_manager.building_count++;
             Instantiate_building(building_path);
@@ -25,15 +25,15 @@ public partial class BuildMode : GameMode {
             current_building.Name = mode_manager.tower_type + "_T1_" + current_building.self_index;
             current_building.data = GD.Load<BuildingData>("res://Resources/Buildings/Towers/Fighters/Fighters.tres");
         }
-        if(building_type == "Commune"){
+        if(building_type == Constants.COMMUNE){
            mode_manager.great_commune_count++;
            mode_manager.building_count++;
            Instantiate_building(building_path);
            current_building.self_index = mode_manager.great_commune_count;
-           current_building.Name = "GreatCommune";   
+           current_building.Name = Constants.COMMUNE;   
            current_building.data = GD.Load<BuildingData>("res://Resources/Buildings/GreatCommune/GreatCommune.tres");
         }    
-        if(building_type == "Resource"){
+        if(building_type == Constants.RESOURCE){
             mode_manager.salmon_cottage_count++;
             mode_manager.building_count++;
             Instantiate_building(building_path);
@@ -41,7 +41,7 @@ public partial class BuildMode : GameMode {
             current_building.Name = "" + mode_manager.resource_build_type + "_" + current_building.self_index;
             current_building.data = GD.Load<BuildingData>("res://Resources/Buildings/Economy/Salmon/SalmonCottage.tres");
         }
-        if (building_type == "House"){
+        if (building_type == Constants.HOUSE){
             mode_manager.house_count++;
             mode_manager.building_count++;
             Instantiate_building(building_path);

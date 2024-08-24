@@ -1,3 +1,4 @@
+using System;
 using Godot;
 using Godot.Collections;
 
@@ -68,8 +69,32 @@ public partial class Building : Area2D
             sprite.RegionRect = data.REGION_RECT;
         }
         Name = data.NAME + "_" + data.TYPE + "_" + self_index;
-        if (data.TYPE.Equals("GreatCommune")){
-            Name = data.TYPE;
+        if (data.TYPE.Equals(Constants.COMMUNE)){
+            Name = Constants.COMMUNE_EXTERNAL_NAME;
+        }
+        if(data.TYPE == Constants.HOUSE){
+            Name = Constants.HOUSE_EXTERNAL_NAME;
+        }
+        if(data.TYPE == Constants.TOWER){
+            switch(data.TOWER_TYPE){
+                case Constants.FIGHTERS:
+                    Name = Constants.FIGHTERS_TOWER_EXTERNAL_NAME;
+                    break;
+                /*todo implementar o resto*/
+            }
+        }
+        if(data.TYPE == Constants.RESOURCE){
+            switch(data.RESOURCE_TYPE){
+                case Constants.SALMON:
+                    Name = Constants.FISHERMAN_HOUSE_EXTERNAL_NAME;
+                    break;
+                case Constants.CATNIP:
+                    /*TODO IMPLEMENTAR*/
+                    break;
+                case Constants.SAND:
+                    /*TODO IMPLEMENTAR*/
+                    break;
+            }
         }
         max_progress = data.max_progress;
         region.BakeFinished += When_free_to_rebake;
@@ -92,9 +117,6 @@ public partial class Building : Area2D
             case Constants.SAND:
                 resource_type = Constants.SAND;
                 level_manager.sand_buildings.Add(this);
-                break;
-            default:
-                resource_type = null;
                 break;
         }   
     }

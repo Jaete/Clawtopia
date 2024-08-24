@@ -6,6 +6,7 @@ public partial class CommunistMenu : Control
 	public UI ui;
 	
 	public override void _Ready(){
+		Name = Constants.COMMUNIST_MENU;
 		ui = GetNode<UI>("/root/Game/UI");
 		MouseEntered += ui.Enter_ui_mode;
 		MouseExited += ui.Leave_ui_mode;
