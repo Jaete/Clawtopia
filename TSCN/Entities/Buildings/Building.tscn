@@ -7,7 +7,6 @@
 [node name="Area2D" type="Area2D" node_paths=PackedStringArray("static_body", "body_shape", "interaction_shape", "grid_shape", "sprite")]
 priority = 1
 script = ExtResource("1_lxpyl")
-is_pre_spawned = null
 static_body = NodePath("NavigationBody")
 body_shape = NodePath("NavigationBody/Shape")
 interaction_shape = NodePath("Shape")

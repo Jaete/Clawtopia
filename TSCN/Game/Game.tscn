@@ -9,7 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://dg1278ax8xp1f" path="res://TSCN/UI/UI.tscn" id="5_72vwo"]
 [ext_resource type="Script" path="res://Scripts/Systems/GameModes/UIMode.cs" id="7_r6kcy"]
 [ext_resource type="Script" path="res://Scripts/Systems/Controller/Controller.cs" id="7_tf822"]
-[ext_resource type="Script" path="res://Scripts/Systems/Camera/CameraController.cs" id="9_s0om1"]
+[ext_resource type="PackedScene" uid="uid://btk6n4q8o0cri" path="res://TSCN/UI/GameCamera.tscn" id="10_vs6wa"]
 
 [node name="Game" type="Node2D"]
 y_sort_enabled = true
@@ -34,6 +34,12 @@ script = ExtResource("7_r6kcy")
 [node name="Controller" type="Node2D" parent="."]
 script = ExtResource("7_tf822")
 
-[node name="Camera2D" type="Camera2D" parent="."]
-anchor_mode = 0
-script = ExtResource("9_s0om1")
+[node name="Camera2D" parent="." instance=ExtResource("10_vs6wa")]
+limit_left = -2000
+limit_top = -750
+limit_right = 3200
+limit_bottom = 1500
+limit_smoothed = true
+drag_horizontal_enabled = true
+drag_vertical_enabled = true
+Speed = 1.0
