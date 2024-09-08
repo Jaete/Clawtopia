@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using System.Reflection.Metadata;
 
 public partial class BuildingData : Resource
 {
@@ -10,14 +11,15 @@ public partial class BuildingData : Resource
     [Export] public ConcavePolygonShape2D INTERACTION_SHAPE;
     [Export] public ConcavePolygonShape2D GRID_SHAPE;
     [Export] public Texture2D SPRITE_TEXTURE;    
-    [Export] public String TYPE;
-    [Export] public String RESOURCE_TYPE;
-    [Export] public String NAME;
+    [Export(PropertyHint.Enum, Constants.BUILDING_LIST)] public string TYPE;
+    [Export(PropertyHint.Enum, Constants.TOWER_LIST)]public string TOWER_TYPE;
+    [Export(PropertyHint.Enum, Constants.RESOURCE_LIST)] public string RESOURCE_TYPE;
     [Export] public int HP;
     [Export] public bool NEEDS_REGION = false;
     [Export] public Rect2 REGION_RECT;
-    
+    [Export] public int max_progress;
     public int level;
+    public String NAME;
 
     public void initialize() {
         level = 1;

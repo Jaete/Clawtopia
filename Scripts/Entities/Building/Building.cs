@@ -1,6 +1,5 @@
-using Godot;
 using System;
-using System.IO;
+using Godot;
 using Godot.Collections;
 
 public partial class Building : Area2D
@@ -70,9 +69,34 @@ public partial class Building : Area2D
             sprite.RegionRect = data.REGION_RECT;
         }
         Name = data.NAME + "_" + data.TYPE + "_" + self_index;
-        if (data.TYPE.Equals("GreatCommune")){
-            Name = data.TYPE;
+        if (data.TYPE.Equals(Constants.COMMUNE)){
+            Name = Constants.COMMUNE_EXTERNAL_NAME;
         }
+        if(data.TYPE == Constants.HOUSE){
+            Name = Constants.HOUSE_EXTERNAL_NAME;
+        }
+        if(data.TYPE == Constants.TOWER){
+            switch(data.TOWER_TYPE){
+                case Constants.FIGHTERS:
+                    Name = Constants.FIGHTERS_TOWER_EXTERNAL_NAME;
+                    break;
+                /*todo implementar o resto*/
+            }
+        }
+        if(data.TYPE == Constants.RESOURCE){
+            switch(data.RESOURCE_TYPE){
+                case Constants.SALMON:
+                    Name = Constants.FISHERMAN_HOUSE_EXTERNAL_NAME;
+                    break;
+                case Constants.CATNIP:
+                    /*TODO IMPLEMENTAR*/
+                    break;
+                case Constants.SAND:
+                    /*TODO IMPLEMENTAR*/
+                    break;
+            }
+        }
+        max_progress = data.max_progress;
         region.BakeFinished += When_free_to_rebake;
         AboutToInteract += simulation_mode.When_about_to_interact_with_building;
         RemovedInteraction += simulation_mode.When_interaction_with_building_removed;
@@ -82,22 +106,33 @@ public partial class Building : Area2D
 
     public void Add_self_on_list(){
         switch (data.RESOURCE_TYPE){
-            case "Salmon":
-                resource_type = "Salmon";
-                level_manager.salmon_buildings.Insert(level_manager.salmon_buildings.Count, this);
+            case Constants.SALMON:
+                resource_type = Constants.SALMON;
+                level_manager.salmon_buildings.Add(this);
                 break;
-            case "Catnip":
-                resource_type = "Catnip";
+            case Constants.CATNIP:
+                resource_type = Constants.CATNIP;
                 level_manager.catnip_buildings.Add(this);
                 break;
-            case "Sand":
-                resource_type = "Sand";
+            case Constants.SAND:
+                resource_type = Constants.SAND;
                 level_manager.sand_buildings.Add(this);
                 break;
-            default:
-                resource_type = null;
-                break;
         }   
+    }
+
+    public void Remove_self_from_list(){
+        switch (data.RESOURCE_TYPE){
+            case Constants.SALMON:
+                level_manager.salmon_buildings.Remove(this);
+                break;
+            case Constants.CATNIP:
+                level_manager.catnip_buildings.Remove(this);
+                break;
+            case Constants.SAND:
+                level_manager.sand_buildings.Remove(this);
+                break;
+        }
     }
 
     public void Set_rebake() {
@@ -175,5 +210,9 @@ public partial class Building : Area2D
                 EmitSignal("RemovedInteraction");
             }
         }
+    }
+
+    public override void _ExitTree(){
+        Remove_self_from_list();
     }
 }

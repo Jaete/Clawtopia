@@ -7,11 +7,6 @@ public partial class State : Node
     [Signal]
     public delegate void StateTransitionEventHandler(State current, String next);
     
-    //STRINGS
-    public const string SALMON = "salmon";
-    public const string CATNIP = "catnip";
-    public const string SAND = "sand";
-    
     // VARIAVEIS DE REFERENCIA
     public Ally self;
     public SimulationMode simulation_mode;
@@ -43,6 +38,9 @@ public partial class State : Node
         self.agent.VelocityComputed += When_velocity_computed;
         build_mode.ConstructionStarted += When_build_started;
         build_mode.BuildCompleted += When_build_completed;
+        if (self.category == Constants.MILITARY){
+            
+        }
     }
 
     public void Change_state(string next){
@@ -69,8 +67,7 @@ public partial class State : Node
         self.Velocity = safe_velocity * self.attributes.move_speed;
         self.MoveAndSlide();
     }
-    public void Choose_next_target_position(Vector2 coords){
-        if (!self.currently_selected) return;
+    public void Choose_next_target_position_ECONOMIC(Vector2 coords){
         self.interacted_with_building = simulation_mode.building_to_interact != null;
         if (self.interacted_with_building){
             Set_target_position(recalculate_coords(
@@ -78,7 +75,7 @@ public partial class State : Node
                 simulation_mode.building_to_interact.GlobalPosition));
             self.interacted_building = simulation_mode.building_to_interact;
         }else if (Is_interacting_with_water_at(coords)){
-            self.interacted_resource = "salmon"; // VARIAVEL NO ALIADO BASE PARA REFERENCIA
+            self.interacted_resource = Constants.SALMON; // VARIAVEL NO ALIADO BASE PARA REFERENCIA
             self.interacted_building = null;
             self.current_resource_last_position = Get_closest_water_coord();
             Set_target_position(self.current_resource_last_position);
@@ -87,6 +84,10 @@ public partial class State : Node
             self.interacted_building = null;
             Set_target_position(coords);
         }
+    }
+
+    public void Choose_next_target_position_MILITARY(Vector2 coords){
+        Set_target_position(coords);
     }
     
     /// <summary>
@@ -101,8 +102,8 @@ public partial class State : Node
         var x = building_position.X - ally_position.X > 0? -1 : 1;
         var y = building_position.Y - ally_position.Y > 0? 1 : -1;
         var new_coords = new Vector2(
-            building_position.X + (build_mode.TILE_SIZE_X * x) * 2,
-            building_position.Y + (build_mode.TILE_SIZE_Y * y) * 2
+            building_position.X + (build_mode.TILE_SIZE_X * x),
+            building_position.Y + (build_mode.TILE_SIZE_Y * y)
         );
         return new_coords;
     }
@@ -151,17 +152,17 @@ public partial class State : Node
     public Vector2 Get_closest_resource_building(Vector2 coords, string resource){
         Vector2 closest_building_position = default;
         switch (resource){
-            case SALMON:
+            case Constants.SALMON:
                 foreach (var building in self.level_manager.salmon_buildings){
                     closest_building_position = Compare_distance_to_building(coords, closest_building_position, building);
                 }
                 break;
-            case CATNIP:
+            case Constants.CATNIP:
                 foreach (var building in self.level_manager.catnip_buildings){ 
                     closest_building_position = Compare_distance_to_building(coords, closest_building_position, building);
                 }
                 break;
-            case SAND:
+            case Constants.SAND:
                 foreach (var building in self.level_manager.sand_buildings){ 
                     closest_building_position = Compare_distance_to_building(coords, closest_building_position, building);
                 }
@@ -180,5 +181,16 @@ public partial class State : Node
             return building.GlobalPosition;
         }
         return closest_building_position;
+    }
+
+    public void Move(){
+        var next_path_pos = self.agent.GetNextPathPosition();
+        var new_velocity = self.GlobalPosition.DirectionTo(next_path_pos);
+        if (self.agent.AvoidanceEnabled){
+            self.agent.Velocity = new_velocity;
+        }
+        else{
+            When_velocity_computed(new_velocity);
+        }
     }
 }
