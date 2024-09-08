@@ -1,4 +1,4 @@
-[gd_scene load_steps=57 format=3 uid="uid://bmsm4gighni7j"]
+[gd_scene load_steps=62 format=3 uid="uid://bmsm4gighni7j"]
 
 [ext_resource type="Texture2D" uid="uid://c36hahystg8lx" path="res://Assets/Characters/Allies/kato-engenheiro-idle2.png" id="1_3xkv3"]
 [ext_resource type="Script" path="res://Scripts/Entities/Characters/Ally.cs" id="1_qh5jk"]
@@ -6,6 +6,11 @@
 [ext_resource type="Resource" uid="uid://b8qad67ji18c5" path="res://Resources/Characters/Allies/Attributes/Fighters.tres" id="2_oywjb"]
 [ext_resource type="Texture2D" uid="uid://caqerhajpua2i" path="res://Assets/Characters/Allies/kato-engenheiro-andarb.png" id="3_mrmpc"]
 [ext_resource type="Texture2D" uid="uid://csynnf378p8cl" path="res://Assets/Characters/Allies/kato-engenheiro-andarcima.png" id="4_nh4q2"]
+[ext_resource type="Script" path="res://Scripts/Entities/Characters/StateMachine.cs" id="7_vdd3u"]
+[ext_resource type="Script" path="res://Scripts/Entities/Characters/Allies/Military/FSM/MilitaryIdleStart.cs" id="8_1dxst"]
+[ext_resource type="Script" path="res://Scripts/Entities/Characters/Allies/Military/FSM/MilitaryIdle.cs" id="8_d05di"]
+[ext_resource type="Script" path="res://Scripts/Entities/Characters/Allies/Military/FSM/MilitaryMove.cs" id="9_65moj"]
+[ext_resource type="Script" path="res://Scripts/ECO_Debug.cs" id="10_jqhum"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_jhkdo"]
 atlas = ExtResource("1_3xkv3")
@@ -290,7 +295,7 @@ animations = [{
 "texture": SubResource("AtlasTexture_o84yk")
 }],
 "loop": false,
-"name": &"Idle start",
+"name": &"IdleStart",
 "speed": 12.0
 }, {
 "frames": [{
@@ -371,19 +376,26 @@ category = "Military"
 
 [node name="Sprite" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_rm4l0")
-animation = &"Move down"
-frame_progress = 0.740875
+animation = &"Idle repeat"
+frame_progress = 0.874951
 offset = Vector2(0, -24)
 
 [node name="Body" type="CollisionShape2D" parent="."]
 scale = Vector2(1, 0.5)
 shape = SubResource("CircleShape2D_enf31")
 
-[node name="FSM" type="Node" parent="."]
+[node name="FSM" type="Node" parent="." node_paths=PackedStringArray("default_state")]
+script = ExtResource("7_vdd3u")
+default_state = NodePath("IdleStart")
+
+[node name="IdleStart" type="Node" parent="FSM"]
+script = ExtResource("8_1dxst")
 
 [node name="Idle" type="Node" parent="FSM"]
+script = ExtResource("8_d05di")
 
 [node name="Move" type="Node" parent="FSM"]
+script = ExtResource("9_65moj")
 
 [node name="Navigation" type="NavigationAgent2D" parent="."]
 path_desired_distance = 25.0
@@ -402,3 +414,15 @@ debug_color = Color(0.455, 0.7, 0, 0.419608)
 scale = Vector2(1, 0.5)
 shape = SubResource("CircleShape2D_k3qf3")
 debug_color = Color(0.7, 0.0466667, 0, 0.419608)
+
+[node name="SelectionCircle" type="Line2D" parent="."]
+visible = false
+position = Vector2(-3, 0)
+points = PackedVector2Array(-11, -10, -14, -8, -16, -4, -16, 1, -13, 5, -8, 8, 1, 10, 12, 10, 19, 9, 24, 6, 28, 2, 29, -4, 28, -7, 26, -9, 22, -11, 16, -12, 1, -12, -11, -10)
+width = 2.0
+default_color = Color(1, 0.24, 0.24, 1)
+
+[node name="Label" type="Label" parent="."]
+offset_right = 40.0
+offset_bottom = 23.0
+script = ExtResource("10_jqhum")
