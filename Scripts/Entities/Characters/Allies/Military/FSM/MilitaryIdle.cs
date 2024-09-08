@@ -12,4 +12,10 @@ public partial class MilitaryIdle : State
 
     public override void Exit(){
     }
+    
+    public override void When_mouse_right_clicked(Vector2 coords){
+        if (!self.currently_selected){ return; }
+        Choose_next_target_position_MILITARY(coords);
+        Change_state("Move");
+    }
 }
