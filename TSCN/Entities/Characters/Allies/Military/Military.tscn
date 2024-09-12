@@ -1,9 +1,7 @@
-[gd_scene load_steps=57 format=3 uid="uid://bmsm4gighni7j"]
+[gd_scene load_steps=55 format=3 uid="uid://bmsm4gighni7j"]
 
 [ext_resource type="Texture2D" uid="uid://c36hahystg8lx" path="res://Assets/Characters/Allies/kato-engenheiro-idle2.png" id="1_3xkv3"]
-[ext_resource type="Script" path="res://Scripts/Entities/Characters/Ally.cs" id="1_qh5jk"]
 [ext_resource type="Texture2D" uid="uid://ef1j5xygt6" path="res://Assets/Characters/Allies/kato-engenheiro-idle-pose.png" id="2_fudmw"]
-[ext_resource type="Resource" uid="uid://b8qad67ji18c5" path="res://Resources/Characters/Allies/Attributes/Fighters.tres" id="2_oywjb"]
 [ext_resource type="Texture2D" uid="uid://caqerhajpua2i" path="res://Assets/Characters/Allies/kato-engenheiro-andarb.png" id="3_mrmpc"]
 [ext_resource type="Texture2D" uid="uid://csynnf378p8cl" path="res://Assets/Characters/Allies/kato-engenheiro-andarcima.png" id="4_nh4q2"]
 
@@ -361,13 +359,7 @@ radius = 120.0
 [sub_resource type="CircleShape2D" id="CircleShape2D_k3qf3"]
 radius = 50.0
 
-[node name="Military" type="CharacterBody2D" node_paths=PackedStringArray("state_machine", "agent", "sprite")]
-script = ExtResource("1_qh5jk")
-attributes = ExtResource("2_oywjb")
-state_machine = NodePath("FSM")
-agent = NodePath("Navigation")
-sprite = NodePath("Sprite")
-category = "Military"
+[node name="Military" type="CharacterBody2D"]
 
 [node name="Sprite" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_rm4l0")

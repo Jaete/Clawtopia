@@ -1,23 +1,22 @@
 using Godot;
-using System;
 
 public partial class AddTower : Button
 {
-    public ModeManager mode_manager;
-    public UI ui;
+    public ModeManager ModeManager;
+    public UI Ui;
     
-    [Export] public BuildingData building;
+    [Export] public BuildingData Building;
 
     public override void _Ready(){
-        ui = GetNode<UI>("/root/Game/UI");
-        MouseEntered += ui.Enter_ui_mode;
-        MouseExited += ui.Leave_ui_mode;
+        Ui = GetNode<UI>("/root/Game/UI");
+        MouseEntered += Ui.Enter_ui_mode;
+        MouseExited += Ui.Leave_ui_mode;
     }
 
     public void OnPressed() {
-        if (mode_manager == null) {
-            mode_manager = GetNode<ModeManager>("/root/Game/ModeManager");
+        if (ModeManager == null) {
+            ModeManager = GetNode<ModeManager>("/root/Game/ModeManager");
         }
-        mode_manager.current_mode.EmitSignal("ModeTransition", "BuildMode", building.TYPE, building.NAME);
+        ModeManager.CurrentMode.EmitSignal("ModeTransition", "BuildMode", Building.Type, Building.Name);
     }
 }

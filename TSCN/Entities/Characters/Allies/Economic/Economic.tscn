@@ -1,16 +1,15 @@
-[gd_scene load_steps=24 format=3 uid="uid://d2qw1opgfwuq7"]
+[gd_scene load_steps=23 format=3 uid="uid://d2qw1opgfwuq7"]
 
-[ext_resource type="Script" path="res://Scripts/Entities/Characters/Ally.cs" id="1_6ekwp"]
+[ext_resource type="Script" path="res://Scripts/Entities/Characters/Allies/Ally.cs" id="1_4x3im"]
 [ext_resource type="Resource" uid="uid://cg7alavmqxtqn" path="res://Resources/Characters/Allies/Attributes/Communist.tres" id="2_scpxa"]
 [ext_resource type="Texture2D" uid="uid://l4xdlbxm02bu" path="res://Assets/Characters/Allies/kato-magico-andar-baixo-ezgif.com-gif-to-sprite-converter.png" id="3_q7ik0"]
-[ext_resource type="Script" path="res://Scripts/Entities/Characters/Allies/Economic/FSM/EconomicIdle.cs" id="4_0xplg"]
 [ext_resource type="Texture2D" uid="uid://dreqehb3doa21" path="res://Assets/Characters/Allies/kato-magico-andar-ezgif.com-gif-to-sprite-converter_1.png" id="4_d4byk"]
 [ext_resource type="Script" path="res://Scripts/Entities/Characters/StateMachine.cs" id="5_13gob"]
-[ext_resource type="Script" path="res://Scripts/Entities/Characters/Allies/Economic/FSM/EconomicMove.cs" id="5_lja63"]
 [ext_resource type="Texture2D" uid="uid://davy57qg772li" path="res://Assets/Characters/Allies/test_kitten_artstyle64.png" id="6_58dkx"]
-[ext_resource type="Script" path="res://Scripts/ECO_Debug.cs" id="8_4ycqe"]
-[ext_resource type="Script" path="res://Scripts/Entities/Characters/Allies/Economic/FSM/Collect.cs" id="8_g3x88"]
-[ext_resource type="Script" path="res://Scripts/Entities/Characters/Allies/Economic/FSM/Build.cs" id="9_642vn"]
+[ext_resource type="Script" path="res://Scripts/Entities/Characters/Allies/Economic/States/Idle.cs" id="6_tpixj"]
+[ext_resource type="Script" path="res://Scripts/Entities/Characters/Allies/Economic/States/Move.cs" id="7_my2hw"]
+[ext_resource type="Script" path="res://Scripts/Entities/Characters/Allies/Economic/States/Collect.cs" id="8_3tn7u"]
+[ext_resource type="Script" path="res://Scripts/Entities/Characters/Allies/Economic/States/Build.cs" id="9_2d0m3"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_kfa45"]
 atlas = ExtResource("3_q7ik0")
@@ -104,16 +103,16 @@ animations = [{
 [sub_resource type="CircleShape2D" id="CircleShape2D_gmab3"]
 radius = 21.095
 
-[node name="Economic" type="CharacterBody2D" node_paths=PackedStringArray("state_machine", "agent", "sprite")]
+[node name="Economic" type="CharacterBody2D" node_paths=PackedStringArray("StateMachine", "Navigation", "Sprite")]
 y_sort_enabled = true
 collision_layer = 2
 input_pickable = true
-script = ExtResource("1_6ekwp")
-attributes = ExtResource("2_scpxa")
-state_machine = NodePath("FSM")
-agent = NodePath("Navigation")
-sprite = NodePath("Sprite")
-category = "Economic"
+script = ExtResource("1_4x3im")
+Category = "Economic"
+Attributes = ExtResource("2_scpxa")
+StateMachine = NodePath("FSM")
+Navigation = NodePath("Navigation")
+Sprite = NodePath("Sprite")
 
 [node name="SelectionCircle" type="Line2D" parent="."]
 visible = false
@@ -135,23 +134,21 @@ position = Vector2(-1, -28)
 rotation = 1.55943
 scale = Vector2(1, 0.5)
 
-[node name="FSM" type="Node" parent="." node_paths=PackedStringArray("default_state")]
+[node name="FSM" type="Node" parent="." node_paths=PackedStringArray("DefaultState")]
 script = ExtResource("5_13gob")
-default_state = NodePath("Idle")
+DefaultState = NodePath("Idle")
 
 [node name="Idle" type="Node" parent="FSM"]
-script = ExtResource("4_0xplg")
+script = ExtResource("6_tpixj")
 
 [node name="Move" type="Node" parent="FSM"]
-script = ExtResource("5_lja63")
+script = ExtResource("7_my2hw")
 
 [node name="Collecting" type="Node" parent="FSM"]
-script = ExtResource("8_g3x88")
-MAX_QUANTITY = 8
-QUANTITY_PER_TICK = 0.7
+script = ExtResource("8_3tn7u")
 
 [node name="Building" type="Node" parent="FSM"]
-script = ExtResource("9_642vn")
+script = ExtResource("9_2d0m3")
 
 [node name="Navigation" type="NavigationAgent2D" parent="."]
 navigation_layers = 15
@@ -167,7 +164,6 @@ offset = Vector2(0, -12)
 [node name="Label" type="Label" parent="."]
 offset_right = 40.0
 offset_bottom = 23.0
-script = ExtResource("8_4ycqe")
 
 [node name="Interaction" type="Area2D" parent="."]
 visible = false

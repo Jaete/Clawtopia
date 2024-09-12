@@ -1,7 +1,5 @@
 using Godot;
-using Godot.Collections;
 using System;
-using System.Threading;
 
 public partial class GameMode : Node2D {
     [Signal]
@@ -12,14 +10,14 @@ public partial class GameMode : Node2D {
     [Signal]
     public delegate void BuildCompletedEventHandler(Building building);
 
-    public Director director;
-    public Node2D current_level;
+    public Director Director;
+    public Node2D CurrentLevel;
 
-    public ModeManager mode_manager;
+    public ModeManager ModeManager;
     
-    public Controller controller;
+    public Controller Controller;
 
-    public Rid map_RID;
+    public Rid MapRid;
 
     public override void _Ready(){
         Initialize();
@@ -29,15 +27,15 @@ public partial class GameMode : Node2D {
     public virtual void Exit() { }
     public virtual void Update() { }
 
-    public virtual void When_detect_pressed(Vector2 coords) { }
-    public virtual void When_detect_released(Vector2 coords) { }
+    public virtual void MousePressed(Vector2 coords) { }
+    public virtual void MouseReleased(Vector2 coords) { }
 
     public void Initialize(){
-        director = GetNode<Director>("/root/Game/Director");
-        mode_manager = GetParent<ModeManager>();
-        controller = GetNode<Controller>("/root/Game/Controller");
-        controller.MousePressed += When_detect_pressed;
-        controller.MouseReleased += When_detect_released;
+        Director = GetNode<Director>("/root/Game/Director");
+        ModeManager = GetParent<ModeManager>();
+        Controller = GetNode<Controller>("/root/Game/Controller");
+        Controller.MousePressed += MousePressed;
+        Controller.MouseReleased += MouseReleased;
     }
 }
 

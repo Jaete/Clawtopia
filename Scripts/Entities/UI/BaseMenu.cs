@@ -1,14 +1,13 @@
 using Godot;
-using System;
 
 public partial class BaseMenu : Control
 {
-    public UI ui;
+    public UI Ui;
 	
 	public override void _Ready(){
-		ui = GetNode<UI>("/root/Game/UI");
-		MouseEntered += ui.Enter_ui_mode;
-		MouseExited += ui.Leave_ui_mode;
+		Ui = GetNode<UI>("/root/Game/UI");
+		MouseEntered += Ui.Enter_ui_mode;
+		MouseExited += Ui.Leave_ui_mode;
 	}
 
 }
