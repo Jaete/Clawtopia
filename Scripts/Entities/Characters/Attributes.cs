@@ -1,21 +1,18 @@
 using Godot;
-using System;
 
 public partial class Attributes : Resource
 {
     [Export]
-    public int hp;
+    public int Hp;
     [Export]
-    public int damage;
+    public int Damage;
     [Export]
-    public float move_speed;
+    public float MoveSpeed;
     [Export]
-    public float attack_speed;
+    public float AttackSpeed;
     [Export]
-    public int vision_range;
+    public int VisionRange;
     [Export]
-    public int attack_range;
-
-    public const string MILITARY = "Military";
-    public const string ECONOMIC = "Economic";
+    public int AttackRange;
+    
 }

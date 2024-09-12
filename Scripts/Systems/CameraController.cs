@@ -1,5 +1,4 @@
 using Godot;
-using System;
 
 
 public partial class CameraController : Camera2D
@@ -11,23 +10,23 @@ public partial class CameraController : Camera2D
     [Export] public float MinZoom = 0.1f;
     [Export] public float SmoothSpeed = 0.0f;
 
-    private bool is_game_focused;
+    private bool _isGameFocused;
 
-    private Vector2 mousePosition;
-    private Vector2 viewportSize;
+    private Vector2 _mousePosition;
+    private Vector2 _viewportSize;
 
-    private int leftThreshold;
-    private int rightThreshold;
-    private int topThreshold;
-    private int bottomThreshold;
-    private Vector2 current_direction;
+    private int _leftThreshold;
+    private int _rightThreshold;
+    private int _topThreshold;
+    private int _bottomThreshold;
+    private Vector2 _currentDirection;
 
     public override void _Ready()
     {
         // Smooth camera movement (less precise but visually smoother)
         PositionSmoothingEnabled = true;
         PositionSmoothingSpeed = SmoothSpeed;
-        viewportSize = GetViewport().GetVisibleRect().Size;
+        _viewportSize = GetViewport().GetVisibleRect().Size;
         GetViewport().SizeChanged += When_viewport_changed;
         GetWindow().FocusExited += When_game_not_focused;
         GetWindow().FocusEntered += When_game_has_focus;
@@ -36,51 +35,51 @@ public partial class CameraController : Camera2D
     public override void _Process(double delta)
     {
 
-        if(!is_game_focused){
+        if(!_isGameFocused){
             return;
         }
-        mousePosition = GetViewport().GetMousePosition();
+        _mousePosition = GetViewport().GetMousePosition();
 
-        leftThreshold  = Sensitivity;
-        rightThreshold  = (int) viewportSize.X - Sensitivity;
-        topThreshold  = Sensitivity;
-        bottomThreshold  = (int) viewportSize.Y - Sensitivity;
+        _leftThreshold  = Sensitivity;
+        _rightThreshold  = (int) _viewportSize.X - Sensitivity;
+        _topThreshold  = Sensitivity;
+        _bottomThreshold  = (int) _viewportSize.Y - Sensitivity;
 
-        current_direction = Vector2.Zero;
+        _currentDirection = Vector2.Zero;
 
-        if (mousePosition.X < leftThreshold && mousePosition.Y < topThreshold){
-            current_direction = new Vector2(Vector2.Left.X, Vector2.Up.Y);
+        if (_mousePosition.X < _leftThreshold && _mousePosition.Y < _topThreshold){
+            _currentDirection = new Vector2(Vector2.Left.X, Vector2.Up.Y);
         }
             
-        else if (mousePosition.X > rightThreshold && mousePosition.Y < topThreshold){
-            current_direction = new Vector2(Vector2.Right.X, Vector2.Up.Y);
+        else if (_mousePosition.X > _rightThreshold && _mousePosition.Y < _topThreshold){
+            _currentDirection = new Vector2(Vector2.Right.X, Vector2.Up.Y);
         }
             
-        else if (mousePosition.X < leftThreshold && mousePosition.Y > bottomThreshold){
-            current_direction = new Vector2(Vector2.Left.X, Vector2.Down.Y);
+        else if (_mousePosition.X < _leftThreshold && _mousePosition.Y > _bottomThreshold){
+            _currentDirection = new Vector2(Vector2.Left.X, Vector2.Down.Y);
         }
             
-        else if (mousePosition.X > rightThreshold && mousePosition.Y > bottomThreshold){
-            current_direction = new Vector2(Vector2.Right.X, Vector2.Down.Y);
+        else if (_mousePosition.X > _rightThreshold && _mousePosition.Y > _bottomThreshold){
+            _currentDirection = new Vector2(Vector2.Right.X, Vector2.Down.Y);
         }
-        else if (mousePosition.X < leftThreshold){
-            current_direction = Vector2.Left;
-        }
-            
-        else if (mousePosition.X > rightThreshold){
-            current_direction = Vector2.Right;
+        else if (_mousePosition.X < _leftThreshold){
+            _currentDirection = Vector2.Left;
         }
             
-        else if (mousePosition.Y < topThreshold){
-            current_direction = Vector2.Up;
+        else if (_mousePosition.X > _rightThreshold){
+            _currentDirection = Vector2.Right;
         }
             
-        else if (mousePosition.Y > bottomThreshold){
-            current_direction = Vector2.Down;
+        else if (_mousePosition.Y < _topThreshold){
+            _currentDirection = Vector2.Up;
+        }
+            
+        else if (_mousePosition.Y > _bottomThreshold){
+            _currentDirection = Vector2.Down;
         }
             
 
-        Position += current_direction * Speed; // Equivalent to 'position +='
+        Position += _currentDirection * Speed; // Equivalent to 'position +='
     }
 
     public override void _Input(InputEvent @event)
@@ -97,14 +96,14 @@ public partial class CameraController : Camera2D
     }
 
     public void When_viewport_changed(){
-        viewportSize = GetViewport().GetVisibleRect().Size;
+        _viewportSize = GetViewport().GetVisibleRect().Size;
     }
 
     public void When_game_not_focused(){
-        is_game_focused = false;
+        _isGameFocused = false;
     }
 
     public void When_game_has_focus(){
-        is_game_focused = true;
+        _isGameFocused = true;
     }
 }
