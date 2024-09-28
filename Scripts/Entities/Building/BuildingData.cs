@@ -19,6 +19,9 @@ public partial class BuildingData : Resource
     [Export] public int MaxProgress;
     public int Level;
     public String Name;
+    [Export] public int SalmonCost = 100;
+    [Export] public int CatnipCost = 100;
+    [Export] public int SandCost = 100;
 
     public void Initialize() {
         Level = 1;

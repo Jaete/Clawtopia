@@ -8,7 +8,7 @@ public partial class State : Node
     public delegate void StateTransitionEventHandler(State current, String next);
     
     // Referências recorrentes
-    public Unit Unit;
+    public Unit Unit; // Referencia a si mesmo para acessar outros nodes
     public SimulationMode SimulationMode;
     public BuildMode BuildMode;
     public ModeManager ModeManager;
@@ -86,6 +86,25 @@ public partial class State : Node
         }
         else{
             VelocityComputed(newVelocity);
+        }
+    }
+    
+    public void PlayAnimaion(Vector2 direction){
+        if (direction is { X: > 0, Y: > 0 }){
+            Unit.Sprite.Play("MoveDown");
+            Unit.Sprite.FlipH = false;
+        }
+        if (direction is { X: > 0, Y: < 0 }){
+            Unit.Sprite.Play("MoveUp");
+            Unit.Sprite.FlipH = false;
+        }
+        if (direction is { X: < 0, Y: > 0 }){
+            Unit.Sprite.Play("MoveDown");
+            Unit.Sprite.FlipH = true;
+        }
+        if (direction is { X: < 0, Y: < 0 }){
+            Unit.Sprite.Play("MoveUp");
+            Unit.Sprite.FlipH = true;
         }
     }
 }

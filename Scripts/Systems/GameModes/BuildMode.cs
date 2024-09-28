@@ -15,12 +15,14 @@ public partial class BuildMode : GameMode {
     public bool IsOverlappingBuildings = false;
 
     public Array<Ally> CurrentConstructors;
-    public override void Enter() {
+    public bool BuiltSucessfully = false;
+
+    public override void Enter(){
         String buildingPath = Constants.BUILDING_PATH;
         if(BuildingType == Constants.TOWER) {
             ModeManager.FightersTowerCount++;
             ModeManager.BuildingCount++;
-            Instantiate_building(buildingPath);
+            InstantiateBuilding(buildingPath);
             CurrentBuilding.SelfIndex = ModeManager.FightersTowerCount;
             CurrentBuilding.Name = ModeManager.TowerType + "_T1_" + CurrentBuilding.SelfIndex;
             CurrentBuilding.Data = GD.Load<BuildingData>("res://Resources/Buildings/Towers/Fighters/Fighters.tres");
@@ -28,15 +30,15 @@ public partial class BuildMode : GameMode {
         if(BuildingType == Constants.COMMUNE){
            ModeManager.GreatCommuneCount++;
            ModeManager.BuildingCount++;
-           Instantiate_building(buildingPath);
+           InstantiateBuilding(buildingPath);
            CurrentBuilding.SelfIndex = ModeManager.GreatCommuneCount;
-           CurrentBuilding.Name = Constants.COMMUNE;   
+           CurrentBuilding.Name = Constants.COMMUNE_EXTERNAL_NAME;   
            CurrentBuilding.Data = GD.Load<BuildingData>("res://Resources/Buildings/GreatCommune/GreatCommune.tres");
         }    
         if(BuildingType == Constants.RESOURCE){
             ModeManager.SalmonCottageCount++;
             ModeManager.BuildingCount++;
-            Instantiate_building(buildingPath);
+            InstantiateBuilding(buildingPath);
             CurrentBuilding.SelfIndex = ModeManager.SalmonCottageCount;
             CurrentBuilding.Name = "" + ModeManager.ResourceBuildType + "_" + CurrentBuilding.SelfIndex;
             CurrentBuilding.Data = GD.Load<BuildingData>("res://Resources/Buildings/Economy/Salmon/SalmonCottage.tres");
@@ -44,30 +46,44 @@ public partial class BuildMode : GameMode {
         if (BuildingType == Constants.HOUSE){
             ModeManager.HouseCount++;
             ModeManager.BuildingCount++;
-            Instantiate_building(buildingPath);
+            InstantiateBuilding(buildingPath);
             CurrentBuilding.SelfIndex = ModeManager.HouseCount;
             CurrentBuilding.Name = "" + ModeManager.ResourceBuildType + "_" + CurrentBuilding.SelfIndex;
             CurrentBuilding.Data = GD.Load<BuildingData>("res://Resources/Buildings/House/House.tres");
         }
+        if (!ResourcesAvailable(CurrentBuilding.Data)){
+            EmitSignal("ModeTransition", "SimulationMode", "", "");
+            return;
+        }
+        LevelManager.EmitSignal("ResourceExpended", CurrentBuilding.Data);
         CurrentBuilding.InputPickable = false;
         ModeManager.CurrentLevel.AddChild(CurrentBuilding);
         MousePosition = ModeManager.CurrentLevel.GetGlobalMousePosition();
         CurrentBuilding.GlobalPosition = MousePosition;
         CurrentConstructors = GetNode<SimulationMode>("../SimulationMode").SelectedAllies;
     }
+    private bool ResourcesAvailable(BuildingData data){
+        if (LevelManager.CatnipQuantity - data.CatnipCost < 0 ||
+            LevelManager.SalmonQuantity - data.SalmonCost < 0 ||
+            LevelManager.SandQuantity - data.SandCost < 0 ){
+            LevelManager.EmitSignal("NotEnoughResources");
+            return false;
+        }
+        return true;
+    }
 
     public override void Update() {
-        Move_preview();
-        Validate_position();
+        MovePreview();
+        ValidatePosition();
         if (Input.IsActionJustPressed("LeftClick")) {
             Confirm_building();
         }
         if (Input.IsActionJustPressed("RightClick")) {
-            Cancel_building();
+            CancelBuilding();
         }
     }
 
-    private void Cancel_building() {
+    private void CancelBuilding() {
         ModeManager.FightersTowerCount--;
         ModeManager.BuildingCount--;
         CurrentBuilding.QueueFree();
@@ -80,12 +96,12 @@ public partial class BuildMode : GameMode {
             CurrentBuilding.Rebake();
             CurrentBuilding.InputPickable = true;
             EmitSignal("ConstructionStarted", CurrentBuilding);
-            BuildCompleted += When_building_completed;
+            BuildCompleted += BuildingCompleted;
             EmitSignal("ModeTransition", "SimulationMode", "", "");
         }
     }
 
-    private void Validate_position() {
+    private void ValidatePosition() {
         Area2D gridArea = CurrentBuilding.GetNode<Area2D>("GridArea");
         Godot.Collections.Array<Area2D> overlappingAreas = gridArea.GetOverlappingAreas();
         foreach (var area in overlappingAreas) {
@@ -104,7 +120,7 @@ public partial class BuildMode : GameMode {
         }
     }
 
-    private void Move_preview() {
+    private void MovePreview() {
         MousePosition = ModeManager.CurrentLevel.GetGlobalMousePosition();
         float xDifference = MousePosition.X - CurrentBuilding.GlobalPosition.X;
         float yDifference = MousePosition.Y - CurrentBuilding.GlobalPosition.Y;
@@ -128,12 +144,12 @@ public partial class BuildMode : GameMode {
 
     }
 
-    private void Instantiate_building(String buildingPath) {
+    private void InstantiateBuilding(String buildingPath) {
         PackedScene buildingScene = GD.Load<PackedScene>(buildingPath);
         CurrentBuilding = (Building)buildingScene.Instantiate();
     }
 
-    public void When_building_completed(Building building){
+    public void BuildingCompleted(Building building){
         building.Modulate = building.RegularColor;
         building.CurrentBuilders.Clear();
     }

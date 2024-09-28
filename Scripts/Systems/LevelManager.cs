@@ -5,6 +5,10 @@ public partial class LevelManager : Node2D
 {
 	[Signal]
 	public delegate void ResourceDeliveredEventHandler(string resource, int quantity);
+	[Signal]
+	public delegate void ResourceExpendedEventHandler(BuildingData buildingData);
+	[Signal]
+	public delegate void NotEnoughResourcesEventHandler();
 	
 	// VARIAVEIS DE QUANTIDADE DE RECURSO ATUAL
 	public int CatnipQuantity = 0;
@@ -28,13 +32,22 @@ public partial class LevelManager : Node2D
 		CatnipLabel = ResCount.GetNode<Label>("CatnipLabel");
 		SalmonLabel = ResCount.GetNode<Label>("SalmonLabel");
 		SandLabel = ResCount.GetNode<Label>("SandLabel");
-		ResourceDelivered += When_resource_delivered;
+		ResourceDelivered += Delivered;
+		ResourceExpended += Expended;
+		NotEnoughResources += NotEnough;
+		CatnipQuantity = Constants.STARTING_SAND_QUANTITY;
+		SalmonQuantity = Constants.STARTING_SALMON_QUANTITY;
+		SandQuantity = Constants.STARTING_SAND_QUANTITY;
 		CatnipLabel.Text = $"{CatnipQuantity}";
 		SalmonLabel.Text = $"{SalmonQuantity}";
 		SandLabel.Text = $"{SandQuantity}";
 	}
+	private void NotEnough(){
+		GD.Print("Not enough resources");
+		
+	}
 
-	public void When_resource_delivered(string resource, int quantity){
+	public void Delivered(string resource, int quantity){
 		switch (resource){
 			case Constants.CATNIP:
 				CatnipQuantity += quantity;
@@ -50,4 +63,15 @@ public partial class LevelManager : Node2D
 				break;
 		}
 	}
+
+	public void Expended(BuildingData data){
+		CatnipQuantity -= data.CatnipCost;
+		SalmonQuantity -= data.SalmonCost;
+		SandQuantity -= data.SandCost;
+		CatnipLabel.Text = $"{CatnipQuantity}";
+		SalmonLabel.Text = $"{SalmonQuantity}";
+		SandLabel.Text = $"{SandQuantity}";
+	}
+
+
 }
