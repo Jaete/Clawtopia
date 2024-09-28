@@ -35,11 +35,3 @@ script = ExtResource("7_r6kcy")
 script = ExtResource("7_tf822")
 
 [node name="Camera2D" parent="." instance=ExtResource("10_vs6wa")]
-limit_left = -2000
-limit_top = -750
-limit_right = 3200
-limit_bottom = 1500
-limit_smoothed = true
-drag_horizontal_enabled = true
-drag_vertical_enabled = true
-Speed = 1.0

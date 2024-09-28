@@ -1,5 +1,4 @@
 using Godot;
-using System;
 
 
 public partial class CameraController : Camera2D
@@ -19,7 +18,6 @@ public partial class CameraController : Camera2D
     {
         Dragging, 
         Sliding
-        
     }
     public CameraMode CameraState = CameraMode.Sliding;
 
