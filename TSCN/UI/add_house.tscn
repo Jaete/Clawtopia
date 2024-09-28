@@ -20,7 +20,7 @@ grow_horizontal = 2
 grow_vertical = 0
 mouse_filter = 1
 script = ExtResource("1_lbhcp")
-building = ExtResource("2_no0qi")
+Building = ExtResource("2_no0qi")
 
 [node name="TorreA" type="Sprite2D" parent="."]
 scale = Vector2(0.2, 0.2)

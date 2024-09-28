@@ -11,7 +11,6 @@ public partial class AllyState : State
     public void InitializeAlly(){
         Ally = (Ally) Unit;
         Controller = GetNode<Controller>("/root/Game/Controller");
-        Ally.Navigation.VelocityComputed += VelocityComputed;
     }
     
     /// <summary>

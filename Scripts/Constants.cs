@@ -33,4 +33,8 @@ public partial class Constants : Node
 	public const string COMMUNE_EXTERNAL_NAME = "Purrlamento";
 	public const string FIGHTERS_TOWER_EXTERNAL_NAME = "Torre de Lutadores";
 	public const string FISHERMAN_HOUSE_EXTERNAL_NAME = "Cabana do Pescador";
+	
+	public const int STARTING_CATNIP_QUANTITY = 100;
+	public const int STARTING_SALMON_QUANTITY = 0;
+	public const int STARTING_SAND_QUANTITY = 200;
 }

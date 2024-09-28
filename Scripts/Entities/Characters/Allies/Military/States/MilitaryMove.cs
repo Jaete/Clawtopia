@@ -18,7 +18,7 @@ public partial class MilitaryMove : MilitaryState
 
     public override void MouseRightClicked(Vector2 coords){
         if (!Ally.CurrentlySelected){ return; }
-        Choose_next_target_position_MILITARY(coords);
+        ChooseNextTargetPosition(coords);
     }
     public override void NavigationFinished(){
         ChangeState("Idle");

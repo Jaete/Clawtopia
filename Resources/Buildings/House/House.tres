@@ -7,17 +7,20 @@
 
 [resource]
 script = ExtResource("1_42v36")
-OFFSET = Vector2(0, -32)
-SCALE = Vector2(1, 1)
-INTERACTION_OFFSET = Vector2(0, -32)
-OBSTACLE_SHAPE = ExtResource("1_pnv1f")
-INTERACTION_SHAPE = ExtResource("2_24v42")
-GRID_SHAPE = ExtResource("1_pnv1f")
-SPRITE_TEXTURE = ExtResource("3_6whfx")
-TYPE = "House"
-RESOURCE_TYPE = ""
-NAME = "Casa da Comuna"
-HP = 500
-NEEDS_REGION = true
-REGION_RECT = Rect2(33, 346, 132, 131)
-max_progress = 20
+Offset = Vector2(0, -32)
+Scale = Vector2(1, 1)
+InteractionOffset = Vector2(0, -32)
+ObstacleShape = ExtResource("1_pnv1f")
+InteractionShape = ExtResource("2_24v42")
+GridShape = ExtResource("1_pnv1f")
+SpriteTexture = ExtResource("3_6whfx")
+Type = "House"
+TowerType = ""
+ResourceType = ""
+Hp = 500
+NeedsRegion = true
+RegionRect = Rect2(33, 346, 132, 131)
+MaxProgress = 5
+SalmonCost = 0
+CatnipCost = 0
+SandCost = 60

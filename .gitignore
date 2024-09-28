@@ -3,5 +3,6 @@
 *.tmp
 .vs/
 .idea
+*.csproj.old.*
 *.csproj.old
 *.DotSettings.user

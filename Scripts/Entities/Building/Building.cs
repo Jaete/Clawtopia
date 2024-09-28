@@ -100,7 +100,7 @@ public partial class Building : Area2D
         AboutToInteract += SimulationMode.AboutToInteractWithBuilding;
         RemovedInteraction += SimulationMode.InteractionWithBuildingRemoved;
         BuildingMode.ConstructionStarted += ConstructionStarted;
-        CallDeferred("Add_self_on_list");
+        CallDeferred("AddSelfOnList");
     }
 
     public void AddSelfOnList(){

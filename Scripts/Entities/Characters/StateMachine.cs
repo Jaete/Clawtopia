@@ -19,13 +19,13 @@ public partial class StateMachine : Node
         Controller = GetNode<Controller>("/root/Game/Controller");
         Array<Node> nodeStates = GetChildren();
         foreach(var node in nodeStates){
-            if (node is not State state){
-                continue;
+            if (node is State state){
+                state.StateTransition += Change_state;
+                States[state.Name] = state;
             }
-            state.StateTransition += Change_state;
-            States[state.Name] = state;
+            
         }
-        CurrentState = (State)States[DefaultState.Name];
+        CurrentState = (State) States[DefaultState.Name];
         CurrentState.Enter();
         Controller.MouseRightPressed += MouseRightClicked;
         Navigation.NavigationFinished += NavigationFinished;

@@ -2,6 +2,7 @@ using Godot;
 
 public partial class AddTower : Button
 {
+    public LevelManager LevelManager;
     public ModeManager ModeManager;
     public UI Ui;
     
@@ -9,6 +10,7 @@ public partial class AddTower : Button
 
     public override void _Ready(){
         Ui = GetNode<UI>("/root/Game/UI");
+        LevelManager = GetNode<LevelManager>("/root/Game/LevelManager");
         MouseEntered += Ui.Enter_ui_mode;
         MouseExited += Ui.Leave_ui_mode;
     }

@@ -14,10 +14,8 @@ public partial class GameMode : Node2D {
     public Node2D CurrentLevel;
 
     public ModeManager ModeManager;
-    
     public Controller Controller;
-
-    public Rid MapRid;
+    public LevelManager LevelManager;
 
     public override void _Ready(){
         Initialize();
@@ -33,6 +31,7 @@ public partial class GameMode : Node2D {
     public void Initialize(){
         Director = GetNode<Director>("/root/Game/Director");
         ModeManager = GetParent<ModeManager>();
+        LevelManager = GetNode<LevelManager>("/root/Game/LevelManager");
         Controller = GetNode<Controller>("/root/Game/Controller");
         Controller.MousePressed += MousePressed;
         Controller.MouseReleased += MouseReleased;

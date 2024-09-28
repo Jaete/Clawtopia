@@ -3,9 +3,14 @@
 [ext_resource type="Script" path="res://Scripts/Entities/Building/Building.cs" id="1_sc8ft"]
 [ext_resource type="Texture2D" uid="uid://drdjlmxxqquc3" path="res://Assets/Buildings/64construcoes.png" id="2_0oyyu"]
 
-[node name="Area2D" type="Area2D"]
+[node name="Area2D" type="Area2D" node_paths=PackedStringArray("StaticBody", "BodyShape", "InteractionShape", "GridShape", "Sprite")]
 priority = 1
 script = ExtResource("1_sc8ft")
+StaticBody = NodePath("NavigationBody")
+BodyShape = NodePath("NavigationBody/Shape")
+InteractionShape = NodePath("Shape")
+GridShape = NodePath("GridArea/Shape")
+Sprite = NodePath("Sprite")
 
 [node name="NavigationBody" type="StaticBody2D" parent="."]
 collision_layer = 2147483648

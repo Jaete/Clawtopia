@@ -265,7 +265,7 @@ animations = [{
 "texture": SubResource("AtlasTexture_4w4wv")
 }],
 "loop": true,
-"name": &"Idle repeat",
+"name": &"IdleRepeat",
 "speed": 12.0
 }, {
 "frames": [{
@@ -288,7 +288,7 @@ animations = [{
 "texture": SubResource("AtlasTexture_o84yk")
 }],
 "loop": false,
-"name": &"Idle start",
+"name": &"IdleStart",
 "speed": 12.0
 }, {
 "frames": [{
@@ -317,7 +317,7 @@ animations = [{
 "texture": SubResource("AtlasTexture_21buv")
 }],
 "loop": true,
-"name": &"Move down",
+"name": &"MoveDown",
 "speed": 12.0
 }, {
 "frames": [{
@@ -346,7 +346,7 @@ animations = [{
 "texture": SubResource("AtlasTexture_bod01")
 }],
 "loop": true,
-"name": &"Move up",
+"name": &"MoveUp",
 "speed": 12.0
 }]
 
@@ -363,8 +363,7 @@ radius = 50.0
 
 [node name="Sprite" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_rm4l0")
-animation = &"Move down"
-frame_progress = 0.740875
+animation = &"MoveDown"
 offset = Vector2(0, -24)
 
 [node name="Body" type="CollisionShape2D" parent="."]

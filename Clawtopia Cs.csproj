@@ -8,7 +8,6 @@
     <RootNamespace>ClawtopiaCs</RootNamespace>
   </PropertyGroup>
   <ItemGroup>
-    <Folder Include="Scripts\Entities\Characters\Enemies\" />
     <Folder Include="Scripts\Systems\Controller\" />
     <Folder Include="TSCN\Entities\Characters\Allies\Economic\" />
   </ItemGroup>
@@ -16,5 +15,6 @@
     <Compile Remove="Scripts\Entities\Characters\UnitHelpers.cs" />
     <Compile Remove="Scripts\Entities\Characters\Behaviour.cs" />
     <Compile Remove="Scripts\Entities\Characters\Allies\StateMachine.cs" />
+    <Compile Remove="Scripts\Entities\Characters\Enemies\EnemyState.cs" />
   </ItemGroup>
 </Project>
