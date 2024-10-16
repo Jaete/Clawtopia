@@ -1,0 +1,7 @@
+[gd_scene format=3 uid="uid://dmqsbxvmpraew"]
+
+[node name="Camera2D" type="Camera2D"]
+limit_left = -2000
+limit_top = -1000
+limit_right = 3250
+limit_bottom = 1500

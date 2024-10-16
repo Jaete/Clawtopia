@@ -3,9 +3,12 @@ using System;
 
 public partial class UI : CanvasLayer
 {
+
+    [Export] public PackedScene PauseMenuScene;
     public PackedScene building_menu = GD.Load<PackedScene>("res://TSCN/UI/BuildingMenu.tscn");
     public PackedScene communist_menu = GD.Load<PackedScene>("res://TSCN/UI/CommunistMenu.tscn");
     public PackedScene base_menu = GD.Load<PackedScene>("res://TSCN/UI/BaseMenu.tscn");
+    
 
     public Control current_window;
     public BuildingMenu building_menu_control;
@@ -19,7 +22,12 @@ public partial class UI : CanvasLayer
     public UIMode ui_mode;
     public ModeManager mode_manager;
 
-    public override void _Ready(){
+    private PauseMenu pauseMenu;
+
+    public override void _Ready()
+    {
+        pauseMenu = PauseMenuScene.Instantiate<PauseMenu>();
+        AddChild(pauseMenu);
         CallDeferred("Initialize");
     }
 
