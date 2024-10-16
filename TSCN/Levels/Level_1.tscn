@@ -1,11 +1,8 @@
-[gd_scene load_steps=11 format=3 uid="uid://bvbkhjbnxmobc"]
+[gd_scene load_steps=8 format=3 uid="uid://bvbkhjbnxmobc"]
 
 [ext_resource type="Texture2D" uid="uid://d0pjpwam87ea4" path="res://Assets/Tileset/64agua.png.png" id="1_cdp50"]
-[ext_resource type="PackedScene" uid="uid://b66xbgk13d2tp" path="res://TSCN/Entities/Buildings/Building.tscn" id="1_i02f4"]
 [ext_resource type="Texture2D" uid="uid://byktwr760ajkf" path="res://Assets/Tileset/64tiles.png" id="2_h1802"]
-[ext_resource type="Resource" uid="uid://clrqpofa5wh8x" path="res://Resources/Buildings/Economy/Salmon/SalmonCottage.tres" id="5_hcwe5"]
 [ext_resource type="PackedScene" uid="uid://d2qw1opgfwuq7" path="res://TSCN/Entities/Characters/Allies/Economic/Economic.tscn" id="12_eks4j"]
-[ext_resource type="Resource" uid="uid://rbysc2ofq5sq" path="res://Resources/Buildings/House/House.tres" id="13_r3s7s"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_1eas2"]
 vertices = PackedVector2Array(611, -56, 1446, 367, 611, 793, 298, 326, 298, 314, 32, 459, -237, 367, -106, 390, -106, 378, 160, 245)
@@ -528,29 +525,5 @@ layer_2/name = "Props"
 layer_2/navigation_enabled = false
 layer_2/tile_data = PackedInt32Array(786429, 2, 0, 917503, 2, 0, 655360, 2, 0, 851969, 2, 0, 851970, 2, 0, 1638402, 2, 0, 1572866, 2, 0, 1507333, 2, 0, 1441798, 2, 0, 1769479, 2, 0, 1835016, 2, 0, 1900551, 2, 0, 1835008, 2, 0, 1900544, 2, 0, 1966078, 2, 0, 1638391, 2, 0, 1572854, 2, 0, 1572853, 2, 0, 1638389, 2, 0, 1703925, 2, 0, 1572851, 2, 0, 1638387, 2, 0, 1703923, 2, 0, 1834994, 2, 0, 2097141, 2, 0, 2162679, 2, 0, 2097145, 2, 0, 983027, 1, 12, 983028, 1, 12, 983029, 1, 12, 983030, 1, 12, 983031, 1, 12, 983032, 1, 12, 983033, 1, 12, 983034, 1, 12, 720882, 458753, 13, 786418, 458753, 13, 851954, 458753, 13, 917490, 458753, 13, 720891, 131073, 17, 786427, 131073, 17, 851963, 131073, 17, 917499, 131073, 17, 983035, 65537, 15, 983026, 262145, 13, 655346, 393217, 14, 655355, 196609, 16, 655347, 327681, 17, 655348, 327681, 17, 655349, 327681, 17, 655350, 327681, 17, 655351, 327681, 17, 655352, 327681, 17, 655353, 327681, 17, 655354, 327681, 17)
 
-[node name="Building" parent="." instance=ExtResource("1_i02f4")]
-position = Vector2(444, 222)
-is_pre_spawned = true
-data = ExtResource("13_r3s7s")
-
-[node name="Building3" parent="." instance=ExtResource("1_i02f4")]
-position = Vector2(385, 426)
-is_pre_spawned = true
-data = ExtResource("5_hcwe5")
-
 [node name="Economic" parent="." instance=ExtResource("12_eks4j")]
-position = Vector2(611, 407)
-
-[node name="Building5" parent="." instance=ExtResource("1_i02f4")]
-position = Vector2(652, 166)
-is_pre_spawned = true
-data = ExtResource("13_r3s7s")
-
-[node name="Economic2" parent="." instance=ExtResource("12_eks4j")]
-position = Vector2(851, 303)
-
-[node name="Building6" parent="." instance=ExtResource("1_i02f4")]
-position = Vector2(802, 387)
-scale = Vector2(0.96898, 1)
-is_pre_spawned = true
-data = ExtResource("13_r3s7s")
+position = Vector2(636.552, 300.398)

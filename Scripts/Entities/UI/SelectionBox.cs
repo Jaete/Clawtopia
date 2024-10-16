@@ -1,12 +1,11 @@
 using Godot;
-using System;
 
 public partial class SelectionBox : ColorRect
 {
-    public static Color rect_color = new Color("4CB1E4");
-    public RectangleShape2D selection_shape;
+    public static Color RectColor = new Color("4CB1E4");
+    public RectangleShape2D SelectionShape;
 
     public override void _Draw(){
-        DrawRect(selection_shape.GetRect(), rect_color, false);
+        DrawRect(SelectionShape.GetRect(), RectColor, false);
     }
 }

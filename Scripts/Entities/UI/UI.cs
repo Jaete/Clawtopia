@@ -34,7 +34,7 @@ public partial class UI : CanvasLayer
     public void Initialize(){
         container = GetNode<HFlowContainer>("HBoxContainer");
         mode_manager = GetNode<ModeManager>("/root/Game/ModeManager");
-        ui_mode = (UIMode) mode_manager.game_modes["UIMode"];
+        ui_mode = (UIMode) mode_manager.GameModes["UIMode"];
     }
     
     public void Instantiate_window(String window, Building building = null) {
@@ -42,7 +42,7 @@ public partial class UI : CanvasLayer
             case "BuildingMenu":
                 if (building != null){
                     building_menu_control = building_menu.Instantiate<BuildingMenu>();
-                    building_menu_control.building = building;
+                    building_menu_control.Building = building;
                     building_menu_control.Name = "BuildingMenu";
                     current_window = building_menu_control;
                 }
@@ -71,15 +71,15 @@ public partial class UI : CanvasLayer
     }
 
     public void Enter_ui_mode(){
-        if (mode_manager.current_mode is SimulationMode){
-            mode_manager.Change_mode(ui_mode.Name, "", "");
+        if (mode_manager.CurrentMode is SimulationMode){
+            mode_manager.ChangeMode(ui_mode.Name, "", "");
         }
     }
 
     public void Leave_ui_mode(){
-        if (mode_manager.current_mode is UIMode) {
-            var simulation_mode = (SimulationMode) mode_manager.game_modes["SimulationMode"];
-            mode_manager.Change_mode(simulation_mode.Name, "", "");
+        if (mode_manager.CurrentMode is UIMode) {
+            var simulation_mode = (SimulationMode) mode_manager.GameModes["SimulationMode"];
+            mode_manager.ChangeMode(simulation_mode.Name, "", "");
         }
     }
 }

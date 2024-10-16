@@ -20,8 +20,6 @@ script = ExtResource("2_14iyr")
 
 [node name="Director" parent="." instance=ExtResource("2_4apo7")]
 
-[node name="UI" parent="." instance=ExtResource("5_72vwo")]
-
 [node name="ModeManager" type="Node2D" parent="."]
 script = ExtResource("4_43tbe")
 
@@ -35,5 +33,4 @@ script = ExtResource("7_r6kcy")
 [node name="Controller" type="Node2D" parent="."]
 script = ExtResource("7_tf822")
 
-[node name="Camera" parent="." instance=ExtResource("10_sjhws")]
-script = ExtResource("11_nqkuk")
+[node name="UI" parent="." instance=ExtResource("5_72vwo")]

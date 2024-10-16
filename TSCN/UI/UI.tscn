@@ -9,7 +9,7 @@
 script = ExtResource("1_mmgiv")
 PauseMenuScene = ExtResource("2_jg31s")
 
-[node name="HBoxContainer" type="HFlowContainer" parent="."]
+[node name="Container" type="HFlowContainer" parent="."]
 clip_contents = true
 anchors_preset = 7
 anchor_left = 0.5
@@ -24,8 +24,9 @@ grow_vertical = 0
 size_flags_horizontal = 3
 mouse_filter = 0
 
-[node name="BaseMenu" parent="HBoxContainer" instance=ExtResource("2_4hf2e")]
+[node name="BaseMenu" parent="Container" instance=ExtResource("2_4hf2e")]
 layout_mode = 2
+script = null
 
 [node name="ResourcesCount" parent="." instance=ExtResource("3_vj4q2")]
 anchors_preset = 0

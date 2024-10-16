@@ -3,23 +3,24 @@ using System;
 
 public partial class BuildingData : Resource
 {
-    [Export] public Vector2 OFFSET;
-    [Export] public Vector2 SCALE;
-    [Export] public Vector2 INTERACTION_OFFSET;
-    [Export] public ConcavePolygonShape2D OBSTACLE_SHAPE;
-    [Export] public ConcavePolygonShape2D INTERACTION_SHAPE;
-    [Export] public ConcavePolygonShape2D GRID_SHAPE;
-    [Export] public Texture2D SPRITE_TEXTURE;    
-    [Export] public String TYPE;
-    [Export] public String RESOURCE_TYPE;
-    [Export] public String NAME;
-    [Export] public int HP;
-    [Export] public bool NEEDS_REGION = false;
-    [Export] public Rect2 REGION_RECT;
-    
-    public int level;
+    [Export] public Vector2 Offset;
+    [Export] public Vector2 Scale;
+    [Export] public Vector2 InteractionOffset;
+    [Export] public ConcavePolygonShape2D ObstacleShape;
+    [Export] public ConcavePolygonShape2D InteractionShape;
+    [Export] public ConcavePolygonShape2D GridShape;
+    [Export] public Texture2D SpriteTexture;
+    [Export(PropertyHint.Enum, Constants.BUILDING_LIST)] public string Type;
+    [Export(PropertyHint.Enum, Constants.TOWER_LIST)] public string TowerType;
+    [Export(PropertyHint.Enum, Constants.RESOURCE_LIST)] public string ResourceType;
+    [Export] public int Hp;
+    [Export] public bool NeedsRegion = false;
+    [Export] public Rect2 RegionRect;
+    [Export] public int MaxProgress;
+    public int Level;
+    public String Name;
 
-    public void initialize() {
-        level = 1;
+    public void Initialize() {
+        Level = 1;
     }
 }

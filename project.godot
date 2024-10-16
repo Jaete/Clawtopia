@@ -10,8 +10,7 @@ config_version=5
 
 [application]
 
-config/name="Clawtopia CLONE"
-config/tags=PackedStringArray("claw")
+config/name="Clawtopia Cs 4.3"
 run/main_scene="res://TSCN/Game/Game.tscn"
 config/features=PackedStringArray("4.3", "C#", "Forward Plus")
 config/icon="res://Assets/Characters/Allies/test_kitten_artstyle64.png"

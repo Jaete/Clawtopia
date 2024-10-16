@@ -1,9 +1,8 @@
 using Godot;
-using System;
 
-public partial class TOWER_Debug : Label
+public partial class TowerDebug : Label
 {
-	private Building self;
+	private Building _self;
 	public override void _Ready()
 	{
 		CallDeferred("set_label_text");
@@ -11,7 +10,7 @@ public partial class TOWER_Debug : Label
 
 	public void set_label_text()
 	{
-		self = GetParent<Building>();
-		Text = "Index: " + self.self_index;
+		_self = GetParent<Building>();
+		Text = "Index: " + _self.SelfIndex;
 	}
 }
