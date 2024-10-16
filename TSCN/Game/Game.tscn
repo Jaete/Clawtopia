@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://xemhpfheo8jx"]
+[gd_scene load_steps=12 format=3 uid="uid://xemhpfheo8jx"]
 
 [ext_resource type="PackedScene" uid="uid://cwky3bhs42sy8" path="res://TSCN/Systems/LevelManager.tscn" id="1_85gth"]
 [ext_resource type="PackedScene" uid="uid://4bjsjso63cdu" path="res://TSCN/Systems/Director.tscn" id="2_4apo7"]
@@ -9,6 +9,8 @@
 [ext_resource type="PackedScene" uid="uid://dg1278ax8xp1f" path="res://TSCN/UI/UI.tscn" id="5_72vwo"]
 [ext_resource type="Script" path="res://Scripts/Systems/GameModes/UIMode.cs" id="7_r6kcy"]
 [ext_resource type="Script" path="res://Scripts/Systems/Controller/Controller.cs" id="7_tf822"]
+[ext_resource type="PackedScene" uid="uid://dmqsbxvmpraew" path="res://TSCN/Systems/Camera.tscn" id="10_sjhws"]
+[ext_resource type="Script" path="res://Scripts/Camera.cs" id="11_nqkuk"]
 
 [node name="Game" type="Node2D"]
 y_sort_enabled = true
