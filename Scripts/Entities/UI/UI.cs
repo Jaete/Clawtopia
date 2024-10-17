@@ -24,7 +24,6 @@ public partial class UI : CanvasLayer
 
     public override void _Ready(){
         CallDeferred("Initialize");
-        Input.MouseMode = Input.MouseModeEnum.Confined;
     }
 
     public void Initialize(){
