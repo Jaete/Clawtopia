@@ -22,7 +22,11 @@ public partial class UI : CanvasLayer
     public UIMode UiMode;
     public ModeManager ModeManager;
 
+    private PauseMenu pauseMenu;
+
     public override void _Ready(){
+        pauseMenu = PauseMenuScene.Instantiate<PauseMenu>();
+        AddChild(pauseMenu);
         CallDeferred("Initialize");
         Input.MouseMode = Input.MouseModeEnum.Confined;
     }
