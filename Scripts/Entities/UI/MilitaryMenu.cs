@@ -2,11 +2,11 @@ using Godot;
 
 public partial class MilitaryMenu : Control
 {
-	public UI Ui;
+	public Ui Ui;
 
 	public override void _Ready()
 	{
-		Ui = GetNode<UI>("/root/Game/UI");
+		Ui = GetNode<Ui>("/root/Game/UI");
 		MouseEntered += Ui.Enter_ui_mode;
 		MouseExited += Ui.Leave_ui_mode;
 	}

@@ -1,17 +1,17 @@
 using Godot;
 using System;
 
-public partial class UI : CanvasLayer
+public partial class Ui : CanvasLayer
 {
     
     public PackedScene PauseMenuScene = GD.Load<PackedScene>("res://TSCN/UI/PauseMenu.tscn");
-    public PackedScene building_menu = GD.Load<PackedScene>("res://TSCN/UI/BuildingMenu.tscn");
-    public PackedScene communist_menu = GD.Load<PackedScene>("res://TSCN/UI/CommunistMenu.tscn");
-    public PackedScene base_menu = GD.Load<PackedScene>("res://TSCN/UI/BaseMenu.tscn");
+    public PackedScene BuildingMenu = GD.Load<PackedScene>("res://TSCN/UI/BuildingMenu.tscn");
+    public PackedScene CommunistMenu = GD.Load<PackedScene>("res://TSCN/UI/CommunistMenu.tscn");
+    public PackedScene BaseMenu = GD.Load<PackedScene>("res://TSCN/UI/BaseMenu.tscn");
     
 
-    public Control current_window;
-    public BuildingMenu building_menu_control;
+    public Control CurrentWindow;
+    public BuildingMenu BuildingMenuControl;
 
     public Building Building;
 
@@ -37,10 +37,10 @@ public partial class UI : CanvasLayer
         switch (window) {
             case Constants.BUILDING_MENU:
                 if (building != null){
-                    building_menu_control = building_menu.Instantiate<BuildingMenu>();
-                    building_menu_control.Building = building;
-                    building_menu_control.Name = "BuildingMenu";
-                    current_window = building_menu_control;
+                    BuildingMenuControl = BuildingMenu.Instantiate<BuildingMenu>();
+                    BuildingMenuControl.Building = building;
+                    BuildingMenuControl.Name = "BuildingMenu";
+                    CurrentWindow = BuildingMenuControl;
                 }
                 break;
             case Constants.COMMUNIST_MENU:

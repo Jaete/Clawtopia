@@ -79,7 +79,7 @@ public partial class SimulationMode : GameMode
     }
 
     public void Select_units(bool treatAsClick = false){
-        UI ui = GetNode<UI>("/root/Game/UI");
+        Ui ui = GetNode<Ui>("/root/Game/UI");
         var overlappingAreas = SelectionArea.GetOverlappingAreas();
         if (overlappingAreas.Count == 0){
             ui.Reset_ui();

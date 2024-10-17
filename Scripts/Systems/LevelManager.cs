@@ -17,13 +17,13 @@ public partial class LevelManager : Node2D
 	public Array<Building> SandBuildings = new();
 	// AS CONSTRUCOES VAO INSERIR A SI MESMAS AQUI SEMPRE QUE INSTANCIADAS
 
-	public UI Ui;
+	public Ui Ui;
 	public Control ResCount;
 	public Label CatnipLabel;
 	public Label SalmonLabel;
 	public Label SandLabel;
 	public override void _Ready(){
-		Ui = GetNode<UI>("/root/Game/UI");
+		Ui = GetNode<Ui>("/root/Game/UI");
 		ResCount = Ui.GetNode<Control>("ResourcesCount");
 		CatnipLabel = ResCount.GetNode<Label>("CatnipLabel");
 		SalmonLabel = ResCount.GetNode<Label>("SalmonLabel");
