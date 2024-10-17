@@ -1,7 +1,7 @@
 using Godot;
 using System;
 
-public partial class Ui : CanvasLayer
+public partial class UI : CanvasLayer
 {
     
     public PackedScene PauseMenuScene = GD.Load<PackedScene>("res://TSCN/UI/PauseMenu.tscn");

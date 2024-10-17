@@ -2,11 +2,11 @@ using Godot;
 
 public partial class CommunistMenu : Control
 {
-	public Ui Ui;
+	public UI Ui;
 	
 	public override void _Ready(){
 		Name = Constants.COMMUNIST_MENU;
-		Ui = GetNode<Ui>("/root/Game/UI");
+		Ui = GetNode<UI>("/root/Game/UI");
 		MouseEntered += Ui.Enter_ui_mode;
 		MouseExited += Ui.Leave_ui_mode;
 	}
