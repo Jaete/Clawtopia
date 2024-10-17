@@ -1,0 +1,20 @@
+<Project Sdk="Godot.NET.Sdk/4.2.2">
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <TargetFramework Condition=" '$(GodotTargetPlatform)' == 'android' ">net7.0</TargetFramework>
+    <TargetFramework Condition=" '$(GodotTargetPlatform)' == 'ios' ">net8.0</TargetFramework>
+    <EnableDynamicLoading>true</EnableDynamicLoading>
+    <RootNamespace>ClawtopiaCs</RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Folder Include="Scripts\Entities\Characters\Enemies\" />
+    <Folder Include="Scripts\Systems\Controller\" />
+    <Folder Include="TSCN\Entities\Characters\Allies\Economic\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Remove="Scripts\Entities\Characters\UnitHelpers.cs" />
+    <Compile Remove="Scripts\Entities\Characters\Behaviour.cs" />
+    <Compile Remove="Scripts\Entities\Characters\Allies\Ally.cs" />
+    <Compile Remove="Scripts\Entities\Characters\Allies\StateMachine.cs" />
+  </ItemGroup>
+</Project>
