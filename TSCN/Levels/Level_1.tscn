@@ -1,7 +1,8 @@
-[gd_scene load_steps=8 format=3 uid="uid://bvbkhjbnxmobc"]
+[gd_scene load_steps=9 format=3 uid="uid://bvbkhjbnxmobc"]
 
 [ext_resource type="Texture2D" uid="uid://d0pjpwam87ea4" path="res://Assets/Tileset/64agua.png.png" id="1_cdp50"]
 [ext_resource type="Texture2D" uid="uid://byktwr760ajkf" path="res://Assets/Tileset/64tiles.png" id="2_h1802"]
+[ext_resource type="PackedScene" uid="uid://dmqsbxvmpraew" path="res://TSCN/Systems/Camera.tscn" id="4_curn0"]
 [ext_resource type="PackedScene" uid="uid://d2qw1opgfwuq7" path="res://TSCN/Entities/Characters/Allies/Economic/Economic.tscn" id="12_eks4j"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_1eas2"]
@@ -527,3 +528,6 @@ layer_2/tile_data = PackedInt32Array(786429, 2, 0, 917503, 2, 0, 655360, 2, 0, 8
 
 [node name="Economic" parent="." instance=ExtResource("12_eks4j")]
 position = Vector2(636.552, 300.398)
+
+[node name="Camera2D" parent="." instance=ExtResource("4_curn0")]
+position = Vector2(577, 325)
