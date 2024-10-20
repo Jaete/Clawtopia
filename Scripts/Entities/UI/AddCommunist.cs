@@ -3,23 +3,23 @@ using System;
 
 public partial class AddCommunist : Button
 {
-	public ModeManager mode_manager;
-	public LevelManager level_manager;
-	public UI ui;
-	public SceneTreeTimer resource_spawn_timer;
+	public ModeManager ModeManager;
+	public LevelManager LevelManager;
+	public UI Ui;
+	public SceneTreeTimer ResourceSpawnTimer;
     
-	[Export] public PackedScene communist;
-	[Export] public float spawnTimer = 20;
+	[Export] public PackedScene Communist;
+	[Export] public float SpawnTimer = 20;
 	
 	private PackedScene _scene = GD.Load<PackedScene>("res://TSCN/Entities/Characters/Allies/Economic/Economic.tscn");
 	private Vector2 _communistPosition = new Vector2(-145.0f, 85.0f);
 
 	public override void _Ready(){
-		ui = GetNode<UI>("/root/Game/UI");
-		MouseEntered += ui.Enter_ui_mode;
-		MouseExited += ui.Leave_ui_mode;
+		Ui = GetNode<UI>("/root/Game/UI");
+		MouseEntered += Ui.Enter_ui_mode;
+		MouseExited += Ui.Leave_ui_mode;
 		Pressed += OnPressed;
-		mode_manager = GetNode<ModeManager>("/root/Game/ModeManager");
+		ModeManager = GetNode<ModeManager>("/root/Game/ModeManager");
 	}
 
 	public void OnPressed() {
@@ -31,18 +31,18 @@ public partial class AddCommunist : Button
 		GD.Print("SPAWN");
 
 		var addCommunist = _scene.Instantiate<Ally>();
-		var purrlamentNode = mode_manager.current_level.GetNode<Building>("Purrlamento");
-		level_manager = GetNode<LevelManager>("/root/Game/LevelManager");
+		var purrlamentNode = ModeManager.CurrentLevel.GetNode<Building>("Purrlamento");
+		LevelManager = GetNode<LevelManager>("/root/Game/LevelManager");
 
 		//INICIA SPAWN DOS GATOS CAMPONESES
-		resource_spawn_timer = GetTree().CreateTimer(spawnTimer);
+		ResourceSpawnTimer = GetTree().CreateTimer(SpawnTimer);
 
-		if (level_manager.salmon_quantity >= 100)
+		if (LevelManager.SalmonQuantity >= 100)
 		{
-			resource_spawn_timer.Timeout += delegate
+			ResourceSpawnTimer.Timeout += delegate
 			{
 				addCommunist.GlobalPosition = purrlamentNode.GlobalPosition + _communistPosition;
-				mode_manager.current_level.AddChild(addCommunist);
+				ModeManager.CurrentLevel.AddChild(addCommunist);
 			};
 		}
 		else

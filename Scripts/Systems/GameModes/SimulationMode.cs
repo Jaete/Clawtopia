@@ -94,7 +94,7 @@ public partial class SimulationMode : GameMode
             var areaInFront = Select_top_unit(overlappingAreas);
             if (areaInFront is Building building){
 
-                if (area_in_front.Name == Constants.COMMUNE_EXTERNAL_NAME)
+                if (areaInFront.Name == Constants.COMMUNE_EXTERNAL_NAME)
                 {
                     SelectedBuildings.Add(building);
                     ui.Instantiate_window(Constants.PURRLAMENT_MENU);     

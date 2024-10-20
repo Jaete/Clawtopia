@@ -48,8 +48,8 @@ public partial class UI : CanvasLayer
                 }
                 break;
             case Constants.PURRLAMENT_MENU:
-                current_window = PurrlamentMenu.Instantiate<PurrlamentMenu>();
-                current_window.Name = Constants.PURRLAMENT_MENU;
+                CurrentWindow = PurrlamentMenu.Instantiate<PurrlamentMenu>();
+                CurrentWindow.Name = Constants.PURRLAMENT_MENU;
                 break;
             case Constants.COMMUNIST_MENU:
                 CurrentWindow = CommunistMenu.Instantiate<CommunistMenu>();
