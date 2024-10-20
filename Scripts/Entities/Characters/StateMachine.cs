@@ -1,61 +1,60 @@
 using Godot;
 using System;
 using Godot.Collections;
-using System.Collections.Generic;
-using System.Runtime.Serialization;
 
 public partial class StateMachine : Node
 {
-    public NavigationAgent2D navigation;
-    public Controller controller;
+    public NavigationAgent2D Navigation;
+    public Controller Controller;
     
-    public Dictionary states = new();
-    public State current_state;
-    public bool in_transition;
+    public Dictionary States = new();
+    public State CurrentState;
+    public bool InTransition;
     
     [Export] 
-    public State default_state;
-
+    public State DefaultState;
+    
     public override void _Ready(){
-        navigation = GetNode<NavigationAgent2D>("../Navigation");
-        controller = GetNode<Controller>("/root/Game/Controller");
-        Array<Node> node_states = GetChildren();
-        foreach(var node in node_states){
-            if (node is State state){
-                state.StateTransition += Change_state;
-                states[state.Name] = state;
+        Navigation = GetNode<NavigationAgent2D>("../Navigation");
+        Controller = GetNode<Controller>("/root/Game/Controller");
+        Array<Node> nodeStates = GetChildren();
+        foreach(var node in nodeStates){
+            if (node is not State state){
+                continue;
             }
+            state.StateTransition += Change_state;
+            States[state.Name] = state;
         }
-        current_state = (State)states[default_state.Name];
-        current_state.Enter();
-        controller.MouseRightPressed += When_mouse_right_clicked;
-        navigation.NavigationFinished += When_navigation_finished;
+        CurrentState = (State)States[DefaultState.Name];
+        CurrentState.Enter();
+        Controller.MouseRightPressed += MouseRightClicked;
+        Navigation.NavigationFinished += NavigationFinished;
     }
 
     public override void _PhysicsProcess(double delta){
-        if(!in_transition){
-            current_state.Update(delta);
+        if(!InTransition){
+            CurrentState.Update(delta);
         }
     }
 
     public virtual void Change_state(State current, String next){
-        in_transition = true;
+        InTransition = true;
         if(current.Name == next) {
-            in_transition = false;
+            InTransition = false;
             return;
         }
-        current_state.Exit();
-        current_state = (State)states[next]; ;
-        current_state.Enter();
-        in_transition = false;
+        CurrentState.Exit();
+        CurrentState = (State)States[next]; ;
+        CurrentState.Enter();
+        InTransition = false;
     }
     
-    public void When_mouse_right_clicked(Vector2 coords){
-        current_state.When_mouse_right_clicked(coords);
+    public void MouseRightClicked(Vector2 coords){
+        CurrentState.MouseRightClicked(coords);
     }
 
-    public void When_navigation_finished(){
-        current_state.When_navigation_finished();
+    public void NavigationFinished(){
+        CurrentState.NavigationFinished();
     }
 }
 

@@ -1,10 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://b66xbgk13d2tp"]
+[gd_scene load_steps=3 format=3 uid="uid://b66xbgk13d2tp"]
 
-[ext_resource type="Script" path="res://Scripts/Entities/Building/Building.cs" id="1_lxpyl"]
+[ext_resource type="Script" path="res://Scripts/Entities/Building/Building.cs" id="1_sc8ft"]
 [ext_resource type="Texture2D" uid="uid://drdjlmxxqquc3" path="res://Assets/Buildings/64construcoes.png" id="2_0oyyu"]
-[ext_resource type="Script" path="res://Scripts/TOWER_Debug.cs" id="2_fydp1"]
 
-[node name="Area2D" type="Area2D" node_paths=PackedStringArray("static_body", "body_shape", "interaction_shape", "grid_shape", "sprite")]
+[node name="Area2D" type="Area2D"]
 priority = 1
 script = ExtResource("1_lxpyl")
 static_body = NodePath("NavigationBody")
@@ -37,7 +36,6 @@ collision_mask = 2147483648
 [node name="DEBUG" type="Label" parent="."]
 offset_right = 40.0
 offset_bottom = 23.0
-script = ExtResource("2_fydp1")
 
 [connection signal="input_event" from="." to="." method="_on_input_event"]
 [connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]

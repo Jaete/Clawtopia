@@ -1,15 +1,14 @@
 [gd_scene load_steps=16 format=3 uid="uid://bvbkhjbnxmobc"]
 
 [ext_resource type="Texture2D" uid="uid://d0pjpwam87ea4" path="res://Assets/Tileset/64agua.png.png" id="1_cdp50"]
-[ext_resource type="PackedScene" uid="uid://b66xbgk13d2tp" path="res://TSCN/Entities/Buildings/Building.tscn" id="1_i02f4"]
 [ext_resource type="Texture2D" uid="uid://byktwr760ajkf" path="res://Assets/Tileset/64tiles.png" id="2_h1802"]
 [ext_resource type="Resource" uid="uid://clrqpofa5wh8x" path="res://Resources/Buildings/Economy/Salmon/SalmonCottage.tres" id="5_hcwe5"]
 [ext_resource type="Shape2D" uid="uid://cf6k0j6hvsgj1" path="res://Resources/Buildings/GreatCommune/obstacle_shape.tres" id="7_s1a3u"]
 [ext_resource type="Shape2D" uid="uid://cu4xh5p57jq4p" path="res://Resources/Buildings/GreatCommune/interaction_shape.tres" id="8_8f808"]
 [ext_resource type="Texture2D" uid="uid://drdjlmxxqquc3" path="res://Assets/Buildings/64construcoes.png" id="9_s3op0"]
 [ext_resource type="Script" path="res://Scripts/Entities/Building/BuildingData.cs" id="10_enxxu"]
+[ext_resource type="PackedScene" uid="uid://dmqsbxvmpraew" path="res://TSCN/Systems/Camera.tscn" id="4_curn0"]
 [ext_resource type="PackedScene" uid="uid://d2qw1opgfwuq7" path="res://TSCN/Entities/Characters/Allies/Economic/Economic.tscn" id="12_eks4j"]
-[ext_resource type="Resource" uid="uid://rbysc2ofq5sq" path="res://Resources/Buildings/House/House.tres" id="13_r3s7s"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_1eas2"]
 vertices = PackedVector2Array(611, -56, 1446, 367, 611, 793, 298, 326, 298, 314, 32, 459, -237, 367, -106, 390, -106, 378, 160, 245)
@@ -561,7 +560,7 @@ is_pre_spawned = true
 data = ExtResource("5_hcwe5")
 
 [node name="Economic" parent="." instance=ExtResource("12_eks4j")]
-position = Vector2(611, 407)
+position = Vector2(636.552, 300.398)
 
 [node name="Building5" parent="." instance=ExtResource("1_i02f4")]
 position = Vector2(575, 85)
@@ -581,3 +580,5 @@ data = ExtResource("13_r3s7s")
 position = Vector2(511, 318)
 is_pre_spawned = true
 data = SubResource("Resource_xbc7b")
+[node name="Camera2D" parent="." instance=ExtResource("4_curn0")]
+position = Vector2(577, 325)

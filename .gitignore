@@ -2,3 +2,6 @@
 .godot/
 *.tmp
 .vs/
+.idea
+*.csproj.old*
+*.DotSettings.user*

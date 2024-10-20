@@ -1,4 +1,3 @@
-using System;
 using Godot;
 using Godot.Collections;
 
@@ -10,38 +9,38 @@ public partial class Building : Area2D
     [Signal]
     public delegate void RemovedInteractionEventHandler();
     
-    public Color OK_COLOR = new Color("2eff3f81");
-    public Color ERROR_COLOR = new Color("ba000079");
-    public Color REGULAR_COLOR = new Color(1, 1, 1);
-    public Color HOVER_COLOR = new Color(1.3f, 1.3f, 1.3f);
+    public Color OkColor = new Color("2eff3f81");
+    public Color ErrorColor = new Color("ba000079");
+    public Color RegularColor = new Color(1, 1, 1);
+    public Color HoverColor = new Color(1.3f, 1.3f, 1.3f);
     
-    public NavigationRegion2D region;
-    public SimulationMode simulation_mode;
-    public BuildMode building_mode;
-    public ModeManager mode_manager;
-    public LevelManager level_manager;
+    public NavigationRegion2D Region;
+    public SimulationMode SimulationMode;
+    public BuildMode BuildingMode;
+    public ModeManager ModeManager;
+    public LevelManager LevelManager;
     
-    public int self_index;
-    public bool placed;
-    public bool is_built;
+    public int SelfIndex;
+    public bool Placed;
+    public bool IsBuilt;
     
     // TIMER PARA TICK DE TEMPO DE CONSTRUCAO
-    public SceneTreeTimer build_tick_timer;
+    public SceneTreeTimer BuildTickTimer;
     // TEMPO EM SEGUNDOS POR TICK
-    public float TICK_TIME = 1.0f;
-    public int progress;
-    public int max_progress = 50;
-    public Array<Ally> current_builders = new();
+    public float TickTime = 1.0f;
+    public int Progress;
+    public int MaxProgress = 50;
+    public Array<Ally> CurrentBuilders = new();
 
-    [Export] public bool is_pre_spawned = false;
-    [Export] public BuildingData data;
-    [Export] public StaticBody2D static_body;
-    [Export] public CollisionPolygon2D body_shape;
-    [Export] public CollisionPolygon2D interaction_shape;
-    [Export] public CollisionPolygon2D grid_shape;
-    [Export] public Sprite2D sprite;
+    [Export] public bool IsPreSpawned = false;
+    [Export] public BuildingData Data;
+    [Export] public StaticBody2D StaticBody;
+    [Export] public CollisionPolygon2D BodyShape;
+    [Export] public CollisionPolygon2D InteractionShape;
+    [Export] public CollisionPolygon2D GridShape;
+    [Export] public Sprite2D Sprite;
 
-    public string resource_type;
+    public string ResourceType;
 
 
     public override void _Ready() {
@@ -49,42 +48,42 @@ public partial class Building : Area2D
     }
     
     public void Initialize() {
-        mode_manager = GetNode<ModeManager>("/root/Game/ModeManager");
-        building_mode = GetNode<BuildMode>("/root/Game/ModeManager/BuildMode");
-        region = GetNode<NavigationRegion2D>("../Navigation");
-        static_body = GetNode<StaticBody2D>("NavigationBody");
-        simulation_mode = GetNode<SimulationMode>("/root/Game/ModeManager/SimulationMode");
-        level_manager = GetNode<LevelManager>("/root/Game/LevelManager");
-        data.initialize();
-        body_shape.Polygon = data.OBSTACLE_SHAPE.Segments;
-        interaction_shape.Polygon = data.INTERACTION_SHAPE.Segments;
-        interaction_shape.Position = data.INTERACTION_OFFSET;
-        grid_shape.Polygon = data.GRID_SHAPE.Segments;
-        sprite.Texture = data.SPRITE_TEXTURE;
-        sprite.Offset = data.OFFSET;
-        sprite.Scale = data.SCALE;
-        sprite.RegionEnabled = false;
-        if (data.NEEDS_REGION){
-            sprite.RegionEnabled = true;
-            sprite.RegionRect = data.REGION_RECT;
+        ModeManager = GetNode<ModeManager>("/root/Game/ModeManager");
+        BuildingMode = GetNode<BuildMode>("/root/Game/ModeManager/BuildMode");
+        Region = GetNode<NavigationRegion2D>("../Navigation");
+        StaticBody = GetNode<StaticBody2D>("NavigationBody");
+        SimulationMode = GetNode<SimulationMode>("/root/Game/ModeManager/SimulationMode");
+        LevelManager = GetNode<LevelManager>("/root/Game/LevelManager");
+        Data.Initialize();
+        BodyShape.Polygon = Data.ObstacleShape.Segments;
+        InteractionShape.Polygon = Data.InteractionShape.Segments;
+        InteractionShape.Position = Data.InteractionOffset;
+        GridShape.Polygon = Data.GridShape.Segments;
+        Sprite.Texture = Data.SpriteTexture;
+        Sprite.Offset = Data.Offset;
+        Sprite.Scale = Data.Scale;
+        Sprite.RegionEnabled = false;
+        if (Data.NeedsRegion){
+            Sprite.RegionEnabled = true;
+            Sprite.RegionRect = Data.RegionRect;
         }
-        Name = data.NAME + "_" + data.TYPE + "_" + self_index;
-        if (data.TYPE.Equals(Constants.COMMUNE)){
+        Name = Data.Name + "_" + Data.Type + "_" + SelfIndex;
+        if (Data.Type.Equals(Constants.COMMUNE)){
             Name = Constants.COMMUNE_EXTERNAL_NAME;
         }
-        if(data.TYPE == Constants.HOUSE){
+        if(Data.Type == Constants.HOUSE){
             Name = Constants.HOUSE_EXTERNAL_NAME;
         }
-        if(data.TYPE == Constants.TOWER){
-            switch(data.TOWER_TYPE){
+        if(Data.Type == Constants.TOWER){
+            switch(Data.TowerType){
                 case Constants.FIGHTERS:
                     Name = Constants.FIGHTERS_TOWER_EXTERNAL_NAME;
                     break;
                 /*todo implementar o resto*/
             }
         }
-        if(data.TYPE == Constants.RESOURCE){
-            switch(data.RESOURCE_TYPE){
+        if(Data.Type == Constants.RESOURCE){
+            switch(Data.ResourceType){
                 case Constants.SALMON:
                     Name = Constants.FISHERMAN_HOUSE_EXTERNAL_NAME;
                     break;
@@ -96,123 +95,124 @@ public partial class Building : Area2D
                     break;
             }
         }
-        max_progress = data.max_progress;
-        region.BakeFinished += When_free_to_rebake;
-        AboutToInteract += simulation_mode.When_about_to_interact_with_building;
-        RemovedInteraction += simulation_mode.When_interaction_with_building_removed;
-        building_mode.ConstructionStarted += When_construction_started;
+        MaxProgress = Data.MaxProgress;
+        Region.BakeFinished += FreeToRebake;
+        AboutToInteract += SimulationMode.AboutToInteractWithBuilding;
+        RemovedInteraction += SimulationMode.InteractionWithBuildingRemoved;
+        BuildingMode.ConstructionStarted += ConstructionStarted;
         CallDeferred("Add_self_on_list");
     }
 
-    public void Add_self_on_list(){
-        switch (data.RESOURCE_TYPE){
+    public void AddSelfOnList(){
+        switch (Data.ResourceType){
             case Constants.SALMON:
-                resource_type = Constants.SALMON;
-                level_manager.salmon_buildings.Add(this);
+                ResourceType = Constants.SALMON;
+                LevelManager.SalmonBuildings.Add(this);
                 break;
             case Constants.CATNIP:
-                resource_type = Constants.CATNIP;
-                level_manager.catnip_buildings.Add(this);
+                ResourceType = Constants.CATNIP;
+                LevelManager.CatnipBuildings.Add(this);
                 break;
             case Constants.SAND:
-                resource_type = Constants.SAND;
-                level_manager.sand_buildings.Add(this);
+                ResourceType = Constants.SAND;
+                LevelManager.SandBuildings.Add(this);
                 break;
         }   
     }
 
-    public void Remove_self_from_list(){
-        switch (data.RESOURCE_TYPE){
+    public void RemoveSelfFromList(){
+        switch (Data.ResourceType){
             case Constants.SALMON:
-                level_manager.salmon_buildings.Remove(this);
+                LevelManager.SalmonBuildings.Remove(this);
                 break;
             case Constants.CATNIP:
-                level_manager.catnip_buildings.Remove(this);
+                LevelManager.CatnipBuildings.Remove(this);
                 break;
             case Constants.SAND:
-                level_manager.sand_buildings.Remove(this);
+                LevelManager.SandBuildings.Remove(this);
                 break;
         }
     }
 
-    public void Set_rebake() {
-        static_body.Name = "Obstacle_Region_" + data.TYPE + "_" + self_index;
-        static_body.Reparent(region);
-        mode_manager.currently_baking = true;
+    public void SetRebake() {
+        StaticBody.Name = "Obstacle_Region_" + Data.Type + "_" + SelfIndex;
+        StaticBody.Reparent(Region);
+        ModeManager.CurrentlyBaking = true;
     }
 
-    public void Rebake_add_building() {
-        if (is_pre_spawned) {
-            Set_rebake();
-            is_built = true;
+    public void RebakeAddBuilding() {
+        if (IsPreSpawned) {
+            SetRebake();
+            IsBuilt = true;
             return;
         }
-        if (mode_manager.current_mode is BuildMode) {
-            Set_rebake();
+        if (ModeManager.CurrentMode is BuildMode) {
+            SetRebake();
             return;
         }
     }
 
-    public void Remove_building_and_rebake() {
-        if (!mode_manager.currently_baking) {
-            StaticBody2D obstacle = region.GetNode<StaticBody2D>("Obstacle_Region_" + data.TYPE + "_" + self_index);
+    public void RebakeRemoveBuilding() {
+        if (!ModeManager.CurrentlyBaking) {
+            StaticBody2D obstacle = Region.GetNode<StaticBody2D>("Obstacle_Region_" + Data.Type + "_" + SelfIndex);
             obstacle.Reparent(this);
             Rebake();
-            mode_manager.currently_baking = true;
+            ModeManager.CurrentlyBaking = true;
         }
     }
 
     public void Rebake(){
-        region.BakeNavigationPolygon();
+        Region.BakeNavigationPolygon();
     }
 
-    public void When_free_to_rebake() {
-        mode_manager.currently_baking = false;
-        placed = true;
-        if(mode_manager.buildings_to_bake.Count > 0) {
-            mode_manager.buildings_to_bake[0].Rebake_add_building();
-            mode_manager.buildings_to_bake[0].Rebake();
-            mode_manager.buildings_to_bake.RemoveAt(0);
+    public void FreeToRebake() {
+        ModeManager.CurrentlyBaking = false;
+        Placed = true;
+        if(ModeManager.BuildingsToBake.Count > 0) {
+            ModeManager.BuildingsToBake[0].RebakeAddBuilding();
+            ModeManager.BuildingsToBake[0].Rebake();
+            ModeManager.BuildingsToBake.RemoveAt(0);
         }
     }
 
-    public void When_construction_started(Building building){
-        if (is_built){ return; }
-        progress = 0;
-        build_tick_timer = GetTree().CreateTimer(TICK_TIME);
-        build_tick_timer.Timeout += When_construction_time_elapsed;
+    public void ConstructionStarted(Building building){
+        // if (IsBuilt){ return; }
+        Progress = 0;
+        BuildTickTimer = GetTree().CreateTimer(TickTime);
+        BuildTickTimer.Timeout += ConstructionTimeElapsed;
     }
-    public void When_construction_time_elapsed(){
-        if (is_built){ return;}
-        var next_progress = progress + current_builders.Count;
-        if (next_progress < max_progress){
-            progress = next_progress;
-            build_tick_timer = GetTree().CreateTimer(TICK_TIME);
-            build_tick_timer.Timeout += When_construction_time_elapsed;
+    public void ConstructionTimeElapsed(){
+        // if (IsBuilt){ return; }
+        var nextProgress = Progress + CurrentBuilders.Count;
+        if (nextProgress < MaxProgress){
+            Progress = nextProgress;
+            BuildTickTimer = GetTree().CreateTimer(TickTime);
+            BuildTickTimer.Timeout += ConstructionTimeElapsed;
             return;
         }
-        building_mode.EmitSignal("BuildCompleted", this);
-        is_built = true;
+        BuildingMode.EmitSignal("BuildCompleted", this);
+        IsBuilt = true;
+        BuildTickTimer.Timeout -= ConstructionTimeElapsed;
     }
 
     public override void _MouseEnter(){
-        if (mode_manager.current_mode is SimulationMode){
-            Modulate = is_built ? HOVER_COLOR : OK_COLOR;
-            if (simulation_mode.selected_allies.Count > 0){
+        if (ModeManager.CurrentMode is SimulationMode){
+            Modulate = IsBuilt ? HoverColor : OkColor;
+            if (SimulationMode.SelectedAllies.Count > 0){
                 EmitSignal("AboutToInteract", this);
             }
         }
     }
     public override void _MouseExit(){
-        if (mode_manager.current_mode is SimulationMode){
-            Modulate = is_built ? REGULAR_COLOR : OK_COLOR;
-            if (simulation_mode.selected_allies.Count > 0){
+        if (ModeManager.CurrentMode is SimulationMode){
+            Modulate = IsBuilt ? RegularColor : OkColor;
+            if (SimulationMode.SelectedAllies.Count > 0){
                 EmitSignal("RemovedInteraction");
             }
         }
     }
 
     public override void _ExitTree(){
-        Remove_self_from_list();
+        RemoveSelfFromList();
     }
 }
