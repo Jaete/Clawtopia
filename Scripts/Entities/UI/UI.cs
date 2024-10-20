@@ -6,9 +6,9 @@ public partial class UI : CanvasLayer
     public PackedScene building_menu = GD.Load<PackedScene>("res://TSCN/UI/BuildingMenu.tscn");
     public PackedScene communist_menu = GD.Load<PackedScene>("res://TSCN/UI/CommunistMenu.tscn");
     public PackedScene base_menu = GD.Load<PackedScene>("res://TSCN/UI/BaseMenu.tscn");
+    public PackedScene purlament_menu = GD.Load<PackedScene>("res://TSCN/UI/PurrlamentMenu.tscn");
 
     public Control current_window;
-    public BuildingMenu building_menu_control;
 
     public Building Building;
 
@@ -33,11 +33,13 @@ public partial class UI : CanvasLayer
         switch (window) {
             case Constants.BUILDING_MENU:
                 if (building != null){
-                    building_menu_control = building_menu.Instantiate<BuildingMenu>();
-                    building_menu_control.building = building;
-                    building_menu_control.Name = Constants.COMMUNIST_MENU;
-                    current_window = building_menu_control;
+                    current_window.Name = Constants.BUILDING_MENU;
+                    current_window = building_menu.Instantiate<BuildingMenu>();
                 }
+                break;
+            case Constants.PURRLAMENT_MENU:
+                current_window = purlament_menu.Instantiate<PurrlamentMenu>();
+                current_window.Name = Constants.PURRLAMENT_MENU;
                 break;
             case Constants.COMMUNIST_MENU:
                 current_window = communist_menu.Instantiate<CommunistMenu>();

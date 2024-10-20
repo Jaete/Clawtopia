@@ -147,8 +147,6 @@ script = ExtResource("5_lja63")
 
 [node name="Collecting" type="Node" parent="FSM"]
 script = ExtResource("8_g3x88")
-MAX_QUANTITY = 8
-QUANTITY_PER_TICK = 0.7
 
 [node name="Building" type="Node" parent="FSM"]
 script = ExtResource("9_642vn")

@@ -1,17 +1,24 @@
-[gd_resource type="Resource" load_steps=2 format=3 uid="uid://byglexam8jwef"]
+[gd_resource type="Resource" load_steps=5 format=3 uid="uid://byglexam8jwef"]
 
 [ext_resource type="Script" path="res://Scripts/Entities/Building/BuildingData.cs" id="1_r233n"]
+[ext_resource type="Shape2D" uid="uid://cf6k0j6hvsgj1" path="res://Resources/Buildings/GreatCommune/obstacle_shape.tres" id="1_xbg7p"]
+[ext_resource type="Shape2D" uid="uid://cu4xh5p57jq4p" path="res://Resources/Buildings/GreatCommune/interaction_shape.tres" id="2_0a1ov"]
+[ext_resource type="Texture2D" uid="uid://drdjlmxxqquc3" path="res://Assets/Buildings/64construcoes.png" id="3_bj0ya"]
 
 [resource]
 resource_local_to_scene = true
 script = ExtResource("1_r233n")
 OFFSET = Vector2(0, 0)
-SCALE = Vector2(0, 0)
-INTERACTION_OFFSET = Vector2(0, 0)
-TYPE = ""
+SCALE = Vector2(1, 1)
+INTERACTION_OFFSET = Vector2(-1.5, 27)
+OBSTACLE_SHAPE = ExtResource("1_xbg7p")
+INTERACTION_SHAPE = ExtResource("2_0a1ov")
+GRID_SHAPE = ExtResource("1_xbg7p")
+SPRITE_TEXTURE = ExtResource("3_bj0ya")
+TYPE = "Commune"
 TOWER_TYPE = ""
 RESOURCE_TYPE = ""
-HP = 0
-NEEDS_REGION = false
-REGION_RECT = Rect2(0, 0, 0, 0)
-max_progress = 0
+HP = 2000
+NEEDS_REGION = true
+REGION_RECT = Rect2(179, 163, 287, 215)
+max_progress = 200

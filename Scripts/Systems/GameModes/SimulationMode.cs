@@ -95,9 +95,19 @@ public partial class SimulationMode : GameMode
         if(treat_as_click){
             var area_in_front = Select_top_unit(overlapping_areas);
             if (area_in_front is Building building){
-                selected_buildings.Add(building);
-                ui.Instantiate_window(Constants.BUILDING_MENU, building);
+                
+                if (area_in_front.Name == Constants.COMMUNE_EXTERNAL_NAME)
+                {
+                    selected_buildings.Add(building);
+                    ui.Instantiate_window(Constants.PURRLAMENT_MENU);     
+                }
+                else 
+                {
+                    selected_buildings.Add(building);
+                    ui.Instantiate_window(Constants.BUILDING_MENU, building);
+                }
             }
+            
             if (area_in_front.GetParent() is Ally ally){
                 selected_allies.Add(ally);
                 ally.currently_selected = true;

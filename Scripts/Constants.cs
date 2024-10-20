@@ -18,6 +18,7 @@ public partial class Constants : Node
 	public const string COMMUNIST = "Communist";
 	public const string BUILDING_MENU = "BuildingMenu";
 	public const string COMMUNIST_MENU = "CommunistMenu";
+	public const string PURRLAMENT_MENU = "PurrLamentMenu";
 	public const string BASE_MENU = "BaseMenu";
 	public const string MENU_LIST = BUILDING_MENU + "," 
 								  + COMMUNIST_MENU + ","
