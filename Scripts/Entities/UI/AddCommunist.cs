@@ -37,8 +37,8 @@ public partial class AddCommunist : Button
 		//INICIA SPAWN DOS GATOS CAMPONESES
 		ResourceSpawnTimer = GetTree().CreateTimer(SpawnTimer);
 
-		if (LevelManager.SalmonQuantity >= 100)
-		{
+		if (LevelManager.SalmonQuantity >= 100){
+			LevelManager.EmitSignal(LevelManager.SignalName.ResourceExpended, Constants.SALMON, 100);
 			ResourceSpawnTimer.Timeout += delegate
 			{
 				addCommunist.GlobalPosition = purrlamentNode.GlobalPosition + _communistPosition;
