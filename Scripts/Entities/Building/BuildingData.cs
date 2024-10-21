@@ -4,7 +4,7 @@ using System;
 public partial class BuildingData : Resource
 {
     [Export] public Vector2 Offset;
-    [Export] public Vector2 Scale;
+    [Export] public Vector2 Scale = new (1,1);
     [Export] public Vector2 InteractionOffset;
     [Export] public ConcavePolygonShape2D ObstacleShape;
     [Export] public ConcavePolygonShape2D InteractionShape;

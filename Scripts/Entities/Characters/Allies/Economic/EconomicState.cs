@@ -84,9 +84,12 @@ public partial class EconomicState : AllyState
     /// <param name="coords">A posicao global do clique.</param>
     /// <returns> <c>bool</c> Se é agua ou não.</returns>
     public bool IsInteractingWithWaterAt(Vector2 coords){
-        var mapCoords = SimulationMode.TileMap.LocalToMap(coords);
-        var data = SimulationMode.TileMap.GetCellTileData(0, mapCoords, true);
-        return (bool) data.GetCustomData("is_water");
+        var mapCoords = SimulationMode.Water.LocalToMap(SimulationMode.Water.GetLocalMousePosition());
+        var data = SimulationMode.Water.GetCellTileData(mapCoords);
+        if (data != null){
+            return (bool) data.GetCustomData("isWater");
+        }
+        return false;
     }
     
     /// <summary>
@@ -95,18 +98,7 @@ public partial class EconomicState : AllyState
     /// </summary>
     /// <returns> <c>Vector2</c> Coordenadas globais do tile mais proximo.</returns>
     public Vector2 GetClosestWaterCoord(){
-        var tilemap = SimulationMode.TileMap;
-        var waterTiles = tilemap.GetUsedCellsById(1);
-        Vector2 closestTile = default;
-        foreach (var tile in waterTiles){
-            var localTilePos = tilemap.MapToLocal(tile);
-            var globalTilePos = tilemap.ToGlobal(localTilePos);
-            if (closestTile == default){
-                closestTile = globalTilePos;
-            }else if (Ally.GlobalPosition.DistanceSquaredTo(closestTile) > Ally.GlobalPosition.DistanceSquaredTo(globalTilePos)){
-                closestTile = globalTilePos;
-            }
-        }
-        return closestTile;
+        var mapCoords = SimulationMode.Water.GetLocalMousePosition();
+        return mapCoords;
     }
 }

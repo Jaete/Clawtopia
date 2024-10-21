@@ -28,7 +28,7 @@ public partial class UI : CanvasLayer
         pauseMenu = PauseMenuScene.Instantiate<PauseMenu>();
         AddChild(pauseMenu);
         CallDeferred("Initialize");
-        Input.MouseMode = Input.MouseModeEnum.Confined;
+        //Input.MouseMode = Input.MouseModeEnum.Confined;
     }
 
     public void Initialize(){

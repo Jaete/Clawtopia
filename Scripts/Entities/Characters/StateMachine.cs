@@ -22,7 +22,9 @@ public partial class StateMachine : Node
             if (node is not State state){
                 continue;
             }
-            state.StateTransition += Change_state;
+            if (!state.IsConnected(State.SignalName.StateTransition, new Callable(this, MethodName.ChangeState))){
+                state.StateTransition += ChangeState;
+            }
             States[state.Name] = state;
         }
         CurrentState = (State)States[DefaultState.Name];
@@ -37,7 +39,7 @@ public partial class StateMachine : Node
         }
     }
 
-    public virtual void Change_state(State current, String next){
+    public virtual void ChangeState(State current, String next){
         InTransition = true;
         if(current.Name == next) {
             InTransition = false;

@@ -100,7 +100,7 @@ public partial class Building : Area2D
         AboutToInteract += SimulationMode.AboutToInteractWithBuilding;
         RemovedInteraction += SimulationMode.InteractionWithBuildingRemoved;
         BuildingMode.ConstructionStarted += ConstructionStarted;
-        CallDeferred("Add_self_on_list");
+        CallDeferred("AddSelfOnList");
     }
 
     public void AddSelfOnList(){
@@ -178,7 +178,7 @@ public partial class Building : Area2D
     public void ConstructionStarted(Building building){
         // if (IsBuilt){ return; }
         Progress = 0;
-        BuildTickTimer = GetTree().CreateTimer(TickTime);
+        BuildTickTimer = GetTree().CreateTimer(TickTime, false);
         BuildTickTimer.Timeout += ConstructionTimeElapsed;
     }
     public void ConstructionTimeElapsed(){

@@ -31,7 +31,7 @@ public partial class ModeManager : Node2D
     }
 
     public void Initialize() {
-        Director = GetNode<Director>("/root/Game/Director");
+        //Director = GetNode<Director>("/root/Game/Director");
         CurrentLevel = GetNode<Node2D>("/root/Game/LevelManager/Level");
         SetGameModes();
         SetInitialBuildings();

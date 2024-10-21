@@ -21,11 +21,13 @@ public partial class SimulationMode : GameMode
     
     // RELACIONADO PARA INTERACAO COM RECURSOS
     public bool IsWater;
-    public TileMap TileMap;
+    public TileMapLayer Ground;
+    public TileMapLayer Water;
 
     public override void _Ready(){
         Initialize();
-        TileMap = GetNode<TileMap>("/root/Game/LevelManager/Level/Navigation/TileMap");
+        Ground = GetNode<TileMapLayer>("/root/Game/LevelManager/Level/Navigation/Ground");
+        Water = GetNode<TileMapLayer>("/root/Game/LevelManager/Level/Navigation/Water");
     }
 
     public override void Enter() {  }

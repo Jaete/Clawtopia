@@ -31,7 +31,7 @@ public partial class GameMode : Node2D {
     public virtual void MouseReleased(Vector2 coords) { }
 
     public void Initialize(){
-        Director = GetNode<Director>("/root/Game/Director");
+        //Director = GetNode<Director>("/root/Game/Director");
         ModeManager = GetParent<ModeManager>();
         Controller = GetNode<Controller>("/root/Game/Controller");
         Controller.MousePressed += MousePressed;

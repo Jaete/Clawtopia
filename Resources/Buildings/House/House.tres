@@ -1,20 +1,23 @@
-[gd_resource type="Resource" load_steps=2 format=3 uid="uid://rbysc2ofq5sq"]
+[gd_resource type="Resource" load_steps=5 format=3 uid="uid://bnn4y64wn2h21"]
 
 [ext_resource type="Script" path="res://Scripts/Entities/Building/BuildingData.cs" id="1_42v36"]
+[ext_resource type="Shape2D" uid="uid://bcv5s7o180h38" path="res://Resources/Buildings/House/obstacle_shape.tres" id="1_hkrvk"]
+[ext_resource type="Shape2D" uid="uid://b3kn667pilgss" path="res://Resources/Buildings/House/interaction_shape.tres" id="2_jtf3x"]
+[ext_resource type="Texture2D" uid="uid://drdjlmxxqquc3" path="res://Assets/Buildings/64construcoes.png" id="3_oegtm"]
 
 [resource]
 script = ExtResource("1_42v36")
-OFFSET = Vector2(0, -32)
-SCALE = Vector2(1, 1)
-INTERACTION_OFFSET = Vector2(0, -32)
-OBSTACLE_SHAPE = ExtResource("1_pnv1f")
-INTERACTION_SHAPE = ExtResource("2_24v42")
-GRID_SHAPE = ExtResource("1_pnv1f")
-SPRITE_TEXTURE = ExtResource("3_6whfx")
-TYPE = "House"
-TOWER_TYPE = ""
-RESOURCE_TYPE = ""
-HP = 500
-NEEDS_REGION = true
-REGION_RECT = Rect2(33, 346, 132, 131)
-max_progress = 20
+Offset = Vector2(0, 0)
+Scale = Vector2(1, 1)
+InteractionOffset = Vector2(0, -32)
+ObstacleShape = ExtResource("1_hkrvk")
+InteractionShape = ExtResource("2_jtf3x")
+GridShape = ExtResource("1_hkrvk")
+SpriteTexture = ExtResource("3_oegtm")
+Type = "House"
+TowerType = ""
+ResourceType = ""
+Hp = 500
+NeedsRegion = true
+RegionRect = Rect2(33, 346, 132, 131)
+MaxProgress = 20
