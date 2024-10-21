@@ -1,34 +1,23 @@
-[gd_scene load_steps=10 format=3 uid="uid://xemhpfheo8jx"]
+[gd_scene load_steps=6 format=3 uid="uid://cnyghgsmgc77a"]
 
-[ext_resource type="PackedScene" uid="uid://cwky3bhs42sy8" path="res://TSCN/Systems/LevelManager.tscn" id="1_85gth"]
-[ext_resource type="PackedScene" uid="uid://4bjsjso63cdu" path="res://TSCN/Systems/Director.tscn" id="2_4apo7"]
-[ext_resource type="Script" path="res://Scripts/Systems/LevelManager.cs" id="2_14iyr"]
-[ext_resource type="PackedScene" uid="uid://biyro53k4fy7v" path="res://TSCN/Systems/GameModes/BuildMode.tscn" id="3_rgtfs"]
-[ext_resource type="Script" path="res://Scripts/Systems/GameModes/ModeManager.cs" id="4_43tbe"]
-[ext_resource type="PackedScene" uid="uid://dx1ar78jg5hmu" path="res://TSCN/Systems/GameModes/SimulationMode.tscn" id="4_dnk3u"]
-[ext_resource type="PackedScene" uid="uid://dg1278ax8xp1f" path="res://TSCN/UI/UI.tscn" id="5_72vwo"]
-[ext_resource type="Script" path="res://Scripts/Systems/GameModes/UIMode.cs" id="7_r6kcy"]
-[ext_resource type="Script" path="res://Scripts/Systems/Controller/Controller.cs" id="7_tf822"]
+[ext_resource type="PackedScene" uid="uid://c73kwxuuwdacc" path="res://TSCN/Levels/Level-1.tscn" id="1_6kvq8"]
+[ext_resource type="Script" path="res://Scripts/Systems/LevelManager.cs" id="1_rxf7b"]
+[ext_resource type="PackedScene" uid="uid://sbqaktg77w31" path="res://TSCN/Systems/GameModes/ModeManager.tscn" id="2_u37th"]
+[ext_resource type="PackedScene" uid="uid://dg1278ax8xp1f" path="res://TSCN/UI/UI.tscn" id="3_bq1ev"]
+[ext_resource type="PackedScene" uid="uid://drliam15ta6fq" path="res://TSCN/Game/Controller.tscn" id="4_ak1ec"]
 
 [node name="Game" type="Node2D"]
-y_sort_enabled = true
 
-[node name="LevelManager" parent="." instance=ExtResource("1_85gth")]
-script = ExtResource("2_14iyr")
+[node name="LevelManager" type="Node2D" parent="."]
+script = ExtResource("1_rxf7b")
+CatnipQuantity = 120
+SalmonQuantity = 200
+SandQuantity = 100
 
-[node name="Director" parent="." instance=ExtResource("2_4apo7")]
+[node name="Level" parent="LevelManager" instance=ExtResource("1_6kvq8")]
 
-[node name="ModeManager" type="Node2D" parent="."]
-script = ExtResource("4_43tbe")
+[node name="ModeManager" parent="." instance=ExtResource("2_u37th")]
 
-[node name="BuildMode" parent="ModeManager" instance=ExtResource("3_rgtfs")]
+[node name="UI" parent="." instance=ExtResource("3_bq1ev")]
 
-[node name="SimulationMode" parent="ModeManager" instance=ExtResource("4_dnk3u")]
-
-[node name="UIMode" type="Node2D" parent="ModeManager"]
-script = ExtResource("7_r6kcy")
-
-[node name="Controller" type="Node2D" parent="."]
-script = ExtResource("7_tf822")
-
-[node name="UI" parent="." instance=ExtResource("5_72vwo")]
+[node name="Controller" parent="." instance=ExtResource("4_ak1ec")]

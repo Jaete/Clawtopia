@@ -1,36 +1,24 @@
-[gd_scene load_steps=3 format=3 uid="uid://b66xbgk13d2tp"]
+[gd_scene load_steps=2 format=3 uid="uid://d2xeg5t6t85er"]
 
-[ext_resource type="Script" path="res://Scripts/Entities/Building/Building.cs" id="1_sc8ft"]
-[ext_resource type="Texture2D" uid="uid://drdjlmxxqquc3" path="res://Assets/Buildings/64construcoes.png" id="2_0oyyu"]
+[ext_resource type="Script" path="res://Scripts/Entities/Building/Building.cs" id="1_pb7cr"]
 
-[node name="Area2D" type="Area2D"]
-priority = 1
-script = ExtResource("1_sc8ft")
+[node name="Building" type="Area2D" node_paths=PackedStringArray("StaticBody", "BodyShape", "InteractionShape", "GridShape", "Sprite")]
+script = ExtResource("1_pb7cr")
+StaticBody = NodePath("NavigationBody")
+BodyShape = NodePath("NavigationBody/Shape")
+InteractionShape = NodePath("InteractionShape")
+GridShape = NodePath("GridArea/Shape")
+Sprite = NodePath("Sprite2D")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+region_rect = Rect2(179, 163, 287, 215)
 
 [node name="NavigationBody" type="StaticBody2D" parent="."]
-collision_layer = 2147483648
 
 [node name="Shape" type="CollisionPolygon2D" parent="NavigationBody"]
-polygon = PackedVector2Array(0, 48, -96, 0, 0, -40, 96, 0)
 
-[node name="Sprite" type="Sprite2D" parent="."]
-texture = ExtResource("2_0oyyu")
-offset = Vector2(0, -32)
-region_enabled = true
-region_rect = Rect2(33, 346, 132, 131)
-
-[node name="Shape" type="CollisionPolygon2D" parent="."]
-position = Vector2(-1.5, -1.5)
+[node name="InteractionShape" type="CollisionPolygon2D" parent="."]
 
 [node name="GridArea" type="Area2D" parent="."]
-collision_layer = 2147483648
-collision_mask = 2147483648
 
 [node name="Shape" type="CollisionPolygon2D" parent="GridArea"]
-
-[node name="DEBUG" type="Label" parent="."]
-offset_right = 40.0
-offset_bottom = 23.0
-
-[connection signal="input_event" from="." to="." method="_on_input_event"]
-[connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]

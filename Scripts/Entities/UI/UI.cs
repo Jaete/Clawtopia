@@ -3,7 +3,7 @@ using System;
 
 public partial class UI : CanvasLayer
 {
-    
+    public PackedScene PurrlamentMenu = GD.Load<PackedScene>("res://TSCN/UI/PurrlamentMenu.tscn");
     public PackedScene PauseMenuScene = GD.Load<PackedScene>("res://TSCN/UI/PauseMenu.tscn");
     public PackedScene BuildingMenu = GD.Load<PackedScene>("res://TSCN/UI/BuildingMenu.tscn");
     public PackedScene CommunistMenu = GD.Load<PackedScene>("res://TSCN/UI/CommunistMenu.tscn");
@@ -28,7 +28,7 @@ public partial class UI : CanvasLayer
         pauseMenu = PauseMenuScene.Instantiate<PauseMenu>();
         AddChild(pauseMenu);
         CallDeferred("Initialize");
-        Input.MouseMode = Input.MouseModeEnum.Confined;
+        //Input.MouseMode = Input.MouseModeEnum.Confined;
     }
 
     public void Initialize(){
@@ -46,6 +46,10 @@ public partial class UI : CanvasLayer
                     BuildingMenuControl.Name = "BuildingMenu";
                     CurrentWindow = BuildingMenuControl;
                 }
+                break;
+            case Constants.PURRLAMENT_MENU:
+                CurrentWindow = PurrlamentMenu.Instantiate<PurrlamentMenu>();
+                CurrentWindow.Name = Constants.PURRLAMENT_MENU;
                 break;
             case Constants.COMMUNIST_MENU:
                 CurrentWindow = CommunistMenu.Instantiate<CommunistMenu>();

@@ -7,9 +7,9 @@ public partial class LevelManager : Node2D
 	public delegate void ResourceDeliveredEventHandler(string resource, int quantity);
 	
 	// VARIAVEIS DE QUANTIDADE DE RECURSO ATUAL
-	public int CatnipQuantity = 0;
-	public int SalmonQuantity = 0;
-	public int SandQuantity = 0;
+	[Export] public int CatnipQuantity = 0;
+	[Export] public int SalmonQuantity = 0;
+	[Export] public int SandQuantity = 0;
 	
 	//NODES DE ESTRUTURA DE RECURSO DE SALMAO, CATNIP E AREIA PELO MAPA
 	public Array<Building> SalmonBuildings = new();

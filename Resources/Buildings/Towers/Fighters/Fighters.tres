@@ -1,20 +1,24 @@
-[gd_resource type="Resource" load_steps=2 format=3 uid="uid://c3xdisvexuxgq"]
+[gd_resource type="Resource" load_steps=5 format=3 uid="uid://c3xdisvexuxgq"]
 
+[ext_resource type="Shape2D" uid="uid://kji4e4x8mqau" path="res://Resources/Buildings/Towers/Fighters/obstacle_shape.tres" id="1_34wbk"]
 [ext_resource type="Script" path="res://Scripts/Entities/Building/BuildingData.cs" id="1_nfxbb"]
+[ext_resource type="Shape2D" uid="uid://b7n504j7x6gv6" path="res://Resources/Buildings/Towers/Fighters/interaction_shape.tres" id="2_iw41u"]
+[ext_resource type="Texture2D" uid="uid://drdjlmxxqquc3" path="res://Assets/Buildings/64construcoes.png" id="3_nyjju"]
 
 [resource]
 resource_local_to_scene = true
 script = ExtResource("1_nfxbb")
-Offset = Vector2(0, 0)
-Scale = Vector2(0, 0)
-InteractionOffset = Vector2(0, 0)
-Type = ""
-TowerType = ""
+Offset = Vector2(0, -36)
+Scale = Vector2(1.5, 1.5)
+InteractionOffset = Vector2(-2, -31)
+ObstacleShape = ExtResource("1_34wbk")
+InteractionShape = ExtResource("2_iw41u")
+GridShape = ExtResource("1_34wbk")
+SpriteTexture = ExtResource("3_nyjju")
+Type = "Tower"
+TowerType = "Fighters"
 ResourceType = ""
-Hp = 0
-NeedsRegion = false
-RegionRect = Rect2(0, 0, 0, 0)
-MaxProgress = 0
-SalmonCost = 100
-CatnipCost = 100
-SandCost = 100
+Hp = 5000
+NeedsRegion = true
+RegionRect = Rect2(15, 640, 100, 129)
+MaxProgress = 75

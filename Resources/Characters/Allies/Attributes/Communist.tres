@@ -4,9 +4,9 @@
 
 [resource]
 script = ExtResource("1_7c5nw")
-Hp = 0
+Hp = 50
 Damage = 0
-MoveSpeed = 0.0
+MoveSpeed = 100.0
 AttackSpeed = 0.0
 VisionRange = 0
 AttackRange = 0

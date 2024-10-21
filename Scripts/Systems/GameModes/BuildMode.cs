@@ -87,7 +87,7 @@ public partial class BuildMode : GameMode {
 
     private void Validate_position() {
         Area2D gridArea = CurrentBuilding.GetNode<Area2D>("GridArea");
-        Godot.Collections.Array<Area2D> overlappingAreas = gridArea.GetOverlappingAreas();
+        Array<Area2D> overlappingAreas = gridArea.GetOverlappingAreas();
         foreach (var area in overlappingAreas) {
             if (area.Name == "GridArea") {
                 IsOverlappingBuildings = true;

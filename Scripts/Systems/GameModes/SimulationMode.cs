@@ -21,11 +21,13 @@ public partial class SimulationMode : GameMode
     
     // RELACIONADO PARA INTERACAO COM RECURSOS
     public bool IsWater;
-    public TileMap TileMap;
+    public TileMapLayer Ground;
+    public TileMapLayer Water;
 
     public override void _Ready(){
         Initialize();
-        TileMap = GetNode<TileMap>("/root/Game/LevelManager/Level/Navigation/TileMap");
+        Ground = GetNode<TileMapLayer>("/root/Game/LevelManager/Level/Navigation/Ground");
+        Water = GetNode<TileMapLayer>("/root/Game/LevelManager/Level/Navigation/Water");
     }
 
     public override void Enter() {  }
@@ -93,8 +95,17 @@ public partial class SimulationMode : GameMode
         if(treatAsClick){
             var areaInFront = Select_top_unit(overlappingAreas);
             if (areaInFront is Building building){
-                SelectedBuildings.Add(building);
-                ui.Instantiate_window(Constants.BUILDING_MENU, building);
+
+                if (areaInFront.Name == Constants.COMMUNE_EXTERNAL_NAME)
+                {
+                    SelectedBuildings.Add(building);
+                    ui.Instantiate_window(Constants.PURRLAMENT_MENU);     
+                }
+                else 
+                {
+                    SelectedBuildings.Add(building);
+                    ui.Instantiate_window(Constants.BUILDING_MENU, building);
+                }
             }
             if (areaInFront.GetParent() is Ally ally){
                 SelectedAllies.Add(ally);

@@ -11,6 +11,7 @@
     <Folder Include="Scripts\Entities\Characters\Enemies\" />
     <Folder Include="Scripts\Systems\Controller\" />
     <Folder Include="TSCN\Entities\Characters\Allies\Economic\" />
+    <Folder Include="TSCN\UI\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Remove="Scripts\Entities\Characters\UnitHelpers.cs" />

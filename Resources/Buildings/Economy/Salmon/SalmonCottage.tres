@@ -1,19 +1,23 @@
-[gd_resource type="Resource" load_steps=2 format=3 uid="uid://clrqpofa5wh8x"]
+[gd_resource type="Resource" load_steps=5 format=3 uid="uid://f0n4etcb423u"]
 
+[ext_resource type="Shape2D" uid="uid://hckfayy4ot3" path="res://Resources/Buildings/Economy/Salmon/obstacle_shape.tres" id="1_msj78"]
+[ext_resource type="Shape2D" uid="uid://mhj6bkino47b" path="res://Resources/Buildings/Economy/Salmon/interaction_shape.tres" id="2_v4def"]
+[ext_resource type="Texture2D" uid="uid://drdjlmxxqquc3" path="res://Assets/Buildings/64construcoes.png" id="3_66xib"]
 [ext_resource type="Script" path="res://Scripts/Entities/Building/BuildingData.cs" id="4_grkxa"]
 
 [resource]
 script = ExtResource("4_grkxa")
-Offset = Vector2(0, 0)
-Scale = Vector2(0, 0)
-InteractionOffset = Vector2(0, 0)
-Type = ""
+Offset = Vector2(0, -32)
+Scale = Vector2(1, 1)
+InteractionOffset = Vector2(0, -16)
+ObstacleShape = ExtResource("1_msj78")
+InteractionShape = ExtResource("2_v4def")
+GridShape = ExtResource("1_msj78")
+SpriteTexture = ExtResource("3_66xib")
+Type = "Resource"
 TowerType = ""
-ResourceType = ""
-Hp = 0
-NeedsRegion = false
-RegionRect = Rect2(0, 0, 0, 0)
-MaxProgress = 0
-SalmonCost = 100
-CatnipCost = 100
-SandCost = 100
+ResourceType = "Salmon"
+Hp = 2500
+NeedsRegion = true
+RegionRect = Rect2(7, 12, 211, 177)
+MaxProgress = 50

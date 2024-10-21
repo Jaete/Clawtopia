@@ -1,19 +1,23 @@
-[gd_resource type="Resource" load_steps=2 format=3 uid="uid://rbysc2ofq5sq"]
+[gd_resource type="Resource" load_steps=5 format=3 uid="uid://bnn4y64wn2h21"]
 
 [ext_resource type="Script" path="res://Scripts/Entities/Building/BuildingData.cs" id="1_42v36"]
+[ext_resource type="Shape2D" uid="uid://bcv5s7o180h38" path="res://Resources/Buildings/House/obstacle_shape.tres" id="1_hkrvk"]
+[ext_resource type="Shape2D" uid="uid://b3kn667pilgss" path="res://Resources/Buildings/House/interaction_shape.tres" id="2_jtf3x"]
+[ext_resource type="Texture2D" uid="uid://drdjlmxxqquc3" path="res://Assets/Buildings/64construcoes.png" id="3_oegtm"]
 
 [resource]
 script = ExtResource("1_42v36")
 Offset = Vector2(0, 0)
-Scale = Vector2(0, 0)
-InteractionOffset = Vector2(0, 0)
-Type = ""
+Scale = Vector2(1, 1)
+InteractionOffset = Vector2(0, -32)
+ObstacleShape = ExtResource("1_hkrvk")
+InteractionShape = ExtResource("2_jtf3x")
+GridShape = ExtResource("1_hkrvk")
+SpriteTexture = ExtResource("3_oegtm")
+Type = "House"
 TowerType = ""
 ResourceType = ""
-Hp = 0
-NeedsRegion = false
-RegionRect = Rect2(0, 0, 0, 0)
-MaxProgress = 0
-SalmonCost = 100
-CatnipCost = 100
-SandCost = 100
+Hp = 500
+NeedsRegion = true
+RegionRect = Rect2(33, 346, 132, 131)
+MaxProgress = 20
