@@ -1,6 +1,8 @@
 using Godot;
 using Godot.Collections;
 
+namespace ClawtopiaCs.Scripts.Systems;
+
 public partial class LevelManager : Node2D
 {
 	[Signal]

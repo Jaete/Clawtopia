@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using ClawtopiaCs.Scripts.Entities.Building;
 using Godot.Collections;
 
 public partial class BuildMode : GameMode {
@@ -20,7 +21,7 @@ public partial class BuildMode : GameMode {
         if(BuildingType == Constants.TOWER) {
             ModeManager.FightersTowerCount++;
             ModeManager.BuildingCount++;
-            Instantiate_building(buildingPath);
+            InstantiateBuilding(buildingPath);
             CurrentBuilding.SelfIndex = ModeManager.FightersTowerCount;
             CurrentBuilding.Name = ModeManager.TowerType + "_T1_" + CurrentBuilding.SelfIndex;
             CurrentBuilding.Data = GD.Load<BuildingData>("res://Resources/Buildings/Towers/Fighters/Fighters.tres");
@@ -28,7 +29,7 @@ public partial class BuildMode : GameMode {
         if(BuildingType == Constants.COMMUNE){
            ModeManager.GreatCommuneCount++;
            ModeManager.BuildingCount++;
-           Instantiate_building(buildingPath);
+           InstantiateBuilding(buildingPath);
            CurrentBuilding.SelfIndex = ModeManager.GreatCommuneCount;
            CurrentBuilding.Name = Constants.COMMUNE;   
            CurrentBuilding.Data = GD.Load<BuildingData>("res://Resources/Buildings/GreatCommune/GreatCommune.tres");
@@ -36,7 +37,7 @@ public partial class BuildMode : GameMode {
         if(BuildingType == Constants.RESOURCE){
             ModeManager.SalmonCottageCount++;
             ModeManager.BuildingCount++;
-            Instantiate_building(buildingPath);
+            InstantiateBuilding(buildingPath);
             CurrentBuilding.SelfIndex = ModeManager.SalmonCottageCount;
             CurrentBuilding.Name = "" + ModeManager.ResourceBuildType + "_" + CurrentBuilding.SelfIndex;
             CurrentBuilding.Data = GD.Load<BuildingData>("res://Resources/Buildings/Economy/Salmon/SalmonCottage.tres");
@@ -44,7 +45,7 @@ public partial class BuildMode : GameMode {
         if (BuildingType == Constants.HOUSE){
             ModeManager.HouseCount++;
             ModeManager.BuildingCount++;
-            Instantiate_building(buildingPath);
+            InstantiateBuilding(buildingPath);
             CurrentBuilding.SelfIndex = ModeManager.HouseCount;
             CurrentBuilding.Name = "" + ModeManager.ResourceBuildType + "_" + CurrentBuilding.SelfIndex;
             CurrentBuilding.Data = GD.Load<BuildingData>("res://Resources/Buildings/House/House.tres");
@@ -57,35 +58,42 @@ public partial class BuildMode : GameMode {
     }
 
     public override void Update() {
-        Move_preview();
-        Validate_position();
-        if (Input.IsActionJustPressed("LeftClick")) {
-            Confirm_building();
+        MovePreview();
+        ValidatePosition();
+    }
+    
+    public override void MouseReleased(Vector2 coords)
+    {
+        if (ModeManager.CurrentMode is not BuildMode) {
+            return;
         }
-        if (Input.IsActionJustPressed("RightClick")) {
-            Cancel_building();
-        }
+        ConfirmBuilding();
     }
 
-    private void Cancel_building() {
+    public override void MouseRightPressed(Vector2 coords)
+    {
+        CancelBuilding();
+    }
+
+    private void CancelBuilding() {
         ModeManager.FightersTowerCount--;
         ModeManager.BuildingCount--;
         CurrentBuilding.QueueFree();
         EmitSignal("ModeTransition", "SimulationMode", "", "");
     }
 
-    private void Confirm_building() {
+    private void ConfirmBuilding() {
         if (!IsOverlappingBuildings) {
             CurrentBuilding.RebakeAddBuilding();
             CurrentBuilding.Rebake();
             CurrentBuilding.InputPickable = true;
             EmitSignal("ConstructionStarted", CurrentBuilding);
-            BuildCompleted += When_building_completed;
+            BuildCompleted += WhenBuildingCompleted;
             EmitSignal("ModeTransition", "SimulationMode", "", "");
         }
     }
 
-    private void Validate_position() {
+    private void ValidatePosition() {
         Area2D gridArea = CurrentBuilding.GetNode<Area2D>("GridArea");
         Array<Area2D> overlappingAreas = gridArea.GetOverlappingAreas();
         foreach (var area in overlappingAreas) {
@@ -98,13 +106,13 @@ public partial class BuildMode : GameMode {
             IsOverlappingBuildings = false;    
         }
         if (IsOverlappingBuildings) {
-            CurrentBuilding.Modulate = CurrentBuilding.ErrorColor;
+            Building.ModulateBuilding(CurrentBuilding, BuildingInteractionStates.BUILDING_ERROR);
         } else {
-            CurrentBuilding.Modulate = CurrentBuilding.OkColor;
+            Building.ModulateBuilding(CurrentBuilding, BuildingInteractionStates.BUILDING_OK);
         }
     }
 
-    private void Move_preview() {
+    private void MovePreview() {
         MousePosition = ModeManager.CurrentLevel.GetGlobalMousePosition();
         float xDifference = MousePosition.X - CurrentBuilding.GlobalPosition.X;
         float yDifference = MousePosition.Y - CurrentBuilding.GlobalPosition.Y;
@@ -128,13 +136,13 @@ public partial class BuildMode : GameMode {
 
     }
 
-    private void Instantiate_building(String buildingPath) {
+    private void InstantiateBuilding(String buildingPath) {
         PackedScene buildingScene = GD.Load<PackedScene>(buildingPath);
         CurrentBuilding = (Building)buildingScene.Instantiate();
     }
 
-    public void When_building_completed(Building building){
-        building.Modulate = building.RegularColor;
+    public void WhenBuildingCompleted(Building building){
+        Building.ModulateBuilding(building, BuildingInteractionStates.BUILD_FINISHED);
         building.CurrentBuilders.Clear();
     }
 }

@@ -4,7 +4,7 @@ using System;
 public partial class AddCommunist : Button
 {
 	public ModeManager ModeManager;
-	public LevelManager LevelManager;
+	public ClawtopiaCs.Scripts.Systems.LevelManager LevelManager;
 	public UI Ui;
 	public SceneTreeTimer ResourceSpawnTimer;
     
@@ -31,14 +31,14 @@ public partial class AddCommunist : Button
 		GD.Print("SPAWN");
 
 		var addCommunist = _scene.Instantiate<Ally>();
-		var purrlamentNode = ModeManager.CurrentLevel.GetNode<Building>("Purrlamento");
-		LevelManager = GetNode<LevelManager>("/root/Game/LevelManager");
+		var purrlamentNode = ModeManager.CurrentLevel.GetNode<Building>(Constants.COMMUNE_EXTERNAL_NAME);
+		LevelManager = GetNode<ClawtopiaCs.Scripts.Systems.LevelManager>("/root/Game/LevelManager");
 
 		//INICIA SPAWN DOS GATOS CAMPONESES
 		ResourceSpawnTimer = GetTree().CreateTimer(SpawnTimer);
 
 		if (LevelManager.SalmonQuantity >= 100){
-			LevelManager.EmitSignal(LevelManager.SignalName.ResourceExpended, Constants.SALMON, 100);
+			LevelManager.EmitSignal(ClawtopiaCs.Scripts.Systems.LevelManager.SignalName.ResourceExpended, Constants.SALMON, 100);
 			ResourceSpawnTimer.Timeout += delegate
 			{
 				addCommunist.GlobalPosition = purrlamentNode.GlobalPosition + _communistPosition;

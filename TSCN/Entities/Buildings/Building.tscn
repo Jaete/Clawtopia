@@ -9,6 +9,7 @@ BodyShape = NodePath("NavigationBody/Shape")
 InteractionShape = NodePath("InteractionShape")
 GridShape = NodePath("GridArea/Shape")
 Sprite = NodePath("Sprite2D")
+metadata/IsBuilding = true
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 region_rect = Rect2(179, 163, 287, 215)
@@ -17,8 +18,9 @@ region_rect = Rect2(179, 163, 287, 215)
 
 [node name="Shape" type="CollisionPolygon2D" parent="NavigationBody"]
 
-[node name="InteractionShape" type="CollisionPolygon2D" parent="."]
-
 [node name="GridArea" type="Area2D" parent="."]
+input_pickable = false
 
 [node name="Shape" type="CollisionPolygon2D" parent="GridArea"]
+
+[node name="InteractionShape" type="CollisionPolygon2D" parent="."]

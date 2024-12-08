@@ -92,7 +92,7 @@ public partial class ModeManager : Node2D
                     GreatCommuneCount++;
                 }
                 BuildingsToBake.Add(building);
-                building.RebakeAddBuilding();
+                building.RebakeAddBuilding(true);
             }
         }
         Region = GetNode<NavigationRegion2D>("/root/Game/LevelManager/Level/Navigation");

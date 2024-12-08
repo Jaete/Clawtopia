@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://drliam15ta6fq" path="res://TSCN/Game/Controller.tscn" id="4_ak1ec"]
 
 [node name="Game" type="Node2D"]
+y_sort_enabled = true
 
 [node name="LevelManager" type="Node2D" parent="."]
 script = ExtResource("1_rxf7b")
