@@ -22,3 +22,4 @@ Hp = 10000
 NeedsRegion = true
 RegionRect = Rect2(179, 163, 287, 215)
 MaxProgress = 0
+IsPreSpawned = true

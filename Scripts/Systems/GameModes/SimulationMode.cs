@@ -1,3 +1,6 @@
+using System.Linq;
+using ClawtopiaCs.Scripts.Entities.Building;
+using ClawtopiaCs.Scripts.Systems;
 using Godot;
 using Godot.Collections;
 
@@ -12,28 +15,30 @@ public partial class SimulationMode : GameMode
     public Vector2 ShapeSize;
     public Vector2 ShapePosition;
     public bool Dragging;
-    
+
     // RELACIONADO PARA REFERENCIA DE UNIDADES SELECIONADAS
     public Array<Ally> SelectedAllies = new();
     public Array<Building> SelectedBuildings = new();
-    public Building BuildingToInteract;
+    public Array<Building> BuildingsToInteract = new();
     public bool InteractedWithBuilding;
-    
+
     // RELACIONADO PARA INTERACAO COM RECURSOS
     public bool IsWater;
     public TileMapLayer Ground;
     public TileMapLayer Water;
 
-    public override void _Ready(){
+    public override void _Ready()
+    {
         Initialize();
         Ground = GetNode<TileMapLayer>("/root/Game/LevelManager/Level/Navigation/Ground");
         Water = GetNode<TileMapLayer>("/root/Game/LevelManager/Level/Navigation/Water");
     }
 
-    public override void Enter() {  }
-    public override void Exit() {  }
+    public override void Enter() { }
+    public override void Exit() { }
 
-    public override void Update() {
+    public override void Update()
+    {
         if (Dragging) {
             ShapeSize = ModeManager.CurrentLevel.GetGlobalMousePosition() - StartingPoint;
             ShapePosition = ShapeSize / 2;
@@ -43,16 +48,19 @@ public partial class SimulationMode : GameMode
             VisualSelection.QueueRedraw();
         }
     }
-    public override void MousePressed(Vector2 coords) {
-        if (ModeManager.CurrentMode is not SimulationMode){
+
+    public override void MousePressed(Vector2 coords)
+    {
+        if (ModeManager.CurrentMode is not SimulationMode) {
             return;
         }
+
         StartingPoint = coords;
         SelectionArea = new Area2D();
         SelectionPolygon = new CollisionShape2D();
         SelectionShape = new RectangleShape2D();
         VisualSelection = new SelectionBox();
-        SelectionPolygon.Shape = SelectionShape; 
+        SelectionPolygon.Shape = SelectionShape;
         VisualSelection.SelectionShape = SelectionShape;
         SelectionArea.AddChild(SelectionPolygon);
         SelectionArea.AddChild(VisualSelection);
@@ -61,97 +69,111 @@ public partial class SimulationMode : GameMode
         Dragging = true;
     }
 
-    public override void MouseReleased(Vector2 coords){
-        if (ModeManager.CurrentMode is not SimulationMode){
+    public override void MouseReleased(Vector2 coords)
+    {
+        if (ModeManager.CurrentMode is not SimulationMode) {
             return;
         }
-        if (VisualSelection.SelectionShape.Size.X < 2 && VisualSelection.SelectionShape.Size.Y < 2){
-            Select_units(true);
+
+        var hasBuildings = BuildingsToInteract.Count > 0;
+        var treatAsClick = VisualSelection.SelectionShape.Size is { X: < 2, Y: < 2 };
+        SelectEntities(treatAsClick, hasBuildings);
+    }
+
+    public void AboutToInteractWithBuilding(Building building)
+    {
+        if (!BuildingsToInteract.Contains(building)) {
+            BuildingsToInteract.Add(building);
+        }
+
+        if (BuildingsToInteract[0] != building && building.GlobalPosition.Y > BuildingsToInteract[0].GlobalPosition.Y) {
+            var lastBuildingInteracted = BuildingsToInteract[0];
+            BuildingsToInteract[0] = building;
+            BuildingsToInteract[^1] = lastBuildingInteracted;
+        }
+        
+        Building.ModulateBuilding(BuildingsToInteract[0], BuildingInteractionStates.HOVER);
+        Building.ModulateBuilding(BuildingsToInteract[^1], BuildingInteractionStates.UNHOVER);
+       
+    }
+
+    public void InteractionWithBuildingRemoved(Building building)
+    {
+        if (BuildingsToInteract.Contains(building)) {
+            BuildingsToInteract.Remove(building);
+        }
+        
+        Building.ModulateBuilding(building, BuildingInteractionStates.UNHOVER);
+
+        if (BuildingsToInteract.Count > 0) {
+            Building.ModulateBuilding(BuildingsToInteract[0], BuildingInteractionStates.HOVER);
+        }
+    }
+
+    public void SelectEntities(bool treatAsClick, bool hasBuildings)
+    {
+        if (hasBuildings) {
+            if (SelectedAllies.Count > 0) {
+                Selectors.ClearSelectedAllies(SelectedAllies);
+            }
+            SelectBuildings(treatAsClick);
+        }
+        else {
+            SelectUnits(treatAsClick);
+        }
+
+        EraseSelectionBox();
+    }
+
+    private void SelectUnits(bool treatAsClick)
+    {
+        if (!IsInstanceValid(SelectionArea)) {
             return;
         }
-        Select_units();
-    }
-
-    public void AboutToInteractWithBuilding(Building building){
-        BuildingToInteract = building;
-    }
-    
-    public void InteractionWithBuildingRemoved(){
-        BuildingToInteract = null;
-    }
-
-    public void Select_units(bool treatAsClick = false){
-        UI ui = GetNode<UI>("/root/Game/UI");
+        var ui = GetNode<UI>("/root/Game/UI");
         var overlappingAreas = SelectionArea.GetOverlappingAreas();
-        if (overlappingAreas.Count == 0){
-            ui.Reset_ui();
-            Erase_selection_box();
-            Clear_selected_allies();
+        if (overlappingAreas is null) {
             return;
         }
-        if (!Input.IsActionPressed("Multiple")){
-            Clear_selected_allies();
+        if (overlappingAreas.Count == 0) {
+            ui.Reset_ui();
+            Selectors.ClearSelectedAllies(SelectedAllies);
+            return;
         }
-        if(treatAsClick){
-            var areaInFront = Select_top_unit(overlappingAreas);
-            if (areaInFront is Building building){
 
-                if (areaInFront.Name == Constants.COMMUNE_EXTERNAL_NAME)
-                {
-                    SelectedBuildings.Add(building);
-                    ui.Instantiate_window(Constants.PURRLAMENT_MENU);     
-                }
-                else 
-                {
-                    SelectedBuildings.Add(building);
-                    ui.Instantiate_window(Constants.BUILDING_MENU, building);
-                }
-            }
-            if (areaInFront.GetParent() is Ally ally){
-                SelectedAllies.Add(ally);
-                ally.CurrentlySelected = true;
-                var selectionCircle = ally.GetNode<Line2D>("SelectionCircle");
-                selectionCircle.Visible = true;
-                ui.Instantiate_window(Constants.COMMUNIST_MENU);
-            }
-        }else{
-            foreach (var area in overlappingAreas){
-                if (area.GetParent() is Ally ally){
-                    SelectedAllies.Add(ally);
-                    ally.CurrentlySelected = true;
-                    var selectionCircle = ally.GetNode<Line2D>("SelectionCircle");
-                    selectionCircle.Visible = true;
-                }
-            }
-            ui.Instantiate_window(Constants.COMMUNIST_MENU);
+        if (!Input.IsActionPressed("Multiple")) {
+            Selectors.ClearSelectedAllies(SelectedAllies);
         }
-        Erase_selection_box();
-    }
-    
-    public Area2D Select_top_unit(Array<Area2D> overlappingAreas){
-        var areaInFront = new Area2D();
-        foreach (var area in overlappingAreas){
-            if (area.GlobalPosition.Y > areaInFront.GlobalPosition.Y){
-                areaInFront = area;
+
+        if (treatAsClick) {
+            var unit = Selectors.SelectSingleUnit(overlappingAreas, ui);
+            if (unit is null) {
+                return;
             }
+            
+            SelectedAllies.Add(unit);
         }
-        return areaInFront;
+        else {
+            SelectedAllies = Selectors.SelectMultipleUnits(overlappingAreas, ui);
+        }
     }
 
-    public void Erase_selection_box(){
+    private void SelectBuildings(bool treatAsClick)
+    {
+        var ui = GetNode<UI>("/root/Game/UI");
+        var overlappingAreas = SelectionArea.GetOverlappingAreas();
+        if (treatAsClick) {
+            Selectors.SelectSingleBuilding(overlappingAreas, ui);
+        }
+        else {
+            /*@todo implementar selecao de multiplas estruturas, por enquanto fazer o mesmo que acima*/ 
+            Selectors.SelectSingleBuilding(overlappingAreas, ui);
+        }
+    }
+    public void EraseSelectionBox()
+    {
         Dragging = false;
         SelectionArea.QueueFree();
         VisualSelection.QueueFree();
     }
-
-    public void Clear_selected_allies(){
-        foreach (var ally in SelectedAllies){
-            ally.CurrentlySelected = false;
-            var selectionCircle = ally.GetNode<Line2D>("SelectionCircle");
-            selectionCircle.Visible = false;
-        }
-        SelectedAllies.Clear();
-    }
 }
-
-

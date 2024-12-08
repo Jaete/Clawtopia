@@ -2,6 +2,13 @@ using Godot;
 using System;
 
 public partial class GameMode : Node2D {
+
+    public enum Modes
+    {
+        BUILD_MODE = 0,
+        SIMULATION_MODE,
+    }
+    
     [Signal]
     public delegate void ModeTransitionEventHandler(String mode, String building, String type);
 
@@ -29,6 +36,8 @@ public partial class GameMode : Node2D {
 
     public virtual void MousePressed(Vector2 coords) { }
     public virtual void MouseReleased(Vector2 coords) { }
+    
+    public virtual void MouseRightPressed(Vector2 coords) { }
 
     public void Initialize(){
         //Director = GetNode<Director>("/root/Game/Director");
@@ -36,6 +45,9 @@ public partial class GameMode : Node2D {
         Controller = GetNode<Controller>("/root/Game/Controller");
         Controller.MousePressed += MousePressed;
         Controller.MouseReleased += MouseReleased;
+        Controller.MouseRightPressed += MouseRightPressed;
     }
+
+    
 }
 

@@ -56,14 +56,14 @@ public partial class EconomicState : AllyState
         return closestBuildingPosition;
     }
     public void ChooseNextTargetPosition(Vector2 coords){
-        Ally.InteractedWithBuilding = SimulationMode.BuildingToInteract != null;
+        Ally.InteractedWithBuilding = SimulationMode.BuildingsToInteract.Count > 0;
         if (Ally.InteractedWithBuilding){
             Ally.Navigation.SetTargetPosition(
                 RecalculateCoords(
                     Ally.GlobalPosition,
-                    SimulationMode.BuildingToInteract.GlobalPosition
+                    SimulationMode.BuildingsToInteract[0].GlobalPosition
                 ));
-            Ally.InteractedBuilding = SimulationMode.BuildingToInteract;
+            Ally.InteractedBuilding = SimulationMode.BuildingsToInteract[0];
         }else if (IsInteractingWithWaterAt(coords)){
             Ally.InteractedResource = Constants.SALMON; // VARIAVEL NO ALIADO BASE PARA REFERENCIA
             Ally.InteractedBuilding = null;

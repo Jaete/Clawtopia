@@ -14,7 +14,7 @@ vertices = PackedVector2Array(313.641, 1016, 304.047, 1020.79, 278.711, 1007.82,
 polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3), PackedInt32Array(4, 5, 6, 7), PackedInt32Array(8, 9, 10, 11), PackedInt32Array(12, 13, 14), PackedInt32Array(12, 14, 15)])
 outlines = Array[PackedVector2Array]([PackedVector2Array(304, 1032, -696, 520, 688, -176, 1680, 344)])
 
-[sub_resource type="Resource" id="Resource_6mp6r"]
+[sub_resource type="Resource" id="Resource_51av1"]
 resource_local_to_scene = true
 script = ExtResource("7_pws6j")
 Offset = Vector2(0, 0)
@@ -31,8 +31,10 @@ Hp = 10000
 NeedsRegion = true
 RegionRect = Rect2(179, 163, 287, 215)
 MaxProgress = 0
+IsPreSpawned = true
 
 [node name="Level" type="Node2D"]
+y_sort_enabled = true
 
 [node name="Navigation" type="NavigationRegion2D" parent="."]
 navigation_polygon = SubResource("NavigationPolygon_a5dn3")
@@ -51,7 +53,7 @@ position = Vector2(576, 324)
 [node name="Purrlament" parent="." instance=ExtResource("3_wt2d7")]
 position = Vector2(576, 328)
 IsPreSpawned = true
-Data = SubResource("Resource_6mp6r")
+Data = SubResource("Resource_51av1")
 
 [node name="Economic" parent="." instance=ExtResource("8_xv7v7")]
 position = Vector2(688, 424)

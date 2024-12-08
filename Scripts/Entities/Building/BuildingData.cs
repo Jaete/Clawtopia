@@ -3,6 +3,8 @@ using System;
 
 public partial class BuildingData : Resource
 {
+    public const string PROP_ISBUILDING = "IsBuilding";
+    
     [Export] public Vector2 Offset;
     [Export] public Vector2 Scale = new (1,1);
     [Export] public Vector2 InteractionOffset;
@@ -17,6 +19,7 @@ public partial class BuildingData : Resource
     [Export] public bool NeedsRegion = false;
     [Export] public Rect2 RegionRect;
     [Export] public int MaxProgress;
+    [Export] public bool IsPreSpawned;
     public int Level;
     public String Name;
 
