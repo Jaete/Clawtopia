@@ -221,9 +221,9 @@ public partial class Building : Area2D
     {
         if (ModeManager.CurrentMode is not global::SimulationMode) { return; }
 
-        if (SimulationMode.BuildingsToInteract.Count == 0 || SimulationMode.BuildingsToInteract[0] != this) {
+        if (SimulationMode.BuildingsToInteract.Count == 0 || SimulationMode.BuildingsToInteract[0] != this)
+        {
             EmitSignal("AboutToInteract", this);
-            GD.Print($"Mouse entered on {this.Name}");
         }
     }
 
@@ -232,7 +232,6 @@ public partial class Building : Area2D
     {
         if (ModeManager.CurrentMode is not global::SimulationMode) { return; }
         EmitSignal("RemovedInteraction", this);
-        GD.Print($"Mouse exited from {this.Name}");
     }
 
     public override void _ExitTree()

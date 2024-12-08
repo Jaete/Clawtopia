@@ -72,6 +72,9 @@ public partial class BuildMode : GameMode {
 
     public override void MouseRightPressed(Vector2 coords)
     {
+        if (ModeManager.CurrentMode is not BuildMode) {
+            return;
+        }
         CancelBuilding();
     }
 

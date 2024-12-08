@@ -13,6 +13,7 @@ config_version=5
 config/name="Clawtopia Cs 4.3"
 run/main_scene="res://TSCN/Game/Game.tscn"
 config/features=PackedStringArray("4.3", "C#", "Forward Plus")
+boot_splash/bg_color=Color(0.964118, 0.857804, 0.85617, 1)
 config/icon="res://Assets/Characters/Allies/test_kitten_artstyle64.png"
 
 [display]
