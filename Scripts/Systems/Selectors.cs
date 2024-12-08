@@ -23,6 +23,7 @@ public partial class Selectors : Node2D
     public static void SelectSingleBuilding(Array<Area2D> overlappingAreas, UI ui)
     {
         var buildingInFront = SelectTopBuilding(overlappingAreas);
+        GD.Print($"Building on front: {buildingInFront.Name}");
         switch (buildingInFront.Data.Type) {
             case Constants.COMMUNE:
                 ui.Instantiate_window(Constants.PURRLAMENT_MENU);
