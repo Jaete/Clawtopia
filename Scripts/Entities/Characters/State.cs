@@ -9,7 +9,7 @@ public partial class State : Node
     
     // Referências recorrentes
     public Unit Unit;
-    public SimulationMode SimulationMode;
+    public ClawtopiaCs.Scripts.Systems.GameModes.SimulationMode SimulationMode;
     public BuildMode BuildMode;
     public ModeManager ModeManager;
     public Controller Controller;
@@ -30,7 +30,7 @@ public partial class State : Node
     public void InitializeUnit(){
         Unit = GetParent().GetParent<Unit>();
         ModeManager = GetNode<ModeManager>("/root/Game/ModeManager");
-        SimulationMode = ModeManager.GetNode<SimulationMode>("SimulationMode");
+        SimulationMode = ModeManager.GetNode<ClawtopiaCs.Scripts.Systems.GameModes.SimulationMode>("SimulationMode");
         Unit.Navigation.VelocityComputed += VelocityComputed;
     }
 

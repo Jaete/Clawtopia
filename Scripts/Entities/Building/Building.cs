@@ -17,7 +17,7 @@ public partial class Building : Area2D
     public Color HoverColor = new Color(1.3f, 1.3f, 1.3f);
 
     public NavigationRegion2D Region;
-    public SimulationMode SimulationMode;
+    public ClawtopiaCs.Scripts.Systems.GameModes.SimulationMode SimulationMode;
     public BuildMode BuildingMode;
     public ModeManager ModeManager;
     public LevelManager LevelManager;
@@ -58,7 +58,7 @@ public partial class Building : Area2D
         BuildingMode = GetNode<BuildMode>("/root/Game/ModeManager/BuildMode");
         Region = GetNode<NavigationRegion2D>("../Navigation");
         StaticBody = GetNode<StaticBody2D>("NavigationBody");
-        SimulationMode = GetNode<SimulationMode>("/root/Game/ModeManager/SimulationMode");
+        SimulationMode = GetNode<ClawtopiaCs.Scripts.Systems.GameModes.SimulationMode>("/root/Game/ModeManager/SimulationMode");
         LevelManager = GetNode<ClawtopiaCs.Scripts.Systems.LevelManager>("/root/Game/LevelManager");
         Data.Initialize();
         BodyShape.Polygon = Data.ObstacleShape.Segments;
@@ -219,7 +219,7 @@ public partial class Building : Area2D
 
     public override void _MouseEnter()
     {
-        if (ModeManager.CurrentMode is not global::SimulationMode) { return; }
+        if (ModeManager.CurrentMode is not global::ClawtopiaCs.Scripts.Systems.GameModes.SimulationMode) { return; }
 
         if (SimulationMode.BuildingsToInteract.Count == 0 || SimulationMode.BuildingsToInteract[0] != this)
         {
@@ -230,7 +230,7 @@ public partial class Building : Area2D
 
     public override void _MouseExit()
     {
-        if (ModeManager.CurrentMode is not global::SimulationMode) { return; }
+        if (ModeManager.CurrentMode is not global::ClawtopiaCs.Scripts.Systems.GameModes.SimulationMode) { return; }
         EmitSignal("RemovedInteraction", this);
     }
 

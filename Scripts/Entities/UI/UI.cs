@@ -75,14 +75,14 @@ public partial class UI : CanvasLayer
     }
 
     public void Enter_ui_mode(){
-        if (ModeManager.CurrentMode is SimulationMode){
+        if (ModeManager.CurrentMode is ClawtopiaCs.Scripts.Systems.GameModes.SimulationMode){
             ModeManager.ChangeMode(UiMode.Name, "", "");
         }
     }
 
     public void Leave_ui_mode(){
         if (ModeManager.CurrentMode is UIMode) {
-            var simulationMode = (SimulationMode) ModeManager.GameModes["SimulationMode"];
+            var simulationMode = (ClawtopiaCs.Scripts.Systems.GameModes.SimulationMode) ModeManager.GameModes["SimulationMode"];
             ModeManager.ChangeMode(simulationMode.Name, "", "");
         }
     }

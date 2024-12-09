@@ -54,7 +54,7 @@ public partial class BuildMode : GameMode {
         ModeManager.CurrentLevel.AddChild(CurrentBuilding);
         MousePosition = ModeManager.CurrentLevel.GetGlobalMousePosition();
         CurrentBuilding.GlobalPosition = MousePosition;
-        CurrentConstructors = GetNode<SimulationMode>("../SimulationMode").SelectedAllies;
+        CurrentConstructors = GetNode<ClawtopiaCs.Scripts.Systems.GameModes.SimulationMode>("../SimulationMode").SelectedAllies;
     }
 
     public override void Update() {
