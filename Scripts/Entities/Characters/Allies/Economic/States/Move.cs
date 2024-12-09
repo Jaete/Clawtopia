@@ -2,33 +2,39 @@ using Godot;
 
 public partial class Move : EconomicState
 {
-    public override void Enter(){
-    }
+    public override void Enter() { }
 
-    public override void Update(double delta){
+    public override void Update(double delta)
+    {
         Move();
     }
 
-    public override void Exit(){
-    }
+    public override void Exit() { }
 
-    public override void MouseRightClicked(Vector2 coords){
-        if (!Ally.CurrentlySelected){ return; }
+    public override void MouseRightClicked(Vector2 coords)
+    {
+        if (!Ally.CurrentlySelected || ModeManager.CurrentMode is BuildMode) {
+            return;
+        }
+
         ChooseNextTargetPosition(coords);
     }
 
-    public override void NavigationFinished(){
-        if (Ally.AllyIsBuilding){
+    public override void NavigationFinished()
+    {
+        if (Ally.AllyIsBuilding) {
             ChangeState("Building");
             return;
         }
-        if (Ally.InteractedWithBuilding){
-            if (!Ally.InteractedBuilding.IsBuilt){
+
+        if (Ally.InteractedWithBuilding) {
+            if (!Ally.InteractedBuilding.IsBuilt) {
                 Ally.ConstructionToBuild = Ally.InteractedBuilding;
                 ChangeState("Building");
                 return;
             }
-            switch (Ally.InteractedBuilding.Data.Type){
+
+            switch (Ally.InteractedBuilding.Data.Type) {
                 case Constants.TOWER:
                     ChangeState("Taking_shelter");
                     return;
@@ -37,13 +43,15 @@ public partial class Move : EconomicState
                     return;
             }
         }
-        if (Ally.InteractedResource != null && !Ally.Delivering){
+
+        if (Ally.InteractedResource != null && !Ally.Delivering) {
             ChangeState("Collecting");
             return;
         }
-        if (Ally.Delivering){
+
+        if (Ally.Delivering) {
             Ally.Navigation.SetTargetPosition(Ally.CurrentResourceLastPosition);
-            switch (Ally.InteractedResource){
+            switch (Ally.InteractedResource) {
                 case Constants.CATNIP:
                     Ally.LevelManager.EmitSignal("ResourceDelivered", Constants.CATNIP, Ally.ResourceCurrentQuantity);
                     break;
@@ -54,15 +62,18 @@ public partial class Move : EconomicState
                     Ally.LevelManager.EmitSignal("ResourceDelivered", Constants.SAND, Ally.ResourceCurrentQuantity);
                     break;
             }
+
             Ally.ResourceCurrentQuantity = 0;
             Ally.Delivering = false;
             return;
         }
+
         ChangeState("Idle");
     }
 
-    public void SeekResource(string resourceType){
-        switch (resourceType){
+    public void SeekResource(string resourceType)
+    {
+        switch (resourceType) {
             case Constants.CATNIP:
                 /*TODO implementar*/
                 break;
