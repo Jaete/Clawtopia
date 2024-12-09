@@ -1,6 +1,7 @@
 using Godot;
 using System;
 using ClawtopiaCs.Scripts.Entities.Building;
+using ClawtopiaCs.Scripts.Systems.GameModes;
 using Godot.Collections;
 
 public partial class BuildMode : GameMode {
@@ -54,7 +55,7 @@ public partial class BuildMode : GameMode {
         ModeManager.CurrentLevel.AddChild(CurrentBuilding);
         MousePosition = ModeManager.CurrentLevel.GetGlobalMousePosition();
         CurrentBuilding.GlobalPosition = MousePosition;
-        CurrentConstructors = GetNode<ClawtopiaCs.Scripts.Systems.GameModes.SimulationMode>("../SimulationMode").SelectedAllies;
+        CurrentConstructors = GetNode<SimulationMode>("../SimulationMode").SelectedAllies;
     }
 
     public override void Update() {

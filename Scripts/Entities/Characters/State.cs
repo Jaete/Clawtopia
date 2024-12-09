@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using ClawtopiaCs.Scripts.Systems.GameModes;
 
 
 public partial class State : Node
@@ -9,7 +10,7 @@ public partial class State : Node
     
     // Referências recorrentes
     public Unit Unit;
-    public ClawtopiaCs.Scripts.Systems.GameModes.SimulationMode SimulationMode;
+    public SimulationMode SimulationMode;
     public BuildMode BuildMode;
     public ModeManager ModeManager;
     public Controller Controller;
@@ -30,7 +31,7 @@ public partial class State : Node
     public void InitializeUnit(){
         Unit = GetParent().GetParent<Unit>();
         ModeManager = GetNode<ModeManager>("/root/Game/ModeManager");
-        SimulationMode = ModeManager.GetNode<ClawtopiaCs.Scripts.Systems.GameModes.SimulationMode>("SimulationMode");
+        SimulationMode = ModeManager.GetNode<SimulationMode>("SimulationMode");
         Unit.Navigation.VelocityComputed += VelocityComputed;
     }
 

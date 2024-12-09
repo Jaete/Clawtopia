@@ -1,3 +1,4 @@
+using ClawtopiaCs.Scripts.Systems;
 using Godot;
 
 public partial class Ally : Unit
@@ -22,14 +23,14 @@ public partial class Ally : Unit
     public Building ConstructionToBuild;
     
     // REFERENCIA PARA O LEVEL MANAGER, QUE TERÁ OS DADOS DE RECURSO DO JOGADOR
-    public ClawtopiaCs.Scripts.Systems.LevelManager LevelManager;
+    public LevelManager LevelManager;
     
     public override void _Ready(){
         CallDeferred("Initialize");
     }
 
     public void Initialize(){
-        LevelManager = GetNode<ClawtopiaCs.Scripts.Systems.LevelManager>("/root/Game/LevelManager");
+        LevelManager = GetNode<LevelManager>("/root/Game/LevelManager");
         CurrentLevel = LevelManager.GetNode<Node2D>("Level");
     }
 }
