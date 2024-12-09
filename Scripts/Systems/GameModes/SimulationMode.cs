@@ -18,7 +18,7 @@ public partial class SimulationMode : GameMode
 
     // RELACIONADO PARA REFERENCIA DE UNIDADES SELECIONADAS
     public Array<Ally> SelectedAllies = new();
-    public Array<Building> SelectedBuildings = new();
+    public Building SelectedBuilding;
     public Array<Building> BuildingsToInteract = new();
     public bool InteractedWithBuilding;
 
@@ -114,7 +114,13 @@ public partial class SimulationMode : GameMode
     {
         var overlappingAreas = SelectionArea.GetOverlappingAreas();
         var ui = GetNode<UI>("/root/Game/UI");
-        
+        if (overlappingAreas.Count == 0) {
+            ui.Reset_ui();
+            Selectors.ClearSelectedAllies(SelectedAllies);
+            SelectedBuilding = null;
+            EraseSelectionBox();
+            return;
+        }
         if (treatAsClick)
         {
             if (hasBuildings)
@@ -123,14 +129,19 @@ public partial class SimulationMode : GameMode
             }
             else
             {
-                Selectors.SelectSingleUnit(overlappingAreas, ui);
+                if (SelectedAllies.Count > 0 && !Input.IsActionPressed("Multiple")) {
+                    Selectors.ClearSelectedAllies(SelectedAllies);
+                }
+                SelectedAllies.Add(Selectors.SelectSingleUnit(overlappingAreas, ui));
             }
         }
-        else
-        {
-            Selectors.SelectMultipleUnits(overlappingAreas, ui);
+        else {
+            SelectedAllies = Selectors.SelectMultipleUnits(overlappingAreas, ui);
         }
-   
+        if (SelectedAllies.Count > 0) {
+            ui.Instantiate_window(Constants.COMMUNIST_MENU);
+        }
+        EraseSelectionBox();
     }
 
     private void SelectUnits(bool treatAsClick)

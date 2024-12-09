@@ -15,7 +15,7 @@ public partial class Selectors : Node2D
             
             if (isBuilding)
             {
-                buildingInFront = (Building)overlappingAreas[0].GetParent();   
+                buildingInFront = (Building)overlappingAreas[0];   
             } 
         }
         else
@@ -58,7 +58,6 @@ public partial class Selectors : Node2D
         ally.CurrentlySelected = true;
         var selectionCircle = ally.GetNode<Line2D>("SelectionCircle");
         selectionCircle.Visible = true;
-        ui.Instantiate_window(Constants.COMMUNIST_MENU);
 
         return ally;
     }
@@ -73,8 +72,7 @@ public partial class Selectors : Node2D
             var selectionCircle = ally.GetNode<Line2D>("SelectionCircle");
             selectionCircle.Visible = true;
         }
-
-        ui.Instantiate_window(Constants.COMMUNIST_MENU);
+        
         return selectedAllies;
     }
 
