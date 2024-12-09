@@ -1,5 +1,6 @@
 using ClawtopiaCs.Scripts.Entities.Building;
 using ClawtopiaCs.Scripts.Systems;
+using ClawtopiaCs.Scripts.Systems.GameModes;
 using Godot;
 using Godot.Collections;
 
@@ -17,7 +18,7 @@ public partial class Building : Area2D
     public Color HoverColor = new Color(1.3f, 1.3f, 1.3f);
 
     public NavigationRegion2D Region;
-    public SimulationMode SimulationMode;
+    public SimulationMode SimulationModeRef;
     public BuildMode BuildingMode;
     public ModeManager ModeManager;
     public LevelManager LevelManager;
@@ -58,8 +59,8 @@ public partial class Building : Area2D
         BuildingMode = GetNode<BuildMode>("/root/Game/ModeManager/BuildMode");
         Region = GetNode<NavigationRegion2D>("../Navigation");
         StaticBody = GetNode<StaticBody2D>("NavigationBody");
-        SimulationMode = GetNode<SimulationMode>("/root/Game/ModeManager/SimulationMode");
-        LevelManager = GetNode<ClawtopiaCs.Scripts.Systems.LevelManager>("/root/Game/LevelManager");
+        SimulationModeRef = GetNode<SimulationMode>("/root/Game/ModeManager/SimulationMode");
+        LevelManager = GetNode<LevelManager>("/root/Game/LevelManager");
         Data.Initialize();
         BodyShape.Polygon = Data.ObstacleShape.Segments;
         InteractionShape.Polygon = Data.InteractionShape.Segments;
@@ -108,8 +109,8 @@ public partial class Building : Area2D
 
         MaxProgress = OS.IsDebugBuild() ? 3 : Data.MaxProgress;
         Region.BakeFinished += FreeToRebake;
-        AboutToInteract += SimulationMode.AboutToInteractWithBuilding;
-        RemovedInteraction += SimulationMode.InteractionWithBuildingRemoved;
+        AboutToInteract += SimulationModeRef.AboutToInteractWithBuilding;
+        RemovedInteraction += SimulationModeRef.InteractionWithBuildingRemoved;
         BuildingMode.ConstructionStarted += ConstructionStarted;
         CallDeferred("AddSelfOnList");
         if (!IsPreSpawned) {
@@ -219,9 +220,9 @@ public partial class Building : Area2D
 
     public override void _MouseEnter()
     {
-        if (ModeManager.CurrentMode is not global::SimulationMode) { return; }
+        if (ModeManager.CurrentMode is not SimulationMode) { return; }
 
-        if (SimulationMode.BuildingsToInteract.Count == 0 || SimulationMode.BuildingsToInteract[0] != this)
+        if (SimulationModeRef.BuildingsToInteract.Count == 0 || SimulationModeRef.BuildingsToInteract[0] != this)
         {
             EmitSignal("AboutToInteract", this);
         }
@@ -230,7 +231,7 @@ public partial class Building : Area2D
 
     public override void _MouseExit()
     {
-        if (ModeManager.CurrentMode is not global::SimulationMode) { return; }
+        if (ModeManager.CurrentMode is not SimulationMode) { return; }
         EmitSignal("RemovedInteraction", this);
     }
 

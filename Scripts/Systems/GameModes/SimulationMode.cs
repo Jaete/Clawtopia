@@ -1,8 +1,8 @@
-using System.Linq;
 using ClawtopiaCs.Scripts.Entities.Building;
-using ClawtopiaCs.Scripts.Systems;
 using Godot;
 using Godot.Collections;
+
+namespace ClawtopiaCs.Scripts.Systems.GameModes;
 
 public partial class SimulationMode : GameMode
 {
@@ -18,7 +18,7 @@ public partial class SimulationMode : GameMode
 
     // RELACIONADO PARA REFERENCIA DE UNIDADES SELECIONADAS
     public Array<Ally> SelectedAllies = new();
-    public Array<Building> SelectedBuildings = new();
+    public Building SelectedBuilding;
     public Array<Building> BuildingsToInteract = new();
     public bool InteractedWithBuilding;
 
@@ -112,16 +112,35 @@ public partial class SimulationMode : GameMode
 
     public void SelectEntities(bool treatAsClick, bool hasBuildings)
     {
-        if (hasBuildings) {
-            if (SelectedAllies.Count > 0) {
-                Selectors.ClearSelectedAllies(SelectedAllies);
+        var overlappingAreas = SelectionArea.GetOverlappingAreas();
+        var ui = GetNode<UI>("/root/Game/UI");
+        if (overlappingAreas.Count == 0) {
+            ui.Reset_ui();
+            Selectors.ClearSelectedAllies(SelectedAllies);
+            SelectedBuilding = null;
+            EraseSelectionBox();
+            return;
+        }
+        if (treatAsClick)
+        {
+            if (hasBuildings)
+            {
+                Selectors.SelectSingleBuilding(overlappingAreas, ui);
             }
-            SelectBuildings(treatAsClick);
+            else
+            {
+                if (SelectedAllies.Count > 0 && !Input.IsActionPressed("Multiple")) {
+                    Selectors.ClearSelectedAllies(SelectedAllies);
+                }
+                SelectedAllies.Add(Selectors.SelectSingleUnit(overlappingAreas, ui));
+            }
         }
         else {
-            SelectUnits(treatAsClick);
+            SelectedAllies = Selectors.SelectMultipleUnits(overlappingAreas, ui);
         }
-
+        if (SelectedAllies.Count > 0) {
+            ui.Instantiate_window(Constants.COMMUNIST_MENU);
+        }
         EraseSelectionBox();
     }
 
@@ -130,6 +149,7 @@ public partial class SimulationMode : GameMode
         if (!IsInstanceValid(SelectionArea)) {
             return;
         }
+        
         var ui = GetNode<UI>("/root/Game/UI");
         var overlappingAreas = SelectionArea.GetOverlappingAreas();
         if (overlappingAreas is null) {
@@ -158,18 +178,6 @@ public partial class SimulationMode : GameMode
         }
     }
 
-    private void SelectBuildings(bool treatAsClick)
-    {
-        var ui = GetNode<UI>("/root/Game/UI");
-        var overlappingAreas = SelectionArea.GetOverlappingAreas();
-        if (treatAsClick) {
-            Selectors.SelectSingleBuilding(overlappingAreas, ui);
-        }
-        else {
-            /*@todo implementar selecao de multiplas estruturas, por enquanto fazer o mesmo que acima*/ 
-            Selectors.SelectSingleBuilding(overlappingAreas, ui);
-        }
-    }
     public void EraseSelectionBox()
     {
         Dragging = false;

@@ -9,17 +9,30 @@ public partial class Selectors : Node2D
     private static Building SelectTopBuilding(Array<Area2D> overlappingAreas)
     {
         var buildingInFront = new Building();
-        foreach (var area in overlappingAreas) {
-            var isBuilding = area.GetParent().HasMeta(new StringName(BuildingData.PROP_ISBUILDING));
-            var hasHigherY = area.GlobalPosition.Y > buildingInFront.GlobalPosition.Y;
-            if (hasHigherY && isBuilding) {
-                buildingInFront = (Building)area.GetParent();
-            }
+        if (overlappingAreas.Count == 1)
+        {
+            var isBuilding = overlappingAreas[0].HasMeta(new StringName(BuildingData.PROP_ISBUILDING));
+            
+            if (isBuilding)
+            {
+                buildingInFront = (Building)overlappingAreas[0];   
+            } 
+        }
+        else
+        {
+            foreach (var area in overlappingAreas) {
+                var isBuilding = area.GetParent().HasMeta(new StringName(BuildingData.PROP_ISBUILDING));
+                var hasHigherY = area.GlobalPosition.Y > buildingInFront.GlobalPosition.Y;
+                if (hasHigherY && isBuilding)
+                {
+                    buildingInFront = (Building)area.GetParent();
+                }
+            }   
         }
 
         return buildingInFront;
     }
-
+ 
     public static void SelectSingleBuilding(Array<Area2D> overlappingAreas, UI ui)
     {
         var buildingInFront = SelectTopBuilding(overlappingAreas);
@@ -45,7 +58,6 @@ public partial class Selectors : Node2D
         ally.CurrentlySelected = true;
         var selectionCircle = ally.GetNode<Line2D>("SelectionCircle");
         selectionCircle.Visible = true;
-        ui.Instantiate_window(Constants.COMMUNIST_MENU);
 
         return ally;
     }
@@ -60,8 +72,7 @@ public partial class Selectors : Node2D
             var selectionCircle = ally.GetNode<Line2D>("SelectionCircle");
             selectionCircle.Visible = true;
         }
-
-        ui.Instantiate_window(Constants.COMMUNIST_MENU);
+        
         return selectedAllies;
     }
 
