@@ -100,20 +100,18 @@ public partial class BuildMode : GameMode {
     private void ValidatePosition() {
         Area2D gridArea = CurrentBuilding.GetNode<Area2D>("GridArea");
         Array<Area2D> overlappingAreas = gridArea.GetOverlappingAreas();
+        IsOverlappingBuildings = false;
         foreach (var area in overlappingAreas) {
             if (area.Name == "GridArea") {
                 IsOverlappingBuildings = true;
                 break;
             }
         }
-        if(overlappingAreas.Count == 0) {
-            IsOverlappingBuildings = false;    
-        }
-        if (IsOverlappingBuildings) {
-            Building.ModulateBuilding(CurrentBuilding, BuildingInteractionStates.BUILDING_ERROR);
-        } else {
-            Building.ModulateBuilding(CurrentBuilding, BuildingInteractionStates.BUILDING_OK);
-        }
+
+        Building.ModulateBuilding(
+            CurrentBuilding,
+            IsOverlappingBuildings ? BuildingInteractionStates.BUILDING_ERROR : BuildingInteractionStates.BUILDING_OK
+        );
     }
 
     private void MovePreview() {
