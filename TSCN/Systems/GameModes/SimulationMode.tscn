@@ -2,5 +2,10 @@
 
 [ext_resource type="Script" path="res://Scripts/Systems/GameModes/SimulationMode.cs" id="1_qov7i"]
 
-[node name="SimulationMode" type="Node2D"]
+[node name="SimulationMode" type="Node2D" node_paths=PackedStringArray("Debug")]
 script = ExtResource("1_qov7i")
+Debug = NodePath("DEBUG")
+
+[node name="DEBUG" type="Label" parent="."]
+offset_right = 264.0
+offset_bottom = 105.0

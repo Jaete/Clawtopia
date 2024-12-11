@@ -1,4 +1,3 @@
-using ClawtopiaCs.Scripts.Entities.Building;
 using Godot;
 using Godot.Collections;
 
@@ -9,30 +8,26 @@ public partial class Selectors : Node2D
     private static Building SelectTopBuilding(Array<Area2D> overlappingAreas)
     {
         var buildingInFront = new Building();
-        if (overlappingAreas.Count == 1)
-        {
+        if (overlappingAreas.Count == 1) {
             var isBuilding = overlappingAreas[0].HasMeta(new StringName(BuildingData.PROP_ISBUILDING));
-            
-            if (isBuilding)
-            {
-                buildingInFront = (Building)overlappingAreas[0];   
-            } 
+
+            if (isBuilding) {
+                buildingInFront = (Building)overlappingAreas[0];
+            }
         }
-        else
-        {
+        else {
             foreach (var area in overlappingAreas) {
                 var isBuilding = area.GetParent().HasMeta(new StringName(BuildingData.PROP_ISBUILDING));
                 var hasHigherY = area.GlobalPosition.Y > buildingInFront.GlobalPosition.Y;
-                if (hasHigherY && isBuilding)
-                {
+                if (hasHigherY && isBuilding) {
                     buildingInFront = (Building)area.GetParent();
                 }
-            }   
+            }
         }
 
         return buildingInFront;
     }
- 
+
     public static void SelectSingleBuilding(Array<Area2D> overlappingAreas, UI ui)
     {
         var buildingInFront = SelectTopBuilding(overlappingAreas);
@@ -50,7 +45,7 @@ public partial class Selectors : Node2D
     public static Ally SelectSingleUnit(Array<Area2D> overlappingAreas, UI ui)
     {
         var ally = SelectTopUnit(overlappingAreas);
-        
+
         if (ally is null) {
             return null;
         }
@@ -62,9 +57,13 @@ public partial class Selectors : Node2D
         return ally;
     }
 
-    public static Array<Ally> SelectMultipleUnits(Array<Area2D> overlappingAreas, UI ui)
+    public static Array<Ally> SelectMultipleUnits(Array<Area2D> overlappingAreas, Array<Ally> selection = null)
     {
-        var selectedAllies = new Array<Ally>();
+        Array<Ally> selectedAllies = new();
+        if (selection != null) {
+            selectedAllies = selection;
+        }
+
         foreach (var area in overlappingAreas) {
             if (area.GetParent() is not Ally ally) continue;
             selectedAllies.Add(ally);
@@ -72,7 +71,7 @@ public partial class Selectors : Node2D
             var selectionCircle = ally.GetNode<Line2D>("SelectionCircle");
             selectionCircle.Visible = true;
         }
-        
+
         return selectedAllies;
     }
 
