@@ -6,25 +6,29 @@ namespace ClawtopiaCs.Scripts.Systems.GameModes;
 
 public partial class SimulationMode : GameMode
 {
-    // RELACIONADO PARA SELECAO EM AREA
-    public Area2D SelectionArea;
-    public RectangleShape2D SelectionShape;
-    public CollisionShape2D SelectionPolygon;
-    public SelectionBox VisualSelection;
-    public Vector2 StartingPoint;
-    public Vector2 ShapeSize;
-    public Vector2 ShapePosition;
-    public bool Dragging;
-
-    // RELACIONADO PARA REFERENCIA DE UNIDADES SELECIONADAS
-    public Array<Ally> SelectedAllies = new();
-    public Building SelectedBuilding;
     public Array<Building> BuildingsToInteract = new();
+
+    [Export] public Label Debug;
+    public bool Dragging;
+    public TileMapLayer Ground;
     public bool InteractedWithBuilding;
 
     // RELACIONADO PARA INTERACAO COM RECURSOS
     public bool IsWater;
-    public TileMapLayer Ground;
+
+    // RELACIONADO PARA REFERENCIA DE UNIDADES SELECIONADAS
+    public Array<Ally> SelectedAllies = new();
+
+    public Building SelectedBuilding;
+
+    // RELACIONADO PARA SELECAO EM AREA
+    public Area2D SelectionArea;
+    public CollisionShape2D SelectionPolygon;
+    public RectangleShape2D SelectionShape;
+    public Vector2 ShapePosition;
+    public Vector2 ShapeSize;
+    public Vector2 StartingPoint;
+    public SelectionBox VisualSelection;
     public TileMapLayer Water;
 
     public override void _Ready()
@@ -32,6 +36,7 @@ public partial class SimulationMode : GameMode
         Initialize();
         Ground = GetNode<TileMapLayer>("/root/Game/LevelManager/Level/Navigation/Ground");
         Water = GetNode<TileMapLayer>("/root/Game/LevelManager/Level/Navigation/Water");
+        Debug.Text = $"Selected Allies: {SelectedAllies.Count}";
     }
 
     public override void Enter() { }
@@ -78,6 +83,7 @@ public partial class SimulationMode : GameMode
         var hasBuildings = BuildingsToInteract.Count > 0;
         var treatAsClick = VisualSelection.SelectionShape.Size is { X: < 2, Y: < 2 };
         SelectEntities(treatAsClick, hasBuildings);
+        Debug.Text = $"Selected Allies: {SelectedAllies.Count}";
     }
 
     public void AboutToInteractWithBuilding(Building building)
@@ -91,10 +97,9 @@ public partial class SimulationMode : GameMode
             BuildingsToInteract[0] = building;
             BuildingsToInteract[^1] = lastBuildingInteracted;
         }
-        
+
         Building.ModulateBuilding(BuildingsToInteract[0], BuildingInteractionStates.HOVER);
         Building.ModulateBuilding(BuildingsToInteract[^1], BuildingInteractionStates.UNHOVER);
-       
     }
 
     public void InteractionWithBuildingRemoved(Building building)
@@ -102,7 +107,7 @@ public partial class SimulationMode : GameMode
         if (BuildingsToInteract.Contains(building)) {
             BuildingsToInteract.Remove(building);
         }
-        
+
         Building.ModulateBuilding(building, BuildingInteractionStates.UNHOVER);
 
         if (BuildingsToInteract.Count > 0) {
@@ -121,26 +126,33 @@ public partial class SimulationMode : GameMode
             EraseSelectionBox();
             return;
         }
-        if (treatAsClick)
-        {
-            if (hasBuildings)
-            {
+
+        if (treatAsClick) {
+            if (hasBuildings) {
                 Selectors.SelectSingleBuilding(overlappingAreas, ui);
             }
-            else
-            {
+            else {
                 if (SelectedAllies.Count > 0 && !Input.IsActionPressed("Multiple")) {
                     Selectors.ClearSelectedAllies(SelectedAllies);
                 }
+
                 SelectedAllies.Add(Selectors.SelectSingleUnit(overlappingAreas, ui));
             }
         }
         else {
-            SelectedAllies = Selectors.SelectMultipleUnits(overlappingAreas, ui);
+            if (SelectedAllies.Count > 0 && !Input.IsActionPressed("Multiple")) {
+                Selectors.ClearSelectedAllies(SelectedAllies);
+                SelectedAllies = Selectors.SelectMultipleUnits(overlappingAreas);
+            }
+            else {
+                SelectedAllies = Selectors.SelectMultipleUnits(overlappingAreas, SelectedAllies);
+            }
         }
+
         if (SelectedAllies.Count > 0) {
             ui.Instantiate_window(Constants.COMMUNIST_MENU);
         }
+
         EraseSelectionBox();
     }
 
@@ -149,12 +161,13 @@ public partial class SimulationMode : GameMode
         if (!IsInstanceValid(SelectionArea)) {
             return;
         }
-        
+
         var ui = GetNode<UI>("/root/Game/UI");
         var overlappingAreas = SelectionArea.GetOverlappingAreas();
         if (overlappingAreas is null) {
             return;
         }
+
         if (overlappingAreas.Count == 0) {
             ui.Reset_ui();
             Selectors.ClearSelectedAllies(SelectedAllies);
@@ -170,11 +183,11 @@ public partial class SimulationMode : GameMode
             if (unit is null) {
                 return;
             }
-            
+
             SelectedAllies.Add(unit);
         }
         else {
-            SelectedAllies = Selectors.SelectMultipleUnits(overlappingAreas, ui);
+            SelectedAllies = Selectors.SelectMultipleUnits(overlappingAreas);
         }
     }
 
