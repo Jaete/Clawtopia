@@ -56,10 +56,6 @@ public partial class SimulationMode : GameMode
 
     public override void MousePressed(Vector2 coords)
     {
-        if (ModeManager.CurrentMode is not SimulationMode) {
-            return;
-        }
-
         StartingPoint = coords;
         SelectionArea = new Area2D();
         SelectionPolygon = new CollisionShape2D();
@@ -76,10 +72,6 @@ public partial class SimulationMode : GameMode
 
     public override void MouseReleased(Vector2 coords)
     {
-        if (ModeManager.CurrentMode is not SimulationMode) {
-            return;
-        }
-
         var hasBuildings = BuildingsToInteract.Count > 0;
         var treatAsClick = VisualSelection.SelectionShape.Size is { X: < 2, Y: < 2 };
         SelectEntities(treatAsClick, hasBuildings);

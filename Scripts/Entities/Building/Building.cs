@@ -12,40 +12,41 @@ public partial class Building : Area2D
     [Signal]
     public delegate void RemovedInteractionEventHandler(Building self);
 
-    public Color OkColor = new Color("2eff3f81");
-    public Color ErrorColor = new Color("ba000079");
-    public Color RegularColor = new Color(1, 1, 1);
-    public Color HoverColor = new Color(1.3f, 1.3f, 1.3f);
-
-    public NavigationRegion2D Region;
-    public SimulationMode SimulationModeRef;
+    [Export] public CollisionPolygon2D BodyShape;
     public BuildMode BuildingMode;
-    public ModeManager ModeManager;
-    public LevelManager LevelManager;
-
-    public int SelfIndex;
-    public bool Placed;
-    public bool IsBuilt;
 
     // TIMER PARA TICK DE TEMPO DE CONSTRUCAO
-    public SceneTreeTimer BuildTickTimer;
+    public Timer BuildTickTimer;
+    public Array<Ally> CurrentBuilders = new();
+    [Export] public BuildingData Data;
+    public Color ErrorColor = new Color("ba000079");
+    [Export] public CollisionPolygon2D GridShape;
+    public Color HoverColor = new Color(1.3f, 1.3f, 1.3f);
+    [Export] public CollisionPolygon2D InteractionShape;
+    public bool IsBuildingInFront;
+    public bool IsBuilt;
+
+    [Export] public bool IsPreSpawned = false;
+    public LevelManager LevelManager;
+    public int MaxProgress = 50;
+    public ModeManager ModeManager;
+
+    public Color OkColor = new Color("2eff3f81");
+    public bool Placed;
+    public int Progress;
+
+    public NavigationRegion2D Region;
+    public Color RegularColor = new Color(1, 1, 1);
+
+    public string ResourceType;
+
+    public int SelfIndex;
+    public SimulationMode SimulationModeRef;
+    [Export] public Sprite2D Sprite;
+    [Export] public StaticBody2D StaticBody;
 
     // TEMPO EM SEGUNDOS POR TICK
     public float TickTime = 1.0f;
-    public int Progress;
-    public int MaxProgress = 50;
-    public Array<Ally> CurrentBuilders = new();
-
-    [Export] public bool IsPreSpawned = false;
-    [Export] public BuildingData Data;
-    [Export] public StaticBody2D StaticBody;
-    [Export] public CollisionPolygon2D BodyShape;
-    [Export] public CollisionPolygon2D InteractionShape;
-    [Export] public CollisionPolygon2D GridShape;
-    [Export] public Sprite2D Sprite;
-
-    public string ResourceType;
-    public bool IsBuildingInFront;
 
     public override void _Ready()
     {
@@ -112,10 +113,16 @@ public partial class Building : Area2D
         AboutToInteract += SimulationModeRef.AboutToInteractWithBuilding;
         RemovedInteraction += SimulationModeRef.InteractionWithBuildingRemoved;
         BuildingMode.ConstructionStarted += ConstructionStarted;
+        BuildTickTimer = new Timer();
+        BuildTickTimer.OneShot = true;
+        BuildTickTimer.Timeout += ConstructionTimeElapsed;
+        AddChild(BuildTickTimer);
         CallDeferred("AddSelfOnList");
+
         if (!IsPreSpawned) {
             return;
         }
+
         IsBuilt = true;
     }
 
@@ -196,20 +203,16 @@ public partial class Building : Area2D
 
     public void ConstructionStarted(Building building)
     {
-        // if (IsBuilt){ return; }
         Progress = 0;
-        BuildTickTimer = GetTree().CreateTimer(TickTime, false);
-        BuildTickTimer.Timeout += ConstructionTimeElapsed;
+        BuildTickTimer.Start(TickTime);
     }
 
     public void ConstructionTimeElapsed()
     {
-        // if (IsBuilt){ return; }
         var nextProgress = Progress + CurrentBuilders.Count;
         if (nextProgress < MaxProgress) {
             Progress = nextProgress;
-            BuildTickTimer = GetTree().CreateTimer(TickTime);
-            BuildTickTimer.Timeout += ConstructionTimeElapsed;
+            BuildTickTimer.Start(TickTime);
             return;
         }
 
@@ -220,10 +223,11 @@ public partial class Building : Area2D
 
     public override void _MouseEnter()
     {
-        if (ModeManager.CurrentMode is not SimulationMode) { return; }
+        if (ModeManager.CurrentMode is not SimulationMode) {
+            return;
+        }
 
-        if (SimulationModeRef.BuildingsToInteract.Count == 0 || SimulationModeRef.BuildingsToInteract[0] != this)
-        {
+        if (SimulationModeRef.BuildingsToInteract.Count == 0 || SimulationModeRef.BuildingsToInteract[0] != this) {
             EmitSignal("AboutToInteract", this);
         }
     }
@@ -231,7 +235,10 @@ public partial class Building : Area2D
 
     public override void _MouseExit()
     {
-        if (ModeManager.CurrentMode is not SimulationMode) { return; }
+        if (ModeManager.CurrentMode is not SimulationMode) {
+            return;
+        }
+
         EmitSignal("RemovedInteraction", this);
     }
 
@@ -259,5 +266,5 @@ public partial class Building : Area2D
                 building.Modulate = building.RegularColor;
                 break;
         }
-    } 
+    }
 }
