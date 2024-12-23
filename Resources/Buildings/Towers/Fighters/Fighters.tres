@@ -22,3 +22,7 @@ Hp = 5000
 NeedsRegion = true
 RegionRect = Rect2(15, 640, 100, 129)
 MaxProgress = 75
+IsPreSpawned = false
+SalmonCost = 50
+CatnipCost = 0
+SandCost = 200

@@ -1,5 +1,6 @@
 using System;
 using ClawtopiaCs.Scripts.Entities.Building;
+using ClawtopiaCs.Scripts.Systems;
 using ClawtopiaCs.Scripts.Systems.GameModes;
 using Godot;
 using Godot.Collections;
@@ -21,7 +22,9 @@ public partial class BuildMode : GameMode
     public override void Enter()
     {
         String buildingPath = Constants.BUILDING_PATH;
-        if (BuildingType == Constants.TOWER) {
+
+        if (BuildingType == Constants.TOWER)
+        {
             ModeManager.FightersTowerCount++;
             ModeManager.BuildingCount++;
             InstantiateBuilding(buildingPath);
@@ -30,7 +33,8 @@ public partial class BuildMode : GameMode
             CurrentBuilding.Data = GD.Load<BuildingData>("res://Resources/Buildings/Towers/Fighters/Fighters.tres");
         }
 
-        if (BuildingType == Constants.COMMUNE) {
+        if (BuildingType == Constants.COMMUNE)
+        {
             ModeManager.GreatCommuneCount++;
             ModeManager.BuildingCount++;
             InstantiateBuilding(buildingPath);
@@ -39,7 +43,8 @@ public partial class BuildMode : GameMode
             CurrentBuilding.Data = GD.Load<BuildingData>("res://Resources/Buildings/GreatCommune/GreatCommune.tres");
         }
 
-        if (BuildingType == Constants.RESOURCE) {
+        if (BuildingType == Constants.RESOURCE)
+        {
             ModeManager.SalmonCottageCount++;
             ModeManager.BuildingCount++;
             InstantiateBuilding(buildingPath);
@@ -48,7 +53,8 @@ public partial class BuildMode : GameMode
             CurrentBuilding.Data = GD.Load<BuildingData>("res://Resources/Buildings/Economy/Salmon/SalmonCottage.tres");
         }
 
-        if (BuildingType == Constants.HOUSE) {
+        if (BuildingType == Constants.HOUSE)
+        {
             ModeManager.HouseCount++;
             ModeManager.BuildingCount++;
             InstantiateBuilding(buildingPath);
@@ -85,18 +91,20 @@ public partial class BuildMode : GameMode
         ModeManager.FightersTowerCount--;
         ModeManager.BuildingCount--;
         CurrentBuilding.QueueFree();
-        EmitSignal("ModeTransition", "SimulationMode", "", "");
+        EmitSignal(GameMode.SignalName.ModeTransition, SIMULATION_MODE, "", "");
     }
 
     private void ConfirmBuilding()
     {
-        if (!IsOverlappingBuildings) {
+        if (!IsOverlappingBuildings)
+        {
             CurrentBuilding.RebakeAddBuilding();
             CurrentBuilding.Rebake();
             CurrentBuilding.InputPickable = true;
-            EmitSignal("ConstructionStarted", CurrentBuilding);
+            EmitSignal(GameMode.SignalName.ConstructionStarted, CurrentBuilding);
             BuildCompleted += WhenBuildingCompleted;
-            EmitSignal("ModeTransition", "SimulationMode", "", "");
+            EmitSignal(GameMode.SignalName.ModeTransition, SIMULATION_MODE, "", "");
+            LevelManager.EmitSignal(LevelManager.SignalName.ResourceExpended, CurrentBuilding.Data.ResourceCosts);
         }
     }
 
@@ -105,8 +113,11 @@ public partial class BuildMode : GameMode
         Area2D gridArea = CurrentBuilding.GetNode<Area2D>("GridArea");
         Array<Area2D> overlappingAreas = gridArea.GetOverlappingAreas();
         IsOverlappingBuildings = false;
-        foreach (var area in overlappingAreas) {
-            if (area.Name == "GridArea") {
+
+        foreach (var area in overlappingAreas)
+        {
+            if (area.Name == "GridArea")
+            {
                 IsOverlappingBuildings = true;
                 break;
             }
@@ -125,17 +136,22 @@ public partial class BuildMode : GameMode
         float yDifference = MousePosition.Y - CurrentBuilding.GlobalPosition.Y;
         float newX = 0;
         float newY = 0;
-        if (xDifference > (TileSizeX / 2)) {
+
+        if (xDifference > (TileSizeX / 2))
+        {
             newX = (TileSizeX / 2);
         }
-        else if (xDifference < (TileSizeX / 2) * -1) {
+        else if (xDifference < (TileSizeX / 2) * -1)
+        {
             newX = (TileSizeX / 2) * -1;
         }
 
-        if (yDifference > (TileSizeY / 2)) {
+        if (yDifference > (TileSizeY / 2))
+        {
             newY = (TileSizeY / 2);
         }
-        else if (yDifference < (TileSizeY / 2) * -1) {
+        else if (yDifference < (TileSizeY / 2) * -1)
+        {
             newY = (TileSizeY / 2) * -1;
         }
 

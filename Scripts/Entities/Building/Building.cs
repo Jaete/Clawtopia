@@ -56,12 +56,12 @@ public partial class Building : Area2D
     public void Initialize()
     {
         IsPreSpawned = Data.IsPreSpawned;
-        ModeManager = GetNode<ModeManager>("/root/Game/ModeManager");
-        BuildingMode = GetNode<BuildMode>("/root/Game/ModeManager/BuildMode");
-        Region = GetNode<NavigationRegion2D>("../Navigation");
+        ModeManager = GetNode<ModeManager>(Constants.MODE_MANAGER_PATH);
+        BuildingMode = ModeManager.GetNode<BuildMode>(GameMode.BUILD_MODE);
+        Region = GetParent().GetNode<NavigationRegion2D>("Navigation");
         StaticBody = GetNode<StaticBody2D>("NavigationBody");
-        SimulationModeRef = GetNode<SimulationMode>("/root/Game/ModeManager/SimulationMode");
-        LevelManager = GetNode<LevelManager>("/root/Game/LevelManager");
+        SimulationModeRef = GetNode<SimulationMode>(Constants.SIMULATION_MODE_PATH);
+        LevelManager = GetNode<LevelManager>(Constants.LEVEL_MANAGER_PATH);
         Data.Initialize();
         BodyShape.Polygon = Data.ObstacleShape.Segments;
         InteractionShape.Polygon = Data.InteractionShape.Segments;
@@ -71,22 +71,29 @@ public partial class Building : Area2D
         Sprite.Offset = Data.Offset;
         Sprite.Scale = Data.Scale;
         Sprite.RegionEnabled = false;
-        if (Data.NeedsRegion) {
+
+        if (Data.NeedsRegion)
+        {
             Sprite.RegionEnabled = true;
             Sprite.RegionRect = Data.RegionRect;
         }
 
         Name = Data.Name + "_" + Data.Type + "_" + SelfIndex;
-        if (Data.Type.Equals(Constants.COMMUNE)) {
+
+        if (Data.Type.Equals(Constants.COMMUNE))
+        {
             Name = Constants.COMMUNE_EXTERNAL_NAME;
         }
 
-        if (Data.Type == Constants.HOUSE) {
+        if (Data.Type == Constants.HOUSE)
+        {
             Name = Constants.HOUSE_EXTERNAL_NAME;
         }
 
-        if (Data.Type == Constants.TOWER) {
-            switch (Data.TowerType) {
+        if (Data.Type == Constants.TOWER)
+        {
+            switch (Data.TowerType)
+            {
                 case Constants.FIGHTERS:
                     Name = Constants.FIGHTERS_TOWER_EXTERNAL_NAME;
                     break;
@@ -94,8 +101,10 @@ public partial class Building : Area2D
             }
         }
 
-        if (Data.Type == Constants.RESOURCE) {
-            switch (Data.ResourceType) {
+        if (Data.Type == Constants.RESOURCE)
+        {
+            switch (Data.ResourceType)
+            {
                 case Constants.SALMON:
                     Name = Constants.FISHERMAN_HOUSE_EXTERNAL_NAME;
                     break;
@@ -117,9 +126,10 @@ public partial class Building : Area2D
         BuildTickTimer.OneShot = true;
         BuildTickTimer.Timeout += ConstructionTimeElapsed;
         AddChild(BuildTickTimer);
-        CallDeferred("AddSelfOnList");
+        CallDeferred(MethodName.AddSelfOnList);
 
-        if (!IsPreSpawned) {
+        if (!IsPreSpawned)
+        {
             return;
         }
 
@@ -128,7 +138,8 @@ public partial class Building : Area2D
 
     public void AddSelfOnList()
     {
-        switch (Data.ResourceType) {
+        switch (Data.ResourceType)
+        {
             case Constants.SALMON:
                 ResourceType = Constants.SALMON;
                 LevelManager.SalmonBuildings.Add(this);
@@ -146,7 +157,8 @@ public partial class Building : Area2D
 
     public void RemoveSelfFromList()
     {
-        switch (Data.ResourceType) {
+        switch (Data.ResourceType)
+        {
             case Constants.SALMON:
                 LevelManager.SalmonBuildings.Remove(this);
                 break;
@@ -168,7 +180,8 @@ public partial class Building : Area2D
 
     public void RebakeAddBuilding(bool initialize = false)
     {
-        if (ModeManager.CurrentMode is not BuildMode && !initialize) {
+        if (ModeManager.CurrentMode is not BuildMode && !initialize)
+        {
             return;
         }
 
@@ -177,7 +190,8 @@ public partial class Building : Area2D
 
     public void RebakeRemoveBuilding()
     {
-        if (!ModeManager.CurrentlyBaking) {
+        if (!ModeManager.CurrentlyBaking)
+        {
             StaticBody2D obstacle = Region.GetNode<StaticBody2D>("Obstacle_Region_" + Data.Type + "_" + SelfIndex);
             obstacle.Reparent(this);
             Rebake();
@@ -194,7 +208,9 @@ public partial class Building : Area2D
     {
         ModeManager.CurrentlyBaking = false;
         Placed = true;
-        if (ModeManager.BuildingsToBake.Count > 0) {
+
+        if (ModeManager.BuildingsToBake.Count > 0)
+        {
             ModeManager.BuildingsToBake[0].RebakeAddBuilding();
             ModeManager.BuildingsToBake[0].Rebake();
             ModeManager.BuildingsToBake.RemoveAt(0);
@@ -210,36 +226,41 @@ public partial class Building : Area2D
     public void ConstructionTimeElapsed()
     {
         var nextProgress = Progress + CurrentBuilders.Count;
-        if (nextProgress < MaxProgress) {
+
+        if (nextProgress < MaxProgress)
+        {
             Progress = nextProgress;
             BuildTickTimer.Start(TickTime);
             return;
         }
 
-        BuildingMode.EmitSignal("BuildCompleted", this);
+        BuildingMode.EmitSignal(GameMode.SignalName.BuildCompleted, this);
         IsBuilt = true;
         BuildTickTimer.Timeout -= ConstructionTimeElapsed;
     }
 
     public override void _MouseEnter()
     {
-        if (ModeManager.CurrentMode is not SimulationMode) {
+        if (ModeManager.CurrentMode is not SimulationMode)
+        {
             return;
         }
 
-        if (SimulationModeRef.BuildingsToInteract.Count == 0 || SimulationModeRef.BuildingsToInteract[0] != this) {
-            EmitSignal("AboutToInteract", this);
+        if (SimulationModeRef.BuildingsToInteract.Count == 0 || SimulationModeRef.BuildingsToInteract[0] != this)
+        {
+            EmitSignal(SignalName.AboutToInteract, this);
         }
     }
 
 
     public override void _MouseExit()
     {
-        if (ModeManager.CurrentMode is not SimulationMode) {
+        if (ModeManager.CurrentMode is not SimulationMode)
+        {
             return;
         }
 
-        EmitSignal("RemovedInteraction", this);
+        EmitSignal(SignalName.RemovedInteraction, this);
     }
 
     public override void _ExitTree()
@@ -249,7 +270,8 @@ public partial class Building : Area2D
 
     public static void ModulateBuilding(Building building, BuildingInteractionStates state)
     {
-        switch (state) {
+        switch (state)
+        {
             case BuildingInteractionStates.HOVER:
                 building.Modulate = building.IsBuilt ? building.HoverColor : building.OkColor;
                 break;

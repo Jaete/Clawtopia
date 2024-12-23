@@ -22,4 +22,7 @@ NeedsRegion = true
 RegionRect = Rect2(33, 346, 132, 131)
 MaxProgress = 20
 IsPreSpawned = false
+SalmonCost = 0
+CatnipCost = 0
+SandCost = 120
 metadata/IsBuilding = true
