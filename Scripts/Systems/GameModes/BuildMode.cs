@@ -91,7 +91,7 @@ public partial class BuildMode : GameMode
         ModeManager.FightersTowerCount--;
         ModeManager.BuildingCount--;
         CurrentBuilding.QueueFree();
-        EmitSignal("ModeTransition", "SimulationMode", "", "");
+        EmitSignal(GameMode.SignalName.ModeTransition, SIMULATION_MODE, "", "");
     }
 
     private void ConfirmBuilding()
@@ -101,9 +101,9 @@ public partial class BuildMode : GameMode
             CurrentBuilding.RebakeAddBuilding();
             CurrentBuilding.Rebake();
             CurrentBuilding.InputPickable = true;
-            EmitSignal("ConstructionStarted", CurrentBuilding);
+            EmitSignal(GameMode.SignalName.ConstructionStarted, CurrentBuilding);
             BuildCompleted += WhenBuildingCompleted;
-            EmitSignal("ModeTransition", "SimulationMode", "", "");
+            EmitSignal(GameMode.SignalName.ConstructionStarted, SIMULATION_MODE, "", "");
             LevelManager.EmitSignal(LevelManager.SignalName.ResourceExpended, CurrentBuilding.Data.ResourceCosts);
         }
     }
