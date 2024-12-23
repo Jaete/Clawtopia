@@ -103,7 +103,7 @@ public partial class BuildMode : GameMode
             CurrentBuilding.InputPickable = true;
             EmitSignal(GameMode.SignalName.ConstructionStarted, CurrentBuilding);
             BuildCompleted += WhenBuildingCompleted;
-            EmitSignal(GameMode.SignalName.ConstructionStarted, SIMULATION_MODE, "", "");
+            EmitSignal(GameMode.SignalName.ModeTransition, SIMULATION_MODE, "", "");
             LevelManager.EmitSignal(LevelManager.SignalName.ResourceExpended, CurrentBuilding.Data.ResourceCosts);
         }
     }
