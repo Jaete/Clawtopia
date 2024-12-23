@@ -2,6 +2,8 @@ using System;
 using Godot;
 using Godot.Collections;
 
+namespace ClawtopiaCs.Scripts.Systems.GameModes;
+
 public partial class ModeManager : Node2D
 {
     public int BuildingCount;
@@ -50,9 +52,13 @@ public partial class ModeManager : Node2D
     {
         CurrentMode.Exit();
         CurrentMode = (GameMode)GameModes[mode];
-        if (CurrentMode is BuildMode buildMode) {
+
+        if (CurrentMode is BuildMode buildMode)
+        {
             buildMode.BuildingType = building;
-            switch (buildMode.BuildingType) {
+
+            switch (buildMode.BuildingType)
+            {
                 case Constants.TOWER:
                     TowerType = type;
                     break;
@@ -89,8 +95,11 @@ public partial class ModeManager : Node2D
     public void SetGameModes()
     {
         Array<Node> modes = GetChildren();
-        foreach (var mode in modes) {
-            if (mode is GameMode gameMode) {
+
+        foreach (var mode in modes)
+        {
+            if (mode is GameMode gameMode)
+            {
                 gameMode.ModeTransition += ChangeMode;
                 GameModes[gameMode.Name] = gameMode;
             }
@@ -100,25 +109,34 @@ public partial class ModeManager : Node2D
     public void SetInitialBuildings()
     {
         Array<Node> nodes = CurrentLevel.GetChildren();
-        foreach (var node in nodes) {
-            if (node is Building build) {
+
+        foreach (var node in nodes)
+        {
+            if (node is Building build)
+            {
                 BuildingCount++;
                 Building building = build;
-                if (building.Data.Type == Constants.TOWER) {
-                    if (building.Name.ToString().Contains(Constants.FIGHTERS)) {
+
+                if (building.Data.Type == Constants.TOWER)
+                {
+                    if (building.Name.ToString().Contains(Constants.FIGHTERS))
+                    {
                         building.SelfIndex = FightersTowerCount;
                         FightersTowerCount++;
                     }
                 }
 
-                if (building.Data.Type == Constants.RESOURCE) {
-                    if (building.Name.ToString().Contains(Constants.COMMUNIST)) {
+                if (building.Data.Type == Constants.RESOURCE)
+                {
+                    if (building.Name.ToString().Contains(Constants.COMMUNIST))
+                    {
                         building.SelfIndex = SalmonCottageCount;
                         SalmonCottageCount++;
                     }
                 }
 
-                if (building.Data.Type == Constants.COMMUNE) {
+                if (building.Data.Type == Constants.COMMUNE)
+                {
                     building.SelfIndex = GreatCommuneCount;
                     GreatCommuneCount++;
                 }

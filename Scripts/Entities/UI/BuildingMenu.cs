@@ -1,13 +1,15 @@
+using ClawtopiaCs.Scripts.Systems.GameModes;
 using Godot;
 
 public partial class BuildingMenu : Control
 {
-    public UI Ui;
     public Building Building;
-    public Button RemoveTowerButton;
     public ModeManager ModeManager;
+    public Button RemoveTowerButton;
+    public UI Ui;
 
-    public override void _Ready() {
+    public override void _Ready()
+    {
         Name = Constants.BUILDING_MENU;
         ModeManager = GetNode<ModeManager>("/root/Game/ModeManager");
         Ui = GetNode<UI>("/root/Game/UI");
@@ -17,7 +19,8 @@ public partial class BuildingMenu : Control
         MouseExited += Ui.Leave_ui_mode;
     }
 
-    public void Remove_tower() {
+    public void Remove_tower()
+    {
         Building.RebakeRemoveBuilding();
         Building.QueueFree();
         Ui.Reset_ui();

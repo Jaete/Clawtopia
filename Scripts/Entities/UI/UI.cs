@@ -1,52 +1,58 @@
-using Godot;
 using System;
 using ClawtopiaCs.Scripts.Systems.GameModes;
+using Godot;
 
 public partial class UI : CanvasLayer
 {
-    public PackedScene PurrlamentMenu = GD.Load<PackedScene>("res://TSCN/UI/PurrlamentMenu.tscn");
-    public PackedScene PauseMenuScene = GD.Load<PackedScene>("res://TSCN/UI/PauseMenu.tscn");
-    public PackedScene BuildingMenu = GD.Load<PackedScene>("res://TSCN/UI/BuildingMenu.tscn");
-    public PackedScene CommunistMenu = GD.Load<PackedScene>("res://TSCN/UI/CommunistMenu.tscn");
     public PackedScene BaseMenu = GD.Load<PackedScene>("res://TSCN/UI/BaseMenu.tscn");
-    
-
-    public Control CurrentWindow;
-    public BuildingMenu BuildingMenuControl;
 
     public Building Building;
+    public PackedScene BuildingMenu = GD.Load<PackedScene>("res://TSCN/UI/BuildingMenu.tscn");
+    public BuildingMenu BuildingMenuControl;
+    public PackedScene CommunistMenu = GD.Load<PackedScene>("res://TSCN/UI/CommunistMenu.tscn");
 
     public HFlowContainer Container;
 
-    public bool IsResettingUi;
 
-    public UIMode UiMode;
+    public Control CurrentWindow;
+
+    public bool IsResettingUi;
     public ModeManager ModeManager;
 
     private PauseMenu pauseMenu;
+    public PackedScene PauseMenuScene = GD.Load<PackedScene>("res://TSCN/UI/PauseMenu.tscn");
+    public PackedScene PurrlamentMenu = GD.Load<PackedScene>("res://TSCN/UI/PurrlamentMenu.tscn");
 
-    public override void _Ready(){
+    public UIMode UiMode;
+
+    public override void _Ready()
+    {
         pauseMenu = PauseMenuScene.Instantiate<PauseMenu>();
         AddChild(pauseMenu);
         CallDeferred("Initialize");
         //Input.MouseMode = Input.MouseModeEnum.Confined;
     }
 
-    public void Initialize(){
+    public void Initialize()
+    {
         Container = GetNode<HFlowContainer>("Container");
         ModeManager = GetNode<ModeManager>("/root/Game/ModeManager");
-        UiMode = (UIMode) ModeManager.GameModes["UIMode"];
+        UiMode = (UIMode)ModeManager.GameModes[GameMode.UI_MODE];
     }
-    
-    public void Instantiate_window(String window, Building building = null) {
-        switch (window) {
+
+    public void Instantiate_window(String window, Building building = null)
+    {
+        switch (window)
+        {
             case Constants.BUILDING_MENU:
-                if (building != null){
+                if (building != null)
+                {
                     BuildingMenuControl = BuildingMenu.Instantiate<BuildingMenu>();
                     BuildingMenuControl.Building = building;
-                    BuildingMenuControl.Name = "BuildingMenu";
+                    BuildingMenuControl.Name = Constants.BUILDING_MENU;
                     CurrentWindow = BuildingMenuControl;
                 }
+
                 break;
             case Constants.PURRLAMENT_MENU:
                 CurrentWindow = PurrlamentMenu.Instantiate<PurrlamentMenu>();
@@ -57,15 +63,20 @@ public partial class UI : CanvasLayer
                 CurrentWindow.Name = Constants.COMMUNIST_MENU;
                 break;
         }
+
         var previousMenu = GetNodeOrNull("Container").GetChild<Control>(0);
-        if (previousMenu.Name == CurrentWindow.Name){
+
+        if (previousMenu.Name == CurrentWindow.Name)
+        {
             return;
         }
+
         previousMenu.QueueFree();
         Container.AddChild(CurrentWindow);
     }
-    
-    public void Reset_ui(){
+
+    public void Reset_ui()
+    {
         IsResettingUi = true;
         var previousMenu = GetNodeOrNull("Container").GetChild<Control>(0);
         previousMenu.QueueFree();
@@ -75,15 +86,19 @@ public partial class UI : CanvasLayer
         IsResettingUi = false;
     }
 
-    public void Enter_ui_mode(){
-        if (ModeManager.CurrentMode is SimulationMode){
-            ModeManager.ChangeMode(UiMode.Name, "", "");
+    public void Enter_ui_mode()
+    {
+        if (ModeManager.CurrentMode is SimulationMode)
+        {
+            EmitSignal(GameMode.SignalName.ModeTransition, GameMode.UI_MODE);
         }
     }
 
-    public void Leave_ui_mode(){
-        if (ModeManager.CurrentMode is UIMode) {
-            var simulationMode = (SimulationMode) ModeManager.GameModes["SimulationMode"];
+    public void Leave_ui_mode()
+    {
+        if (ModeManager.CurrentMode is UIMode)
+        {
+            var simulationMode = (SimulationMode)ModeManager.GameModes[GameMode.SIMULATION_MODE];
             ModeManager.ChangeMode(simulationMode.Name, "", "");
         }
     }

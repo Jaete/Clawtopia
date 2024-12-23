@@ -1,3 +1,4 @@
+using ClawtopiaCs.Scripts.Systems.GameModes;
 using Godot;
 
 public partial class Controller : Node
@@ -24,19 +25,24 @@ public partial class Controller : Node
     public override void _Input(InputEvent @event)
     {
         var eventButton = @event as InputEventMouseButton;
-        if (eventButton is { Pressed: true, ButtonIndex: MouseButton.Left }) {
+
+        if (eventButton is { Pressed: true, ButtonIndex: MouseButton.Left })
+        {
             EmitSignal(SignalName.MousePressed, ModeManager.CurrentLevel.GetLocalMousePosition());
         }
 
-        if (eventButton is { Pressed: false, ButtonIndex: MouseButton.Left }) {
+        if (eventButton is { Pressed: false, ButtonIndex: MouseButton.Left })
+        {
             EmitSignal(SignalName.MouseReleased, ModeManager.CurrentLevel.GetLocalMousePosition());
         }
 
-        if (eventButton is { DoubleClick: true, ButtonIndex: MouseButton.Left }) {
+        if (eventButton is { DoubleClick: true, ButtonIndex: MouseButton.Left })
+        {
             EmitSignal(SignalName.MouseDoubleClicked, ModeManager.CurrentLevel.GetLocalMousePosition());
         }
 
-        if (eventButton is { Pressed: true, ButtonIndex: MouseButton.Right }) {
+        if (eventButton is { Pressed: true, ButtonIndex: MouseButton.Right })
+        {
             EmitSignal(SignalName.MouseRightPressed, ModeManager.CurrentLevel.GetLocalMousePosition());
         }
     }
