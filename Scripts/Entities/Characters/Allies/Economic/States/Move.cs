@@ -1,19 +1,22 @@
+using ClawtopiaCs.Scripts.Systems;
 using Godot;
+using Godot.Collections;
 
 public partial class Move : EconomicState
 {
-    public override void Enter() { }
+    public override void Enter() {}
 
     public override void Update(double delta)
     {
         Move();
     }
 
-    public override void Exit() { }
+    public override void Exit() {}
 
     public override void MouseRightClicked(Vector2 coords)
     {
-        if (!Ally.CurrentlySelected || ModeManager.CurrentMode is BuildMode) {
+        if (!Ally.CurrentlySelected || ModeManager.CurrentMode is BuildMode)
+        {
             return;
         }
 
@@ -22,19 +25,23 @@ public partial class Move : EconomicState
 
     public override void NavigationFinished()
     {
-        if (Ally.AllyIsBuilding) {
+        if (Ally.AllyIsBuilding)
+        {
             ChangeState("Building");
             return;
         }
 
-        if (Ally.InteractedWithBuilding) {
-            if (!Ally.InteractedBuilding.IsBuilt) {
+        if (Ally.InteractedWithBuilding)
+        {
+            if (!Ally.InteractedBuilding.IsBuilt)
+            {
                 Ally.ConstructionToBuild = Ally.InteractedBuilding;
                 ChangeState("Building");
                 return;
             }
 
-            switch (Ally.InteractedBuilding.Data.Type) {
+            switch (Ally.InteractedBuilding.Data.Type)
+            {
                 case Constants.TOWER:
                     ChangeState("Taking_shelter");
                     return;
@@ -44,22 +51,30 @@ public partial class Move : EconomicState
             }
         }
 
-        if (Ally.InteractedResource != null && !Ally.Delivering) {
+        if (Ally.InteractedResource != null && !Ally.Delivering)
+        {
             ChangeState("Collecting");
             return;
         }
 
-        if (Ally.Delivering) {
+        if (Ally.Delivering)
+        {
             Ally.Navigation.SetTargetPosition(Ally.CurrentResourceLastPosition);
-            switch (Ally.InteractedResource) {
+            var resources = new Dictionary<string, int>();
+
+            switch (Ally.InteractedResource)
+            {
                 case Constants.CATNIP:
-                    Ally.LevelManager.EmitSignal("ResourceDelivered", Constants.CATNIP, Ally.ResourceCurrentQuantity);
+                    resources.Add(Constants.CATNIP, Ally.ResourceCurrentQuantity);
+                    Ally.LevelManager.EmitSignal(LevelManager.SignalName.ResourceDelivered, resources);
                     break;
                 case Constants.SALMON:
-                    Ally.LevelManager.EmitSignal("ResourceDelivered", Constants.SALMON, Ally.ResourceCurrentQuantity);
+                    resources.Add(Constants.SALMON, Ally.ResourceCurrentQuantity);
+                    Ally.LevelManager.EmitSignal(LevelManager.SignalName.ResourceDelivered, resources);
                     break;
                 case Constants.SAND:
-                    Ally.LevelManager.EmitSignal("ResourceDelivered", Constants.SAND, Ally.ResourceCurrentQuantity);
+                    resources.Add(Constants.SAND, Ally.ResourceCurrentQuantity);
+                    Ally.LevelManager.EmitSignal(LevelManager.SignalName.ResourceDelivered, resources);
                     break;
             }
 
@@ -73,19 +88,9 @@ public partial class Move : EconomicState
 
     public void SeekResource(string resourceType)
     {
-        switch (resourceType) {
-            case Constants.CATNIP:
-                /*TODO implementar*/
-                break;
-            case Constants.SALMON:
-                Ally.CurrentResourceLastPosition = GetClosestWaterCoord();
-                Ally.Navigation.SetTargetPosition(Ally.CurrentResourceLastPosition);
-                Ally.InteractedResource = Constants.SALMON;
-                Ally.InteractedWithBuilding = false;
-                break;
-            case Constants.SAND:
-                /*TODO implementar*/
-                break;
-        }
+        Ally.CurrentResourceLastPosition = GetClosestResourceCoord(resourceType);
+        Ally.Navigation.SetTargetPosition(Ally.CurrentResourceLastPosition);
+        Ally.InteractedResource = resourceType;
+        Ally.InteractedWithBuilding = false;
     }
 }

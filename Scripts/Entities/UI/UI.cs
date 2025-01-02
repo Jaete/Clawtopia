@@ -90,7 +90,7 @@ public partial class UI : CanvasLayer
     {
         if (ModeManager.CurrentMode is SimulationMode)
         {
-            EmitSignal(GameMode.SignalName.ModeTransition, GameMode.UI_MODE);
+            ModeManager.CurrentMode.EmitSignal(GameMode.SignalName.ModeTransition, GameMode.UI_MODE);
         }
     }
 
