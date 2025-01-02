@@ -48,6 +48,17 @@ public partial class EconomicState : AllyState
     {
         Vector2 closestBuildingPosition = default;
 
+        if (Ally.LevelManager.CatnipBuildings.Count == 0 &&
+            Ally.LevelManager.SalmonBuildings.Count == 0 &&
+            Ally.LevelManager.SandBuildings.Count == 0)
+        {
+            closestBuildingPosition = RecalculateCoords(Ally.GlobalPosition,
+                Ally.LevelManager.Purrlament.GlobalPosition,
+                true);
+
+            return closestBuildingPosition;
+        }
+
         switch (resource)
         {
             case Constants.SALMON:

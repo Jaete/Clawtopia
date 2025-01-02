@@ -39,6 +39,8 @@ public partial class Constants : Node
     public const string COMMUNE_EXTERNAL_NAME = "Purrlamento";
     public const string FIGHTERS_TOWER_EXTERNAL_NAME = "Torre de Lutadores";
     public const string FISHERMAN_HOUSE_EXTERNAL_NAME = "Cabana do Pescador";
+    public const string DISTILLERY_EXTERNAL_NAME = "Destilaria";
+    public const string SAND_MINE_EXTERNAL_NAME = "Mina de Areia";
 
     public const string BUILDING_PATH = "res://TSCN/Entities/Buildings/Building.tscn";
     public const string MODE_MANAGER_PATH = "/root/Game/ModeManager";
