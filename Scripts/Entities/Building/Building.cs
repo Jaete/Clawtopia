@@ -83,6 +83,7 @@ public partial class Building : Area2D
         if (Data.Type.Equals(Constants.COMMUNE))
         {
             Name = Constants.COMMUNE_EXTERNAL_NAME;
+            LevelManager.Purrlament = this;
         }
 
         if (Data.Type == Constants.HOUSE)
@@ -109,10 +110,10 @@ public partial class Building : Area2D
                     Name = Constants.FISHERMAN_HOUSE_EXTERNAL_NAME;
                     break;
                 case Constants.CATNIP:
-                    /*TODO IMPLEMENTAR*/
+                    Name = Constants.DISTILLERY_EXTERNAL_NAME;
                     break;
                 case Constants.SAND:
-                    /*TODO IMPLEMENTAR*/
+                    Name = Constants.SAND_MINE_EXTERNAL_NAME;
                     break;
             }
         }
