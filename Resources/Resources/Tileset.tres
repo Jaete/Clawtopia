@@ -1,6 +1,8 @@
-[gd_resource type="TileSet" load_steps=3 format=3 uid="uid://c2nkgguv7dacf"]
+[gd_resource type="TileSet" load_steps=7 format=3 uid="uid://c2nkgguv7dacf"]
 
 [ext_resource type="Texture2D" uid="uid://d0pjpwam87ea4" path="res://Assets/Tileset/64agua.png.png" id="1_ue5hw"]
+[ext_resource type="Texture2D" uid="uid://dmym05238w47a" path="res://Assets/Tileset/bush.png" id="2_6ounu"]
+[ext_resource type="Texture2D" uid="uid://do8s6jgnprtsn" path="res://Assets/Tileset/sand.png" id="3_ltrp7"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ly0ee"]
 texture = ExtResource("1_ue5hw")
@@ -821,6 +823,18 @@ texture_region_size = Vector2i(64, 32)
 7:17/0/terrains_peering_bit/top_left_side = 0
 7:17/0/terrains_peering_bit/top_corner = 0
 
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_45l6h"]
+texture = ExtResource("2_6ounu")
+texture_region_size = Vector2i(64, 32)
+0:0/0 = 0
+0:0/0/custom_data_1 = true
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_khgxb"]
+texture = ExtResource("3_ltrp7")
+texture_region_size = Vector2i(64, 32)
+0:0/0 = 0
+0:0/0/custom_data_2 = true
+
 [resource]
 tile_shape = 1
 tile_layout = 5
@@ -833,4 +847,10 @@ terrain_set_0/terrain_1/name = "Water"
 terrain_set_0/terrain_1/color = Color(0.501961, 0.796078, 0.25098, 1)
 custom_data_layer_0/name = "isWater"
 custom_data_layer_0/type = 1
+custom_data_layer_1/name = "isBush"
+custom_data_layer_1/type = 1
+custom_data_layer_2/name = "isSandDump"
+custom_data_layer_2/type = 1
 sources/0 = SubResource("TileSetAtlasSource_ly0ee")
+sources/1 = SubResource("TileSetAtlasSource_45l6h")
+sources/3 = SubResource("TileSetAtlasSource_khgxb")

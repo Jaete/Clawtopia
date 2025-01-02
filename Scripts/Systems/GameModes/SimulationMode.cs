@@ -7,6 +7,7 @@ namespace ClawtopiaCs.Scripts.Systems.GameModes;
 public partial class SimulationMode : GameMode
 {
     public Array<Building> BuildingsToInteract = new();
+    public TileMapLayer Bushes;
 
     [Export] public Label Debug;
     public bool Dragging;
@@ -15,6 +16,7 @@ public partial class SimulationMode : GameMode
 
     // RELACIONADO PARA INTERACAO COM RECURSOS
     public bool IsWater;
+    public TileMapLayer SandDumps;
 
     // RELACIONADO PARA REFERENCIA DE UNIDADES SELECIONADAS
     public Array<Ally> SelectedAllies = new();
@@ -36,15 +38,19 @@ public partial class SimulationMode : GameMode
         Initialize();
         Ground = GetNode<TileMapLayer>("/root/Game/LevelManager/Level/Navigation/Ground");
         Water = GetNode<TileMapLayer>("/root/Game/LevelManager/Level/Navigation/Water");
+        Bushes = GetNode<TileMapLayer>("/root/Game/LevelManager/Level/Navigation/Bushes");
+        SandDumps = GetNode<TileMapLayer>("/root/Game/LevelManager/Level/Navigation/SandDumps");
         Debug.Text = $"Selected Allies: {SelectedAllies.Count}";
     }
 
-    public override void Enter() { }
-    public override void Exit() { }
+    public override void Enter() {}
+
+    public override void Exit() {}
 
     public override void Update()
     {
-        if (Dragging) {
+        if (Dragging)
+        {
             ShapeSize = ModeManager.CurrentLevel.GetGlobalMousePosition() - StartingPoint;
             ShapePosition = ShapeSize / 2;
             VisualSelection.SelectionShape.Size = ShapeSize.Abs();
@@ -80,11 +86,13 @@ public partial class SimulationMode : GameMode
 
     public void AboutToInteractWithBuilding(Building building)
     {
-        if (!BuildingsToInteract.Contains(building)) {
+        if (!BuildingsToInteract.Contains(building))
+        {
             BuildingsToInteract.Add(building);
         }
 
-        if (BuildingsToInteract[0] != building && building.GlobalPosition.Y > BuildingsToInteract[0].GlobalPosition.Y) {
+        if (BuildingsToInteract[0] != building && building.GlobalPosition.Y > BuildingsToInteract[0].GlobalPosition.Y)
+        {
             var lastBuildingInteracted = BuildingsToInteract[0];
             BuildingsToInteract[0] = building;
             BuildingsToInteract[^1] = lastBuildingInteracted;
@@ -96,13 +104,15 @@ public partial class SimulationMode : GameMode
 
     public void InteractionWithBuildingRemoved(Building building)
     {
-        if (BuildingsToInteract.Contains(building)) {
+        if (BuildingsToInteract.Contains(building))
+        {
             BuildingsToInteract.Remove(building);
         }
 
         Building.ModulateBuilding(building, BuildingInteractionStates.UNHOVER);
 
-        if (BuildingsToInteract.Count > 0) {
+        if (BuildingsToInteract.Count > 0)
+        {
             Building.ModulateBuilding(BuildingsToInteract[0], BuildingInteractionStates.HOVER);
         }
     }
@@ -111,7 +121,9 @@ public partial class SimulationMode : GameMode
     {
         var overlappingAreas = SelectionArea.GetOverlappingAreas();
         var ui = GetNode<UI>("/root/Game/UI");
-        if (overlappingAreas.Count == 0) {
+
+        if (overlappingAreas.Count == 0)
+        {
             ui.Reset_ui();
             Selectors.ClearSelectedAllies(SelectedAllies);
             SelectedBuilding = null;
@@ -119,29 +131,37 @@ public partial class SimulationMode : GameMode
             return;
         }
 
-        if (treatAsClick) {
-            if (hasBuildings) {
+        if (treatAsClick)
+        {
+            if (hasBuildings)
+            {
                 Selectors.SelectSingleBuilding(overlappingAreas, ui);
             }
-            else {
-                if (SelectedAllies.Count > 0 && !Input.IsActionPressed("Multiple")) {
+            else
+            {
+                if (SelectedAllies.Count > 0 && !Input.IsActionPressed("Multiple"))
+                {
                     Selectors.ClearSelectedAllies(SelectedAllies);
                 }
 
                 SelectedAllies.Add(Selectors.SelectSingleUnit(overlappingAreas, ui));
             }
         }
-        else {
-            if (SelectedAllies.Count > 0 && !Input.IsActionPressed("Multiple")) {
+        else
+        {
+            if (SelectedAllies.Count > 0 && !Input.IsActionPressed("Multiple"))
+            {
                 Selectors.ClearSelectedAllies(SelectedAllies);
                 SelectedAllies = Selectors.SelectMultipleUnits(overlappingAreas);
             }
-            else {
+            else
+            {
                 SelectedAllies = Selectors.SelectMultipleUnits(overlappingAreas, SelectedAllies);
             }
         }
 
-        if (SelectedAllies.Count > 0) {
+        if (SelectedAllies.Count > 0)
+        {
             ui.Instantiate_window(Constants.COMMUNIST_MENU);
         }
 
@@ -150,35 +170,44 @@ public partial class SimulationMode : GameMode
 
     private void SelectUnits(bool treatAsClick)
     {
-        if (!IsInstanceValid(SelectionArea)) {
+        if (!IsInstanceValid(SelectionArea))
+        {
             return;
         }
 
         var ui = GetNode<UI>("/root/Game/UI");
         var overlappingAreas = SelectionArea.GetOverlappingAreas();
-        if (overlappingAreas is null) {
+
+        if (overlappingAreas is null)
+        {
             return;
         }
 
-        if (overlappingAreas.Count == 0) {
+        if (overlappingAreas.Count == 0)
+        {
             ui.Reset_ui();
             Selectors.ClearSelectedAllies(SelectedAllies);
             return;
         }
 
-        if (!Input.IsActionPressed("Multiple")) {
+        if (!Input.IsActionPressed("Multiple"))
+        {
             Selectors.ClearSelectedAllies(SelectedAllies);
         }
 
-        if (treatAsClick) {
+        if (treatAsClick)
+        {
             var unit = Selectors.SelectSingleUnit(overlappingAreas, ui);
-            if (unit is null) {
+
+            if (unit is null)
+            {
                 return;
             }
 
             SelectedAllies.Add(unit);
         }
-        else {
+        else
+        {
             SelectedAllies = Selectors.SelectMultipleUnits(overlappingAreas);
         }
     }
