@@ -78,42 +78,41 @@ public partial class EconomicState : AllyState
 
     public void ChooseNextTargetPosition(Vector2 coords)
     {
+        Vector2 nextTarget = coords;
+        Ally.InteractedResource = null;
+        Ally.InteractedBuilding = null;
         Ally.InteractedWithBuilding = SimulationMode.BuildingsToInteract.Count > 0;
 
         if (Ally.InteractedWithBuilding)
         {
-            Ally.Navigation.SetTargetPosition(RecalculateCoords(Ally.GlobalPosition,
-                SimulationMode.BuildingsToInteract[0].GlobalPosition));
+            nextTarget = RecalculateCoords(Ally.GlobalPosition,
+                SimulationMode.BuildingsToInteract[0].GlobalPosition);
 
             Ally.InteractedBuilding = SimulationMode.BuildingsToInteract[0];
         }
-        else if (IsInteractingWithResourceAt(coords, Constants.SALMON))
-        {
-            Ally.InteractedResource = Constants.SALMON;
-            Ally.InteractedBuilding = null;
-            Ally.CurrentResourceLastPosition = GetClosestResourceCoord(Constants.SALMON);
-            Ally.Navigation.SetTargetPosition(Ally.CurrentResourceLastPosition);
-        }
-        else if (IsInteractingWithResourceAt(coords, Constants.CATNIP))
-        {
-            Ally.InteractedResource = Constants.CATNIP;
-            Ally.InteractedBuilding = null;
-            Ally.CurrentResourceLastPosition = GetClosestResourceCoord(Constants.CATNIP);
-            Ally.Navigation.SetTargetPosition(Ally.CurrentResourceLastPosition);
-        }
-        else if (IsInteractingWithResourceAt(coords, Constants.SAND))
-        {
-            Ally.InteractedResource = Constants.SAND;
-            Ally.InteractedBuilding = null;
-            Ally.CurrentResourceLastPosition = GetClosestResourceCoord(Constants.SAND);
-            Ally.Navigation.SetTargetPosition(Ally.CurrentResourceLastPosition);
-        }
         else
         {
-            Ally.InteractedResource = null;
-            Ally.InteractedBuilding = null;
-            Ally.Navigation.SetTargetPosition(coords);
+            if (IsInteractingWithResourceAt(coords, Constants.SALMON))
+            {
+                Ally.InteractedResource = Constants.SALMON;
+                Ally.CurrentResourceLastPosition = GetClosestResourceCoord(Constants.SALMON);
+                nextTarget = Ally.CurrentResourceLastPosition;
+            }
+            else if (IsInteractingWithResourceAt(coords, Constants.CATNIP))
+            {
+                Ally.InteractedResource = Constants.CATNIP;
+                Ally.CurrentResourceLastPosition = GetClosestResourceCoord(Constants.CATNIP);
+                nextTarget = Ally.CurrentResourceLastPosition;
+            }
+            else if (IsInteractingWithResourceAt(coords, Constants.SAND))
+            {
+                Ally.InteractedResource = Constants.SAND;
+                Ally.CurrentResourceLastPosition = GetClosestResourceCoord(Constants.SAND);
+                nextTarget = Ally.CurrentResourceLastPosition;
+            }
         }
+
+        Ally.Navigation.SetTargetPosition(nextTarget);
     }
 
     /// <summary>
@@ -134,32 +133,19 @@ public partial class EconomicState : AllyState
                 mapCoords = SimulationMode.Water.LocalToMap(SimulationMode.Water.GetLocalMousePosition());
                 data = SimulationMode.Water.GetCellTileData(mapCoords);
 
-                if (data is null)
-                {
-                    return false;
-                }
+                return data != null && (bool)data.GetCustomData("isWater");
 
-                return (bool)data.GetCustomData("isWater");
             case Constants.CATNIP:
                 mapCoords = SimulationMode.Bushes.LocalToMap(SimulationMode.Water.GetLocalMousePosition());
                 data = SimulationMode.Bushes.GetCellTileData(mapCoords);
 
-                if (data is null)
-                {
-                    return false;
-                }
+                return data != null && (bool)data.GetCustomData("isBush");
 
-                return (bool)data.GetCustomData("isBush");
             case Constants.SAND:
                 mapCoords = SimulationMode.SandDumps.LocalToMap(SimulationMode.SandDumps.GetLocalMousePosition());
                 data = SimulationMode.SandDumps.GetCellTileData(mapCoords);
 
-                if (data is null)
-                {
-                    return false;
-                }
-
-                return (bool)data.GetCustomData("isSandDump");
+                return data != null && (bool)data.GetCustomData("isSandDump");
         }
 
         return false;
