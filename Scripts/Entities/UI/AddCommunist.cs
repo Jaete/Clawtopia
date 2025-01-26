@@ -1,8 +1,10 @@
 using ClawtopiaCs.Scripts.Systems;
 using ClawtopiaCs.Scripts.Systems.GameModes;
+using Godot.Collections;
 using Godot;
+using ClawtopiaCs.Scripts.Entities.UI;
 
-public partial class AddCommunist : Button
+public partial class AddCommunist : UIButton
 {
     private Vector2 _communistPosition = new Vector2(-145.0f, 85.0f);
 
@@ -17,22 +19,24 @@ public partial class AddCommunist : Button
 
     public override void _Ready()
     {
+        base._Ready();
         Ui = GetNode<UI>("/root/Game/UI");
-        MouseEntered += Ui.Enter_ui_mode;
-        MouseExited += Ui.Leave_ui_mode;
+        MouseEntered += Ui.EnterUiMode;
+        MouseExited += Ui.ExitUiMode;
         Pressed += OnPressed;
         ModeManager = GetNode<ModeManager>("/root/Game/ModeManager");
+
     }
 
-    public void OnPressed()
+    public override void OnPressed()
     {
+        base.OnPressed();
         SpawnCommunist();
     }
 
     private void SpawnCommunist()
     {
-        GD.Print("SPAWN");
-
+        
         var addCommunist = _scene.Instantiate<Ally>();
         var purrlamentNode = ModeManager.CurrentLevel.GetNode<Building>(Constants.COMMUNE_EXTERNAL_NAME);
         LevelManager = GetNode<LevelManager>("/root/Game/LevelManager");
@@ -40,9 +44,9 @@ public partial class AddCommunist : Button
         //INICIA SPAWN DOS GATOS CAMPONESES
         ResourceSpawnTimer = GetTree().CreateTimer(SpawnTimer);
 
-        if (LevelManager.InitialSalmonQuantity >= 100)
+        if (LevelManager.CurrentResources[Constants.SALMON] >= 100)
         {
-            LevelManager.EmitSignal(LevelManager.SignalName.ResourceExpended, Constants.SALMON, 100);
+            LevelManager.EmitSignal(LevelManager.SignalName.ResourceExpended, addCommunist.Attributes.ResourceCosts);
             ResourceSpawnTimer.Timeout += delegate
             {
                 addCommunist.GlobalPosition = purrlamentNode.GlobalPosition + _communistPosition;
@@ -51,6 +55,7 @@ public partial class AddCommunist : Button
         }
         else
         {
+            //TODO: colocar implementacao de exibir UI indicando que nao tem recurso, voz, etc.
             GD.Print("QUANTIDADE INSUFICIENTE DE RECURSO");
         }
     }

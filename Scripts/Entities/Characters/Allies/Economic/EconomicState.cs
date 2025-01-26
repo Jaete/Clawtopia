@@ -47,28 +47,27 @@ public partial class EconomicState : AllyState
     public Vector2 GetClosestResourceBuilding(Vector2 coords, string resource)
     {
         Vector2 closestBuildingPosition = default;
-
-        if (Ally.LevelManager.CatnipBuildings.Count == 0 &&
-            Ally.LevelManager.SalmonBuildings.Count == 0 &&
-            Ally.LevelManager.SandBuildings.Count == 0)
-        {
-            closestBuildingPosition = RecalculateCoords(Ally.GlobalPosition,
-                Ally.LevelManager.Purrlament.GlobalPosition,
-                true);
-
-            return closestBuildingPosition;
-        }
+        bool noResourceBuildings = false;
 
         switch (resource)
         {
             case Constants.SALMON:
+                if(Ally.LevelManager.SalmonBuildings.Count == 0)
+                {
+                    noResourceBuildings = true;
+                    break;
+                }
                 foreach (var building in Ally.LevelManager.SalmonBuildings)
                 {
                     closestBuildingPosition = GetClosestBuilding(coords, closestBuildingPosition, building);
                 }
-
                 break;
             case Constants.CATNIP:
+                if (Ally.LevelManager.CatnipBuildings.Count == 0)
+                {
+                    noResourceBuildings = true;
+                    break;
+                }
                 foreach (var building in Ally.LevelManager.CatnipBuildings)
                 {
                     closestBuildingPosition = GetClosestBuilding(coords, closestBuildingPosition, building);
@@ -76,14 +75,25 @@ public partial class EconomicState : AllyState
 
                 break;
             case Constants.SAND:
+                if (Ally.LevelManager.SandBuildings.Count == 0)
+                {
+                    noResourceBuildings = true;
+                    break;
+                }
                 foreach (var building in Ally.LevelManager.SandBuildings)
                 {
                     closestBuildingPosition = GetClosestBuilding(coords, closestBuildingPosition, building);
                 }
-
                 break;
         }
-
+        if (noResourceBuildings)
+        {
+            closestBuildingPosition = RecalculateCoords(
+                Ally.GlobalPosition,
+                Ally.LevelManager.Purrlament.GlobalPosition,
+                true
+            );
+        }
         return closestBuildingPosition;
     }
 

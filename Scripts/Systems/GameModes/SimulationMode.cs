@@ -78,8 +78,9 @@ public partial class SimulationMode : GameMode
 
     public override void MouseReleased(Vector2 coords)
     {
+        if (!IsInstanceValid(SelectionArea)) { return; }
         var hasBuildings = BuildingsToInteract.Count > 0;
-        var treatAsClick = VisualSelection.SelectionShape.Size is { X: < 2, Y: < 2 };
+        var treatAsClick = VisualSelection.SelectionShape?.Size is { X: < 2, Y: < 2 };
         SelectEntities(treatAsClick, hasBuildings);
         Debug.Text = $"Selected Allies: {SelectedAllies.Count}";
     }
@@ -99,7 +100,11 @@ public partial class SimulationMode : GameMode
         }
 
         Building.ModulateBuilding(BuildingsToInteract[0], BuildingInteractionStates.HOVER);
-        Building.ModulateBuilding(BuildingsToInteract[^1], BuildingInteractionStates.UNHOVER);
+
+        if(BuildingsToInteract.Count > 1)
+        {
+            Building.ModulateBuilding(BuildingsToInteract[^1], BuildingInteractionStates.UNHOVER);
+        }
     }
 
     public void InteractionWithBuildingRemoved(Building building)
@@ -119,6 +124,7 @@ public partial class SimulationMode : GameMode
 
     public void SelectEntities(bool treatAsClick, bool hasBuildings)
     {
+       
         var overlappingAreas = SelectionArea.GetOverlappingAreas();
         var ui = GetNode<UI>("/root/Game/UI");
 
@@ -133,17 +139,16 @@ public partial class SimulationMode : GameMode
 
         if (treatAsClick)
         {
+            if (SelectedAllies.Count > 0 && !Input.IsActionPressed("Multiple"))
+            {
+                Selectors.ClearSelectedAllies(SelectedAllies);
+            }
             if (hasBuildings)
             {
                 Selectors.SelectSingleBuilding(overlappingAreas, ui);
             }
             else
             {
-                if (SelectedAllies.Count > 0 && !Input.IsActionPressed("Multiple"))
-                {
-                    Selectors.ClearSelectedAllies(SelectedAllies);
-                }
-
                 SelectedAllies.Add(Selectors.SelectSingleUnit(overlappingAreas, ui));
             }
         }
@@ -152,12 +157,8 @@ public partial class SimulationMode : GameMode
             if (SelectedAllies.Count > 0 && !Input.IsActionPressed("Multiple"))
             {
                 Selectors.ClearSelectedAllies(SelectedAllies);
-                SelectedAllies = Selectors.SelectMultipleUnits(overlappingAreas);
             }
-            else
-            {
-                SelectedAllies = Selectors.SelectMultipleUnits(overlappingAreas, SelectedAllies);
-            }
+            SelectedAllies = Selectors.SelectMultipleUnits(overlappingAreas, SelectedAllies);
         }
 
         if (SelectedAllies.Count > 0)
@@ -170,11 +171,6 @@ public partial class SimulationMode : GameMode
 
     private void SelectUnits(bool treatAsClick)
     {
-        if (!IsInstanceValid(SelectionArea))
-        {
-            return;
-        }
-
         var ui = GetNode<UI>("/root/Game/UI");
         var overlappingAreas = SelectionArea.GetOverlappingAreas();
 

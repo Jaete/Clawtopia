@@ -20,6 +20,7 @@ public partial class LevelManager : Node2D
     [Export] public int InitialCatnipQuantity = 0;
     [Export] public int InitialSalmonQuantity = 0;
     [Export] public int InitialSandQuantity = 0;
+    public Building Purrlament;
     public Control ResCount;
 
     //NODES DE ESTRUTURA DE RECURSO DE SALMAO, CATNIP E AREIA PELO MAPA

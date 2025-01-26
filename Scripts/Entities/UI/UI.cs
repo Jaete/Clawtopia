@@ -30,6 +30,7 @@ public partial class UI : CanvasLayer
         pauseMenu = PauseMenuScene.Instantiate<PauseMenu>();
         AddChild(pauseMenu);
         CallDeferred("Initialize");
+        
         //Input.MouseMode = Input.MouseModeEnum.Confined;
     }
 
@@ -64,7 +65,7 @@ public partial class UI : CanvasLayer
                 break;
         }
 
-        var previousMenu = GetNodeOrNull("Container").GetChild<Control>(0);
+        var previousMenu = Container.GetChild<Control>(0);
 
         if (previousMenu.Name == CurrentWindow.Name)
         {
@@ -78,7 +79,7 @@ public partial class UI : CanvasLayer
     public void Reset_ui()
     {
         IsResettingUi = true;
-        var previousMenu = GetNodeOrNull("Container").GetChild<Control>(0);
+        var previousMenu = Container.GetChild<Control>(0);
         previousMenu.QueueFree();
         CurrentWindow = BaseMenu.Instantiate<Control>();
         CurrentWindow.Name = Constants.BASE_MENU;
@@ -86,20 +87,17 @@ public partial class UI : CanvasLayer
         IsResettingUi = false;
     }
 
-    public void Enter_ui_mode()
+    public void EnterUiMode()
     {
-        if (ModeManager.CurrentMode is SimulationMode)
-        {
-            ModeManager.CurrentMode.EmitSignal(GameMode.SignalName.ModeTransition, GameMode.UI_MODE);
-        }
+        if (ModeManager.CurrentMode is not SimulationMode) { return; }
+        var simulationMode = (SimulationMode)ModeManager.CurrentMode;
+        if (simulationMode.Dragging) { return; }
+        ModeManager.CurrentMode.EmitSignal(GameMode.SignalName.ModeTransition, GameMode.UI_MODE, "", "");
     }
 
-    public void Leave_ui_mode()
+    public void ExitUiMode()
     {
-        if (ModeManager.CurrentMode is UIMode)
-        {
-            var simulationMode = (SimulationMode)ModeManager.GameModes[GameMode.SIMULATION_MODE];
-            ModeManager.ChangeMode(simulationMode.Name, "", "");
-        }
+        if (ModeManager.CurrentMode is not UIMode) { return; }
+        ModeManager.CurrentMode.EmitSignal(GameMode.SignalName.ModeTransition, GameMode.SIMULATION_MODE, "", "");
     }
 }

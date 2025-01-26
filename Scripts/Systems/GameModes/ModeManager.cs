@@ -48,7 +48,7 @@ public partial class ModeManager : Node2D
         Controller.MouseRightPressed += MouseRightPressed;
     }
 
-    public void ChangeMode(String mode, String building, String type)
+    public void ChangeMode(string mode, string building, string type)
     {
         CurrentMode.Exit();
         CurrentMode = (GameMode)GameModes[mode];
