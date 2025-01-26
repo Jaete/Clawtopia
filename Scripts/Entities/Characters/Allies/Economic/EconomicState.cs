@@ -29,7 +29,7 @@ public partial class EconomicState : AllyState
 
     private void BuildCompleted(Building building)
     {
-        if (BuildMode.CurrentConstructors.Contains(Ally))
+        if (building.CurrentBuilders.Contains(Ally))
         {
             Ally.AllyIsBuilding = false;
             ChangeState("Idle");
