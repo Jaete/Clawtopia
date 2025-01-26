@@ -22,8 +22,8 @@ public partial class EconomicState : AllyState
         }
 
         Ally.AllyIsBuilding = true;
-        Ally.ConstructionToBuild = building;
-        Ally.Navigation.SetTargetPosition(Ally.ConstructionToBuild.GlobalPosition);
+        Ally.InteractedBuilding = building;
+        Ally.Navigation.SetTargetPosition(Ally.InteractedBuilding.GlobalPosition);
         ChangeState("Move");
     }
 

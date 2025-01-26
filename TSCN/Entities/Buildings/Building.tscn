@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://d2xeg5t6t85er"]
 
 [ext_resource type="Script" path="res://Scripts/Entities/Building/Building.cs" id="1_pb7cr"]
-[ext_resource type="Texture2D" uid="uid://c6oakn300jtfm" path="res://Assets/Buildings/casa_comuna_001.png" id="2_q5vv2"]
+[ext_resource type="Texture2D" uid="uid://cvaqt5utn12w4" path="res://Assets/Buildings/casa_decor_001.png" id="2_qt8l0"]
 
 [node name="Building" type="Area2D" node_paths=PackedStringArray("BodyShape", "GridShape", "InteractionShape", "Sprite", "StaticBody", "Sounds")]
 y_sort_enabled = true
@@ -15,7 +15,7 @@ Sounds = NodePath("BuildingSounds")
 metadata/IsBuilding = true
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("2_q5vv2")
+texture = ExtResource("2_qt8l0")
 offset = Vector2(0, -32)
 region_rect = Rect2(8, 758, 114, 141)
 
@@ -27,9 +27,9 @@ region_rect = Rect2(8, 758, 114, 141)
 input_pickable = false
 
 [node name="Shape" type="CollisionPolygon2D" parent="GridArea"]
-polygon = PackedVector2Array(-128, 12, -8, 76, 144, 0, 16, -60)
+polygon = PackedVector2Array(-88, -24, 0, 24, 88, -24, 0, -72)
 
 [node name="InteractionShape" type="CollisionPolygon2D" parent="."]
-polygon = PackedVector2Array(-128, 12, -136, -44, 48, -140, 88, -96, 104, -104, 144, -60, 144, -4, -8, 76)
+polygon = PackedVector2Array(-80, -24, -80, -56, -48, -72, 48, -72, 80, -56, 80, -20, 32, -4, -8, 12)
 
 [node name="BuildingSounds" type="AudioStreamPlayer" parent="."]
