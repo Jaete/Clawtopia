@@ -86,12 +86,15 @@ public partial class BuildMode : GameMode
         CancelBuilding();
     }
 
-    private void CancelBuilding()
+    private async void CancelBuilding()
     {
         ModeManager.FightersTowerCount--;
         ModeManager.BuildingCount--;
-        CurrentBuilding.QueueFree();
+        CurrentBuilding.Sounds.Stream = CurrentBuilding.Data.CancelSound;
+        CurrentBuilding.Sounds.Play();
         EmitSignal(GameMode.SignalName.ModeTransition, SIMULATION_MODE, "", "");
+        await ToSignal(CurrentBuilding.Sounds, AudioStreamPlayer2D.SignalName.Finished);
+        CurrentBuilding.QueueFree();
     }
 
     private void ConfirmBuilding()

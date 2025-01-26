@@ -1,7 +1,32 @@
-[gd_scene load_steps=3 format=3 uid="uid://wo4g4o4cxp7g"]
+[gd_scene load_steps=17 format=3 uid="uid://wo4g4o4cxp7g"]
 
 [ext_resource type="Script" path="res://Scripts/Entities/UI/AddCommunist.cs" id="1_1lt0f"]
-[ext_resource type="Texture2D" uid="uid://cki0qpyi55brn" path="res://Assets/UI/paw-print.png" id="3_7k07k"]
+[ext_resource type="Texture2D" uid="uid://br5ydadhldshi" path="res://Assets/UI/64px_botoes_corB.png" id="2_8undl"]
+[ext_resource type="PackedScene" uid="uid://d3gh4jmuicqic" path="res://TSCN/Entities/Characters/Allies/Economic/Economic.tscn" id="2_byfdj"]
+[ext_resource type="Texture2D" uid="uid://daxi84t0vn6q" path="res://Assets/UI/Teclas_ativas_unic.png" id="3_lgual"]
+[ext_resource type="FontFile" uid="uid://cr6wq0358x1n6" path="res://Assets/UI/bitfantasy.ttf" id="4_nagj2"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_vf24x"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_swuj3"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_hub66"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_bv5nd"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_5pyv4"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_vock7"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_d5udh"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_eqqp1"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_8t6ra"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ulnfm"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_vqutg"]
 
 [node name="Communists" type="Control"]
 layout_mode = 3
@@ -10,6 +35,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 1
 
 [node name="Button" type="Button" parent="."]
 layout_mode = 0
@@ -17,8 +43,38 @@ offset_left = -47.0
 offset_top = -47.0
 offset_right = 49.0
 offset_bottom = 49.0
+theme_override_styles/focus = SubResource("StyleBoxEmpty_vf24x")
+theme_override_styles/disabled_mirrored = SubResource("StyleBoxEmpty_swuj3")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_hub66")
+theme_override_styles/hover_pressed_mirrored = SubResource("StyleBoxEmpty_bv5nd")
+theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_5pyv4")
+theme_override_styles/hover_mirrored = SubResource("StyleBoxEmpty_vock7")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_d5udh")
+theme_override_styles/pressed_mirrored = SubResource("StyleBoxEmpty_eqqp1")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_8t6ra")
+theme_override_styles/normal_mirrored = SubResource("StyleBoxEmpty_ulnfm")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_vqutg")
 script = ExtResource("1_1lt0f")
+Communist = ExtResource("2_byfdj")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-scale = Vector2(0.2, 0.2)
-texture = ExtResource("3_7k07k")
+[node name="Icon" type="Sprite2D" parent="."]
+position = Vector2(5.68269, 3.11428)
+scale = Vector2(0.822416, 0.784821)
+texture = ExtResource("2_8undl")
+region_enabled = true
+region_rect = Rect2(256, 0, 64, 64)
+
+[node name="Keybind" type="Sprite2D" parent="."]
+position = Vector2(16, -24)
+scale = Vector2(1.55882, 1.8)
+texture = ExtResource("3_lgual")
+
+[node name="Key" type="Label" parent="Keybind"]
+offset_left = -3.20755
+offset_top = -5.0
+offset_right = 36.7924
+offset_bottom = 18.0
+scale = Vector2(0.7, 0.7)
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("4_nagj2")
+text = "C"

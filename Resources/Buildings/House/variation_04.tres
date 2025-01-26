@@ -1,0 +1,16 @@
+[gd_resource type="Resource" load_steps=5 format=3 uid="uid://bgjd7ysv7pps8"]
+
+[ext_resource type="Texture2D" uid="uid://ctos78n014o81" path="res://Assets/Buildings/casa_vila_004.png" id="1_63snq"]
+[ext_resource type="Script" path="res://Scripts/Entities/Building/BuildingStructure.cs" id="2_sw10e"]
+
+[sub_resource type="ConcavePolygonShape2D" id="ConcavePolygonShape2D_n4l25"]
+segments = PackedVector2Array(-8, 32, 64, 4, 0, -24, -64, 4)
+
+[sub_resource type="ConcavePolygonShape2D" id="ConcavePolygonShape2D_qimo0"]
+segments = PackedVector2Array(-64, -56, -24, -96, 64, -52, 64, 4, -8, 32, -64, 8)
+
+[resource]
+script = ExtResource("2_sw10e")
+Texture = ExtResource("1_63snq")
+Collision = SubResource("ConcavePolygonShape2D_n4l25")
+Interaction = SubResource("ConcavePolygonShape2D_qimo0")

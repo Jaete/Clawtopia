@@ -8,7 +8,6 @@ public partial class State : Node
     public delegate void StateTransitionEventHandler(State current, String next);
 
     public BuildMode BuildMode;
-    public Controller Controller;
     public ModeManager ModeManager;
     public SimulationMode SimulationMode;
 
@@ -72,20 +71,20 @@ public partial class State : Node
     /// <returns> <c>Vector2</c> coordenadas globais.</returns>
     public Vector2 RecalculateCoords(Vector2 allyPosition, Vector2 buildingPosition, bool isPurrlament = false)
     {
-        var buildMode = ModeManager.GetNode<BuildMode>("BuildMode");
-        var x = buildingPosition.X - allyPosition.X > 0 ? -1 : 1;
-        var y = buildingPosition.Y - allyPosition.Y > 0 ? 1 : -1;
-        var newCoords = new Vector2(
-            buildingPosition.X + (buildMode.TileSizeX * x),
-            buildingPosition.Y + (buildMode.TileSizeY * y)
-        );
+        //var buildMode = ModeManager.GetNode<BuildMode>("BuildMode");
+        //var x = buildingPosition.X - allyPosition.X > 0 ? -1 : 1;
+        //var y = buildingPosition.Y - allyPosition.Y > 0 ? 1 : -1;
+        //var newCoords = new Vector2(
+        //    buildingPosition.X + (buildMode.TileSizeX * x),
+        //    buildingPosition.Y + (buildMode.TileSizeY * y)
+        //);
 
-        if (!isPurrlament) return newCoords;
+        //if (!isPurrlament) return newCoords;
 
-        newCoords.X += 100 * x;
-        newCoords.Y += 100 * y;
-
-        return newCoords;
+        //newCoords.X += 100 * x;
+        //newCoords.Y += 100 * y;
+        
+        return buildingPosition;
     }
 
 

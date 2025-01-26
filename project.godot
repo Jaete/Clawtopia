@@ -20,6 +20,7 @@ config/icon="res://Assets/Characters/Allies/test_kitten_artstyle64.png"
 window/stretch/mode="canvas_items"
 window/stretch/aspect="expand"
 window/vsync/vsync_mode=0
+mouse_cursor/custom_image="res://Assets/UI/cursor32x32.png"
 
 [dotnet]
 

@@ -1,41 +1,42 @@
-[gd_scene load_steps=5 format=3 uid="uid://brjbq01d2n01d"]
+[gd_scene load_steps=6 format=3 uid="uid://dlafn1y1tob36"]
 
-[ext_resource type="PackedScene" uid="uid://cs6b2o7rhp0vx" path="res://TSCN/UI/add_fighter_tower.tscn" id="1_bp44i"]
 [ext_resource type="Script" path="res://Scripts/Entities/UI/CommunistMenu.cs" id="1_qbug2"]
-[ext_resource type="PackedScene" uid="uid://d1wn1krftmasl" path="res://TSCN/UI/add_house.tscn" id="3_jl7w2"]
-[ext_resource type="PackedScene" uid="uid://b4expjtsyc8um" path="res://TSCN/UI/add_salmon_cottage.tscn" id="4_sa1yb"]
+[ext_resource type="Texture2D" uid="uid://dimtwl0njuc1a" path="res://Assets/UI/HUD_Claw_FUNDO.png" id="2_1xsvr"]
+[ext_resource type="PackedScene" uid="uid://be6qpul8cdl7" path="res://TSCN/UI/add_fighter_tower.tscn" id="4_dufqv"]
+[ext_resource type="PackedScene" uid="uid://b4expjtsyc8um" path="res://TSCN/UI/add_salmon_cottage.tscn" id="5_ibcmm"]
+[ext_resource type="PackedScene" uid="uid://cc5007ymclpse" path="res://TSCN/UI/add_house.tscn" id="5_mfa1r"]
 
-[node name="GameHUD" type="Control"]
+[node name="CommunistMenu" type="Control"]
 custom_minimum_size = Vector2(500, 200)
 layout_mode = 3
 anchors_preset = 0
+offset_right = 619.0
+offset_bottom = 200.0
 mouse_filter = 1
 script = ExtResource("1_qbug2")
 
-[node name="Background" type="ColorRect" parent="."]
+[node name="HudClawFundo" type="Sprite2D" parent="."]
+position = Vector2(307, 92)
+scale = Vector2(1.46049, 1.54854)
+texture = ExtResource("2_1xsvr")
+
+[node name="AddSalmonCottage" parent="." instance=ExtResource("5_ibcmm")]
 layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 1
-color = Color(0, 0, 0, 0.290196)
+offset_left = 98.0
+offset_top = 57.0
+offset_right = 98.0
+offset_bottom = 57.0
 
-[node name="Fighters" parent="." instance=ExtResource("1_bp44i")]
-offset_left = 34.0
-offset_top = 32.0
-offset_right = 34.0
-offset_bottom = 32.0
+[node name="AddHouse" parent="." instance=ExtResource("5_mfa1r")]
+layout_mode = 1
+offset_left = 215.0
+offset_top = 57.0
+offset_right = 215.0
+offset_bottom = 57.0
 
-[node name="House" parent="." instance=ExtResource("3_jl7w2")]
-offset_left = 92.0
-offset_top = 32.0
-offset_right = 92.0
-offset_bottom = 32.0
-
-[node name="SalmonCottage" parent="." instance=ExtResource("4_sa1yb")]
-offset_left = 34.0
-offset_top = 87.0
-offset_right = 34.0
-offset_bottom = 87.0
+[node name="AddFighterTower" parent="." instance=ExtResource("4_dufqv")]
+layout_mode = 1
+offset_left = 156.0
+offset_top = 57.0
+offset_right = 156.0
+offset_bottom = 57.0

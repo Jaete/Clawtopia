@@ -5,7 +5,7 @@ public partial class BuildingMenu : Control
 {
     public Building Building;
     public ModeManager ModeManager;
-    public Button RemoveTowerButton;
+    public Button RemoveBuildingButton;
     public UI Ui;
 
     public override void _Ready()
@@ -13,16 +13,16 @@ public partial class BuildingMenu : Control
         Name = Constants.BUILDING_MENU;
         ModeManager = GetNode<ModeManager>("/root/Game/ModeManager");
         Ui = GetNode<UI>("/root/Game/UI");
-        RemoveTowerButton = GetNode<Button>("Button");
-        RemoveTowerButton.Pressed += Remove_tower;
-        MouseEntered += Ui.Enter_ui_mode;
-        MouseExited += Ui.Leave_ui_mode;
+        RemoveBuildingButton = GetNode<Button>("RemoveBuilding/Button");
+        RemoveBuildingButton.Pressed += RemoveBuilding;
+        MouseEntered += Ui.EnterUiMode;
+        MouseExited += Ui.ExitUiMode;
     }
 
-    public void Remove_tower()
+    public void RemoveBuilding()
     {
         Building.RebakeRemoveBuilding();
-        Building.QueueFree();
+        Building.EmitSignal(Building.SignalName.Destroyed);
         Ui.Reset_ui();
     }
 }

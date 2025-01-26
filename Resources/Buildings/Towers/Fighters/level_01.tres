@@ -1,0 +1,16 @@
+[gd_resource type="Resource" load_steps=5 format=3 uid="uid://chq668a8hdxk1"]
+
+[ext_resource type="Texture2D" uid="uid://kyg0g3yiqelf" path="res://Assets/Buildings/torre_lut_001.png" id="1_8m78q"]
+[ext_resource type="Script" path="res://Scripts/Entities/Building/BuildingStructure.cs" id="1_fevlf"]
+
+[sub_resource type="ConcavePolygonShape2D" id="ConcavePolygonShape2D_evh3y"]
+segments = PackedVector2Array(-24, 36, 24, 36, 56, 16, 56, -8, 24, -24, -24, -24, -56, -8, -56, 20)
+
+[sub_resource type="ConcavePolygonShape2D" id="ConcavePolygonShape2D_bacbx"]
+segments = PackedVector2Array(-56, 20, -56, -72, -48, -88, -16, -104, 16, -104, 48, -88, 56, -72, 56, 16, 24, 36, -24, 36)
+
+[resource]
+script = ExtResource("1_fevlf")
+Texture = ExtResource("1_8m78q")
+Collision = SubResource("ConcavePolygonShape2D_evh3y")
+Interaction = SubResource("ConcavePolygonShape2D_bacbx")

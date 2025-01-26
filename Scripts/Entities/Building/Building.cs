@@ -1,3 +1,4 @@
+using System;
 using ClawtopiaCs.Scripts.Entities.Building;
 using ClawtopiaCs.Scripts.Systems;
 using ClawtopiaCs.Scripts.Systems.GameModes;
@@ -11,6 +12,9 @@ public partial class Building : Area2D
 
     [Signal]
     public delegate void RemovedInteractionEventHandler(Building self);
+
+    [Signal]
+    public delegate void DestroyedEventHandler ();
 
     [Export] public CollisionPolygon2D BodyShape;
     public BuildMode BuildingMode;
@@ -45,6 +49,10 @@ public partial class Building : Area2D
     [Export] public Sprite2D Sprite;
     [Export] public StaticBody2D StaticBody;
 
+    [Export] public AudioStreamPlayer Sounds;
+
+    public int Variation;
+
     // TEMPO EM SEGUNDOS POR TICK
     public float TickTime = 1.0f;
 
@@ -63,20 +71,11 @@ public partial class Building : Area2D
         SimulationModeRef = GetNode<SimulationMode>(Constants.SIMULATION_MODE_PATH);
         LevelManager = GetNode<LevelManager>(Constants.LEVEL_MANAGER_PATH);
         Data.Initialize();
-        BodyShape.Polygon = Data.ObstacleShape.Segments;
-        InteractionShape.Polygon = Data.InteractionShape.Segments;
-        InteractionShape.Position = Data.InteractionOffset;
-        GridShape.Polygon = Data.GridShape.Segments;
-        Sprite.Texture = Data.SpriteTexture;
-        Sprite.Offset = Data.Offset;
-        Sprite.Scale = Data.Scale;
-        Sprite.RegionEnabled = false;
-
-        if (Data.NeedsRegion)
-        {
-            Sprite.RegionEnabled = true;
-            Sprite.RegionRect = Data.RegionRect;
-        }
+        Variation = GD.RandRange(0, Data.Variations.Count - 1);
+        Sprite.Texture = Data.Variations[Variation].Texture;
+        BodyShape.Polygon = Data.Variations[Variation].Collision.Segments;
+        InteractionShape.Polygon = Data.Variations[Variation].Interaction.Segments;
+        GridShape.Polygon = Data.Variations[Variation].Collision.Segments;
 
         Name = Data.Name + "_" + Data.Type + "_" + SelfIndex;
 
@@ -126,6 +125,7 @@ public partial class Building : Area2D
         BuildTickTimer = new Timer();
         BuildTickTimer.OneShot = true;
         BuildTickTimer.Timeout += ConstructionTimeElapsed;
+        Destroyed += OnDestroyed;
         AddChild(BuildTickTimer);
         CallDeferred(MethodName.AddSelfOnList);
 
@@ -136,6 +136,7 @@ public partial class Building : Area2D
 
         IsBuilt = true;
     }
+
 
     public void AddSelfOnList()
     {
@@ -218,10 +219,20 @@ public partial class Building : Area2D
         }
     }
 
-    public void ConstructionStarted(Building building)
+    public async void ConstructionStarted(Building building)
     {
         Progress = 0;
         BuildTickTimer.Start(TickTime);
+        Sounds.Stream = Data.PlaceBuildingSound;
+        Sounds.Play();
+        await ToSignal(Sounds, AudioStreamPlayer2D.SignalName.Finished);
+    }
+    private async void OnDestroyed()
+    {
+        Sounds.Stream = Data.DestroyBuildingSounds[GD.RandRange(0, Data.DestroyBuildingSounds.Count - 1)];
+        Sounds.Play();
+        await ToSignal(Sounds, AudioStreamPlayer2D.SignalName.Finished);
+        QueueFree();
     }
 
     public void ConstructionTimeElapsed()

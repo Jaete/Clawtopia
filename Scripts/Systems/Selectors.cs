@@ -32,6 +32,7 @@ public partial class Selectors : Node2D
     {
         var buildingInFront = SelectTopBuilding(overlappingAreas);
         GD.Print($"Building on front: {buildingInFront.Name}");
+        if (buildingInFront is null) { return; }
         switch (buildingInFront.Data.Type) {
             case Constants.COMMUNE:
                 ui.Instantiate_window(Constants.PURRLAMENT_MENU);

@@ -1,7 +1,9 @@
-[gd_scene load_steps=3 format=3 uid="uid://cj0xphjp3n84w"]
+[gd_scene load_steps=5 format=3 uid="uid://cj0xphjp3n84w"]
 
 [ext_resource type="Script" path="res://Scripts/Entities/UI/PurrlamentMenu.cs" id="1_1cuu7"]
 [ext_resource type="PackedScene" uid="uid://wo4g4o4cxp7g" path="res://TSCN/UI/add_communist.tscn.tscn" id="2_77pqg"]
+[ext_resource type="Texture2D" uid="uid://dimtwl0njuc1a" path="res://Assets/UI/HUD_Claw_FUNDO.png" id="2_lo0pb"]
+[ext_resource type="Texture2D" uid="uid://daxi84t0vn6q" path="res://Assets/UI/Teclas_ativas_unic.png" id="4_33pgb"]
 
 [node name="BaseMenu" type="Control"]
 custom_minimum_size = Vector2(500, 200)
@@ -10,21 +12,21 @@ anchors_preset = 0
 mouse_filter = 1
 script = ExtResource("1_1cuu7")
 
-[node name="Background" type="ColorRect" parent="."]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 1
-color = Color(0, 0, 0, 0.290196)
+[node name="HudClawFundo" type="Sprite2D" parent="."]
+position = Vector2(307, 92)
+scale = Vector2(1.46049, 1.54854)
+texture = ExtResource("2_lo0pb")
 
 [node name="Communists" parent="." instance=ExtResource("2_77pqg")]
 layout_mode = 1
-offset_left = 34.0
-offset_top = 32.0
-offset_right = -466.0
-offset_bottom = -168.0
-scale = Vector2(0.5, 0.5)
+offset_left = 98.0
+offset_top = 57.0
+offset_right = -402.0
+offset_bottom = -143.0
 mouse_filter = 1
+
+[node name="TeclasAtivasUnic" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(113.75, 34)
+scale = Vector2(1.55882, 1.8)
+texture = ExtResource("4_33pgb")

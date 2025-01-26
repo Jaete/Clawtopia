@@ -7,8 +7,8 @@ public partial class CommunistMenu : Control
 	public override void _Ready(){
 		Name = Constants.COMMUNIST_MENU;
 		Ui = GetNode<UI>("/root/Game/UI");
-		MouseEntered += Ui.Enter_ui_mode;
-		MouseExited += Ui.Leave_ui_mode;
+		MouseEntered += Ui.EnterUiMode;
+		MouseExited += Ui.ExitUiMode;
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.

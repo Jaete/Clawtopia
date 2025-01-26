@@ -26,11 +26,12 @@ public partial class Ally : Unit
     public LevelManager LevelManager;
     
     public override void _Ready(){
-        CallDeferred("Initialize");
+       Initialize();
     }
 
     public void Initialize(){
         LevelManager = GetNode<LevelManager>("/root/Game/LevelManager");
         CurrentLevel = LevelManager.GetNode<Node2D>("Level");
+        Attributes.Initialize();
     }
 }

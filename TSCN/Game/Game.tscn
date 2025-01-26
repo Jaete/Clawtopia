@@ -11,9 +11,9 @@ y_sort_enabled = true
 
 [node name="LevelManager" type="Node2D" parent="."]
 script = ExtResource("1_rxf7b")
-InitialCatnipQuantity = 200
-InitialSalmonQuantity = 200
-InitialSandQuantity = 200
+InitialCatnipQuantity = 1000
+InitialSalmonQuantity = 1000
+InitialSandQuantity = 1000
 
 [node name="Level" parent="LevelManager" instance=ExtResource("1_6kvq8")]
 

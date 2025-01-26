@@ -4,9 +4,12 @@
 
 [resource]
 script = ExtResource("1_nd413")
-hp = 0
-damage = 0
-move_speed = 0.0
-attack_speed = 0.0
-vision_range = 0
-attack_range = 0
+Hp = 0
+Damage = 0
+MoveSpeed = 0.0
+AttackSpeed = 0.0
+VisionRange = 0
+AttackRange = 0
+SalmonCost = 120
+CatnipCost = 0
+SandCost = 50

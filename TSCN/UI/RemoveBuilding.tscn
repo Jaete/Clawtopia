@@ -1,0 +1,78 @@
+[gd_scene load_steps=15 format=3 uid="uid://bdb1ycgemgal4"]
+
+[ext_resource type="Texture2D" uid="uid://br5ydadhldshi" path="res://Assets/UI/64px_botoes_corB.png" id="1_5wuwv"]
+[ext_resource type="Texture2D" uid="uid://daxi84t0vn6q" path="res://Assets/UI/Teclas_ativas_unic.png" id="2_d4x2o"]
+[ext_resource type="FontFile" uid="uid://cr6wq0358x1n6" path="res://Assets/UI/bitfantasy.ttf" id="3_4n8p8"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_l17nu"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_6rvac"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_4mipc"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_qyw0k"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_4mh1k"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_oca38"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_v74tr"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_lwpos"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_6jamm"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_u4e2o"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_auymu"]
+
+[node name="RemoveBuilding" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+
+[node name="Button" type="Button" parent="."]
+layout_mode = 0
+offset_left = -32.0
+offset_top = -32.0
+offset_right = 32.0
+offset_bottom = 32.0
+mouse_filter = 1
+theme_override_styles/focus = SubResource("StyleBoxEmpty_l17nu")
+theme_override_styles/disabled_mirrored = SubResource("StyleBoxEmpty_6rvac")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_4mipc")
+theme_override_styles/hover_pressed_mirrored = SubResource("StyleBoxEmpty_qyw0k")
+theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_4mh1k")
+theme_override_styles/hover_mirrored = SubResource("StyleBoxEmpty_oca38")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_v74tr")
+theme_override_styles/pressed_mirrored = SubResource("StyleBoxEmpty_lwpos")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_6jamm")
+theme_override_styles/normal_mirrored = SubResource("StyleBoxEmpty_u4e2o")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_auymu")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(4.17233e-07, 2)
+scale = Vector2(0.84375, 0.90625)
+texture = ExtResource("1_5wuwv")
+region_enabled = true
+region_rect = Rect2(128, 0, 64, 64)
+
+[node name="Keybind" type="Sprite2D" parent="."]
+position = Vector2(14, -24)
+scale = Vector2(1.55882, 1.8)
+texture = ExtResource("2_d4x2o")
+
+[node name="Key" type="Label" parent="Keybind"]
+offset_left = -3.20755
+offset_top = -5.0
+offset_right = 36.7924
+offset_bottom = 18.0
+scale = Vector2(0.7, 0.7)
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("3_4n8p8")
+text = "Q
+"
