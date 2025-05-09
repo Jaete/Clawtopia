@@ -1,4 +1,6 @@
+using ClawtopiaCs.Scripts.Systems;
 using Godot;
+using Godot.Collections;
 
 public partial class EconomicState : AllyState
 {
@@ -47,46 +49,27 @@ public partial class EconomicState : AllyState
     public Vector2 GetClosestResourceBuilding(Vector2 coords, string resource)
     {
         Vector2 closestBuildingPosition = default;
-        bool noResourceBuildings = false;
+        Array<Building> buildingsToSearch = new();
 
         switch (resource)
         {
             case Constants.SALMON:
-                if(Ally.LevelManager.SalmonBuildings.Count == 0)
-                {
-                    noResourceBuildings = true;
-                    break;
-                }
-                foreach (var building in Ally.LevelManager.SalmonBuildings)
-                {
-                    closestBuildingPosition = GetClosestBuilding(coords, closestBuildingPosition, building);
-                }
+                buildingsToSearch = Ally.LevelManager.SalmonBuildings;
                 break;
             case Constants.CATNIP:
-                if (Ally.LevelManager.CatnipBuildings.Count == 0)
-                {
-                    noResourceBuildings = true;
-                    break;
-                }
-                foreach (var building in Ally.LevelManager.CatnipBuildings)
-                {
-                    closestBuildingPosition = GetClosestBuilding(coords, closestBuildingPosition, building);
-                }
-
+                buildingsToSearch = Ally.LevelManager.CatnipBuildings;
                 break;
             case Constants.SAND:
-                if (Ally.LevelManager.SandBuildings.Count == 0)
-                {
-                    noResourceBuildings = true;
-                    break;
-                }
-                foreach (var building in Ally.LevelManager.SandBuildings)
-                {
-                    closestBuildingPosition = GetClosestBuilding(coords, closestBuildingPosition, building);
-                }
+                buildingsToSearch = Ally.LevelManager.SandBuildings;
                 break;
         }
-        if (noResourceBuildings)
+        if (buildingsToSearch.Count > 0) {
+            foreach (var building in buildingsToSearch)
+            {
+                closestBuildingPosition = Selectors.GetClosestObject(coords, closestBuildingPosition, building);
+            }
+        }
+        else
         {
             closestBuildingPosition = RecalculateCoords(
                 Ally.GlobalPosition,
@@ -113,80 +96,34 @@ public partial class EconomicState : AllyState
         }
         else
         {
-            if (IsInteractingWithResourceAt(coords, Constants.SALMON))
+            if (Selectors.IsInteractingWithResource(Ally, coords, Constants.SALMON))
             {
-                Ally.InteractedResource = Constants.SALMON;
-                Ally.CurrentResourceLastPosition = GetClosestResourceCoord(Constants.SALMON);
-                nextTarget = Ally.CurrentResourceLastPosition;
+                nextTarget = GetClosestResourcePosition(coords, Constants.SALMON);
             }
-            else if (IsInteractingWithResourceAt(coords, Constants.CATNIP))
+            else if (Selectors.IsInteractingWithResource(Ally, coords, Constants.CATNIP))
             {
-                Ally.InteractedResource = Constants.CATNIP;
-                Ally.CurrentResourceLastPosition = GetClosestResourceCoord(Constants.CATNIP);
-                nextTarget = Ally.CurrentResourceLastPosition;
+                nextTarget = GetClosestResourcePosition(coords, Constants.CATNIP);
             }
-            else if (IsInteractingWithResourceAt(coords, Constants.SAND))
+            else if (Selectors.IsInteractingWithResource(Ally, coords, Constants.SAND))
             {
-                Ally.InteractedResource = Constants.SAND;
-                Ally.CurrentResourceLastPosition = GetClosestResourceCoord(Constants.SAND);
-                nextTarget = Ally.CurrentResourceLastPosition;
+                nextTarget = GetClosestResourcePosition(coords, Constants.SAND);
             }
         }
 
         Ally.Navigation.SetTargetPosition(nextTarget);
     }
 
-    /// <summary>
-    /// Verifica se esta interagindo com um tile de agua, usando DataLayer no Tileset.
-    /// Pressupoe-se que nao esta interagindo com uma estrutura ou inimigo, pois a verificacao
-    /// deles é feita primeiro.
-    /// </summary>
-    /// <param name="coords">A posicao global do clique.</param>
-    /// <returns> <c>bool</c> Se é agua ou não.</returns>
-    public bool IsInteractingWithResourceAt(Vector2 coords, string resource)
+    public Vector2 GetClosestResourcePosition(Vector2 coords, string resource)
     {
-        Vector2I mapCoords;
-        TileData data;
-
-        switch (resource)
+        Ally.InteractedResource = resource;
+        foreach (var point in LevelManager.Singleton.CollectPoints)
         {
-            case Constants.SALMON:
-                mapCoords = SimulationMode.Water.LocalToMap(SimulationMode.Water.GetLocalMousePosition());
-                data = SimulationMode.Water.GetCellTileData(mapCoords);
-
-                return data != null && (bool)data.GetCustomData("isWater");
-
-            case Constants.CATNIP:
-                mapCoords = SimulationMode.Bushes.LocalToMap(SimulationMode.Water.GetLocalMousePosition());
-                data = SimulationMode.Bushes.GetCellTileData(mapCoords);
-
-                return data != null && (bool)data.GetCustomData("isBush");
-
-            case Constants.SAND:
-                mapCoords = SimulationMode.SandDumps.LocalToMap(SimulationMode.SandDumps.GetLocalMousePosition());
-                data = SimulationMode.SandDumps.GetCellTileData(mapCoords);
-
-                return data != null && (bool)data.GetCustomData("isSandDump");
+            Ally.CurrentResourceLastPosition = Selectors.GetClosestObject(
+                coords,
+                Ally.CurrentResourceLastPosition,
+                point
+            );
         }
-
-        return false;
-    }
-
-    /// <summary>
-    /// Procura todos os tiles de agua no cenario e retorna as coordenadas globais do
-    /// tile mais proximo.
-    /// </summary>
-    /// <returns> <c>Vector2</c> Coordenadas globais do tile mais proximo.</returns>
-    public Vector2 GetClosestResourceCoord(string resource)
-    {
-        var mapCoords = resource switch
-        {
-            Constants.SALMON => SimulationMode.Water.GetLocalMousePosition(),
-            Constants.CATNIP => SimulationMode.Bushes.GetLocalMousePosition(),
-            Constants.SAND => SimulationMode.SandDumps.GetLocalMousePosition(),
-            _ => Ally.GlobalPosition
-        };
-
-        return mapCoords;
+        return Ally.CurrentResourceLastPosition;
     }
 }

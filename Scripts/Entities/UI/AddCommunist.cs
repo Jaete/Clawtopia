@@ -6,7 +6,8 @@ using ClawtopiaCs.Scripts.Entities.UI;
 
 public partial class AddCommunist : UIButton
 {
-    private Vector2 _communistPosition = new Vector2(-145.0f, 85.0f);
+    private Vector2 _communistPosition = new Vector2(-48.0f, 24.0f);
+    private Vector2 _communistOffset = new Vector2(48.0f, 24.0f);
 
     private PackedScene _scene = GD.Load<PackedScene>("res://TSCN/Entities/Characters/Allies/Economic/Economic.tscn");
 
@@ -35,10 +36,9 @@ public partial class AddCommunist : UIButton
     }
 
     private void SpawnCommunist()
-    {
-        
+    { 
         var addCommunist = _scene.Instantiate<Ally>();
-        var purrlamentNode = ModeManager.CurrentLevel.GetNode<Building>(Constants.COMMUNE_EXTERNAL_NAME);
+        var houseNode = UI.Singleton.BuildingMenuControl.Building;
         LevelManager = GetNode<LevelManager>("/root/Game/LevelManager");
 
         //INICIA SPAWN DOS GATOS CAMPONESES
@@ -49,7 +49,7 @@ public partial class AddCommunist : UIButton
             LevelManager.EmitSignal(LevelManager.SignalName.ResourceExpended, addCommunist.Attributes.ResourceCosts);
             ResourceSpawnTimer.Timeout += delegate
             {
-                addCommunist.GlobalPosition = purrlamentNode.GlobalPosition + _communistPosition;
+                addCommunist.GlobalPosition = houseNode.GlobalPosition + _communistPosition;
                 ModeManager.CurrentLevel.AddChild(addCommunist);
             };
         }

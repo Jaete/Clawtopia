@@ -1,7 +1,6 @@
-[gd_resource type="Resource" load_steps=10 format=3 uid="uid://c3xdisvexuxgq"]
+[gd_resource type="Resource" load_steps=9 format=3 uid="uid://c3xdisvexuxgq"]
 
 [ext_resource type="AudioStream" uid="uid://c6nf3cvt1mwmj" path="res://Assets/Audio/UI/ui-click-cancel.ogg" id="1_b3dii"]
-[ext_resource type="Resource" uid="uid://chq668a8hdxk1" path="res://Resources/Buildings/Towers/Fighters/level_01.tres" id="1_hwng8"]
 [ext_resource type="Script" path="res://Scripts/Entities/Building/BuildingData.cs" id="1_nfxbb"]
 [ext_resource type="AudioStream" uid="uid://c11gv7w0q6nrn" path="res://Assets/Audio/SFX/Building/destroy-001.ogg" id="2_yiosn"]
 [ext_resource type="AudioStream" uid="uid://bsh3gnwhsuydr" path="res://Assets/Audio/SFX/Building/destroy-002.ogg" id="3_cb3eu"]
@@ -16,15 +15,13 @@ script = ExtResource("1_nfxbb")
 PlaceBuildingSound = ExtResource("7_cmsyv")
 DestroyBuildingSounds = [ExtResource("2_yiosn"), ExtResource("3_cb3eu"), ExtResource("4_o4wcl"), ExtResource("5_hkpnd"), ExtResource("6_kmav3")]
 CancelSound = ExtResource("1_b3dii")
-CatnipCost = 0
-Hp = 5000
-IsPreSpawned = false
-MaxProgress = 75
-Offset = Vector2(0, -36)
+Type = "Tower"
 ResourceType = ""
+TowerType = "Fighters"
+CatnipCost = 0
 SalmonCost = 50
 SandCost = 200
+Hp = 5000
+MaxProgress = 75
 Scale = Vector2(1, 1)
-Variations = Array[Resource]([ExtResource("1_hwng8")])
-TowerType = "Fighters"
-Type = "Tower"
+Offset = Vector2(0, -36)

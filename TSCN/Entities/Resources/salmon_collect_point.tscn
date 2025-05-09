@@ -1,0 +1,20 @@
+[gd_scene load_steps=3 format=3 uid="uid://c1hfodw7xtym7"]
+
+[ext_resource type="Script" path="res://Scripts/Entities/Resources/SalmonCollectPoint.cs" id="1_duwpn"]
+[ext_resource type="Texture2D" uid="uid://dauem4qeva0wf" path="res://Assets/Tileset/materiais05.png" id="1_rpxoy"]
+
+[node name="SalmonCollectPoint" type="StaticBody2D" node_paths=PackedStringArray("Interaction")]
+script = ExtResource("1_duwpn")
+Interaction = NodePath("Interaction")
+
+[node name="Sprite" type="Sprite2D" parent="."]
+texture = ExtResource("1_rpxoy")
+
+[node name="CollisionShape2D" type="CollisionPolygon2D" parent="."]
+position = Vector2(0, 3)
+polygon = PackedVector2Array(0, 21, 40, 5, 0, -11, -40, 5)
+
+[node name="Interaction" type="Area2D" parent="."]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Interaction"]
+polygon = PackedVector2Array(-8, 20, 32, 12, 32, 0, 16, -12, 8, -16, 0, -20, -16, -8, -32, 4, -32, 8)

@@ -1,7 +1,7 @@
 [gd_resource type="Resource" load_steps=10 format=3 uid="uid://f0n4etcb423u"]
 
 [ext_resource type="AudioStream" uid="uid://c6nf3cvt1mwmj" path="res://Assets/Audio/UI/ui-click-cancel.ogg" id="1_8o6g8"]
-[ext_resource type="Resource" uid="uid://cqbcn0gprradr" path="res://Resources/Buildings/Economy/Salmon/variation_01.tres" id="1_isn3n"]
+[ext_resource type="Resource" uid="uid://cqbcn0gprradr" path="res://Resources/Buildings/Economy/Salmon/Structure.tres" id="1_isn3n"]
 [ext_resource type="AudioStream" uid="uid://c11gv7w0q6nrn" path="res://Assets/Audio/SFX/Building/destroy-001.ogg" id="2_o4x6b"]
 [ext_resource type="AudioStream" uid="uid://bsh3gnwhsuydr" path="res://Assets/Audio/SFX/Building/destroy-002.ogg" id="3_8woma"]
 [ext_resource type="Script" path="res://Scripts/Entities/Building/BuildingData.cs" id="4_grkxa"]
@@ -15,16 +15,15 @@ script = ExtResource("4_grkxa")
 PlaceBuildingSound = ExtResource("7_gn4fc")
 DestroyBuildingSounds = [ExtResource("2_o4x6b"), ExtResource("3_8woma"), ExtResource("4_smy71"), ExtResource("5_uscgj"), ExtResource("6_p2pv2")]
 CancelSound = ExtResource("1_8o6g8")
-CatnipCost = 50
-Hp = 2500
-IsPreSpawned = false
-MaxProgress = 50
-Offset = Vector2(0, -32)
+Type = "Resource"
 ResourceType = "Salmon"
+TowerType = ""
+CatnipCost = 50
 SalmonCost = 0
 SandCost = 100
+Hp = 2500
+MaxProgress = 50
+Structure = ExtResource("1_isn3n")
 Scale = Vector2(1, 1)
-Variations = Array[Resource]([ExtResource("1_isn3n")])
-TowerType = ""
-Type = "Resource"
+Offset = Vector2(0, -32)
 metadata/IsBuilding = false

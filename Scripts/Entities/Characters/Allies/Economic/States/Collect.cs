@@ -25,7 +25,6 @@ public partial class Collect : EconomicState
         //INICIAR O TIMER
         ResourceTickTimer = GetTree().CreateTimer(TickTime); // tempo em segundos
         ResourceTickTimer.Timeout += CollectTimeTicked; // CONECTANDO SIGNAL QUANDO O TEMPO ACABA 
-        GD.Print("I'm collecting: ", CurrentlyCollecting);
     }
 
     public override void Update(double delta) { }

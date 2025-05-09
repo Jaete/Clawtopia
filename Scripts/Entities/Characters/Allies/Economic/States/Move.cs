@@ -1,3 +1,4 @@
+using System.Drawing;
 using ClawtopiaCs.Scripts.Systems;
 using Godot;
 using Godot.Collections;
@@ -88,7 +89,16 @@ public partial class Move : EconomicState
 
     public void SeekResource(string resourceType)
     {
-        Ally.CurrentResourceLastPosition = GetClosestResourceCoord(resourceType);
+        Array<CollectPoint> resourceToSeek = Selectors.GetCollectPoints(resourceType);
+
+        foreach (var point in resourceToSeek)
+        {
+            Ally.CurrentResourceLastPosition = Selectors.GetClosestObject(
+                 Ally.GlobalPosition,
+                 Ally.CurrentResourceLastPosition,
+                 point
+             );
+        }
         Ally.Navigation.SetTargetPosition(Ally.CurrentResourceLastPosition);
         Ally.InteractedResource = resourceType;
         Ally.InteractedWithBuilding = false;

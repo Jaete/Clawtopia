@@ -7,9 +7,11 @@ using Godot.Collections;
 
 public partial class BuildMode : GameMode
 {
-    public string BuildingType;
+    public string ResourceType;
 
     public Building CurrentBuilding;
+
+    public BuildingData CurrentBuildingData;
 
     public Array<Ally> CurrentConstructors;
     public bool IsOverlappingBuildings = false;
@@ -19,47 +21,55 @@ public partial class BuildMode : GameMode
     public int TileSizeX = 64;
     public int TileSizeY = 32;
 
+    public override void _Ready()
+    {
+        base._Ready();
+        BuildCompleted += WhenBuildingCompleted;
+    }
+
     public override void Enter()
     {
         String buildingPath = Constants.BUILDING_PATH;
 
-        if (BuildingType == Constants.TOWER)
+        ModeManager.BuildingCount++;
+        InstantiateBuilding(buildingPath);
+
+        if (CurrentBuilding.Data.Type == Constants.TOWER)
         {
             ModeManager.FightersTowerCount++;
-            ModeManager.BuildingCount++;
-            InstantiateBuilding(buildingPath);
             CurrentBuilding.SelfIndex = ModeManager.FightersTowerCount;
             CurrentBuilding.Name = ModeManager.TowerType + "_T1_" + CurrentBuilding.SelfIndex;
             CurrentBuilding.Data = GD.Load<BuildingData>("res://Resources/Buildings/Towers/Fighters/Fighters.tres");
         }
-
-        if (BuildingType == Constants.COMMUNE)
+        if (CurrentBuilding.Data.Type == Constants.RESOURCE)
         {
-            ModeManager.GreatCommuneCount++;
-            ModeManager.BuildingCount++;
-            InstantiateBuilding(buildingPath);
-            CurrentBuilding.SelfIndex = ModeManager.GreatCommuneCount;
-            CurrentBuilding.Name = Constants.COMMUNE;
-            CurrentBuilding.Data = GD.Load<BuildingData>("res://Resources/Buildings/GreatCommune/GreatCommune.tres");
+            switch (CurrentBuilding.Data.ResourceType)
+            {
+                case Constants.SALMON:
+                    ModeManager.SalmonCottageCount++;
+                    CurrentBuilding.SelfIndex = ModeManager.SalmonCottageCount;
+                    CurrentBuilding.Name = "" + Constants.FISHERMAN_HOUSE_EXTERNAL_NAME + "_" + CurrentBuilding.SelfIndex;
+                    CurrentBuilding.Data = GD.Load<BuildingData>("res://Resources/Buildings/Economy/Salmon/SalmonCottage.tres");
+                    break;
+                case Constants.CATNIP:
+                    ModeManager.CatnipFarmCount++;
+                    CurrentBuilding.SelfIndex = ModeManager.CatnipFarmCount;
+                    CurrentBuilding.Name = "" + Constants.DISTILLERY_EXTERNAL_NAME + "_" + CurrentBuilding.SelfIndex;
+                    CurrentBuilding.Data = GD.Load<BuildingData>("res://Resources/Buildings/Economy/Catnip/CatnipFarm.tres");
+                    break;
+                case Constants.SAND:
+                    ModeManager.SandDepositCount++;
+                    CurrentBuilding.SelfIndex = ModeManager.SandDepositCount;
+                    CurrentBuilding.Name = "" + Constants.SAND_MINE_EXTERNAL_NAME+ "_" + CurrentBuilding.SelfIndex;
+                    CurrentBuilding.Data = GD.Load<BuildingData>("res://Resources/Buildings/Economy/Sand/SandMine.tres");
+                    break;
+            }
         }
-
-        if (BuildingType == Constants.RESOURCE)
-        {
-            ModeManager.SalmonCottageCount++;
-            ModeManager.BuildingCount++;
-            InstantiateBuilding(buildingPath);
-            CurrentBuilding.SelfIndex = ModeManager.SalmonCottageCount;
-            CurrentBuilding.Name = "" + ModeManager.ResourceBuildType + "_" + CurrentBuilding.SelfIndex;
-            CurrentBuilding.Data = GD.Load<BuildingData>("res://Resources/Buildings/Economy/Salmon/SalmonCottage.tres");
-        }
-
-        if (BuildingType == Constants.HOUSE)
+        if (CurrentBuilding.Data.Type == Constants.HOUSE)
         {
             ModeManager.HouseCount++;
-            ModeManager.BuildingCount++;
-            InstantiateBuilding(buildingPath);
             CurrentBuilding.SelfIndex = ModeManager.HouseCount;
-            CurrentBuilding.Name = "" + ModeManager.ResourceBuildType + "_" + CurrentBuilding.SelfIndex;
+            CurrentBuilding.Name = "" + Constants.HOUSE_EXTERNAL_NAME + "_" + CurrentBuilding.SelfIndex;
             CurrentBuilding.Data = GD.Load<BuildingData>("res://Resources/Buildings/House/House.tres");
         }
 
@@ -86,13 +96,18 @@ public partial class BuildMode : GameMode
         CancelBuilding();
     }
 
+    public override void RotateBuilding()
+    {
+        Building.RotateBuildingPreview(CurrentBuilding);
+    }
+
     private async void CancelBuilding()
     {
         ModeManager.FightersTowerCount--;
         ModeManager.BuildingCount--;
         CurrentBuilding.Sounds.Stream = CurrentBuilding.Data.CancelSound;
         CurrentBuilding.Sounds.Play();
-        EmitSignal(GameMode.SignalName.ModeTransition, SIMULATION_MODE, "", "");
+        EmitSignal(GameMode.SignalName.ModeTransition, SIMULATION_MODE, "");
         await ToSignal(CurrentBuilding.Sounds, AudioStreamPlayer2D.SignalName.Finished);
         CurrentBuilding.QueueFree();
     }
@@ -101,12 +116,11 @@ public partial class BuildMode : GameMode
     {
         if (!IsOverlappingBuildings)
         {
-            CurrentBuilding.RebakeAddBuilding();
-            CurrentBuilding.Rebake();
+            TerrainBaking.Singleton.RebakeAddBuilding(CurrentBuilding);
+            TerrainBaking.Singleton.Rebake();
             CurrentBuilding.InputPickable = true;
             EmitSignal(GameMode.SignalName.ConstructionStarted, CurrentBuilding);
-            BuildCompleted += WhenBuildingCompleted;
-            EmitSignal(GameMode.SignalName.ModeTransition, SIMULATION_MODE, "", "");
+            EmitSignal(GameMode.SignalName.ModeTransition, SIMULATION_MODE, "");
             LevelManager.EmitSignal(LevelManager.SignalName.ResourceExpended, CurrentBuilding.Data.ResourceCosts);
         }
     }
@@ -168,11 +182,11 @@ public partial class BuildMode : GameMode
     {
         PackedScene buildingScene = GD.Load<PackedScene>(buildingPath);
         CurrentBuilding = (Building)buildingScene.Instantiate();
+        CurrentBuilding.Data = CurrentBuildingData;
     }
 
     public void WhenBuildingCompleted(Building building)
     {
-        Building.ModulateBuilding(building, BuildingInteractionStates.BUILD_FINISHED);
-        building.CurrentBuilders.Clear();
+        Building.PlaceBuilding(building);
     }
 }

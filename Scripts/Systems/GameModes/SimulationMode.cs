@@ -36,10 +36,6 @@ public partial class SimulationMode : GameMode
     public override void _Ready()
     {
         Initialize();
-        Ground = GetNode<TileMapLayer>("/root/Game/LevelManager/Level/Navigation/Ground");
-        Water = GetNode<TileMapLayer>("/root/Game/LevelManager/Level/Navigation/Water");
-        Bushes = GetNode<TileMapLayer>("/root/Game/LevelManager/Level/Navigation/Bushes");
-        SandDumps = GetNode<TileMapLayer>("/root/Game/LevelManager/Level/Navigation/SandDumps");
         Debug.Text = $"Selected Allies: {SelectedAllies.Count}";
     }
 
@@ -167,45 +163,6 @@ public partial class SimulationMode : GameMode
         }
 
         EraseSelectionBox();
-    }
-
-    private void SelectUnits(bool treatAsClick)
-    {
-        var ui = GetNode<UI>("/root/Game/UI");
-        var overlappingAreas = SelectionArea.GetOverlappingAreas();
-
-        if (overlappingAreas is null)
-        {
-            return;
-        }
-
-        if (overlappingAreas.Count == 0)
-        {
-            ui.Reset_ui();
-            Selectors.ClearSelectedAllies(SelectedAllies);
-            return;
-        }
-
-        if (!Input.IsActionPressed("Multiple"))
-        {
-            Selectors.ClearSelectedAllies(SelectedAllies);
-        }
-
-        if (treatAsClick)
-        {
-            var unit = Selectors.SelectSingleUnit(overlappingAreas, ui);
-
-            if (unit is null)
-            {
-                return;
-            }
-
-            SelectedAllies.Add(unit);
-        }
-        else
-        {
-            SelectedAllies = Selectors.SelectMultipleUnits(overlappingAreas);
-        }
     }
 
     public void EraseSelectionBox()

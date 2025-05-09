@@ -12,7 +12,7 @@ public partial class GameMode : Node2D
     public delegate void ConstructionStartedEventHandler(Building building);
 
     [Signal]
-    public delegate void ModeTransitionEventHandler(String mode, String building, String type);
+    public delegate void ModeTransitionEventHandler(String mode, BuildingData building);
 
 
     public const string BUILD_MODE = "BuildMode";
@@ -45,6 +45,8 @@ public partial class GameMode : Node2D
     public virtual void MouseReleased(Vector2 coords) {}
 
     public virtual void MouseRightPressed(Vector2 coords) {}
+
+    public virtual void RotateBuilding() {}
 
     public void Initialize()
     {

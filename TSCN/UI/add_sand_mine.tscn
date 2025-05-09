@@ -1,0 +1,81 @@
+[gd_scene load_steps=17 format=3 uid="uid://c06hgevw4voan"]
+
+[ext_resource type="Script" path="res://Scripts/Entities/UI/AddBuilding.cs" id="1_16wsy"]
+[ext_resource type="Resource" uid="uid://bn7g36cki0dp4" path="res://Resources/Buildings/Economy/Sand/SandMine.tres" id="2_ujd3d"]
+[ext_resource type="Texture2D" uid="uid://ubb6fkfhgi3l" path="res://Assets/UI/stockpiles.png" id="3_ibf0a"]
+[ext_resource type="Texture2D" uid="uid://daxi84t0vn6q" path="res://Assets/UI/Teclas_ativas_unic.png" id="4_fb7fi"]
+[ext_resource type="FontFile" uid="uid://cr6wq0358x1n6" path="res://Assets/UI/bitfantasy.ttf" id="5_ypsxu"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_vf24x"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_swuj3"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_hub66"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_bv5nd"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_5pyv4"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_vock7"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_d5udh"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_eqqp1"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_8t6ra"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ulnfm"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_vqutg"]
+
+[node name="AddSandMine" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+
+[node name="Button" type="Button" parent="."]
+layout_mode = 0
+offset_left = -23.0
+offset_top = -26.0
+offset_right = 30.0
+offset_bottom = 31.0
+mouse_filter = 1
+theme_override_styles/focus = SubResource("StyleBoxEmpty_vf24x")
+theme_override_styles/disabled_mirrored = SubResource("StyleBoxEmpty_swuj3")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_hub66")
+theme_override_styles/hover_pressed_mirrored = SubResource("StyleBoxEmpty_bv5nd")
+theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_5pyv4")
+theme_override_styles/hover_mirrored = SubResource("StyleBoxEmpty_vock7")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_d5udh")
+theme_override_styles/pressed_mirrored = SubResource("StyleBoxEmpty_eqqp1")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_8t6ra")
+theme_override_styles/normal_mirrored = SubResource("StyleBoxEmpty_ulnfm")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_vqutg")
+script = ExtResource("1_16wsy")
+Building = ExtResource("2_ujd3d")
+
+[node name="Icon" type="Sprite2D" parent="."]
+modulate = Color(0.85, 0.551367, 0.272, 1)
+position = Vector2(3, 3.17)
+scale = Vector2(0.104, 0.112617)
+texture = ExtResource("3_ibf0a")
+region_rect = Rect2(192, 0, 64, 64)
+
+[node name="Keybind" type="Sprite2D" parent="."]
+position = Vector2(16, 31)
+scale = Vector2(1.55882, 1.8)
+texture = ExtResource("4_fb7fi")
+
+[node name="Key" type="Label" parent="Keybind"]
+offset_left = -3.20755
+offset_top = -5.0
+offset_right = 36.7924
+offset_bottom = 18.0
+scale = Vector2(0.7, 0.7)
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("5_ypsxu")
+text = "X"

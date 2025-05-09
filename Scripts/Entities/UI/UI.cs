@@ -4,10 +4,12 @@ using Godot;
 
 public partial class UI : CanvasLayer
 {
+    public static UI Singleton;
+
     public PackedScene BaseMenu = GD.Load<PackedScene>("res://TSCN/UI/BaseMenu.tscn");
 
     public Building Building;
-    public PackedScene BuildingMenu = GD.Load<PackedScene>("res://TSCN/UI/BuildingMenu.tscn");
+    public PackedScene HouseMenu = GD.Load<PackedScene>("res://TSCN/UI/HouseMenu.tscn");
     public BuildingMenu BuildingMenuControl;
     public PackedScene CommunistMenu = GD.Load<PackedScene>("res://TSCN/UI/CommunistMenu.tscn");
 
@@ -27,6 +29,7 @@ public partial class UI : CanvasLayer
 
     public override void _Ready()
     {
+        Singleton = this;
         pauseMenu = PauseMenuScene.Instantiate<PauseMenu>();
         AddChild(pauseMenu);
         CallDeferred("Initialize");
@@ -44,20 +47,15 @@ public partial class UI : CanvasLayer
     public void Instantiate_window(String window, Building building = null)
     {
         switch (window)
-        {
-            case Constants.BUILDING_MENU:
+        { 
+            case Constants.HOUSE_MENU:
                 if (building != null)
                 {
-                    BuildingMenuControl = BuildingMenu.Instantiate<BuildingMenu>();
+                    BuildingMenuControl = HouseMenu.Instantiate<HouseMenu>();
                     BuildingMenuControl.Building = building;
-                    BuildingMenuControl.Name = Constants.BUILDING_MENU;
+                    BuildingMenuControl.Name = Constants.HOUSE_MENU;
                     CurrentWindow = BuildingMenuControl;
                 }
-
-                break;
-            case Constants.PURRLAMENT_MENU:
-                CurrentWindow = PurrlamentMenu.Instantiate<PurrlamentMenu>();
-                CurrentWindow.Name = Constants.PURRLAMENT_MENU;
                 break;
             case Constants.COMMUNIST_MENU:
                 CurrentWindow = CommunistMenu.Instantiate<CommunistMenu>();
