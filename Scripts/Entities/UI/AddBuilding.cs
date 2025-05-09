@@ -28,12 +28,12 @@ public partial class AddBuilding : UIButton
         {
             if (LevelManager.CurrentResources[resource.Key] < Building.ResourceCosts[resource.Key])
             {
+                //TODO: colocar implementacao de exibir UI indicando que nao tem recurso, voz, etc.
                 GD.Print("Not enough resources");
                 return;
             }
         }
 
-        ModeManager.CurrentMode.EmitSignal(GameMode.SignalName.ModeTransition, GameMode.BUILD_MODE, Building.Type,
-            Building.Name);
+        ModeManager.CurrentMode.EmitSignal(GameMode.SignalName.ModeTransition, GameMode.BUILD_MODE, Building);
     }
 }

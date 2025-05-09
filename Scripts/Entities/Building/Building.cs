@@ -16,73 +16,65 @@ public partial class Building : Area2D
     [Signal]
     public delegate void DestroyedEventHandler ();
 
+    private BuildingData _buildingData;
+
+    [ExportGroup("Node Refs")]
     [Export] public CollisionPolygon2D BodyShape;
+    [Export] public CollisionPolygon2D GridShape;
+    [Export] public CollisionPolygon2D InteractionShape;
+    [Export] public Sprite2D Sprite;
+    [Export] public StaticBody2D StaticBody;
+    [Export] public AudioStreamPlayer Sounds;
     public BuildMode BuildingMode;
+    public SimulationMode SimulationModeRef;
+
+    [ExportGroup("Structure")]
+    [Export] public BuildingData Data;
+
+    [Export] public bool IsPreSpawned = false;
+
+    public Color ErrorColor = new Color("ba000079");
+    public Color HoverColor = new Color(1.3f, 1.3f, 1.3f);
+    public Color OkColor = new Color("2eff3f81");
+    public Color RegularColor = new Color(1, 1, 1);
+
+    public bool IsBuildingInFront;
+    public bool IsBuilt;
+    public bool Placed;
+    public bool IsRotated;
 
     // TIMER PARA TICK DE TEMPO DE CONSTRUCAO
     public Timer BuildTickTimer;
     public Array<Ally> CurrentBuilders = new();
-    [Export] public BuildingData Data;
-    public Color ErrorColor = new Color("ba000079");
-    [Export] public CollisionPolygon2D GridShape;
-    public Color HoverColor = new Color(1.3f, 1.3f, 1.3f);
-    [Export] public CollisionPolygon2D InteractionShape;
-    public bool IsBuildingInFront;
-    public bool IsBuilt;
-
-    [Export] public bool IsPreSpawned = false;
-    public LevelManager LevelManager;
     public int MaxProgress = 50;
-    public ModeManager ModeManager;
-
-    public Color OkColor = new Color("2eff3f81");
-    public bool Placed;
     public int Progress;
-
-    public NavigationRegion2D Region;
-    public Color RegularColor = new Color(1, 1, 1);
+    public float TickTime = 1.0f;
 
     public string ResourceType;
-
     public int SelfIndex;
-    public SimulationMode SimulationModeRef;
-    [Export] public Sprite2D Sprite;
-    [Export] public StaticBody2D StaticBody;
-
-    [Export] public AudioStreamPlayer Sounds;
-
-    public int Variation;
-
-    // TEMPO EM SEGUNDOS POR TICK
-    public float TickTime = 1.0f;
 
     public override void _Ready()
     {
-        Initialize();
+        CallDeferred(MethodName.Initialize);
     }
 
     public void Initialize()
     {
-        IsPreSpawned = Data.IsPreSpawned;
-        ModeManager = GetNode<ModeManager>(Constants.MODE_MANAGER_PATH);
-        BuildingMode = ModeManager.GetNode<BuildMode>(GameMode.BUILD_MODE);
-        Region = GetParent().GetNode<NavigationRegion2D>("Navigation");
+        BuildingMode = ModeManager.Singleton.GetNode<BuildMode>(GameMode.BUILD_MODE);
+        SimulationModeRef = ModeManager.Singleton.GetNode<SimulationMode>(GameMode.SIMULATION_MODE);
         StaticBody = GetNode<StaticBody2D>("NavigationBody");
-        SimulationModeRef = GetNode<SimulationMode>(Constants.SIMULATION_MODE_PATH);
-        LevelManager = GetNode<LevelManager>(Constants.LEVEL_MANAGER_PATH);
         Data.Initialize();
-        Variation = GD.RandRange(0, Data.Variations.Count - 1);
-        Sprite.Texture = Data.Variations[Variation].Texture;
-        BodyShape.Polygon = Data.Variations[Variation].Collision.Segments;
-        InteractionShape.Polygon = Data.Variations[Variation].Interaction.Segments;
-        GridShape.Polygon = Data.Variations[Variation].Collision.Segments;
+        Sprite.Texture = Data.Structure.PreviewTexture;
+        BodyShape.Polygon = Data.Structure.Collision.Segments;
+        InteractionShape.Polygon = Data.Structure.Interaction.Segments;
+        GridShape.Polygon = Data.Structure.Collision.Segments;
 
         Name = Data.Name + "_" + Data.Type + "_" + SelfIndex;
 
         if (Data.Type.Equals(Constants.COMMUNE))
         {
             Name = Constants.COMMUNE_EXTERNAL_NAME;
-            LevelManager.Purrlament = this;
+            LevelManager.Singleton.Purrlament = this;
         }
 
         if (Data.Type == Constants.HOUSE)
@@ -118,7 +110,6 @@ public partial class Building : Area2D
         }
 
         MaxProgress = OS.IsDebugBuild() ? 3 : Data.MaxProgress;
-        Region.BakeFinished += FreeToRebake;
         AboutToInteract += SimulationModeRef.AboutToInteractWithBuilding;
         RemovedInteraction += SimulationModeRef.InteractionWithBuildingRemoved;
         BuildingMode.ConstructionStarted += ConstructionStarted;
@@ -127,14 +118,13 @@ public partial class Building : Area2D
         BuildTickTimer.Timeout += ConstructionTimeElapsed;
         Destroyed += OnDestroyed;
         AddChild(BuildTickTimer);
-        CallDeferred(MethodName.AddSelfOnList);
 
         if (!IsPreSpawned)
         {
             return;
         }
 
-        IsBuilt = true;
+        PlaceBuilding(this);
     }
 
 
@@ -144,15 +134,15 @@ public partial class Building : Area2D
         {
             case Constants.SALMON:
                 ResourceType = Constants.SALMON;
-                LevelManager.SalmonBuildings.Add(this);
+                LevelManager.Singleton.SalmonBuildings.Add(this);
                 break;
             case Constants.CATNIP:
                 ResourceType = Constants.CATNIP;
-                LevelManager.CatnipBuildings.Add(this);
+                LevelManager.Singleton.CatnipBuildings.Add(this);
                 break;
             case Constants.SAND:
                 ResourceType = Constants.SAND;
-                LevelManager.SandBuildings.Add(this);
+                LevelManager.Singleton.SandBuildings.Add(this);
                 break;
         }
     }
@@ -162,60 +152,14 @@ public partial class Building : Area2D
         switch (Data.ResourceType)
         {
             case Constants.SALMON:
-                LevelManager.SalmonBuildings.Remove(this);
+                LevelManager.Singleton.SalmonBuildings.Remove(this);
                 break;
             case Constants.CATNIP:
-                LevelManager.CatnipBuildings.Remove(this);
+                LevelManager.Singleton.CatnipBuildings.Remove(this);
                 break;
             case Constants.SAND:
-                LevelManager.SandBuildings.Remove(this);
+                LevelManager.Singleton.SandBuildings.Remove(this);
                 break;
-        }
-    }
-
-    public void SetRebake()
-    {
-        StaticBody.Name = "Obstacle_Region_" + Data.Type + "_" + SelfIndex;
-        StaticBody.Reparent(Region);
-        ModeManager.CurrentlyBaking = true;
-    }
-
-    public void RebakeAddBuilding(bool initialize = false)
-    {
-        if (ModeManager.CurrentMode is not BuildMode && !initialize)
-        {
-            return;
-        }
-
-        SetRebake();
-    }
-
-    public void RebakeRemoveBuilding()
-    {
-        if (!ModeManager.CurrentlyBaking)
-        {
-            StaticBody2D obstacle = Region.GetNode<StaticBody2D>("Obstacle_Region_" + Data.Type + "_" + SelfIndex);
-            obstacle.Reparent(this);
-            Rebake();
-            ModeManager.CurrentlyBaking = true;
-        }
-    }
-
-    public void Rebake()
-    {
-        Region.BakeNavigationPolygon();
-    }
-
-    public void FreeToRebake()
-    {
-        ModeManager.CurrentlyBaking = false;
-        Placed = true;
-
-        if (ModeManager.BuildingsToBake.Count > 0)
-        {
-            ModeManager.BuildingsToBake[0].RebakeAddBuilding();
-            ModeManager.BuildingsToBake[0].Rebake();
-            ModeManager.BuildingsToBake.RemoveAt(0);
         }
     }
 
@@ -249,11 +193,12 @@ public partial class Building : Area2D
         BuildingMode.EmitSignal(GameMode.SignalName.BuildCompleted, this);
         IsBuilt = true;
         BuildTickTimer.Timeout -= ConstructionTimeElapsed;
+        BuildTickTimer.Stop();
     }
 
     public override void _MouseEnter()
     {
-        if (ModeManager.CurrentMode is not SimulationMode)
+        if (ModeManager.Singleton.CurrentMode is not SimulationMode)
         {
             return;
         }
@@ -267,7 +212,7 @@ public partial class Building : Area2D
 
     public override void _MouseExit()
     {
-        if (ModeManager.CurrentMode is not SimulationMode)
+        if (ModeManager.Singleton.CurrentMode is not SimulationMode)
         {
             return;
         }
@@ -299,6 +244,44 @@ public partial class Building : Area2D
             case BuildingInteractionStates.BUILD_FINISHED:
                 building.Modulate = building.RegularColor;
                 break;
+        }
+    }
+
+    public static void PlaceBuilding(Building building)
+    {
+        if (building.IsRotated)
+        {
+            building.Sprite.Texture = building.Data.Structure.RotatedPlacedTexture;
+            building.Sprite.Offset = (building.Sprite.Offset + building.Data.Structure.RotatedPlacedOffset);
+        }
+        else
+        {
+            building.Sprite.Texture = building.Data.Structure.PlacedTexture;
+            building.Sprite.Offset = (building.Sprite.Offset + building.Data.Structure.PlacedOffset);
+        }
+       
+        ModulateBuilding(building, BuildingInteractionStates.BUILD_FINISHED);
+
+        building.AddSelfOnList();
+        building.CurrentBuilders.Clear();
+        building.IsBuilt = true;
+    }
+
+    public static void RotateBuildingPreview(Building building)
+    {
+        if (building.IsRotated)
+        {
+            building.Sprite.Texture = building.Data.Structure.PreviewTexture;
+            building.BodyShape.Polygon = building.Data.Structure.Collision.Segments;
+            building.InteractionShape.Polygon = building.Data.Structure.Interaction.Segments;
+            building.IsRotated = false;
+        }
+        else
+        {
+            building.Sprite.Texture = building.Data.Structure.RotatedPreviewTexture;
+            building.BodyShape.Polygon = building.Data.Structure.RotatedCollision.Segments;
+            building.InteractionShape.Polygon = building.Data.Structure.RotatedInteraction.Segments;
+            building.IsRotated = true;
         }
     }
 }

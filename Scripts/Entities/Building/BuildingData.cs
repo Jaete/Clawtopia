@@ -5,6 +5,7 @@ using Godot.Collections;
 
 public partial class BuildingData : Resource
 {
+    [ExportGroup("Audio Settings")]
     [Export] public AudioStream PlaceBuildingSound = GD.Load<AudioStream>("res://Assets/Audio/SFX/Building/plot.ogg");
     [Export] public Array<AudioStream> DestroyBuildingSounds = new()
     {
@@ -16,32 +17,32 @@ public partial class BuildingData : Resource
     };
     [Export] public AudioStream CancelSound = GD.Load<AudioStream>("res://Assets/Audio/UI/ui-click-cancel.ogg");
 
-    public const string PROP_ISBUILDING = "IsBuilding";
-    [Export] public int CatnipCost;
-    [Export] public int Hp;
-    [Export] public bool IsPreSpawned;
-    public int Level;
-    [Export] public int MaxProgress;
-    public String Name;
-
-    [Export] public Vector2 Offset;
-
-    public Dictionary<string, int> ResourceCosts = new();
-
+    [ExportGroup("Type Settings")]
+    [Export(PropertyHint.Enum, Constants.BUILDING_LIST)]
+    public string Type;
     [Export(PropertyHint.Enum, Constants.RESOURCE_LIST)]
     public string ResourceType;
-
-    [Export] public int SalmonCost;
-    [Export] public int SandCost;
-    [Export] public Vector2 Scale = new(1, 1);
-
-    [Export] public Array<BuildingStructure> Variations;
-
     [Export(PropertyHint.Enum, Constants.TOWER_LIST)]
     public string TowerType;
 
-    [Export(PropertyHint.Enum, Constants.BUILDING_LIST)]
-    public string Type;
+    [ExportGroup("Mechanic Settings")]
+    [Export] public int CatnipCost;
+    [Export] public int SalmonCost;
+    [Export] public int SandCost;
+    [Export] public int Hp;
+    [Export] public int MaxProgress;
+
+    [ExportGroup("Structure")]
+    [Export] public BuildingStructure Structure;
+    [Export] public Vector2 Scale = new(1, 1);
+    [Export] public Vector2 Offset;
+
+
+    public const string PROP_ISBUILDING = "IsBuilding";
+    public int Level;
+    private string type;
+    public String Name;
+    public Dictionary<string, int> ResourceCosts = new();
 
     public void Initialize()
     {

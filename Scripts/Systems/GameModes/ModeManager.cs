@@ -6,12 +6,13 @@ namespace ClawtopiaCs.Scripts.Systems.GameModes;
 
 public partial class ModeManager : Node2D
 {
+    public static ModeManager Singleton {  get; private set; }
+
     public int BuildingCount;
     public Array<Building> BuildingsToBake = new();
 
     public Controller Controller;
     public Node2D CurrentLevel;
-    public bool CurrentlyBaking = false;
     public GameMode CurrentMode;
 
     public Director Director;
@@ -25,47 +26,44 @@ public partial class ModeManager : Node2D
     public NavigationRegion2D Region;
     public int ResourceBuildCount;
 
-    public String ResourceBuildType;
     public int SalmonCottageCount;
+    public int CatnipFarmCount;
+    public int SandDepositCount;
 
     public string TowerType;
 
+    public override void _EnterTree()
+    {
+        Singleton = this;
+        Initialize();
+    }
+
     public override void _Ready()
     {
-        Initialize();
+        CallDeferred(MethodName.BakeInitialProps);
     }
 
     public void Initialize()
     {
-        //Director = GetNode<Director>("/root/Game/Director");
         CurrentLevel = GetNode<Node2D>("/root/Game/LevelManager/Level");
+        Region = CurrentLevel.GetNode<NavigationRegion2D>("Navigation");
         Controller = GetNode<Controller>("/root/Game/Controller");
         SetGameModes();
-        SetInitialBuildings();
         CurrentMode = (GameMode)GameModes["SimulationMode"];
         Controller.MousePressed += MousePressed;
         Controller.MouseReleased += MouseReleased;
         Controller.MouseRightPressed += MouseRightPressed;
+        Controller.RotateBuilding += RotateBuilding;
     }
 
-    public void ChangeMode(string mode, string building, string type)
+    public void ChangeMode(string mode, BuildingData building)
     {
         CurrentMode.Exit();
         CurrentMode = (GameMode)GameModes[mode];
 
         if (CurrentMode is BuildMode buildMode)
         {
-            buildMode.BuildingType = building;
-
-            switch (buildMode.BuildingType)
-            {
-                case Constants.TOWER:
-                    TowerType = type;
-                    break;
-                case Constants.RESOURCE:
-                    ResourceBuildType = type;
-                    break;
-            }
+            buildMode.CurrentBuildingData = building;
         }
 
         CurrentMode.Enter();
@@ -89,6 +87,11 @@ public partial class ModeManager : Node2D
     public void MouseRightPressed(Vector2 coords)
     {
         CurrentMode.MouseRightPressed(coords);
+    }
+
+    public void RotateBuilding()
+    {
+        CurrentMode.RotateBuilding();
     }
 
 
@@ -142,12 +145,31 @@ public partial class ModeManager : Node2D
                 }
 
                 BuildingsToBake.Add(building);
-                building.RebakeAddBuilding(true);
+                TerrainBaking.Singleton.RebakeAddBuilding(building, true);
+                building.Placed = true;
             }
         }
+    }
 
-        Region = CurrentLevel.GetNode<NavigationRegion2D>("Navigation");
-        Region.BakeNavigationPolygon();
+    public void SetInitialCollectionPoints()
+    {
+        Array<Node> nodes = CurrentLevel.GetChildren();
+
+        foreach (var node in nodes)
+        {
+            if (node is CollectPoint point)
+            {
+                TerrainBaking.Singleton.RebakeAddCollectionPoint(point);
+            }
+        }
+    }
+
+    public void BakeInitialProps()
+    {
+        SetInitialBuildings();
+        SetInitialCollectionPoints();
+
+        TerrainBaking.Singleton.Rebake();
         BuildingsToBake.Clear();
     }
 }

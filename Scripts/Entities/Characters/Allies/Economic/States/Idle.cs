@@ -13,7 +13,6 @@ public partial class Idle : EconomicState
     public override void Update(double delta)
     {
         /*Nao faz nada, afinal e estado Idle*/
-        //GD.Print("I'm idle"); // <- Apenas para DEBUG, sera removido depois
     }
 
     public override void Exit() { }

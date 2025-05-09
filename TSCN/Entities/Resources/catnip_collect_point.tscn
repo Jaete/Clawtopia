@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=3 uid="uid://cyff605bjg08y"]
+
+[ext_resource type="Script" path="res://Scripts/Entities/Resources/CatnipCollectPoint.cs" id="1_pe6jj"]
+[ext_resource type="Texture2D" uid="uid://0ct61cce7g0f" path="res://Assets/Tileset/materiais01.png" id="2_pm30p"]
+
+[node name="CatnipCollectPoint" type="StaticBody2D" node_paths=PackedStringArray("Interaction")]
+script = ExtResource("1_pe6jj")
+Interaction = NodePath("Interaction")
+
+[node name="Sprite" type="Sprite2D" parent="."]
+texture = ExtResource("2_pm30p")
+
+[node name="CollisionShape2D" type="CollisionPolygon2D" parent="."]
+polygon = PackedVector2Array(0, 22, -40, 1, -1, -17, 40, 2)
+
+[node name="Interaction" type="Area2D" parent="."]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Interaction"]
+polygon = PackedVector2Array(0, 21, 17, 17, 37, 5, 39, -3, 0, -23, -9, -21, -36, -4, -40, 0, -17, 17)

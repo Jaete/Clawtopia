@@ -56,6 +56,7 @@ theme_override_styles/normal_mirrored = SubResource("StyleBoxEmpty_ulnfm")
 theme_override_styles/normal = SubResource("StyleBoxEmpty_vqutg")
 script = ExtResource("1_1lt0f")
 Communist = ExtResource("2_byfdj")
+SpawnTimer = 20.0
 
 [node name="Icon" type="Sprite2D" parent="."]
 position = Vector2(5.68269, 3.11428)

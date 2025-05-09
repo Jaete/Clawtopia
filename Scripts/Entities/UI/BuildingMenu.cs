@@ -3,9 +3,10 @@ using Godot;
 
 public partial class BuildingMenu : Control
 {
+    [Export] public Button RemoveBuildingButton;
+    
     public Building Building;
     public ModeManager ModeManager;
-    public Button RemoveBuildingButton;
     public UI Ui;
 
     public override void _Ready()
@@ -13,7 +14,6 @@ public partial class BuildingMenu : Control
         Name = Constants.BUILDING_MENU;
         ModeManager = GetNode<ModeManager>("/root/Game/ModeManager");
         Ui = GetNode<UI>("/root/Game/UI");
-        RemoveBuildingButton = GetNode<Button>("RemoveBuilding/Button");
         RemoveBuildingButton.Pressed += RemoveBuilding;
         MouseEntered += Ui.EnterUiMode;
         MouseExited += Ui.ExitUiMode;
@@ -21,7 +21,7 @@ public partial class BuildingMenu : Control
 
     public void RemoveBuilding()
     {
-        Building.RebakeRemoveBuilding();
+        TerrainBaking.Singleton.RebakeRemoveBuilding(Building);
         Building.EmitSignal(Building.SignalName.Destroyed);
         Ui.Reset_ui();
     }

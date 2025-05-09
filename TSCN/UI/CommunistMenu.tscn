@@ -1,10 +1,12 @@
-[gd_scene load_steps=6 format=3 uid="uid://dlafn1y1tob36"]
+[gd_scene load_steps=8 format=3 uid="uid://dlafn1y1tob36"]
 
 [ext_resource type="Script" path="res://Scripts/Entities/UI/CommunistMenu.cs" id="1_qbug2"]
 [ext_resource type="Texture2D" uid="uid://dimtwl0njuc1a" path="res://Assets/UI/HUD_Claw_FUNDO.png" id="2_1xsvr"]
 [ext_resource type="PackedScene" uid="uid://be6qpul8cdl7" path="res://TSCN/UI/add_fighter_tower.tscn" id="4_dufqv"]
 [ext_resource type="PackedScene" uid="uid://b4expjtsyc8um" path="res://TSCN/UI/add_salmon_cottage.tscn" id="5_ibcmm"]
 [ext_resource type="PackedScene" uid="uid://cc5007ymclpse" path="res://TSCN/UI/add_house.tscn" id="5_mfa1r"]
+[ext_resource type="PackedScene" uid="uid://c3pqhyhaqpi4" path="res://TSCN/UI/add_catnip_farm.tscn" id="6_pehtm"]
+[ext_resource type="PackedScene" uid="uid://c06hgevw4voan" path="res://TSCN/UI/add_sand_mine.tscn" id="7_7wdud"]
 
 [node name="CommunistMenu" type="Control"]
 custom_minimum_size = Vector2(500, 200)
@@ -40,3 +42,17 @@ offset_left = 156.0
 offset_top = 57.0
 offset_right = 156.0
 offset_bottom = 57.0
+
+[node name="AddCatnipFarm" parent="." instance=ExtResource("6_pehtm")]
+layout_mode = 1
+offset_left = 98.0
+offset_top = 118.0
+offset_right = 98.0
+offset_bottom = 118.0
+
+[node name="AddSandMine" parent="." instance=ExtResource("7_7wdud")]
+layout_mode = 1
+offset_left = 156.0
+offset_top = 118.0
+offset_right = 156.0
+offset_bottom = 118.0

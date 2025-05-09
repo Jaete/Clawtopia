@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://wjvhnssccqv8"
-path="res://.godot/imported/casa_vila_003.png-d2d478aa1e0fb2585e78799822e7ee75.ctex"
+uid="uid://pc8tjwycbrss"
+path="res://.godot/imported/casa_decor_001_flip_build.png-0821450ec045f3f7e353aa0e18e95ba4.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Buildings/casa_vila_003.png"
-dest_files=["res://.godot/imported/casa_vila_003.png-d2d478aa1e0fb2585e78799822e7ee75.ctex"]
+source_file="res://Assets/Buildings/casa_decor_001_flip_build.png"
+dest_files=["res://.godot/imported/casa_decor_001_flip_build.png-0821450ec045f3f7e353aa0e18e95ba4.ctex"]
 
 [params]
 

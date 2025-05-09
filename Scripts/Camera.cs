@@ -41,7 +41,6 @@ public partial class Camera : Camera2D
     public override void _Process(double delta)
     {
         mousePosition = GetViewport().GetMousePosition();
-        //GD.Print(mousePosition);
         Vector2 direction = new Vector2(0, 0);
         if (CameraState == CameraMode.Sliding) {
             if (OS.IsDebugBuild()) {

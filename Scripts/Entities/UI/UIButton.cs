@@ -9,7 +9,6 @@ namespace ClawtopiaCs.Scripts.Entities.UI
 
         public override void _Ready()
         {
-            GD.Print($"PLAYER ID: {SoundPlayer.GetInstanceId()}");
             SoundPlayer.Stream = ClickSound;
             AddChild(SoundPlayer);
         }
