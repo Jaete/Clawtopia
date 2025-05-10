@@ -11,10 +11,10 @@
 [ext_resource type="PackedScene" uid="uid://d3gh4jmuicqic" path="res://TSCN/Entities/Characters/Allies/Economic/Economic.tscn" id="8_xv7v7"]
 [ext_resource type="AudioStream" uid="uid://cx71cf6ffwqvg" path="res://Assets/Audio/SFX/Building/destroy-005.ogg" id="9_ycgbj"]
 [ext_resource type="AudioStream" uid="uid://865i76f5bwrx" path="res://Assets/Audio/SFX/Building/plot.ogg" id="10_82ayo"]
-[ext_resource type="Resource" uid="uid://dqintb8tp7i26" path="res://Resources/Buildings/GreatCommune/Structure.tres" id="11_43ntf"]
 [ext_resource type="Script" path="res://Scripts/Entities/Building/BuildingData.cs" id="12_rx2l3"]
 [ext_resource type="PackedScene" uid="uid://c1hfodw7xtym7" path="res://TSCN/Entities/Resources/salmon_collect_point.tscn" id="14_kat3n"]
 [ext_resource type="PackedScene" uid="uid://cyff605bjg08y" path="res://TSCN/Entities/Resources/catnip_collect_point.tscn" id="15_3ij5l"]
+[ext_resource type="Resource" uid="uid://bnn4y64wn2h21" path="res://Resources/Buildings/House/House.tres" id="16_tfa1c"]
 [ext_resource type="PackedScene" uid="uid://cay5olbev7ruh" path="res://TSCN/Entities/Resources/sand_collect_point.tscn" id="16_thxtt"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_a5dn3"]
@@ -22,7 +22,7 @@ vertices = PackedVector2Array(691.531, 124.938, 1401.65, 480, 724.211, 818.719, 
 polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3, 4, 5, 6, 7), PackedInt32Array(8, 9, 10, 11, 12, 13), PackedInt32Array(14, 15, 13, 12, 16, 17), PackedInt32Array(18, 17, 16), PackedInt32Array(19, 20, 18, 16, 21, 22), PackedInt32Array(23, 24, 22, 21, 11, 25), PackedInt32Array(25, 11, 10)])
 outlines = Array[PackedVector2Array]([PackedVector2Array(657, 1288, -889, 517, 540, -204, 2073, 584)])
 
-[sub_resource type="Resource" id="Resource_8aiw3"]
+[sub_resource type="Resource" id="Resource_r1esa"]
 resource_local_to_scene = true
 script = ExtResource("12_rx2l3")
 PlaceBuildingSound = ExtResource("10_82ayo")
@@ -36,7 +36,6 @@ SalmonCost = 0
 SandCost = 0
 Hp = 10000
 MaxProgress = 0
-Structure = ExtResource("11_43ntf")
 Scale = Vector2(1, 1)
 Offset = Vector2(0, -32)
 
@@ -72,7 +71,7 @@ position = Vector2(576, 324)
 
 [node name="Purrlament" parent="." instance=ExtResource("3_wt2d7")]
 position = Vector2(576, 328)
-Data = SubResource("Resource_8aiw3")
+Data = SubResource("Resource_r1esa")
 IsPreSpawned = true
 
 [node name="Economic" parent="." instance=ExtResource("8_xv7v7")]
@@ -92,3 +91,8 @@ position = Vector2(481, 623)
 
 [node name="SalmonCollectPoint2" parent="." instance=ExtResource("14_kat3n")]
 position = Vector2(313, 748)
+
+[node name="Building" parent="." instance=ExtResource("3_wt2d7")]
+position = Vector2(924, 469)
+Data = ExtResource("16_tfa1c")
+IsPreSpawned = true
