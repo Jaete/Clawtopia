@@ -9,7 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Move Card to "Em Progresso"
-        uses: alex-page/github-project-card-mover@v0.9.0
+        uses: aalex-page/github-project-automation-plus@v0.9.0
         with:
           project: Clawtopia
           column: Em Progresso
