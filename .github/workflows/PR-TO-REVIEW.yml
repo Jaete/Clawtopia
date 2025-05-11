@@ -1,15 +1,14 @@
-name: Move to Review when PR opens or updates linked issue
+name: Move linked issue to Review when PR opens or updates
 on:
   pull_request:
     types:
       - opened
-      - edited
       - synchronize
       - ready_for_review
       - review_requested
 
 jobs:
-  move-issue-to-review:
+  move_issue_to_review:
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -18,11 +17,13 @@ jobs:
       GH_TOKEN: ${{ secrets.REPO_TOKEN }}
 
     steps:
-      - name: Set up GH CLI with token
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up GitHub CLI with token
         run: |
           gh config set prompt disabled
           echo "✅ GitHub CLI configured with token"
-
       - name: Get repository owner and name
         id: get_owner_and_repo
         run: |
@@ -31,24 +32,35 @@ jobs:
           echo "OWNER=$OWNER" >> $GITHUB_ENV
           echo "REPO_NAME=$REPO_NAME" >> $GITHUB_ENV
         shell: bash
-        
-      - name: Checkout code
-        uses: actions/checkout@v4  
 
-      - name: Get linked issue number from PR
+      - name: Get linked issue from PR
         id: get_linked_issue
         run: |
           PR_NUMBER=${{ github.event.pull_request.number }}
-          ISSUE_NUMBER=$(gh pr view $PR_NUMBER --json closingIssuesReferences --jq '.closingIssuesReferences.nodes[0].number')
-
-          if [ -z "$ISSUE_NUMBER" ]; then
+          # Pega o JSON completo das issues ligadas à PR
+          ISSUES_JSON=$(mktemp)
+          gh pr view $PR_NUMBER --json closingIssuesReferences > "$ISSUES_JSON"
+          echo "📄 Raw closingIssuesReferences response:"
+          cat "$ISSUES_JSON"
+          # Extrai o array de issues do campo closingIssuesReferences
+          ISSUES_ARRAY=$(jq -r '.closingIssuesReferences // []' "$ISSUES_JSON")
+          # Pega a primeira issue
+          ISSUE_JSON=$(echo "$ISSUES_ARRAY" | jq -r '.[0] // {}')
+          if [ "$(echo "$ISSUE_JSON" | jq type)" = '"null"' ]; then
             echo "⚠️ No linked issue found. Skipping..."
             exit 0
           fi
-
+          # Extrai número diretamente (com fallback pra URL se necessário)
+          ISSUE_NUMBER=$(echo "$ISSUE_JSON" | jq -r '.number // (.url | sub(".*/"; "")) // empty')
+          if ! [[ "$ISSUE_NUMBER" =~ ^[0-9]+$ ]]; then
+            echo "❌ Failed to extract valid issue number from PR"
+            exit 1
+          fi
           echo "🔗 Linked issue: #$ISSUE_NUMBER"
           echo "ISSUE_NUMBER=$ISSUE_NUMBER" >> $GITHUB_ENV
         shell: bash
+        env:
+          GH_TOKEN: ${{ secrets.REPO_TOKEN }}
 
       - name: Get Issue Global Node ID
         id: get_issue_node_id
@@ -56,9 +68,7 @@ jobs:
           OWNER=${{ env.OWNER }}
           REPO_NAME=${{ env.REPO_NAME }}
           ISSUE_NUMBER=${{ env.ISSUE_NUMBER }}
-
           echo "🔍 Fetching issue #$ISSUE_NUMBER from $OWNER/$REPO_NAME..."
-
           ISSUE_JSON=$(gh api graphql -f query='
             query {
               repository(owner: "'$OWNER'", name: "'$REPO_NAME'") {
@@ -68,29 +78,23 @@ jobs:
                 }
               }
             }')
-
           echo "📄 Raw GraphQL response:"
           echo "$ISSUE_JSON"
-
           ISSUE_ID=$(echo "$ISSUE_JSON" | jq -r '.data.repository.issue.id')
-
           if [ -z "$ISSUE_ID" ] || [ "$ISSUE_ID" = "null" ]; then
             echo "❌ Failed to find issue ID"
             exit 1
           fi
-
           echo "✅ Found Issue ID: $ISSUE_ID"
           echo "ISSUE_ID=$ISSUE_ID" >> $GITHUB_ENV
         shell: bash
 
-      - name: Get project ID from repository
+      - name: Get project ID from repository project number 3
         id: get_project_id
         run: |
           OWNER=${{ env.OWNER }}
           REPO_NAME=${{ env.REPO_NAME }}
-
-          echo "🔍 Fetching project V2 (number: 3) in repository '$OWNER/$REPO_NAME'..."
-
+          echo "🔍 Fetching project V2 number 7 in repository $OWNER/$REPO_NAME..."
           PROJECT_JSON=$(gh api graphql -f query='
             query {
               repository(owner: "'$OWNER'", name: "'$REPO_NAME'") {
@@ -100,17 +104,13 @@ jobs:
                 }
               }
             }')
-
           echo "📄 Raw GraphQL response:"
           echo "$PROJECT_JSON"
-
           PROJECT_ID=$(echo "$PROJECT_JSON" | jq -r '.data.repository.projectV2.id')
-
           if [ -z "$PROJECT_ID" ] || [ "$PROJECT_ID" = "null" ]; then
-            echo "❌ Failed to find project in repository '$OWNER/$REPO_NAME'"
+            echo "❌ Failed to find project in repository $OWNER/$REPO_NAME"
             exit 1
           fi
-
           echo "✅ Found project ID: $PROJECT_ID"
           echo "PROJECT_ID=$PROJECT_ID" >> $GITHUB_ENV
         shell: bash
@@ -120,9 +120,7 @@ jobs:
         run: |
           PROJECT_ID="${{ env.PROJECT_ID }}"
           ISSUE_ID="${{ env.ISSUE_ID }}"
-
           echo "🔍 Adding issue $ISSUE_ID to project $PROJECT_ID..."
-
           ITEM_JSON=$(gh api graphql -f query='
             mutation {
               addProjectV2ItemById(input: {projectId: "'$PROJECT_ID'", contentId: "'$ISSUE_ID'"}) {
@@ -131,29 +129,23 @@ jobs:
                 }
               }
             }')
-
           echo "📄 Raw GraphQL response:"
           echo "$ITEM_JSON"
-
           ITEM_ID=$(echo "$ITEM_JSON" | jq -r '.data.addProjectV2ItemById.item.id')
-
           if [ -z "$ITEM_ID" ] || [ "$ITEM_ID" = "null" ]; then
             echo "⚠️ Failed to add or find item for this issue"
             exit 1
           fi
-
           echo "✅ Item ID: $ITEM_ID"
           echo "ITEM_ID=$ITEM_ID" >> $GITHUB_ENV
         shell: bash
 
-      - name: Get Status field and 'Review' option IDs
+      - name: Get Status field and Review option IDs
         id: get_status_info
         run: |
           PROJECT_ID="${{ env.PROJECT_ID }}"
           COLUMN_NAME="Review"
-
           echo "🔍 Fetching fields and options from project $PROJECT_ID..."
-
           FIELD_INFO=$(gh api graphql -f query='
             query {
               node(id: "'$PROJECT_ID'") {
@@ -173,43 +165,35 @@ jobs:
                 }
               }
             }')
-
           echo "📄 Raw field info response:"
           echo "$FIELD_INFO"
-
           STATUS_FIELD_ID=$(echo "$FIELD_INFO" | jq -r '.data.node.fields.nodes[] | select(.name == "Status") | .id')
-
           IN_PROGRESS_OPTION_ID=$(echo "$FIELD_INFO" | jq -r --arg COLUMN_NAME "$COLUMN_NAME" '
             .data.node.fields.nodes[]
             | select(.name == "Status")
             | .options[]
             | select(.name == $COLUMN_NAME)
             | .id')
-
           if [ -z "$STATUS_FIELD_ID" ] || [ "$STATUS_FIELD_ID" = "null" ]; then
             echo "❌ Status field not found"
             exit 1
           fi
-
           if [ -z "$IN_PROGRESS_OPTION_ID" ] || [ "$IN_PROGRESS_OPTION_ID" = "null" ]; then
-            echo "❌ Column '$COLUMN_NAME' not found in Status field"
+            echo "❌ Column $COLUMN_NAME not found in Status field"
             exit 1
           fi
-
           echo "STATUS_FIELD_ID=$STATUS_FIELD_ID" >> $GITHUB_ENV
           echo "IN_PROGRESS_OPTION_ID=$IN_PROGRESS_OPTION_ID" >> $GITHUB_ENV
         shell: bash
 
-      - name: Move issue to column 'Review'
+      - name: Move issue to column Review
         run: |
           ITEM_ID="${{ env.ITEM_ID }}"
           STATUS_FIELD_ID="${{ env.STATUS_FIELD_ID }}"
           IN_PROGRESS_OPTION_ID="${{ env.IN_PROGRESS_OPTION_ID }}"
           PROJECT_ID="${{ env.PROJECT_ID }}"
-
           echo "🔍 Updating item $ITEM_ID in project $PROJECT_ID..."
           echo "➡️ Setting field $STATUS_FIELD_ID to option $IN_PROGRESS_OPTION_ID"
-
           RESPONSE=$(gh api graphql -f query='
             mutation {
               updateProjectV2ItemFieldValue(input: {
@@ -223,13 +207,10 @@ jobs:
                 }
               }
             }')
-
           echo "📄 Raw GraphQL response:"
           echo "$RESPONSE"
-
           if echo "$RESPONSE" | grep -q '"errors"'; then
             echo "❌ Failed to update project item"
             exit 1
           fi
-
           echo "✅ Issue successfully moved to column: Review"
