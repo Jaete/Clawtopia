@@ -89,7 +89,7 @@ jobs:
           echo "ISSUE_ID=$ISSUE_ID" >> $GITHUB_ENV
         shell: bash
 
-      - name: Get project ID from repository project number 7
+      - name: Get project ID from repository project number 3
         id: get_project_id
         run: |
           OWNER=${{ env.OWNER }}
@@ -98,7 +98,7 @@ jobs:
           PROJECT_JSON=$(gh api graphql -f query='
             query {
               repository(owner: "'$OWNER'", name: "'$REPO_NAME'") {
-                projectV2(number: 7) {
+                projectV2(number: 3) {
                   id
                   title
                 }
