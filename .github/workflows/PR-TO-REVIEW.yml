@@ -19,30 +19,32 @@ jobs:
           gh config set prompt disabled
           echo "✅ GitHub CLI configured with token"
 
-      - name: Get repository owner
-        id: get_owner
+      - name: Get repository owner and name
+        id: get_owner_and_repo
         run: |
           OWNER=$(echo "$GITHUB_REPOSITORY" | cut -d'/' -f1)
+          REPO_NAME=$(echo "$GITHUB_REPOSITORY" | cut -d'/' -f2)
           echo "OWNER=$OWNER" >> $GITHUB_ENV
+          echo "REPO_NAME=$REPO_NAME" >> $GITHUB_ENV
         shell: bash
 
-      - name: Get project ID
+      - name: Get project ID from repository
         id: get_project_id
         run: |
           OWNER=${{ env.OWNER }}
-          PROJECT_NAME="Clawtopia"
+          REPO_NAME=${{ env.REPO_NAME }}
 
           PROJECT_ID=$(gh api graphql -f query='
             query {
-              organization(login: "'$OWNER'") {
+              repository(owner: "'$OWNER'", name: "'$REPO_NAME'") {
                 projectV2(number: 1) {
                   id
                 }
               }
-            }' | jq -r '.data.organization.projectV2.id')
+            }' | jq -r '.data.repository.projectV2.id')
 
-          if [ "$PROJECT_ID" = "null" ]; then
-            echo "❌ Failed to find project '$PROJECT_NAME'"
+          if [ "$PROJECT_ID" = "null" ] || [ -z "$PROJECT_ID" ]; then
+            echo "❌ Failed to find project in repository '$OWNER/$REPO_NAME'"
             exit 1
           fi
 
@@ -72,11 +74,11 @@ jobs:
           echo "ITEM_ID=$ITEM_ID" >> $GITHUB_ENV
         shell: bash
 
-      - name: Get Status field and option IDs
+      - name: Get Status field and 'Em Progresso' option IDs
         id: get_status_info
         run: |
           PROJECT_ID="${{ env.PROJECT_ID }}"
-          COLUMN_NAME="In Progress"
+          COLUMN_NAME="Em Progresso"
 
           FIELD_INFO=$(gh api graphql -f query='
             query {
@@ -113,8 +115,9 @@ jobs:
 
           echo "STATUS_FIELD_ID=$STATUS_FIELD_ID" >> $GITHUB_ENV
           echo "IN_PROGRESS_OPTION_ID=$IN_PROGRESS_OPTION_ID" >> $GITHUB_ENV
+        shell: bash
 
-      - name: Move issue to 'In Progress'
+      - name: Move issue to column 'Em Progresso'
         run: |
           ITEM_ID="${{ env.ITEM_ID }}"
           STATUS_FIELD_ID="${{ env.STATUS_FIELD_ID }}"
@@ -135,4 +138,4 @@ jobs:
               }
             }'
 
-          echo "✅ Issue moved to column: In Progress"
+          echo "✅ Issue moved to column: Em Progresso"
