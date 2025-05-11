@@ -156,8 +156,11 @@ jobs:
           STATUS_FIELD_ID="${{ env.STATUS_FIELD_ID }}"
           IN_PROGRESS_OPTION_ID="${{ env.IN_PROGRESS_OPTION_ID }}"
           PROJECT_ID="${{ env.PROJECT_ID }}"
-
-          gh api graphql -f query='
+      
+          echo "🔍 Updating item $ITEM_ID in project $PROJECT_ID..."
+          echo "➡️ Setting field $STATUS_FIELD_ID to option $IN_PROGRESS_OPTION_ID"
+      
+          RESPONSE=$(gh api graphql -f query='
             mutation {
               updateProjectV2ItemFieldValue(input: {
                 projectId: "'$PROJECT_ID'",
@@ -169,6 +172,14 @@ jobs:
                   id
                 }
               }
-            }'
-
-          echo "✅ Issue moved to column: Em Progresso"
+            }')
+      
+          echo "📄 Raw GraphQL response:"
+          echo "$RESPONSE"
+      
+          if echo "$RESPONSE" | grep -q '"errors"'; then
+            echo "❌ Failed to update project item"
+            exit 1
+          fi
+      
+          echo "✅ Issue successfully moved to column: Em Progresso"
