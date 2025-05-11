@@ -9,8 +9,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Move Card to "Em Progresso"
-        uses: alex-page/github-project-card-mover@v1
+        uses: alex-page/github-project-card-mover@v0.9.0
         with:
-          project: 'Clawtopia'
-          column: 'Em Progresso'
-          repo-token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
+          project: Clawtopia
+          column: Em Progresso
+          repo-token: ${{ secrets.REPO_TOKEN }}
+
