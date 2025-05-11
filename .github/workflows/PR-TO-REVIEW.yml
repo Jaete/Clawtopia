@@ -16,7 +16,7 @@ jobs:
   move-assigned-card:
     runs-on: ubuntu-latest
     steps:
-      - uses: Jaete/Clawtopia@7ffb872c64bd809d23563a130a0a97d01dfa8f43
+      - uses: Jaete/Clawtopia@8yIEdJ4b86uZb60z3+k3AZQfUfRiG4GdK2SYo
         with:
           project: Clawtopia
           column: Em Progresso
