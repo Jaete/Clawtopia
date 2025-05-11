@@ -1,0 +1,213 @@
+name: Move to In Progress when assigned
+on:
+  issues:
+    types:
+      - assigned
+
+jobs:
+  move-issue-to-in-progress:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      repository-projects: write
+    env:
+      GH_TOKEN: ${{ secrets.REPO_TOKEN }}
+
+    steps:
+      - name: Set up GH CLI with token
+        run: |
+          gh config set prompt disabled
+          echo "✅ GitHub CLI configured with token"
+
+      - name: Get repository owner and name
+        id: get_owner_and_repo
+        run: |
+          OWNER=$(echo "$GITHUB_REPOSITORY" | cut -d'/' -f1)
+          REPO_NAME=$(echo "$GITHUB_REPOSITORY" | cut -d'/' -f2)
+          echo "OWNER=$OWNER" >> $GITHUB_ENV
+          echo "REPO_NAME=$REPO_NAME" >> $GITHUB_ENV
+        shell: bash
+
+      - name: Get project ID from repository
+        id: get_project_id
+        run: |
+          OWNER=${{ env.OWNER }}
+          REPO_NAME=${{ env.REPO_NAME }}
+
+          echo "🔍 Fetching project V2 (number: 3) in repository '$OWNER/$REPO_NAME'..."
+
+          PROJECT_JSON=$(gh api graphql -f query='
+            query {
+              repository(owner: "'$OWNER'", name: "'$REPO_NAME'") {
+                projectV2(number: 3) {
+                  id
+                  title
+                }
+              }
+            }')
+
+          echo "📄 Raw GraphQL response:"
+          echo "$PROJECT_JSON"
+
+          PROJECT_ID=$(echo "$PROJECT_JSON" | jq -r '.data.repository.projectV2.id')
+
+          if [ -z "$PROJECT_ID" ] || [ "$PROJECT_ID" = "null" ]; then
+            echo "❌ Failed to find project in repository '$OWNER/$REPO_NAME'"
+            exit 1
+          fi
+
+          echo "✅ Found project ID: $PROJECT_ID"
+          echo "PROJECT_ID=$PROJECT_ID" >> $GITHUB_ENV
+        shell: bash
+
+      - name: Get Issue Global Node ID
+        id: get_issue_node_id
+        run: |
+          OWNER=${{ env.OWNER }}
+          REPO_NAME=${{ env.REPO_NAME }}
+          ISSUE_NUMBER=${{ github.event.issue.number }}
+
+          echo "🔍 Fetching issue #$ISSUE_NUMBER from $OWNER/$REPO_NAME..."
+
+          ISSUE_JSON=$(gh api graphql -f query='
+            query {
+              repository(owner: "'$OWNER'", name: "'$REPO_NAME'") {
+                issue(number: '$ISSUE_NUMBER') {
+                  id
+                  title
+                }
+              }
+            }')
+
+          echo "📄 Raw GraphQL response:"
+          echo "$ISSUE_JSON"
+
+          ISSUE_ID=$(echo "$ISSUE_JSON" | jq -r '.data.repository.issue.id')
+
+          if [ -z "$ISSUE_ID" ] || [ "$ISSUE_ID" = "null" ]; then
+            echo "❌ Failed to find issue ID"
+            exit 1
+          fi
+
+          echo "✅ Found Issue ID: $ISSUE_ID"
+          echo "ISSUE_ID=$ISSUE_ID" >> $GITHUB_ENV
+        shell: bash
+
+      - name: Get or add item ID from issue
+        id: get_item_id
+        run: |
+          PROJECT_ID="${{ env.PROJECT_ID }}"
+          ISSUE_ID="${{ env.ISSUE_ID }}"
+
+          echo "🔍 Adding issue $ISSUE_ID to project $PROJECT_ID..."
+
+          ITEM_JSON=$(gh api graphql -f query='
+            mutation {
+              addProjectV2ItemById(input: {projectId: "'$PROJECT_ID'", contentId: "'$ISSUE_ID'"}) {
+                item {
+                  id
+                }
+              }
+            }')
+
+          echo "📄 Raw GraphQL response:"
+          echo "$ITEM_JSON"
+
+          ITEM_ID=$(echo "$ITEM_JSON" | jq -r '.data.addProjectV2ItemById.item.id')
+
+          if [ -z "$ITEM_ID" ] || [ "$ITEM_ID" = "null" ]; then
+            echo "⚠️ Failed to add or find item for this issue"
+            exit 1
+          fi
+
+          echo "✅ Item ID: $ITEM_ID"
+          echo "ITEM_ID=$ITEM_ID" >> $GITHUB_ENV
+        shell: bash
+
+      - name: Get Status field and 'Em progresso' option IDs
+        id: get_status_info
+        run: |
+          PROJECT_ID="${{ env.PROJECT_ID }}"
+          COLUMN_NAME="Em progresso"
+
+          echo "🔍 Fetching fields and options from project $PROJECT_ID..."
+
+          FIELD_INFO=$(gh api graphql -f query='
+            query {
+              node(id: "'$PROJECT_ID'") {
+                ... on ProjectV2 {
+                  fields(first: 20) {
+                    nodes {
+                      ... on ProjectV2SingleSelectField {
+                        id
+                        name
+                        options {
+                          id
+                          name
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }')
+
+          echo "📄 Raw field info response:"
+          echo "$FIELD_INFO"
+
+          STATUS_FIELD_ID=$(echo "$FIELD_INFO" | jq -r '.data.node.fields.nodes[] | select(.name == "Status") | .id')
+
+          IN_PROGRESS_OPTION_ID=$(echo "$FIELD_INFO" | jq -r --arg COLUMN_NAME "$COLUMN_NAME" '
+            .data.node.fields.nodes[]
+            | select(.name == "Status")
+            | .options[]
+            | select(.name == $COLUMN_NAME)
+            | .id')
+
+          if [ -z "$STATUS_FIELD_ID" ] || [ "$STATUS_FIELD_ID" = "null" ]; then
+            echo "❌ Status field not found"
+            exit 1
+          fi
+
+          if [ -z "$IN_PROGRESS_OPTION_ID" ] || [ "$IN_PROGRESS_OPTION_ID" = "null" ]; then
+            echo "❌ Column '$COLUMN_NAME' not found in Status field"
+            exit 1
+          fi
+
+          echo "STATUS_FIELD_ID=$STATUS_FIELD_ID" >> $GITHUB_ENV
+          echo "IN_PROGRESS_OPTION_ID=$IN_PROGRESS_OPTION_ID" >> $GITHUB_ENV
+        shell: bash
+
+      - name: Move issue to column 'Em progresso'
+        run: |
+          ITEM_ID="${{ env.ITEM_ID }}"
+          STATUS_FIELD_ID="${{ env.STATUS_FIELD_ID }}"
+          IN_PROGRESS_OPTION_ID="${{ env.IN_PROGRESS_OPTION_ID }}"
+          PROJECT_ID="${{ env.PROJECT_ID }}"
+
+          echo "🔍 Updating item $ITEM_ID in project $PROJECT_ID..."
+          echo "➡️ Setting field $STATUS_FIELD_ID to option $IN_PROGRESS_OPTION_ID"
+
+          RESPONSE=$(gh api graphql -f query='
+            mutation {
+              updateProjectV2ItemFieldValue(input: {
+                projectId: "'$PROJECT_ID'",
+                itemId: "'$ITEM_ID'",
+                fieldId: "'$STATUS_FIELD_ID'",
+                value: { singleSelectOptionId: "'$IN_PROGRESS_OPTION_ID'" }
+              }) {
+                projectV2Item {
+                  id
+                }
+              }
+            }')
+
+          echo "📄 Raw GraphQL response:"
+          echo "$RESPONSE"
+
+          if echo "$RESPONSE" | grep -q '"errors"'; then
+            echo "❌ Failed to update project item"
+            exit 1
+          fi
+
+          echo "✅ Issue successfully moved to column: Em progresso"
