@@ -1,17 +1,10 @@
-[gd_scene load_steps=19 format=4 uid="uid://c73kwxuuwdacc"]
+[gd_scene load_steps=11 format=4 uid="uid://c73kwxuuwdacc"]
 
 [ext_resource type="TileSet" uid="uid://c2nkgguv7dacf" path="res://Resources/Resources/Tileset.tres" id="1_pkymm"]
 [ext_resource type="PackedScene" uid="uid://dmqsbxvmpraew" path="res://TSCN/Systems/Camera.tscn" id="2_np81b"]
 [ext_resource type="PackedScene" uid="uid://d2xeg5t6t85er" path="res://TSCN/Entities/Buildings/Building.tscn" id="3_wt2d7"]
-[ext_resource type="AudioStream" uid="uid://c6nf3cvt1mwmj" path="res://Assets/Audio/UI/ui-click-cancel.ogg" id="4_mj6hy"]
-[ext_resource type="AudioStream" uid="uid://c11gv7w0q6nrn" path="res://Assets/Audio/SFX/Building/destroy-001.ogg" id="5_glftv"]
-[ext_resource type="AudioStream" uid="uid://bsh3gnwhsuydr" path="res://Assets/Audio/SFX/Building/destroy-002.ogg" id="6_n77ak"]
-[ext_resource type="AudioStream" uid="uid://bd4t165n2t0s0" path="res://Assets/Audio/SFX/Building/destroy-003.ogg" id="7_av0dg"]
-[ext_resource type="AudioStream" uid="uid://cnx6g6fuhlhlp" path="res://Assets/Audio/SFX/Building/destroy-004.ogg" id="8_o0k60"]
+[ext_resource type="Resource" uid="uid://byglexam8jwef" path="res://Resources/Buildings/GreatCommune/GreatCommune.tres" id="5_8qjf5"]
 [ext_resource type="PackedScene" uid="uid://d3gh4jmuicqic" path="res://TSCN/Entities/Characters/Allies/Economic/Economic.tscn" id="8_xv7v7"]
-[ext_resource type="AudioStream" uid="uid://cx71cf6ffwqvg" path="res://Assets/Audio/SFX/Building/destroy-005.ogg" id="9_ycgbj"]
-[ext_resource type="AudioStream" uid="uid://865i76f5bwrx" path="res://Assets/Audio/SFX/Building/plot.ogg" id="10_82ayo"]
-[ext_resource type="Script" path="res://Scripts/Entities/Building/BuildingData.cs" id="12_rx2l3"]
 [ext_resource type="PackedScene" uid="uid://c1hfodw7xtym7" path="res://TSCN/Entities/Resources/salmon_collect_point.tscn" id="14_kat3n"]
 [ext_resource type="PackedScene" uid="uid://cyff605bjg08y" path="res://TSCN/Entities/Resources/catnip_collect_point.tscn" id="15_3ij5l"]
 [ext_resource type="Resource" uid="uid://bnn4y64wn2h21" path="res://Resources/Buildings/House/House.tres" id="16_tfa1c"]
@@ -21,23 +14,6 @@
 vertices = PackedVector2Array(691.531, 124.938, 1401.65, 480, 724.211, 818.719, 704, 825.453, 683.789, 818.719, -25.6484, 464, 652.469, 124.938, 672, 115.172, 732.469, 844.938, 1412.47, 504.938, 1450, 486.18, 2050.84, 583.852, 657.008, 1276.83, 704, 859.18, -36.4688, 488.938, 667.531, 840.938, -866.688, 516.938, -74, 470.18, -74, 457.82, 635.531, 103.063, -60.4688, 451.063, 539.961, -192.781, 672, 84.8203, 1436.47, 467.063, 684.469, 91.0625, 1450, 473.82)
 polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3, 4, 5, 6, 7), PackedInt32Array(8, 9, 10, 11, 12, 13), PackedInt32Array(14, 15, 13, 12, 16, 17), PackedInt32Array(18, 17, 16), PackedInt32Array(19, 20, 18, 16, 21, 22), PackedInt32Array(23, 24, 22, 21, 11, 25), PackedInt32Array(25, 11, 10)])
 outlines = Array[PackedVector2Array]([PackedVector2Array(657, 1288, -889, 517, 540, -204, 2073, 584)])
-
-[sub_resource type="Resource" id="Resource_r1esa"]
-resource_local_to_scene = true
-script = ExtResource("12_rx2l3")
-PlaceBuildingSound = ExtResource("10_82ayo")
-DestroyBuildingSounds = [ExtResource("5_glftv"), ExtResource("6_n77ak"), ExtResource("7_av0dg"), ExtResource("8_o0k60"), ExtResource("9_ycgbj")]
-CancelSound = ExtResource("4_mj6hy")
-Type = "Commune"
-ResourceType = ""
-TowerType = ""
-CatnipCost = 0
-SalmonCost = 0
-SandCost = 0
-Hp = 10000
-MaxProgress = 0
-Scale = Vector2(1, 1)
-Offset = Vector2(0, -32)
 
 [node name="Level" type="Node2D"]
 y_sort_enabled = true
@@ -71,7 +47,7 @@ position = Vector2(576, 324)
 
 [node name="Purrlament" parent="." instance=ExtResource("3_wt2d7")]
 position = Vector2(576, 328)
-Data = SubResource("Resource_r1esa")
+Data = ExtResource("5_8qjf5")
 IsPreSpawned = true
 
 [node name="Economic" parent="." instance=ExtResource("8_xv7v7")]
