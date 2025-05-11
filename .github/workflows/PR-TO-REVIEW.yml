@@ -124,11 +124,11 @@ jobs:
           echo "ITEM_ID=$ITEM_ID" >> $GITHUB_ENV
         shell: bash
 
-      - name: Get Status field and 'Em Progresso' option IDs
+      - name: Get Status field and 'Em progresso' option IDs
         id: get_status_info
         run: |
           PROJECT_ID="${{ env.PROJECT_ID }}"
-          COLUMN_NAME="Em Progresso"
+          COLUMN_NAME="Em progresso"
 
           echo "🔍 Fetching fields and options from project $PROJECT_ID..."
 
@@ -178,7 +178,7 @@ jobs:
           echo "IN_PROGRESS_OPTION_ID=$IN_PROGRESS_OPTION_ID" >> $GITHUB_ENV
         shell: bash
 
-      - name: Move issue to column 'Em Progresso'
+      - name: Move issue to column 'Em progresso'
         run: |
           ITEM_ID="${{ env.ITEM_ID }}"
           STATUS_FIELD_ID="${{ env.STATUS_FIELD_ID }}"
@@ -210,4 +210,4 @@ jobs:
             exit 1
           fi
 
-          echo "✅ Issue successfully moved to column: Em Progresso"
+          echo "✅ Issue successfully moved to column: Em progresso"
