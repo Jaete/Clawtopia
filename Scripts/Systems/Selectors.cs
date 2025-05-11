@@ -18,14 +18,20 @@ public partial class Selectors : Node2D
         }
         else {
             foreach (var area in overlappingAreas) {
-                var isBuilding = area.GetParent().HasMeta(new StringName(BuildingData.PROP_ISBUILDING));
+                if (area is not Building)
+                {
+                    continue;
+                }
+                
                 var hasHigherY = area.GlobalPosition.Y > buildingInFront.GlobalPosition.Y;
-                if (hasHigherY && isBuilding) {
-                    buildingInFront = (Building)area.GetParent();
+                
+                if (hasHigherY)
+                {
+                    buildingInFront = (Building)area;
                 }
             }
         }
-
+        GD.Print("buildingInFront: ", buildingInFront.Name);
         return buildingInFront;
     }
 
