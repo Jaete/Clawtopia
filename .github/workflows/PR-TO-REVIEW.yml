@@ -10,11 +10,11 @@ jobs:
     permissions:
       contents: read
       repository-projects: write
+    env:
+      GH_TOKEN: ${{ secrets.REPO_TOKEN }}
 
     steps:
       - name: Set up GH CLI with token
-        env:
-          GH_TOKEN: ${{ secrets.REPO_TOKEN }}
         run: |
           gh config set prompt disabled
           echo "✅ GitHub CLI configured with token"
