@@ -16,7 +16,7 @@ jobs:
         run: |
           gh config set prompt disabled
         env:
-          GH_TOKEN: ${{ secrets.PROJECTS_PAT }}
+          GH_TOKEN: ${{ secrets.REPO_TOKEN }}
 
       - name: Get repository owner and project ID
         id: get_project_id
