@@ -28,7 +28,7 @@ jobs:
           echo "REPO_NAME=$REPO_NAME" >> $GITHUB_ENV
         shell: bash
 
-      - name: Get project ID from repository (number: 3)
+      - name: Get project ID from repository
         id: get_project_id
         run: |
           OWNER=${{ env.OWNER }}
