@@ -30,7 +30,7 @@ jobs:
         id: get_project_id
         run: |
           OWNER=${{ env.OWNER }}
-          PROJECT_NAME="Clawtopia" # Altere se seu projeto tiver outro nome
+          PROJECT_NAME="Clawtopia"
 
           PROJECT_ID=$(gh api graphql -f query='
             query {
@@ -48,10 +48,91 @@ jobs:
 
           echo "PROJECT_ID=$PROJECT_ID" >> $GITHUB_ENV
         shell: bash
-        env:
-          GH_TOKEN: ${{ secrets.PROJECTS_PAT }}
 
       - name: Get or add item ID from issue
         id: get_item_id
         run: |
-          ISSUE_URL="${
+          ISSUE_URL="${{ github.event.issue.html_url }}"
+          PROJECT_ID="${{ env.PROJECT_ID }}"
+
+          ITEM_ID=$(gh api graphql -f query='
+            mutation {
+              addProjectV2ItemById(input: {projectId: "'$PROJECT_ID'", contentId: "'$ISSUE_URL'"}) {
+                item {
+                  id
+                }
+              }
+            }' | jq -r '.data.addProjectV2ItemById.item.id')
+
+          if [ -z "$ITEM_ID" ] || [ "$ITEM_ID" = "null" ]; then
+            echo "⚠️ Failed to add or find item for this issue"
+            exit 1
+          fi
+
+          echo "ITEM_ID=$ITEM_ID" >> $GITHUB_ENV
+        shell: bash
+
+      - name: Get Status field and option IDs
+        id: get_status_info
+        run: |
+          PROJECT_ID="${{ env.PROJECT_ID }}"
+          COLUMN_NAME="In Progress"
+
+          FIELD_INFO=$(gh api graphql -f query='
+            query {
+              node(id: "'$PROJECT_ID'") {
+                ... on ProjectV2 {
+                  fields(first: 20) {
+                    nodes {
+                      ... on ProjectV2SingleSelectField {
+                        id
+                        name
+                        options {
+                          id
+                          name
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }')
+
+          STATUS_FIELD_ID=$(echo "$FIELD_INFO" | jq -r '.data.node.fields.nodes[] | select(.name == "Status") | .id')
+          IN_PROGRESS_OPTION_ID=$(echo "$FIELD_INFO" | jq -r '.data.node.fields.nodes[] | select(.name == "Status") | .options[] | select(.name == "'$COLUMN_NAME'") | .id')
+
+          if [ -z "$STATUS_FIELD_ID" ] || [ "$STATUS_FIELD_ID" = "null" ]; then
+            echo "❌ Status field not found"
+            exit 1
+          fi
+
+          if [ -z "$IN_PROGRESS_OPTION_ID" ] || [ "$IN_PROGRESS_OPTION_ID" = "null" ]; then
+            echo "❌ Column '$COLUMN_NAME' not found in Status field"
+            exit 1
+          fi
+
+          echo "STATUS_FIELD_ID=$STATUS_FIELD_ID" >> $GITHUB_ENV
+          echo "IN_PROGRESS_OPTION_ID=$IN_PROGRESS_OPTION_ID" >> $GITHUB_ENV
+
+      - name: Move issue to 'In Progress'
+        run: |
+          ITEM_ID="${{ env.ITEM_ID }}"
+          STATUS_FIELD_ID="${{ env.STATUS_FIELD_ID }}"
+          IN_PROGRESS_OPTION_ID="${{ env.IN_PROGRESS_OPTION_ID }}"
+          PROJECT_ID="${{ env.PROJECT_ID }}"
+
+          gh api graphql -f query='
+            mutation {
+              updateProjectV2ItemFieldValue(input: {
+                projectId: "'$PROJECT_ID'",
+                itemId: "'$ITEM_ID'",
+                fieldId: "'$STATUS_FIELD_ID'",
+                value: { singleSelectOptionId: "'$IN_PROGRESS_OPTION_ID'" }
+              }) {
+                projectV2Item {
+                  id
+                }
+              }
+            }'
+
+          echo "✅ Issue moved to column: In Progress"
