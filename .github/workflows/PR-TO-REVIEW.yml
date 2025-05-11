@@ -37,7 +37,7 @@ jobs:
           PROJECT_ID=$(gh api graphql -f query='
             query {
               repository(owner: "'$OWNER'", name: "'$REPO_NAME'") {
-                projectV2(number: 1) {
+                projectV2(number: 3) {
                   id
                 }
               }
