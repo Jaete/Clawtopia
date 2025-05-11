@@ -1,4 +1,5 @@
 using ClawtopiaCs.Scripts.Systems;
+using ClawtopiaCs.Scripts.Systems.GameModes;
 using Godot;
 using Godot.Collections;
 
@@ -11,9 +12,8 @@ public partial class EconomicState : AllyState
     {
         InitializeUnit();
         InitializeAlly();
-        BuildMode = ModeManager.GetNode<BuildMode>("BuildMode");
-        BuildMode.ConstructionStarted += BuildStarted;
-        BuildMode.BuildCompleted += BuildCompleted;
+        BuildMode.Singleton.ConstructionStarted += BuildStarted;
+        BuildMode.Singleton.BuildCompleted += BuildCompleted;
     }
 
     private void BuildStarted(Building building)
@@ -80,19 +80,19 @@ public partial class EconomicState : AllyState
         return closestBuildingPosition;
     }
 
-    public void ChooseNextTargetPosition(Vector2 coords)
+    public override void ChooseNextTargetPosition(Vector2 coords)
     {
         Vector2 nextTarget = coords;
         Ally.InteractedResource = null;
         Ally.InteractedBuilding = null;
-        Ally.InteractedWithBuilding = SimulationMode.BuildingsToInteract.Count > 0;
+        Ally.InteractedWithBuilding = SimulationMode.Singleton.BuildingsToInteract.Count > 0;
 
         if (Ally.InteractedWithBuilding)
         {
             nextTarget = RecalculateCoords(Ally.GlobalPosition,
-                SimulationMode.BuildingsToInteract[0].GlobalPosition);
+                SimulationMode.Singleton.BuildingsToInteract[0].GlobalPosition);
 
-            Ally.InteractedBuilding = SimulationMode.BuildingsToInteract[0];
+            Ally.InteractedBuilding = SimulationMode.Singleton.BuildingsToInteract[0];
         }
         else
         {

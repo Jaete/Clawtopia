@@ -7,6 +7,8 @@ using Godot.Collections;
 
 public partial class BuildMode : GameMode
 {
+    public static BuildMode Singleton { get; private set; }
+
     public string ResourceType;
 
     public Building CurrentBuilding;
@@ -20,6 +22,11 @@ public partial class BuildMode : GameMode
 
     public int TileSizeX = 64;
     public int TileSizeY = 32;
+
+    public override void _EnterTree()
+    {
+        Singleton = this;
+    }
 
     public override void _Ready()
     {

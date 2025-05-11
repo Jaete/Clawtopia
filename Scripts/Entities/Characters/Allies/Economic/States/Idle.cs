@@ -17,9 +17,9 @@ public partial class Idle : EconomicState
 
     public override void Exit() { }
 
-    public override void MouseRightClicked(Vector2 coords)
+    public override void CommandReceived(Vector2 coords)
     {
-        if (!Ally.CurrentlySelected || ModeManager.CurrentMode is BuildMode) {
+        if (!Ally.CurrentlySelected) {
             return;
         }
 
