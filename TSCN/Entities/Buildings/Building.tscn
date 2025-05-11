@@ -16,7 +16,7 @@ metadata/IsBuilding = true
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("2_jbbtj")
-offset = Vector2(0, -32)
+offset = Vector2(24, -20)
 region_rect = Rect2(8, 758, 114, 141)
 
 [node name="NavigationBody" type="StaticBody2D" parent="."]
@@ -32,7 +32,6 @@ visible = false
 polygon = PackedVector2Array(-80, 8, -16, 40, 80, -8, 16, -40)
 
 [node name="InteractionShape" type="CollisionPolygon2D" parent="."]
-visible = false
-polygon = PackedVector2Array(-53, 9, -53, -52, -11, -94, 49, -65, 80, -45, 72, -36, 73, 10, 7, 40)
+polygon = PackedVector2Array(-61, 5, -61, -56, -19, -98, 49, -65, 70, -51, 64, -43, 64, 8, 0, 37)
 
 [node name="BuildingSounds" type="AudioStreamPlayer" parent="."]

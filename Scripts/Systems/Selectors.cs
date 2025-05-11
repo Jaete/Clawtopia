@@ -1,4 +1,3 @@
-using System.Reflection.Metadata.Ecma335;
 using Godot;
 using Godot.Collections;
 
@@ -9,12 +8,8 @@ public partial class Selectors : Node2D
     private static Building SelectTopBuilding(Array<Area2D> overlappingAreas)
     {
         var buildingInFront = new Building();
-        if (overlappingAreas.Count == 1) {
-            var isBuilding = overlappingAreas[0].HasMeta(new StringName(BuildingData.PROP_ISBUILDING));
-
-            if (isBuilding) {
-                buildingInFront = (Building)overlappingAreas[0];
-            }
+        if (overlappingAreas.Count == 1 && overlappingAreas[0] is Building) { 
+            buildingInFront = (Building)overlappingAreas[0];
         }
         else {
             foreach (var area in overlappingAreas) {
