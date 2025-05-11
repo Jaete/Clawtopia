@@ -1,11 +1,15 @@
-name: Move to In Progress when assigned
+name: Move to Review when PR opens or updates linked issue
 on:
-  issues:
+  pull_request:
     types:
-      - assigned
+      - opened
+      - edited
+      - synchronize
+      - ready_for_review
+      - review_requested
 
 jobs:
-  move-issue-to-in-progress:
+  move-issue-to-review:
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -28,7 +32,55 @@ jobs:
           echo "REPO_NAME=$REPO_NAME" >> $GITHUB_ENV
         shell: bash
 
-      - name: Get project ID from repository
+      - name: Get linked issue number from PR
+        id: get_linked_issue
+        run: |
+          PR_NUMBER=${{ github.event.pull_request.number }}
+          ISSUE_NUMBER=$(gh pr view $PR_NUMBER --json closingIssuesReferences --jq '.closingIssuesReferences.nodes[0].number')
+
+          if [ -z "$ISSUE_NUMBER" ]; then
+            echo "⚠️ No linked issue found. Skipping..."
+            exit 0
+          fi
+
+          echo "🔗 Linked issue: #$ISSUE_NUMBER"
+          echo "ISSUE_NUMBER=$ISSUE_NUMBER" >> $GITHUB_ENV
+        shell: bash
+
+      - name: Get Issue Global Node ID
+        id: get_issue_node_id
+        run: |
+          OWNER=${{ env.OWNER }}
+          REPO_NAME=${{ env.REPO_NAME }}
+          ISSUE_NUMBER=${{ env.ISSUE_NUMBER }}
+
+          echo "🔍 Fetching issue #$ISSUE_NUMBER from $OWNER/$REPO_NAME..."
+
+          ISSUE_JSON=$(gh api graphql -f query='
+            query {
+              repository(owner: "'$OWNER'", name: "'$REPO_NAME'") {
+                issue(number: '$ISSUE_NUMBER') {
+                  id
+                  title
+                }
+              }
+            }')
+
+          echo "📄 Raw GraphQL response:"
+          echo "$ISSUE_JSON"
+
+          ISSUE_ID=$(echo "$ISSUE_JSON" | jq -r '.data.repository.issue.id')
+
+          if [ -z "$ISSUE_ID" ] || [ "$ISSUE_ID" = "null" ]; then
+            echo "❌ Failed to find issue ID"
+            exit 1
+          fi
+
+          echo "✅ Found Issue ID: $ISSUE_ID"
+          echo "ISSUE_ID=$ISSUE_ID" >> $GITHUB_ENV
+        shell: bash
+
+      - name: Get project ID from repository (number: 3)
         id: get_project_id
         run: |
           OWNER=${{ env.OWNER }}
@@ -58,39 +110,6 @@ jobs:
 
           echo "✅ Found project ID: $PROJECT_ID"
           echo "PROJECT_ID=$PROJECT_ID" >> $GITHUB_ENV
-        shell: bash
-
-      - name: Get Issue Global Node ID
-        id: get_issue_node_id
-        run: |
-          OWNER=${{ env.OWNER }}
-          REPO_NAME=${{ env.REPO_NAME }}
-          ISSUE_NUMBER=${{ github.event.issue.number }}
-
-          echo "🔍 Fetching issue #$ISSUE_NUMBER from $OWNER/$REPO_NAME..."
-
-          ISSUE_JSON=$(gh api graphql -f query='
-            query {
-              repository(owner: "'$OWNER'", name: "'$REPO_NAME'") {
-                issue(number: '$ISSUE_NUMBER') {
-                  id
-                  title
-                }
-              }
-            }')
-
-          echo "📄 Raw GraphQL response:"
-          echo "$ISSUE_JSON"
-
-          ISSUE_ID=$(echo "$ISSUE_JSON" | jq -r '.data.repository.issue.id')
-
-          if [ -z "$ISSUE_ID" ] || [ "$ISSUE_ID" = "null" ]; then
-            echo "❌ Failed to find issue ID"
-            exit 1
-          fi
-
-          echo "✅ Found Issue ID: $ISSUE_ID"
-          echo "ISSUE_ID=$ISSUE_ID" >> $GITHUB_ENV
         shell: bash
 
       - name: Get or add item ID from issue
@@ -124,11 +143,11 @@ jobs:
           echo "ITEM_ID=$ITEM_ID" >> $GITHUB_ENV
         shell: bash
 
-      - name: Get Status field and 'Em progresso' option IDs
+      - name: Get Status field and 'Review' option IDs
         id: get_status_info
         run: |
           PROJECT_ID="${{ env.PROJECT_ID }}"
-          COLUMN_NAME="Em progresso"
+          COLUMN_NAME="Review"
 
           echo "🔍 Fetching fields and options from project $PROJECT_ID..."
 
@@ -178,7 +197,7 @@ jobs:
           echo "IN_PROGRESS_OPTION_ID=$IN_PROGRESS_OPTION_ID" >> $GITHUB_ENV
         shell: bash
 
-      - name: Move issue to column 'Em progresso'
+      - name: Move issue to column 'Review'
         run: |
           ITEM_ID="${{ env.ITEM_ID }}"
           STATUS_FIELD_ID="${{ env.STATUS_FIELD_ID }}"
@@ -210,4 +229,4 @@ jobs:
             exit 1
           fi
 
-          echo "✅ Issue successfully moved to column: Em progresso"
+          echo "✅ Issue successfully moved to column: Review"
