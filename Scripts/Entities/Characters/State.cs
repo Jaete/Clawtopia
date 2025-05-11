@@ -7,24 +7,17 @@ public partial class State : Node
     [Signal]
     public delegate void StateTransitionEventHandler(State current, String next);
 
-    public BuildMode BuildMode;
-    public ModeManager ModeManager;
-    public SimulationMode SimulationMode;
-
-    // Referências recorrentes
     public Unit Unit;
 
-    // Funçôes recorrentes na maquina de estado
     public virtual void Enter() {}
 
     public virtual void Update(double delta) {}
 
     public virtual void Exit() {}
 
-    public virtual void MouseRightClicked(Vector2 coords) {}
-
     public virtual void NavigationFinished() {}
 
+    public virtual void CommandReceived(Vector2 coords) {}
 
     /// <summary>
     /// Inicializacao basica para todos os estados de qualquer unidade.
@@ -34,8 +27,6 @@ public partial class State : Node
     public void InitializeUnit()
     {
         Unit = GetParent().GetParent<Unit>();
-        ModeManager = GetNode<ModeManager>("/root/Game/ModeManager");
-        SimulationMode = ModeManager.GetNode<SimulationMode>("SimulationMode");
         Unit.Navigation.VelocityComputed += VelocityComputed;
     }
 
@@ -83,7 +74,9 @@ public partial class State : Node
 
         //newCoords.X += 100 * x;
         //newCoords.Y += 100 * y;
-        
+
+        //@TODO: Ver se isso eh realmente necessario porque talvez nao precise recalcular as coordenadas
+
         return buildingPosition;
     }
 

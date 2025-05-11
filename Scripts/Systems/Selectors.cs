@@ -26,7 +26,6 @@ public partial class Selectors : Node2D
                 }
             }
         }
-        GD.Print("buildingInFront: ", buildingInFront.Name);
         return buildingInFront;
     }
 
@@ -176,7 +175,6 @@ public partial class Selectors : Node2D
             case Constants.CATNIP:
                 foreach (var item in LevelManager.Singleton.CollectPoints)
                 {
-                    GD.Print($"Catnip: {item}");
                     if (item is CatnipCollectPoint)
                     {
                         points.Add(item);

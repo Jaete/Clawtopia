@@ -1,3 +1,4 @@
+using ClawtopiaCs.Scripts.Systems.GameModes;
 using Godot;
 
 public partial class Build : EconomicState
@@ -20,15 +21,7 @@ public partial class Build : EconomicState
         Ally.AllyIsBuilding = false;
     }
 
-    public override void MouseRightClicked(Vector2 coords)
-    {
-        if (!Ally.CurrentlySelected || ModeManager.CurrentMode is BuildMode) {
-            return;
-        }
-
-        ChooseNextTargetPosition(coords);
-        ChangeState("Move");
-    }
+    public override void CommandReceived(Vector2 coords) { }
 
     public override void NavigationFinished() { }
 }

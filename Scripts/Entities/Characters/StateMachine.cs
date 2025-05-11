@@ -1,11 +1,11 @@
 using Godot;
 using System;
 using Godot.Collections;
+using ClawtopiaCs.Scripts.Systems.GameModes;
 
 public partial class StateMachine : Node
 {
     public NavigationAgent2D Navigation;
-    public Controller Controller;
     
     public Dictionary States = new();
     public State CurrentState;
@@ -16,7 +16,6 @@ public partial class StateMachine : Node
     
     public override void _Ready(){
         Navigation = GetNode<NavigationAgent2D>("../Navigation");
-        Controller = GetNode<Controller>("/root/Game/Controller");
         Array<Node> nodeStates = GetChildren();
         foreach(var node in nodeStates){
             if (node is not State state){
@@ -29,7 +28,8 @@ public partial class StateMachine : Node
         }
         CurrentState = (State)States[DefaultState.Name];
         CurrentState.Enter();
-        Controller.MouseRightPressed += MouseRightClicked;
+
+        SimulationMode.Singleton.AllyCommand += CommandReceived;
         Navigation.NavigationFinished += NavigationFinished;
     }
 
@@ -51,8 +51,8 @@ public partial class StateMachine : Node
         InTransition = false;
     }
     
-    public void MouseRightClicked(Vector2 coords){
-        CurrentState.MouseRightClicked(coords);
+    public void CommandReceived(Vector2 coords){
+        CurrentState.CommandReceived(coords);
     }
 
     public void NavigationFinished(){
