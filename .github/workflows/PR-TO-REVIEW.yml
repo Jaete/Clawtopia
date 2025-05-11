@@ -51,6 +51,39 @@ jobs:
           echo "PROJECT_ID=$PROJECT_ID" >> $GITHUB_ENV
         shell: bash
 
+      - name: Get Issue Global Node ID
+        id: get_issue_node_id
+        run: |
+          OWNER=${{ env.OWNER }}
+          REPO_NAME=${{ env.REPO_NAME }}
+          ISSUE_NUMBER=${{ github.event.issue.number }}
+      
+          echo "🔍 Fetching issue #$ISSUE_NUMBER from $OWNER/$REPO_NAME..."
+      
+          ISSUE_JSON=$(gh api graphql -f query='
+            query {
+              repository(owner: "'$OWNER'", name: "'$REPO_NAME'") {
+                issue(number: '$ISSUE_NUMBER') {
+                  id
+                  title
+                }
+              }
+            }')
+      
+          echo "📄 Raw GraphQL response:"
+          echo "$ISSUE_JSON"
+      
+          ISSUE_ID=$(echo "$ISSUE_JSON" | jq -r '.data.repository.issue.id')
+      
+          if [ -z "$ISSUE_ID" ] || [ "$ISSUE_ID" = "null" ]; then
+            echo "❌ Failed to find issue ID"
+            exit 1
+          fi
+      
+          echo "✅ Found Issue ID: $ISSUE_ID"
+          echo "ISSUE_ID=$ISSUE_ID" >> $GITHUB_ENV
+        shell: bash  
+
       - name: Get or add item ID from issue
         id: get_item_id
         run: |
