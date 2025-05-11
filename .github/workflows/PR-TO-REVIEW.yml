@@ -9,22 +9,29 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: read
-      repository-projects: write
+      projects: write
 
     steps:
-      - name: Configure GitHub CLI
+      - name: Set up GH CLI with token
+        env:
+          GH_TOKEN: ${{ secrets.PROJECTS_PAT }}
         run: |
           gh config set prompt disabled
-        env:
-          GH_TOKEN: ${{ secrets.REPO_TOKEN }}
+          echo "✅ GitHub CLI configured with token"
 
-      - name: Get repository owner and project ID
+      - name: Get repository owner
+        id: get_owner
+        run: |
+          OWNER=$(echo "$GITHUB_REPOSITORY" | cut -d'/' -f1)
+          echo "OWNER=$OWNER" >> $GITHUB_ENV
+        shell: bash
+
+      - name: Get project ID
         id: get_project_id
         run: |
-          OWNER=$(echo $GITHUB_REPOSITORY | cut -d'/' -f1)
+          OWNER=${{ env.OWNER }}
           PROJECT_NAME="Clawtopia" # Altere se seu projeto tiver outro nome
 
-          # Busca o ID do projeto pelo nome (na organização ou usuário)
           PROJECT_ID=$(gh api graphql -f query='
             query {
               organization(login: "'$OWNER'") {
@@ -41,92 +48,10 @@ jobs:
 
           echo "PROJECT_ID=$PROJECT_ID" >> $GITHUB_ENV
         shell: bash
+        env:
+          GH_TOKEN: ${{ secrets.PROJECTS_PAT }}
 
-      - name: Get the item ID from the issue URL
+      - name: Get or add item ID from issue
         id: get_item_id
         run: |
-          ISSUE_URL="${{ github.event.issue.html_url }}"
-          PROJECT_ID="${{ env.PROJECT_ID }}"
-
-          ITEM_ID=$(gh api graphql -f query='
-            mutation {
-              addProjectV2ItemById(input: {projectId: "'$PROJECT_ID'", contentId: "'$ISSUE_URL'"}) {
-                item {
-                  id
-                }
-              }
-            }' | jq -r '.data.addProjectV2ItemById.item.id')
-
-          if [ "$ITEM_ID" = "null" ]; then
-            echo "⚠️ Issue already in project or failed to add."
-            exit 1
-          fi
-
-          echo "ITEM_ID=$ITEM_ID" >> $GITHUB_ENV
-        shell: bash
-
-      - name: Get column field ID for 'In Progress'
-        id: get_status_field_id
-        run: |
-          PROJECT_ID="${{ env.PROJECT_ID }}"
-          COLUMN_NAME="Em Progresso" # Nome da coluna destino
-
-          FIELD_INFO=$(gh api graphql -f query='
-            query {
-              node(id: "'$PROJECT_ID'") {
-                ... on ProjectV2 {
-                  fields(first: 20) {
-                    nodes {
-                      ... on ProjectV2SingleSelectField {
-                        id
-                        name
-                        options {
-                          id
-                          name
-                        }
-                      }
-                    }
-                  }
-                }
-              }
-            }')
-
-          STATUS_FIELD_ID=$(echo "$FIELD_INFO" | jq -r '.data.node.fields.nodes[] | select(.name == "Status") | .id')
-          IN_PROGRESS_OPTION_ID=$(echo "$FIELD_INFO" | jq -r '.data.node.fields.nodes[] | select(.name == "Status") | .options[] | select(.name == "'$COLUMN_NAME'") | .id')
-
-          if [ -z "$STATUS_FIELD_ID" ] || [ "$STATUS_FIELD_ID" = "null" ]; then
-            echo "❌ Status field not found"
-            exit 1
-          fi
-
-          if [ -z "$IN_PROGRESS_OPTION_ID" ] || [ "$IN_PROGRESS_OPTION_ID" = "null" ]; then
-            echo "❌ Column '$COLUMN_NAME' not found in Status field"
-            exit 1
-          fi
-
-          echo "STATUS_FIELD_ID=$STATUS_FIELD_ID" >> $GITHUB_ENV
-          echo "IN_PROGRESS_OPTION_ID=$IN_PROGRESS_OPTION_ID" >> $GITHUB_ENV
-        shell: bash
-
-      - name: Update status field to 'Em Progresso'
-        run: |
-          ITEM_ID="${{ env.ITEM_ID }}"
-          STATUS_FIELD_ID="${{ env.STATUS_FIELD_ID }}"
-          IN_PROGRESS_OPTION_ID="${{ env.IN_PROGRESS_OPTION_ID }}"
-          PROJECT_ID="${{ env.PROJECT_ID }}"
-
-          gh api graphql -f query='
-            mutation {
-              updateProjectV2ItemFieldValue(input: {
-                projectId: "'$PROJECT_ID'",
-                itemId: "'$ITEM_ID'",
-                fieldId: "'$STATUS_FIELD_ID'",
-                value: { singleSelectOptionId: "'$IN_PROGRESS_OPTION_ID'" }
-              }) {
-                projectV2Item {
-                  id
-                }
-              }
-            }'
-
-          echo "✅ Issue moved to column: In Progress"
+          ISSUE_URL="${
