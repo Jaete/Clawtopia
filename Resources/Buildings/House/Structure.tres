@@ -10,19 +10,19 @@
 segments = PackedVector2Array(-64, 4, 0, 36, 64, 8, 0, -24)
 
 [sub_resource type="ConcavePolygonShape2D" id="ConcavePolygonShape2D_onjix"]
-segments = PackedVector2Array(-64, 4, -64, -60, -24, -100, 40, -68, 64, -48, 56, -40, 56, 8, 0, 36)
+segments = PackedVector2Array(-53, 9, -53, -52, -11, -94, 49, -65, 80, -45, 72, -36, 73, 10, 7, 40)
 
 [sub_resource type="ConcavePolygonShape2D" id="ConcavePolygonShape2D_rcjts"]
 segments = PackedVector2Array(-64, 4, 0, 32, 64, 4, 0, -24)
 
 [sub_resource type="ConcavePolygonShape2D" id="ConcavePolygonShape2D_swenq"]
-segments = PackedVector2Array(-56, -44, -64, -52, -32, -72, 24, -96, 64, -56, 64, 4, 0, 32, -56, 4)
+segments = PackedVector2Array(-64, -48, -64, -52, -32, -72, 24, -96, 64, -56, 64, 8, 0, 36, -64, 4)
 
 [resource]
 script = ExtResource("3_s3kc4")
 PreviewTexture = ExtResource("2_vryfp")
 PlacedTexture = ExtResource("1_dwh80")
-PlacedOffset = Vector2(32, 16)
+PlacedOffset = Vector2(24, 12)
 Collision = SubResource("ConcavePolygonShape2D_dsicy")
 Interaction = SubResource("ConcavePolygonShape2D_onjix")
 RotatedPreviewTexture = ExtResource("1_2a4fv")

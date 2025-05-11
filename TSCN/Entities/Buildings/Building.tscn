@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://d2xeg5t6t85er"]
 
 [ext_resource type="Script" path="res://Scripts/Entities/Building/Building.cs" id="1_pb7cr"]
-[ext_resource type="Texture2D" uid="uid://bdiutwxamfcfe" path="res://Assets/Buildings/casa_vila_005_flip_build.png" id="2_djfw8"]
+[ext_resource type="Texture2D" uid="uid://cte2tclkdk3i3" path="res://Assets/Buildings/casa_vila_005.png" id="2_jbbtj"]
 
 [node name="Building" type="Area2D" node_paths=PackedStringArray("BodyShape", "GridShape", "InteractionShape", "Sprite", "StaticBody", "Sounds")]
 y_sort_enabled = true
@@ -15,8 +15,8 @@ Sounds = NodePath("BuildingSounds")
 metadata/IsBuilding = true
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("2_djfw8")
-offset = Vector2(0, -32)
+texture = ExtResource("2_jbbtj")
+offset = Vector2(24, -20)
 region_rect = Rect2(8, 758, 114, 141)
 
 [node name="NavigationBody" type="StaticBody2D" parent="."]
@@ -32,6 +32,6 @@ visible = false
 polygon = PackedVector2Array(-80, 8, -16, 40, 80, -8, 16, -40)
 
 [node name="InteractionShape" type="CollisionPolygon2D" parent="."]
-polygon = PackedVector2Array(-56, -44, -64, -52, -32, -72, 24, -96, 64, -56, 64, 4, 0, 32, -56, 4)
+polygon = PackedVector2Array(-61, 5, -61, -56, -19, -98, 49, -65, 70, -51, 64, -43, 64, 8, 0, 37)
 
 [node name="BuildingSounds" type="AudioStreamPlayer" parent="."]
