@@ -9,12 +9,12 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: read
-      projects: write
+      repository-projects: write
 
     steps:
       - name: Set up GH CLI with token
         env:
-          GH_TOKEN: ${{ secrets.PROJECTS_PAT }}
+          GH_TOKEN: ${{ secrets.REPO_TOKEN }}
         run: |
           gh config set prompt disabled
           echo "✅ GitHub CLI configured with token"
