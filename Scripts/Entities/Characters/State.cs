@@ -51,36 +51,6 @@ public partial class State : Node
         Unit.MoveAndSlide();
     }
 
-
-    /// <summary>
-    /// Recalcula as coordenadas baseado na posicao do aliado e da construçao selecionada.
-    /// Pressupoe-se que a este ponto o clique direito foi efetuado em cima de uma construcao.
-    /// </summary>
-    /// <param name="allyPosition">A posicao global do aliado.</param>
-    /// <param name="buildingPosition">A posicao global da construcao.</param>
-    /// <param name="isPurrlament">Checa se é o purrlamento para fazer calculos adicionais</param>
-    /// <returns> <c>Vector2</c> coordenadas globais.</returns>
-    public Vector2 RecalculateCoords(Vector2 allyPosition, Vector2 buildingPosition, bool isPurrlament = false)
-    {
-        //var buildMode = ModeManager.GetNode<BuildMode>("BuildMode");
-        //var x = buildingPosition.X - allyPosition.X > 0 ? -1 : 1;
-        //var y = buildingPosition.Y - allyPosition.Y > 0 ? 1 : -1;
-        //var newCoords = new Vector2(
-        //    buildingPosition.X + (buildMode.TileSizeX * x),
-        //    buildingPosition.Y + (buildMode.TileSizeY * y)
-        //);
-
-        //if (!isPurrlament) return newCoords;
-
-        //newCoords.X += 100 * x;
-        //newCoords.Y += 100 * y;
-
-        //@TODO: Ver se isso eh realmente necessario porque talvez nao precise recalcular as coordenadas
-
-        return buildingPosition;
-    }
-
-
     /// <summary>
     /// Pega a próxima posição de navegação, calcula a distância e modifica a velocidade do navigationAgent.<br></br><br></br>
     /// Caso avoidance esteja ligado, ele aguarda pelo signal <c>VelocityComputed</c> para receber a nova velocidade após o calculo de avoidance.<br></br><br></br>

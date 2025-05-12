@@ -38,14 +38,14 @@ public partial class BuildMode : GameMode
     {
         String buildingPath = Constants.BUILDING_PATH;
 
-        ModeManager.BuildingCount++;
+        ModeManager.Singleton.BuildingCount++;
         InstantiateBuilding(buildingPath);
 
         if (CurrentBuilding.Data.Type == Constants.TOWER)
         {
-            ModeManager.FightersTowerCount++;
-            CurrentBuilding.SelfIndex = ModeManager.FightersTowerCount;
-            CurrentBuilding.Name = ModeManager.TowerType + "_T1_" + CurrentBuilding.SelfIndex;
+            ModeManager.Singleton.FightersTowerCount++;
+            CurrentBuilding.SelfIndex = ModeManager.Singleton.FightersTowerCount;
+            CurrentBuilding.Name = ModeManager.Singleton.TowerType + "_T1_" + CurrentBuilding.SelfIndex;
             CurrentBuilding.Data = GD.Load<BuildingData>("res://Resources/Buildings/Towers/Fighters/Fighters.tres");
         }
         if (CurrentBuilding.Data.Type == Constants.RESOURCE)
@@ -53,20 +53,20 @@ public partial class BuildMode : GameMode
             switch (CurrentBuilding.Data.ResourceType)
             {
                 case Constants.SALMON:
-                    ModeManager.SalmonCottageCount++;
-                    CurrentBuilding.SelfIndex = ModeManager.SalmonCottageCount;
+                    ModeManager.Singleton.SalmonCottageCount++;
+                    CurrentBuilding.SelfIndex = ModeManager.Singleton.SalmonCottageCount;
                     CurrentBuilding.Name = "" + Constants.FISHERMAN_HOUSE_EXTERNAL_NAME + "_" + CurrentBuilding.SelfIndex;
                     CurrentBuilding.Data = GD.Load<BuildingData>("res://Resources/Buildings/Economy/Salmon/SalmonCottage.tres");
                     break;
                 case Constants.CATNIP:
-                    ModeManager.CatnipFarmCount++;
-                    CurrentBuilding.SelfIndex = ModeManager.CatnipFarmCount;
+                    ModeManager.Singleton.CatnipFarmCount++;
+                    CurrentBuilding.SelfIndex = ModeManager.Singleton.CatnipFarmCount;
                     CurrentBuilding.Name = "" + Constants.DISTILLERY_EXTERNAL_NAME + "_" + CurrentBuilding.SelfIndex;
                     CurrentBuilding.Data = GD.Load<BuildingData>("res://Resources/Buildings/Economy/Catnip/CatnipFarm.tres");
                     break;
                 case Constants.SAND:
-                    ModeManager.SandDepositCount++;
-                    CurrentBuilding.SelfIndex = ModeManager.SandDepositCount;
+                    ModeManager.Singleton.SandDepositCount++;
+                    CurrentBuilding.SelfIndex = ModeManager.Singleton.SandDepositCount;
                     CurrentBuilding.Name = "" + Constants.SAND_MINE_EXTERNAL_NAME+ "_" + CurrentBuilding.SelfIndex;
                     CurrentBuilding.Data = GD.Load<BuildingData>("res://Resources/Buildings/Economy/Sand/SandMine.tres");
                     break;
@@ -74,15 +74,15 @@ public partial class BuildMode : GameMode
         }
         if (CurrentBuilding.Data.Type == Constants.HOUSE)
         {
-            ModeManager.HouseCount++;
-            CurrentBuilding.SelfIndex = ModeManager.HouseCount;
+            ModeManager.Singleton.HouseCount++;
+            CurrentBuilding.SelfIndex = ModeManager.Singleton.HouseCount;
             CurrentBuilding.Name = "" + Constants.HOUSE_EXTERNAL_NAME + "_" + CurrentBuilding.SelfIndex;
             CurrentBuilding.Data = GD.Load<BuildingData>("res://Resources/Buildings/House/House.tres");
         }
 
         CurrentBuilding.InputPickable = false;
-        ModeManager.CurrentLevel.AddChild(CurrentBuilding);
-        MousePosition = ModeManager.CurrentLevel.GetGlobalMousePosition();
+        ModeManager.Singleton.CurrentLevel.AddChild(CurrentBuilding);
+        MousePosition = ModeManager.Singleton.CurrentLevel.GetGlobalMousePosition();
         CurrentBuilding.GlobalPosition = MousePosition;
         CurrentConstructors = GetNode<SimulationMode>("../SimulationMode").SelectedAllies;
     }
@@ -110,8 +110,8 @@ public partial class BuildMode : GameMode
 
     private async void CancelBuilding()
     {
-        ModeManager.FightersTowerCount--;
-        ModeManager.BuildingCount--;
+        ModeManager.Singleton.FightersTowerCount--;
+        ModeManager.Singleton.BuildingCount--;
         CurrentBuilding.Sounds.Stream = CurrentBuilding.Data.CancelSound;
         CurrentBuilding.Sounds.Play();
         EmitSignal(GameMode.SignalName.ModeTransition, SIMULATION_MODE, "");
@@ -128,7 +128,7 @@ public partial class BuildMode : GameMode
             CurrentBuilding.InputPickable = true;
             EmitSignal(GameMode.SignalName.ConstructionStarted, CurrentBuilding);
             EmitSignal(GameMode.SignalName.ModeTransition, SIMULATION_MODE, "");
-            LevelManager.EmitSignal(LevelManager.SignalName.ResourceExpended, CurrentBuilding.Data.ResourceCosts);
+            LevelManager.Singleton.EmitSignal(LevelManager.SignalName.ResourceExpended, CurrentBuilding.Data.ResourceCosts);
         }
     }
 
@@ -155,7 +155,7 @@ public partial class BuildMode : GameMode
 
     private void MovePreview()
     {
-        MousePosition = ModeManager.CurrentLevel.GetGlobalMousePosition();
+        MousePosition = ModeManager.Singleton.CurrentLevel.GetGlobalMousePosition();
         float xDifference = MousePosition.X - CurrentBuilding.GlobalPosition.X;
         float yDifference = MousePosition.Y - CurrentBuilding.GlobalPosition.Y;
         float newX = 0;

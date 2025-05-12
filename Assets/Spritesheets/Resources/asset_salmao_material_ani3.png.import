@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://l4xdlbxm02bu"
-path="res://.godot/imported/kato-magico-andar-baixo-ezgif.com-gif-to-sprite-converter.png-f622f783d4f69712a9275688dec0f0a8.ctex"
+uid="uid://c1gjx3wpgcneq"
+path="res://.godot/imported/asset_salmao_material_ani3.png-8ec187b40fe1f0bb44bc49bf700f5863.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Characters/Allies/kato-magico-andar-baixo-ezgif.com-gif-to-sprite-converter.png"
-dest_files=["res://.godot/imported/kato-magico-andar-baixo-ezgif.com-gif-to-sprite-converter.png-f622f783d4f69712a9275688dec0f0a8.ctex"]
+source_file="res://Assets/Spritesheets/Resources/asset_salmao_material_ani3.png"
+dest_files=["res://.godot/imported/asset_salmao_material_ani3.png-8ec187b40fe1f0bb44bc49bf700f5863.ctex"]
 
 [params]
 

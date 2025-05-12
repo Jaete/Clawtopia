@@ -1,20 +1,31 @@
-[gd_scene load_steps=3 format=3 uid="uid://c1hfodw7xtym7"]
+[gd_scene load_steps=5 format=3 uid="uid://c1hfodw7xtym7"]
 
 [ext_resource type="Script" path="res://Scripts/Entities/Resources/SalmonCollectPoint.cs" id="1_duwpn"]
-[ext_resource type="Texture2D" uid="uid://dauem4qeva0wf" path="res://Assets/Tileset/materiais05.png" id="1_rpxoy"]
+[ext_resource type="Resource" uid="uid://cavajiufwf4bg" path="res://Resources/Environment/SalmonCollectPoint.tres" id="2_qh1hm"]
+[ext_resource type="SpriteFrames" uid="uid://cbbcav4heu0w2" path="res://Resources/Animations/Salmon.tres" id="2_yqlqm"]
 
-[node name="SalmonCollectPoint" type="StaticBody2D" node_paths=PackedStringArray("Interaction")]
+[sub_resource type="CircleShape2D" id="CircleShape2D_twhh6"]
+radius = 32.0
+
+[node name="SalmonCollectPoint" type="StaticBody2D" node_paths=PackedStringArray("Sprite", "Interaction")]
 script = ExtResource("1_duwpn")
+Sprite = NodePath("Sprite")
+ResourceType = "Salmon"
 Interaction = NodePath("Interaction")
+Structure = ExtResource("2_qh1hm")
 
-[node name="Sprite" type="Sprite2D" parent="."]
-texture = ExtResource("1_rpxoy")
+[node name="Sprite" type="AnimatedSprite2D" parent="."]
+sprite_frames = ExtResource("2_yqlqm")
+animation = &"Empty"
 
 [node name="CollisionShape2D" type="CollisionPolygon2D" parent="."]
+visible = false
 position = Vector2(0, 3)
 polygon = PackedVector2Array(0, 21, 40, 5, 0, -11, -40, 5)
 
 [node name="Interaction" type="Area2D" parent="."]
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Interaction"]
-polygon = PackedVector2Array(-8, 20, 32, 12, 32, 0, 16, -12, 8, -16, 0, -20, -16, -8, -32, 4, -32, 8)
+[node name="CollisionPolygon2D" type="CollisionShape2D" parent="Interaction"]
+visible = false
+scale = Vector2(1, 0.5)
+shape = SubResource("CircleShape2D_twhh6")

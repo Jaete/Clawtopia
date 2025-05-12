@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c36hahystg8lx"
-path="res://.godot/imported/kato-engenheiro-idle2.png-3dbe3ee51bdfdf36b3be8d69461706de.ctex"
+uid="uid://dlfkg5fkf30lb"
+path="res://.godot/imported/asset_catnip_material0.png-578e35f5a46c543475903a1565f8492a.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Characters/Allies/kato-engenheiro-idle2.png"
-dest_files=["res://.godot/imported/kato-engenheiro-idle2.png-3dbe3ee51bdfdf36b3be8d69461706de.ctex"]
+source_file="res://Assets/Spritesheets/Resources/asset_catnip_material0.png"
+dest_files=["res://.godot/imported/asset_catnip_material0.png-578e35f5a46c543475903a1565f8492a.ctex"]
 
 [params]
 

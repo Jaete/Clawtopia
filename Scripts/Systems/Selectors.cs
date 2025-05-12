@@ -105,7 +105,7 @@ public partial class Selectors : Node2D
         return ally;
     }
 
-    public static bool IsInteractingWithResource(Ally ally, Vector2 coords, string resource)
+    public static string GetInteractedResourceType(Ally ally, Vector2 coords)
     {
         PhysicsDirectSpaceState2D space = ally.GetWorld2D().DirectSpaceState;
         PhysicsPointQueryParameters2D query = new();
@@ -118,43 +118,51 @@ public partial class Selectors : Node2D
             foreach (var collision in result)
             {
                 var collider = collision["collider"].As<GodotObject>();
-                switch (resource)
+
+                if (collider is SalmonCollectPoint)
                 {
-                    case Constants.SALMON:
-                        if (collider is SalmonCollectPoint)
-                        {
-                            return true;
-                        }
-                        break;
-                    case Constants.CATNIP:
-                        if (collider is CatnipCollectPoint)
-                        {
-                            return true;
-                        }
-                        break;
-                    case Constants.SAND:
-                        if (collider is SandCollectPoint)
-                        {
-                            return true;
-                        }
-                        break;
+                    return Constants.SALMON;
                 }
 
+                if (collider is CatnipCollectPoint)
+                {
+                    return Constants.CATNIP;
+                }
+
+                if (collider is SandCollectPoint)
+                {
+                    return Constants.SAND;
+                }
             }
         }
-        return false;
+        return null;
     }
 
-    public static Vector2 GetClosestObject(Vector2 coords, Vector2 currentClosest, Node2D item) {
+    public static CollectPoint GetClosestCollectPoint(Ally ally, Vector2 coords, CollectPoint resource)
+    {
+        ally.InteractedResource = resource;
+        foreach (var point in LevelManager.Singleton.CollectPoints)
+        {
+            ally.InteractedResource = (CollectPoint)Selectors.GetClosestObject(
+                coords,
+                ally.InteractedResource,
+                point
+            );
+        }
+
+        return ally.InteractedResource;
+    }
+
+    public static Node2D GetClosestObject(Vector2 coords, Node2D currentClosest, Node2D item) {
         // SE É A PRIMEIRA ITERACAO, RETORNA DIRETO
         if (currentClosest == default)
         {
-            return item.GlobalPosition;
+            return item;
         }
         // SENAO, COMPARA DISTANCIA
-        if (currentClosest.DistanceSquaredTo(coords) > item.GlobalPosition.DistanceSquaredTo(coords))
+        if (currentClosest.GlobalPosition.DistanceSquaredTo(coords) > item.GlobalPosition.DistanceSquaredTo(coords))
         {
-            return item.GlobalPosition;
+            return item;
         }
         return currentClosest;
     }

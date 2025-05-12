@@ -2,58 +2,83 @@ using Godot;
 
 public partial class Collect : EconomicState
 {
-    // IDENTIFICADOR DO RECURSO SENDO COLETADO ATUALMENTE
-    public string CurrentlyCollecting;
+    public CollectPoint CurrentlyCollecting;
 
-    // CAPACIDADE MAXIMA DE RECURSO DA UNIDADE
-    [Export] public int MaxQuantity = 15;
-    // QUANTIDADE ATUAL
+    [Export] public int MaxQuantity = 3;
 
-    // CONSTANTE DE QUANTOS AUMENTA POR TICK
     [Export] public int QuantityPerTick = 3;
 
-    // TIMER PARA TICK DE RECURSO COLETADO
     public SceneTreeTimer ResourceTickTimer;
 
-    // TEMPO EM SEGUNDOS POR TICK
     [Export] public float TickTime = 1.0f;
 
     public override void Enter()
     {
-        // SEMPRE QUE ENTRAR NO ESTADO COLLECTING, MODIFICAR A VARIAVEL ACIMA
         CurrentlyCollecting = Ally.InteractedResource;
-        //INICIAR O TIMER
-        ResourceTickTimer = GetTree().CreateTimer(TickTime); // tempo em segundos
-        ResourceTickTimer.Timeout += CollectTimeTicked; // CONECTANDO SIGNAL QUANDO O TEMPO ACABA 
+        if (CurrentlyCollecting.ResourceQuantity <= 0)
+        {
+            ChangeState("Idle");
+            return;
+        }
+
+        ResourceTickTimer = GetTree().CreateTimer(TickTime); 
+        ResourceTickTimer.Timeout += CollectTimeTicked;
     }
 
     public override void Update(double delta) { }
 
     public override void Exit()
     {
-        ResourceTickTimer.Timeout -= CollectTimeTicked;
-        CurrentlyCollecting = null; // NA SAIDA DO ESTADO, MODIFICAR PARA NULL
+        if (ResourceTickTimer.GetSignalConnectionList(SceneTreeTimer.SignalName.Timeout).Count > 0)
+        {
+            ResourceTickTimer.Timeout -= CollectTimeTicked;
+        }
+        CurrentlyCollecting = null;
     }
 
     public void CollectTimeTicked()
     {
-        // VERIFICO SE A QUANTIDADE SOMADA NAO IRIA ULTRAPASSAR A QUANTIDADE MAXIMA
-        if (Ally.ResourceCurrentQuantity + QuantityPerTick < MaxQuantity) {
-            Ally.ResourceCurrentQuantity += QuantityPerTick;
-        }
-        else {
-            Ally.ResourceCurrentQuantity = MaxQuantity;
-        }
+        var collectedQuantity = SetCollectedQuantity();
 
-        if (Ally.ResourceCurrentQuantity != MaxQuantity) {
+        Ally.InteractedResource.EmitSignal(CollectPoint.SignalName.ResourceCollected, collectedQuantity);
+        Ally.ResourceCurrentQuantity += collectedQuantity;
+
+        if (Ally.ResourceCurrentQuantity != MaxQuantity && Ally.InteractedResource.ResourceQuantity > 0) {
             ResourceTickTimer = GetTree().CreateTimer(TickTime);
             ResourceTickTimer.Timeout += CollectTimeTicked;
         }
-        else {
-            var target = GetClosestResourceBuilding(Ally.GlobalPosition, CurrentlyCollecting);
-            Ally.Navigation.SetTargetPosition(target);
+        else 
+        {
+            var target = GetClosestResourceBuilding(Ally.GlobalPosition, CurrentlyCollecting.ResourceType);
+            Ally.Navigation.SetTargetPosition(target.GlobalPosition);
             Ally.Delivering = true;
             ChangeState("Move");
+        }
+    }
+
+    private int SetCollectedQuantity()
+    {
+        if (Ally.InteractedResource.ResourceQuantity - QuantityPerTick >= 0)
+        {
+            if (Ally.ResourceCurrentQuantity + QuantityPerTick < MaxQuantity)
+            {
+                return QuantityPerTick;
+            }
+            else
+            {
+                return MaxQuantity - Ally.ResourceCurrentQuantity;
+            }
+        }
+        else
+        {
+            if (Ally.ResourceCurrentQuantity + Ally.InteractedResource.ResourceQuantity < MaxQuantity)
+            {
+                return Ally.InteractedResource.ResourceQuantity;
+            }
+            else
+            {
+                return MaxQuantity - Ally.ResourceCurrentQuantity;
+            }
         }
     }
 
