@@ -1,0 +1,95 @@
+name: Add issue to Project v2
+on:
+  issues:
+    types:
+      - opened
+
+jobs:
+  add-to-project:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      projects: write
+    steps:
+      - name: Configure GH CLI
+        run: |
+          gh config set prompt disabled
+        env:
+          GH_TOKEN: ${{ secrets.PROJECTS_PAT }}
+
+      - name: Add issue to Project "Clawtopia", column "Todo"
+        env:
+          ISSUE_URL: ${{ github.event.issue.html_url }}
+          PROJECT_NAME: Clawtopia
+          COLUMN_NAME: Todo
+        run: |
+          # Get the repository owner from the repository full name
+          OWNER=$(echo $GITHUB_REPOSITORY | cut -d'/' -f1)
+          
+          # Get the project ID
+          PROJECT_ID=$(gh api graphql -f query='
+            query {
+              organization(login: "'$OWNER'") {
+                projectV2(number: 1) {
+                  id
+                }
+              }
+            }' | jq -r '.data.organization.projectV2.id')
+
+          if [ "$PROJECT_ID" = "null" ]; then
+            echo "❌ Failed to find project '$PROJECT_NAME'"
+            exit 1
+          fi
+
+          # Create the item in the project (issue URL will be added as a draft issue or content reference)
+          ITEM_ID=$(gh api graphql -f query='
+            mutation {
+              addProjectV2ItemById(input: {projectId: "'$PROJECT_ID'", contentId: "'${ISSUE_URL}'"}) {
+                item {
+                  id
+                }
+              }
+            }' | jq -r '.data.addProjectV2ItemById.item.id')
+
+          echo "✅ Issue added to project with ID: $ITEM_ID"
+
+      - name: Optional - Move to column 'Todo'
+        env:
+          COLUMN_NAME: Todo
+        run: |
+          # Get the column ID by name
+          COLUMN_ID=$(gh api graphql -f query='
+            query {
+              node(id: "'$PROJECT_ID'") {
+                ... on ProjectV2 {
+                  fields(first: 20) {
+                    nodes {
+                      ... on ProjectV2FieldCommon {
+                        name
+                        id
+                      }
+                    }
+                  }
+                }
+              }
+            }' | jq -r '.data.node.fields.nodes[] | select(.name == "'$COLUMN_NAME'") | .id')
+
+          if [ "$COLUMN_ID" = "" ]; then
+            echo "⚠️ Column '$COLUMN_NAME' not found, skipping move."
+          else
+            # Set status field to column
+            gh api graphql -f query='
+              mutation {
+                updateProjectV2ItemFieldValue(input: {
+                  projectId: "'$PROJECT_ID'",
+                  itemId: "'$ITEM_ID'",
+                  fieldId: "'$STATUS_FIELD_ID'",
+                  value: { singleSelectOptionId: "'$COLUMN_ID'" }
+                }) {
+                  projectV2Item {
+                    id
+                  }
+                }
+              }'
+            echo "➡️ Issue moved to column: $COLUMN_NAME"
+          fi

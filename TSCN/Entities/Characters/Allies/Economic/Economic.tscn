@@ -69,7 +69,6 @@ frame_progress = 0.563649
 offset = Vector2(0, -24)
 
 [node name="InteractionShape" type="Area2D" parent="."]
-visible = false
 
 [node name="Shape" type="CollisionShape2D" parent="InteractionShape"]
 position = Vector2(0, -24)

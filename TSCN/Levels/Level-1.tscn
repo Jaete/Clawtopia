@@ -23,7 +23,6 @@ vertices = PackedVector2Array(691.531, 124.938, 1401.65, 480, 724.211, 818.719, 
 polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3, 4, 5, 6, 7), PackedInt32Array(8, 9, 10, 11, 12, 13), PackedInt32Array(14, 15, 13, 12, 16, 17), PackedInt32Array(18, 17, 16), PackedInt32Array(19, 20, 18, 16, 21, 22), PackedInt32Array(23, 24, 22, 21, 11, 25), PackedInt32Array(25, 11, 10)])
 outlines = Array[PackedVector2Array]([PackedVector2Array(657, 1288, -889, 517, 540, -204, 2073, 584)])
 
-[sub_resource type="Resource" id="Resource_igig1"]
 resource_local_to_scene = true
 script = ExtResource("13_dedtm")
 PlaceBuildingSound = ExtResource("11_wvlsq")
@@ -73,6 +72,7 @@ position = Vector2(576, 324)
 
 [node name="Purrlament" parent="." instance=ExtResource("3_wt2d7")]
 position = Vector2(576, 328)
+
 Data = SubResource("Resource_igig1")
 IsPreSpawned = true
 

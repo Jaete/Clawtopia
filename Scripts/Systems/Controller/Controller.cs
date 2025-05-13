@@ -27,12 +27,12 @@ public partial class Controller : Node
 
     public override void _UnhandledInput(InputEvent @event)
     {
-        var eventButton = @event as InputEventMouseButton;
-        var eventKey = @event as InputEventKey;
+        var eventButton = @event is InputEventMouseButton ? @event as InputEventMouseButton : null;
+        var eventKey = @event is InputEventKey ?@event as InputEventKey : null;
 
         if (NotHandledInput(@event)) { return; }
 
-        if (eventButton != null || eventKey != null) { 
+        if (eventButton != null) { 
             if (eventButton is { Pressed: true, ButtonIndex: MouseButton.Left })
             {
                 EmitSignal(SignalName.MousePressed, ModeManager.CurrentLevel.GetLocalMousePosition());
@@ -41,15 +41,18 @@ public partial class Controller : Node
             {
                 EmitSignal(SignalName.MouseReleased, ModeManager.CurrentLevel.GetLocalMousePosition());
             }
-            else if (eventButton is { DoubleClick: true, ButtonIndex: MouseButton.Left })
+            else if (eventButton is {  DoubleClick: true, ButtonIndex: MouseButton.Left })
             {
                 EmitSignal(SignalName.MouseDoubleClicked, ModeManager.CurrentLevel.GetLocalMousePosition());
             }
-            else if (eventButton is { Pressed: true or false, ButtonIndex: MouseButton.Right })
+            else if (eventButton is { Pressed: false, ButtonIndex: MouseButton.Right })
             {
                 EmitSignal(SignalName.MouseRightPressed, ModeManager.CurrentLevel.GetLocalMousePosition());
             }
-            else if (eventKey.Pressed && eventKey.Keycode == Key.R && ModeManager.CurrentMode is BuildMode)
+        } 
+        else if (eventKey != null)
+        {
+            if (eventKey.Pressed && eventKey.Keycode == Key.R)
             {
                 EmitSignal(SignalName.RotateBuilding);
             }

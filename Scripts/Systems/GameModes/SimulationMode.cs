@@ -6,6 +6,10 @@ namespace ClawtopiaCs.Scripts.Systems.GameModes;
 
 public partial class SimulationMode : GameMode
 {
+    [Signal] public delegate void AllyCommandEventHandler(Vector2 coords);
+
+    public static SimulationMode Singleton { get; private set; }
+
     public Array<Building> BuildingsToInteract = new();
     public TileMapLayer Bushes;
 
@@ -32,6 +36,11 @@ public partial class SimulationMode : GameMode
     public Vector2 StartingPoint;
     public SelectionBox VisualSelection;
     public TileMapLayer Water;
+
+    public override void _EnterTree()
+    {
+        Singleton = this;
+    }
 
     public override void _Ready()
     {
@@ -79,6 +88,13 @@ public partial class SimulationMode : GameMode
         var treatAsClick = VisualSelection.SelectionShape?.Size is { X: < 2, Y: < 2 };
         SelectEntities(treatAsClick, hasBuildings);
         Debug.Text = $"Selected Allies: {SelectedAllies.Count}";
+    }
+
+    public override void MouseRightPressed(Vector2 coords)
+    {
+        if (SelectedAllies.Count == 0) { return; }
+
+        EmitSignal(SignalName.AllyCommand, coords);
     }
 
     public void AboutToInteractWithBuilding(Building building)

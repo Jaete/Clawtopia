@@ -1,3 +1,4 @@
+using ClawtopiaCs.Scripts.Systems.GameModes;
 using Godot;
 
 public partial class AllyState : State
@@ -8,9 +9,10 @@ public partial class AllyState : State
     /// <summary>
     /// Inicializa dados pertinentes a unidades aliadas.
     /// </summary>
-    public void InitializeAlly(){
+    public void InitializeAlly() {
         Ally = (Ally) Unit;
         Controller = GetNode<Controller>("/root/Game/Controller");
+        SimulationMode.Singleton.AllyCommand += CommandReceived;
     }
     
     /// <summary>
@@ -20,15 +22,24 @@ public partial class AllyState : State
     /// Compara a distancia entre duas construções em relação a um ponto específico. Normalmente a posição atual da unidade.
     /// <returns><c>Vector2</c> Coordenadas globais.</returns>
     /// </summary>
-    public Vector2 GetClosestBuilding(Vector2 coords, Vector2 closestBuildingPosition, Building building){
-        // SE É A PRIMEIRA ITERACAO, RETORNA DIRETO
-        if (closestBuildingPosition == default){
+    public Vector2 GetClosestBuilding(Vector2 coords, Vector2 closestBuildingPosition, Building building) {
+        if (closestBuildingPosition == default) {
             return building.GlobalPosition;
         }
-        // SENAO, COMPARA DISTANCIA
-        if (closestBuildingPosition.DistanceSquaredTo(coords) > building.GlobalPosition.DistanceSquaredTo(coords)){
+
+        if (closestBuildingPosition.DistanceSquaredTo(coords) > building.GlobalPosition.DistanceSquaredTo(coords)) {
             return building.GlobalPosition;
         }
         return closestBuildingPosition;
+    }
+
+    public virtual void ChooseNextTargetPosition(Vector2 coords) {}
+
+    public override void CommandReceived(Vector2 coords)
+    {
+        if (!Ally.CurrentlySelected) { return; }
+
+        ChooseNextTargetPosition(coords);
+        ChangeState("Move");
     }
 }
