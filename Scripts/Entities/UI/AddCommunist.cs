@@ -7,8 +7,7 @@ using ClawtopiaCs.Scripts.Entities.UI;
 public partial class AddCommunist : UIButton
 {
     private Vector2 _communistPosition = new Vector2(-48.0f, 24.0f);
-    private Vector2 _communistPositionRotated = new Vector2(32.0f, 28.0f);
-    private Vector2 _communistOffset = new Vector2(48.0f, 24.0f);
+    private Vector2 _communistPositionRotated = new Vector2(60.0f, 20.0f);
 
     private PackedScene _scene = GD.Load<PackedScene>("res://TSCN/Entities/Characters/Allies/Economic/Economic.tscn");
 
