@@ -7,7 +7,7 @@ using ClawtopiaCs.Scripts.Entities.UI;
 public partial class AddCommunist : UIButton
 {
     private Vector2 _communistPosition = new Vector2(-48.0f, 24.0f);
-    private Vector2 _communistOffset = new Vector2(48.0f, 24.0f);
+    private Vector2 _communistPositionRotated = new Vector2(60.0f, 20.0f);
 
     private PackedScene _scene = GD.Load<PackedScene>("res://TSCN/Entities/Characters/Allies/Economic/Economic.tscn");
 
@@ -49,7 +49,14 @@ public partial class AddCommunist : UIButton
             LevelManager.EmitSignal(LevelManager.SignalName.ResourceExpended, addCommunist.Attributes.ResourceCosts);
             ResourceSpawnTimer.Timeout += delegate
             {
-                addCommunist.GlobalPosition = houseNode.GlobalPosition + _communistPosition;
+                if (houseNode.IsRotated)
+                {
+                    addCommunist.GlobalPosition = houseNode.GlobalPosition + _communistPositionRotated;
+                }
+                else
+                {
+                    addCommunist.GlobalPosition = houseNode.GlobalPosition + _communistPosition;
+                }
                 ModeManager.CurrentLevel.AddChild(addCommunist);
             };
         }

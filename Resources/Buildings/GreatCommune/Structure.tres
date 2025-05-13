@@ -1,4 +1,4 @@
-[gd_resource type="Resource" load_steps=6 format=3 uid="uid://dqintb8tp7i26"]
+[gd_resource type="Resource" load_steps=6 format=3 uid="uid://6k5dlxrryvt"]
 
 [ext_resource type="Texture2D" uid="uid://cetwuv6ymt5pa" path="res://Assets/Buildings/casa_comuna_001_build.png" id="1_gldrn"]
 [ext_resource type="Script" path="res://Scripts/Entities/Building/BuildingStructure.cs" id="1_lohjj"]
