@@ -10,10 +10,8 @@ radius = 22.3607
 [node name="CatnipCollectPoint" type="StaticBody2D" node_paths=PackedStringArray("Sprite", "Interaction")]
 script = ExtResource("1_pe6jj")
 Sprite = NodePath("Sprite")
-ResourceType = "Catnip"
 Interaction = NodePath("Interaction")
 Structure = ExtResource("2_e53q3")
-MaxResourceQuantity = 90
 
 [node name="Sprite" type="Sprite2D" parent="."]
 texture = ExtResource("2_6o2av")

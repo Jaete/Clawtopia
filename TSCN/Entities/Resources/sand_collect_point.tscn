@@ -10,9 +10,9 @@ radius = 31.0644
 [node name="SandCollectPoint" type="StaticBody2D" node_paths=PackedStringArray("Sprite", "Interaction")]
 script = ExtResource("1_r6k4k")
 Sprite = NodePath("Sprite")
-ResourceType = "Sand"
 Interaction = NodePath("Interaction")
 Structure = ExtResource("2_7y8a8")
+MaxResourceQuantity = 20
 
 [node name="Sprite" type="Sprite2D" parent="."]
 texture = ExtResource("2_40v8c")
