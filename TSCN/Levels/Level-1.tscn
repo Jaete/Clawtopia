@@ -1,20 +1,21 @@
-[gd_scene load_steps=19 format=4 uid="uid://c73kwxuuwdacc"]
+[gd_scene load_steps=20 format=4 uid="uid://c73kwxuuwdacc"]
 
 [ext_resource type="TileSet" uid="uid://c2nkgguv7dacf" path="res://Resources/Resources/Tileset.tres" id="1_pkymm"]
 [ext_resource type="PackedScene" uid="uid://dmqsbxvmpraew" path="res://TSCN/Systems/Camera.tscn" id="2_np81b"]
 [ext_resource type="PackedScene" uid="uid://d2xeg5t6t85er" path="res://TSCN/Entities/Buildings/Building.tscn" id="3_wt2d7"]
-[ext_resource type="AudioStream" uid="uid://c6nf3cvt1mwmj" path="res://Assets/Audio/UI/ui-click-cancel.ogg" id="4_mj6hy"]
-[ext_resource type="AudioStream" uid="uid://c11gv7w0q6nrn" path="res://Assets/Audio/SFX/Building/destroy-001.ogg" id="5_glftv"]
-[ext_resource type="AudioStream" uid="uid://bsh3gnwhsuydr" path="res://Assets/Audio/SFX/Building/destroy-002.ogg" id="6_n77ak"]
-[ext_resource type="AudioStream" uid="uid://bd4t165n2t0s0" path="res://Assets/Audio/SFX/Building/destroy-003.ogg" id="7_av0dg"]
-[ext_resource type="AudioStream" uid="uid://cnx6g6fuhlhlp" path="res://Assets/Audio/SFX/Building/destroy-004.ogg" id="8_o0k60"]
+[ext_resource type="AudioStream" uid="uid://c6nf3cvt1mwmj" path="res://Assets/Audio/UI/ui-click-cancel.ogg" id="5_f75f1"]
+[ext_resource type="AudioStream" uid="uid://c11gv7w0q6nrn" path="res://Assets/Audio/SFX/Building/destroy-001.ogg" id="6_aiini"]
+[ext_resource type="AudioStream" uid="uid://bsh3gnwhsuydr" path="res://Assets/Audio/SFX/Building/destroy-002.ogg" id="7_k4nil"]
+[ext_resource type="AudioStream" uid="uid://bd4t165n2t0s0" path="res://Assets/Audio/SFX/Building/destroy-003.ogg" id="8_7ctwn"]
 [ext_resource type="PackedScene" uid="uid://d3gh4jmuicqic" path="res://TSCN/Entities/Characters/Allies/Economic/Economic.tscn" id="8_xv7v7"]
-[ext_resource type="AudioStream" uid="uid://cx71cf6ffwqvg" path="res://Assets/Audio/SFX/Building/destroy-005.ogg" id="9_ycgbj"]
-[ext_resource type="AudioStream" uid="uid://865i76f5bwrx" path="res://Assets/Audio/SFX/Building/plot.ogg" id="10_82ayo"]
-[ext_resource type="Resource" uid="uid://dqintb8tp7i26" path="res://Resources/Buildings/GreatCommune/Structure.tres" id="11_43ntf"]
-[ext_resource type="Script" path="res://Scripts/Entities/Building/BuildingData.cs" id="12_rx2l3"]
+[ext_resource type="AudioStream" uid="uid://cnx6g6fuhlhlp" path="res://Assets/Audio/SFX/Building/destroy-004.ogg" id="9_jydgs"]
+[ext_resource type="AudioStream" uid="uid://cx71cf6ffwqvg" path="res://Assets/Audio/SFX/Building/destroy-005.ogg" id="10_gcu5t"]
+[ext_resource type="AudioStream" uid="uid://865i76f5bwrx" path="res://Assets/Audio/SFX/Building/plot.ogg" id="11_wvlsq"]
+[ext_resource type="Resource" uid="uid://6k5dlxrryvt" path="res://Resources/Buildings/GreatCommune/Structure.tres" id="12_15jvm"]
+[ext_resource type="Script" path="res://Scripts/Entities/Building/BuildingData.cs" id="13_dedtm"]
 [ext_resource type="PackedScene" uid="uid://c1hfodw7xtym7" path="res://TSCN/Entities/Resources/salmon_collect_point.tscn" id="14_kat3n"]
 [ext_resource type="PackedScene" uid="uid://cyff605bjg08y" path="res://TSCN/Entities/Resources/catnip_collect_point.tscn" id="15_3ij5l"]
+[ext_resource type="Resource" uid="uid://bnn4y64wn2h21" path="res://Resources/Buildings/House/House.tres" id="16_tfa1c"]
 [ext_resource type="PackedScene" uid="uid://cay5olbev7ruh" path="res://TSCN/Entities/Resources/sand_collect_point.tscn" id="16_thxtt"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_a5dn3"]
@@ -24,10 +25,10 @@ outlines = Array[PackedVector2Array]([PackedVector2Array(657, 1288, -889, 517, 5
 
 [sub_resource type="Resource" id="Resource_eon0l"]
 resource_local_to_scene = true
-script = ExtResource("12_rx2l3")
-PlaceBuildingSound = ExtResource("10_82ayo")
-DestroyBuildingSounds = [ExtResource("5_glftv"), ExtResource("6_n77ak"), ExtResource("7_av0dg"), ExtResource("8_o0k60"), ExtResource("9_ycgbj")]
-CancelSound = ExtResource("4_mj6hy")
+script = ExtResource("13_dedtm")
+PlaceBuildingSound = ExtResource("11_wvlsq")
+DestroyBuildingSounds = [ExtResource("6_aiini"), ExtResource("7_k4nil"), ExtResource("8_7ctwn"), ExtResource("9_jydgs"), ExtResource("10_gcu5t")]
+CancelSound = ExtResource("5_f75f1")
 Type = "Commune"
 ResourceType = ""
 TowerType = ""
@@ -36,7 +37,7 @@ SalmonCost = 0
 SandCost = 0
 Hp = 10000
 MaxProgress = 0
-Structure = ExtResource("11_43ntf")
+Structure = ExtResource("12_15jvm")
 Scale = Vector2(1, 1)
 Offset = Vector2(0, -32)
 

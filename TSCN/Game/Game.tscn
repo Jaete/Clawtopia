@@ -4,7 +4,7 @@
 [ext_resource type="Script" path="res://Scripts/Systems/LevelManager.cs" id="1_rxf7b"]
 [ext_resource type="PackedScene" uid="uid://sbqaktg77w31" path="res://TSCN/Systems/GameModes/ModeManager.tscn" id="2_u37th"]
 [ext_resource type="PackedScene" uid="uid://dg1278ax8xp1f" path="res://TSCN/UI/UI.tscn" id="3_bq1ev"]
-[ext_resource type="PackedScene" uid="uid://drliam15ta6fq" path="res://TSCN/Systems/Controller.tscn" id="4_ak1ec"]
+[ext_resource type="PackedScene" path="res://TSCN/Systems/Controller.tscn" id="4_ak1ec"]
 [ext_resource type="Script" path="res://Scripts/Systems/TerrainBaking/TerrainBaking.cs" id="6_3jkoc"]
 
 [node name="Game" type="Node2D"]
