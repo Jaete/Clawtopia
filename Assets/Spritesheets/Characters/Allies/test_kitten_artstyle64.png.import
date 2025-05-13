@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://davy57qg772li"
-path="res://.godot/imported/test_kitten_artstyle64.png-2e1cd0835b132a7111c4dabf492ae17d.ctex"
+path="res://.godot/imported/test_kitten_artstyle64.png-2987ab6a5e025deb2d9d092ff581eb39.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Characters/Allies/test_kitten_artstyle64.png"
-dest_files=["res://.godot/imported/test_kitten_artstyle64.png-2e1cd0835b132a7111c4dabf492ae17d.ctex"]
+source_file="res://Assets/Spritesheets/Characters/Allies/test_kitten_artstyle64.png"
+dest_files=["res://.godot/imported/test_kitten_artstyle64.png-2987ab6a5e025deb2d9d092ff581eb39.ctex"]
 
 [params]
 

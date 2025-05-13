@@ -1,0 +1,11 @@
+[gd_resource type="Resource" load_steps=6 format=3 uid="uid://bp0mgb5whmxtu"]
+
+[ext_resource type="Texture2D" uid="uid://cq16jpph5052d" path="res://Assets/Spritesheets/Resources/asset_catnip_material3.png" id="1_jinc8"]
+[ext_resource type="Texture2D" uid="uid://bba30bmyahs0v" path="res://Assets/Spritesheets/Resources/asset_catnip_material2.png" id="2_embf0"]
+[ext_resource type="Texture2D" uid="uid://dlg611dmn6k14" path="res://Assets/Spritesheets/Resources/asset_catnip_material1.png" id="3_0rh5p"]
+[ext_resource type="Texture2D" uid="uid://dlfkg5fkf30lb" path="res://Assets/Spritesheets/Resources/asset_catnip_material0.png" id="4_opslv"]
+[ext_resource type="Script" path="res://Scripts/Entities/ProgressStructure.cs" id="5_euh8v"]
+
+[resource]
+script = ExtResource("5_euh8v")
+StaticTextures = Array[Texture2D]([ExtResource("1_jinc8"), ExtResource("2_embf0"), ExtResource("3_0rh5p"), ExtResource("4_opslv")])

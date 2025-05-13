@@ -16,7 +16,7 @@ metadata/IsBuilding = true
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("2_jbbtj")
-offset = Vector2(24, -20)
+offset = Vector2(0, -32)
 region_rect = Rect2(8, 758, 114, 141)
 
 [node name="NavigationBody" type="StaticBody2D" parent="."]

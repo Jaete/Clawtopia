@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://csynnf378p8cl"
-path="res://.godot/imported/kato-engenheiro-andarcima.png-7924b972bdf5ec4c0a03124af5e7a38d.ctex"
+path="res://.godot/imported/kato-engenheiro-andarcima.png-13e85a75dc24474671f3eac687f4fe05.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Characters/Allies/kato-engenheiro-andarcima.png"
-dest_files=["res://.godot/imported/kato-engenheiro-andarcima.png-7924b972bdf5ec4c0a03124af5e7a38d.ctex"]
+source_file="res://Assets/Spritesheets/Characters/Allies/kato-engenheiro-andarcima.png"
+dest_files=["res://.godot/imported/kato-engenheiro-andarcima.png-13e85a75dc24474671f3eac687f4fe05.ctex"]
 
 [params]
 

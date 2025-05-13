@@ -16,10 +16,7 @@ public partial class Move : EconomicState
 
     public override void CommandReceived(Vector2 coords)
     {
-        if (!Ally.CurrentlySelected)
-        {
-            return;
-        }
+        if (!Ally.CurrentlySelected) { return; }
 
         ChooseNextTargetPosition(coords);
     }
@@ -47,7 +44,7 @@ public partial class Move : EconomicState
                     ChangeState("Taking_shelter");
                     return;
                 case Constants.RESOURCE:
-                    SeekResource(Ally.InteractedBuilding.Data.ResourceType);
+                    EconomicBehaviour.SeekResource(Ally, Ally.InteractedBuilding.Data.ResourceType);
                     return;
             }
         }
@@ -60,47 +57,10 @@ public partial class Move : EconomicState
 
         if (Ally.Delivering)
         {
-            Ally.Navigation.SetTargetPosition(Ally.CurrentResourceLastPosition);
-            var resources = new Dictionary<string, int>();
-
-            switch (Ally.InteractedResource)
-            {
-                case Constants.CATNIP:
-                    resources.Add(Constants.CATNIP, Ally.ResourceCurrentQuantity);
-                    Ally.LevelManager.EmitSignal(LevelManager.SignalName.ResourceDelivered, resources);
-                    break;
-                case Constants.SALMON:
-                    resources.Add(Constants.SALMON, Ally.ResourceCurrentQuantity);
-                    Ally.LevelManager.EmitSignal(LevelManager.SignalName.ResourceDelivered, resources);
-                    break;
-                case Constants.SAND:
-                    resources.Add(Constants.SAND, Ally.ResourceCurrentQuantity);
-                    Ally.LevelManager.EmitSignal(LevelManager.SignalName.ResourceDelivered, resources);
-                    break;
-            }
-
-            Ally.ResourceCurrentQuantity = 0;
-            Ally.Delivering = false;
+            EconomicBehaviour.DeliverResource(Ally);
             return;
         }
 
         ChangeState("Idle");
-    }
-
-    public void SeekResource(string resourceType)
-    {
-        Array<CollectPoint> resourceToSeek = Selectors.GetCollectPoints(resourceType);
-
-        foreach (var point in resourceToSeek)
-        {
-            Ally.CurrentResourceLastPosition = Selectors.GetClosestObject(
-                 Ally.GlobalPosition,
-                 Ally.CurrentResourceLastPosition,
-                 point
-             );
-        }
-        Ally.Navigation.SetTargetPosition(Ally.CurrentResourceLastPosition);
-        Ally.InteractedResource = resourceType;
-        Ally.InteractedWithBuilding = false;
     }
 }

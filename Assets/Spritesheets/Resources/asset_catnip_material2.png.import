@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://caqerhajpua2i"
-path="res://.godot/imported/kato-engenheiro-andarb.png-bdb0d077cd95f58bdf463856f7c15287.ctex"
+uid="uid://bba30bmyahs0v"
+path="res://.godot/imported/asset_catnip_material2.png-3a804547ee695f1895ef70cdea3702fd.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Characters/Allies/kato-engenheiro-andarb.png"
-dest_files=["res://.godot/imported/kato-engenheiro-andarb.png-bdb0d077cd95f58bdf463856f7c15287.ctex"]
+source_file="res://Assets/Spritesheets/Resources/asset_catnip_material2.png"
+dest_files=["res://.godot/imported/asset_catnip_material2.png-3a804547ee695f1895ef70cdea3702fd.ctex"]
 
 [params]
 

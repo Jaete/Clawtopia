@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ef1j5xygt6"
-path="res://.godot/imported/kato-engenheiro-idle-pose.png-c65e6f6358281bfcb04174efb7861200.ctex"
+uid="uid://d36m83rc4tb8k"
+path="res://.godot/imported/asset_salmao_material_ani1.png-28c41eb9052f8e8cbb875acb585dbdc2.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Characters/Allies/kato-engenheiro-idle-pose.png"
-dest_files=["res://.godot/imported/kato-engenheiro-idle-pose.png-c65e6f6358281bfcb04174efb7861200.ctex"]
+source_file="res://Assets/Spritesheets/Resources/asset_salmao_material_ani1.png"
+dest_files=["res://.godot/imported/asset_salmao_material_ani1.png-28c41eb9052f8e8cbb875acb585dbdc2.ctex"]
 
 [params]
 

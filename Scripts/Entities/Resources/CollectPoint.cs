@@ -1,14 +1,35 @@
 using ClawtopiaCs.Scripts.Systems;
 using Godot;
-using System;
+using Godot.Collections;
 
 public partial class CollectPoint : StaticBody2D
 {
+    [Signal] public delegate void ResourceCollectedEventHandler(int quantity);
+
+
+    private int _resourceQuantity = 0;
+
     public Color HoverColor = new Color(1.3f, 1.3f, 1.3f);
     public Color NormalColor = new Color(1f, 1f, 1f);
     public int SelfIndex;
 
-    [Export] Area2D Interaction;
+    [Export(PropertyHint.Enum, Constants.RESOURCE_LIST)] public string ResourceType;
+
+    [Export] public Area2D Interaction;
+    [Export] public ProgressStructure Structure;
+    [Export] public int MaxResourceQuantity;
+
+    public int ResourceQuantity { 
+        get => _resourceQuantity;
+        set {
+            _resourceQuantity = value;
+            if (_resourceQuantity - value < 0)
+            {
+                _resourceQuantity = 0;
+            }
+            ChangeSpriteOnBreakpoint();
+        }
+    }
 
     public override void _Ready()
     {
@@ -22,15 +43,24 @@ public partial class CollectPoint : StaticBody2D
         SelfIndex = LevelManager.Singleton.CollectPoints.Count;
         Interaction.MouseEntered += OnHover;
         Interaction.MouseExited += OnUnhover;
+        ResourceCollected += OnResourceCollected;
+        ResourceQuantity = MaxResourceQuantity;
     }
 
-    public void OnHover()
+    private void OnResourceCollected(int quantity)
+    {
+        ResourceQuantity -= quantity;
+    }
+
+    public virtual void OnHover()
     {
         Modulate = HoverColor;
     }
 
-    public void OnUnhover()
+    public virtual void OnUnhover()
     {
         Modulate = NormalColor;
     }
+    public virtual void ChangeSpriteOnBreakpoint() { }
 }
+

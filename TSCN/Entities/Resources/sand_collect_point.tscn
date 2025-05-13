@@ -1,19 +1,27 @@
-[gd_scene load_steps=3 format=3 uid="uid://cay5olbev7ruh"]
+[gd_scene load_steps=5 format=3 uid="uid://cay5olbev7ruh"]
 
 [ext_resource type="Script" path="res://Scripts/Entities/Resources/SandCollectPoint.cs" id="1_r6k4k"]
-[ext_resource type="Texture2D" uid="uid://di1871wil6bjg" path="res://Assets/Tileset/materiais02.png" id="2_58ij6"]
+[ext_resource type="Resource" uid="uid://5l5fchbx4dox" path="res://Resources/Environment/SandCollectPoint.tres" id="2_7y8a8"]
+[ext_resource type="Texture2D" uid="uid://5as0vxb6jya4" path="res://Assets/Spritesheets/Resources/asset_areia_material3.png" id="2_40v8c"]
 
-[node name="CatnipCollectPoint" type="StaticBody2D" node_paths=PackedStringArray("Interaction")]
+[sub_resource type="CircleShape2D" id="CircleShape2D_mk6f3"]
+radius = 31.0644
+
+[node name="SandCollectPoint" type="StaticBody2D" node_paths=PackedStringArray("Sprite", "Interaction")]
 script = ExtResource("1_r6k4k")
+Sprite = NodePath("Sprite")
 Interaction = NodePath("Interaction")
+Structure = ExtResource("2_7y8a8")
+MaxResourceQuantity = 20
 
 [node name="Sprite" type="Sprite2D" parent="."]
-texture = ExtResource("2_58ij6")
+texture = ExtResource("2_40v8c")
 
 [node name="CollisionShape2D" type="CollisionPolygon2D" parent="."]
-polygon = PackedVector2Array(-1, 26, -51, 4, -1, -18, 51, 4)
+polygon = PackedVector2Array(0, 16, -32, 4, 0, -8, 32, 4)
 
 [node name="Interaction" type="Area2D" parent="."]
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Interaction"]
-polygon = PackedVector2Array(0, 24, -51, 4, -36, -10, -21, -19, -14, -17, -7, -26, 11, -26, 52, 0, 50, 4)
+[node name="CollisionPolygon2D" type="CollisionShape2D" parent="Interaction"]
+scale = Vector2(1, 0.5)
+shape = SubResource("CircleShape2D_mk6f3")

@@ -18,13 +18,6 @@ public partial class Controller : Node
     [Signal]
     public delegate void RotateBuildingEventHandler();
 
-    public ModeManager ModeManager;
-
-    public override void _Ready()
-    {
-        ModeManager = GetNode<ModeManager>("/root/Game/ModeManager");
-    }
-
     public override void _UnhandledInput(InputEvent @event)
     {
         var eventButton = @event is InputEventMouseButton ? @event as InputEventMouseButton : null;
@@ -35,19 +28,19 @@ public partial class Controller : Node
         if (eventButton != null) { 
             if (eventButton is { Pressed: true, ButtonIndex: MouseButton.Left })
             {
-                EmitSignal(SignalName.MousePressed, ModeManager.CurrentLevel.GetLocalMousePosition());
+                EmitSignal(SignalName.MousePressed, ModeManager.Singleton.CurrentLevel.GetLocalMousePosition());
             }
             else if (eventButton is { Pressed: false, ButtonIndex: MouseButton.Left })
             {
-                EmitSignal(SignalName.MouseReleased, ModeManager.CurrentLevel.GetLocalMousePosition());
+                EmitSignal(SignalName.MouseReleased, ModeManager.Singleton.CurrentLevel.GetLocalMousePosition());
             }
             else if (eventButton is {  DoubleClick: true, ButtonIndex: MouseButton.Left })
             {
-                EmitSignal(SignalName.MouseDoubleClicked, ModeManager.CurrentLevel.GetLocalMousePosition());
+                EmitSignal(SignalName.MouseDoubleClicked, ModeManager.Singleton.CurrentLevel.GetLocalMousePosition());
             }
             else if (eventButton is { Pressed: false, ButtonIndex: MouseButton.Right })
             {
-                EmitSignal(SignalName.MouseRightPressed, ModeManager.CurrentLevel.GetLocalMousePosition());
+                EmitSignal(SignalName.MouseRightPressed, ModeManager.Singleton.CurrentLevel.GetLocalMousePosition());
             }
         } 
         else if (eventKey != null)

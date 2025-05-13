@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dreqehb3doa21"
-path="res://.godot/imported/kato-magico-andar-ezgif.com-gif-to-sprite-converter_1.png-b9528af064b4d6c8ea9630b760262165.ctex"
+uid="uid://1qsnpodd7f74"
+path="res://.godot/imported/asset_areia_material1.png-e729a6dad4f70890cf1ef984d10f1f80.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Characters/Allies/kato-magico-andar-ezgif.com-gif-to-sprite-converter_1.png"
-dest_files=["res://.godot/imported/kato-magico-andar-ezgif.com-gif-to-sprite-converter_1.png-b9528af064b4d6c8ea9630b760262165.ctex"]
+source_file="res://Assets/Spritesheets/Resources/asset_areia_material1.png"
+dest_files=["res://.godot/imported/asset_areia_material1.png-e729a6dad4f70890cf1ef984d10f1f80.ctex"]
 
 [params]
 

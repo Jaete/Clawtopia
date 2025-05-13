@@ -19,7 +19,6 @@ public partial class UI : CanvasLayer
     public Control CurrentWindow;
 
     public bool IsResettingUi;
-    public ModeManager ModeManager;
 
     private PauseMenu pauseMenu;
     public PackedScene PauseMenuScene = GD.Load<PackedScene>("res://TSCN/UI/PauseMenu.tscn");
@@ -40,8 +39,7 @@ public partial class UI : CanvasLayer
     public void Initialize()
     {
         Container = GetNode<HFlowContainer>("Container");
-        ModeManager = GetNode<ModeManager>("/root/Game/ModeManager");
-        UiMode = (UIMode)ModeManager.GameModes[GameMode.UI_MODE];
+        UiMode = (UIMode)ModeManager.Singleton.GameModes[GameMode.UI_MODE];
     }
 
     public void Instantiate_window(String window, Building building = null)
@@ -87,15 +85,14 @@ public partial class UI : CanvasLayer
 
     public void EnterUiMode()
     {
-        if (ModeManager.CurrentMode is not SimulationMode) { return; }
-        var simulationMode = (SimulationMode)ModeManager.CurrentMode;
-        if (simulationMode.Dragging) { return; }
-        ModeManager.CurrentMode.EmitSignal(GameMode.SignalName.ModeTransition, GameMode.UI_MODE, "", "");
+        if (ModeManager.Singleton.CurrentMode is not SimulationMode) { return; }
+        if (SimulationMode.Singleton.Dragging) { return; }
+        SimulationMode.Singleton.EmitSignal(GameMode.SignalName.ModeTransition, GameMode.UI_MODE, "", "");
     }
 
     public void ExitUiMode()
     {
-        if (ModeManager.CurrentMode is not UIMode) { return; }
-        ModeManager.CurrentMode.EmitSignal(GameMode.SignalName.ModeTransition, GameMode.SIMULATION_MODE, "", "");
+        if (ModeManager.Singleton.CurrentMode is not UIMode) { return; }
+        EmitSignal(GameMode.SignalName.ModeTransition, GameMode.SIMULATION_MODE, "", "");
     }
 }

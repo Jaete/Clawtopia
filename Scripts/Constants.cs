@@ -2,6 +2,9 @@ using Godot;
 
 public partial class Constants : Node
 {
+    public const string NOT_DEFINED = "Not Defined";
+
+
     public const string ECONOMIC = "Economic";
     public const string MILITARY = "Military";
     public const string SALMON = "Salmon";
@@ -32,6 +35,8 @@ public partial class Constants : Node
                                               + RESOURCE + ","
                                               + COMMUNE + ","
                                               + HOUSE;
+
+    public const string RESOURCES_QTY_LEVEL = "Full, Mid, Low, None";
 
     public const string TOWER_LIST = FIGHTERS; /*MODIFICAR COM NOVOS TIPOS DE TORRE SEGUINDO MODELO ACIMA*/
     public const string ALLY_CATEGORY_LIST = ECONOMIC + "," + MILITARY;

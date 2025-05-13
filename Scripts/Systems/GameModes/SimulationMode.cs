@@ -56,7 +56,7 @@ public partial class SimulationMode : GameMode
     {
         if (Dragging)
         {
-            ShapeSize = ModeManager.CurrentLevel.GetGlobalMousePosition() - StartingPoint;
+            ShapeSize = ModeManager.Singleton.CurrentLevel.GetGlobalMousePosition() - StartingPoint;
             ShapePosition = ShapeSize / 2;
             VisualSelection.SelectionShape.Size = ShapeSize.Abs();
             SelectionPolygon.Position = ShapePosition;

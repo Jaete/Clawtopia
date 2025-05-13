@@ -25,8 +25,6 @@ public partial class Building : Area2D
     [Export] public Sprite2D Sprite;
     [Export] public StaticBody2D StaticBody;
     [Export] public AudioStreamPlayer Sounds;
-    public BuildMode BuildingMode;
-    public SimulationMode SimulationModeRef;
 
     [ExportGroup("Structure")]
     [Export] public BuildingData Data;
@@ -59,9 +57,7 @@ public partial class Building : Area2D
     }
 
     public void Initialize()
-    {
-        BuildingMode = ModeManager.Singleton.GetNode<BuildMode>(GameMode.BUILD_MODE);
-        SimulationModeRef = ModeManager.Singleton.GetNode<SimulationMode>(GameMode.SIMULATION_MODE);
+    { 
         StaticBody = GetNode<StaticBody2D>("NavigationBody");
         Data.Initialize();
         Sprite.Texture = Data.Structure.PreviewTexture;
@@ -110,9 +106,9 @@ public partial class Building : Area2D
         }
 
         MaxProgress = OS.IsDebugBuild() ? 3 : Data.MaxProgress;
-        AboutToInteract += SimulationModeRef.AboutToInteractWithBuilding;
-        RemovedInteraction += SimulationModeRef.InteractionWithBuildingRemoved;
-        BuildingMode.ConstructionStarted += ConstructionStarted;
+        AboutToInteract += SimulationMode.Singleton.AboutToInteractWithBuilding;
+        RemovedInteraction += SimulationMode.Singleton.InteractionWithBuildingRemoved;
+        BuildMode.Singleton.ConstructionStarted += ConstructionStarted;
         BuildTickTimer = new Timer();
         BuildTickTimer.OneShot = true;
         BuildTickTimer.Timeout += ConstructionTimeElapsed;
@@ -190,7 +186,7 @@ public partial class Building : Area2D
             return;
         }
 
-        BuildingMode.EmitSignal(GameMode.SignalName.BuildCompleted, this);
+        BuildMode.Singleton.EmitSignal(GameMode.SignalName.BuildCompleted, this);
         IsBuilt = true;
         BuildTickTimer.Timeout -= ConstructionTimeElapsed;
         BuildTickTimer.Stop();
@@ -203,7 +199,7 @@ public partial class Building : Area2D
             return;
         }
 
-        if (SimulationModeRef.BuildingsToInteract.Count == 0 || SimulationModeRef.BuildingsToInteract[0] != this)
+        if (SimulationMode.Singleton.BuildingsToInteract.Count == 0 || SimulationMode.Singleton.BuildingsToInteract[0] != this)
         {
             EmitSignal(SignalName.AboutToInteract, this);
         }

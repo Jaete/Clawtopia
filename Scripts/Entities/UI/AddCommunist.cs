@@ -12,8 +12,6 @@ public partial class AddCommunist : UIButton
     private PackedScene _scene = GD.Load<PackedScene>("res://TSCN/Entities/Characters/Allies/Economic/Economic.tscn");
 
     [Export] public PackedScene Communist;
-    public LevelManager LevelManager;
-    public ModeManager ModeManager;
     public SceneTreeTimer ResourceSpawnTimer;
     [Export] public float SpawnTimer = OS.IsDebugBuild() ? 1 : 20;
     public UI Ui;
@@ -25,8 +23,6 @@ public partial class AddCommunist : UIButton
         MouseEntered += Ui.EnterUiMode;
         MouseExited += Ui.ExitUiMode;
         Pressed += OnPressed;
-        ModeManager = GetNode<ModeManager>("/root/Game/ModeManager");
-
     }
 
     public override void OnPressed()
@@ -39,14 +35,13 @@ public partial class AddCommunist : UIButton
     { 
         var addCommunist = _scene.Instantiate<Ally>();
         var houseNode = UI.Singleton.BuildingMenuControl.Building;
-        LevelManager = GetNode<LevelManager>("/root/Game/LevelManager");
 
         //INICIA SPAWN DOS GATOS CAMPONESES
         ResourceSpawnTimer = GetTree().CreateTimer(SpawnTimer);
 
-        if (LevelManager.CurrentResources[Constants.SALMON] >= 100)
+        if (LevelManager.Singleton.CurrentResources[Constants.SALMON] >= 100)
         {
-            LevelManager.EmitSignal(LevelManager.SignalName.ResourceExpended, addCommunist.Attributes.ResourceCosts);
+            LevelManager.Singleton.EmitSignal(LevelManager.SignalName.ResourceExpended, addCommunist.Attributes.ResourceCosts);
             ResourceSpawnTimer.Timeout += delegate
             {
                 if (houseNode.IsRotated)
@@ -57,7 +52,7 @@ public partial class AddCommunist : UIButton
                 {
                     addCommunist.GlobalPosition = houseNode.GlobalPosition + _communistPosition;
                 }
-                ModeManager.CurrentLevel.AddChild(addCommunist);
+                ModeManager.Singleton.CurrentLevel.AddChild(addCommunist);
             };
         }
         else
