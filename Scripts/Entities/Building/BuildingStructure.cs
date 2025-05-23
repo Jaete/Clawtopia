@@ -15,5 +15,7 @@ namespace ClawtopiaCs.Scripts.Entities.Building
         [Export] public Vector2 RotatedPlacedOffset;
         [Export] public ConcavePolygonShape2D RotatedCollision;
         [Export] public ConcavePolygonShape2D RotatedInteraction;
+        [Export] public ProgressStructure ProgressStructure;
+        [Export] public ProgressStructure RotatedProgressStructure;
     }
 }

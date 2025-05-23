@@ -1,0 +1,12 @@
+[gd_resource type="Resource" load_steps=6 format=3 uid="uid://hp42ut27q0w8"]
+
+[ext_resource type="Texture2D" uid="uid://cte2tclkdk3i3" path="res://Assets/Buildings/casa_vila_005.png" id="1_xaia7"]
+[ext_resource type="Script" path="res://Scripts/Entities/ProgressStructure.cs" id="2_k5h6s"]
+[ext_resource type="Texture2D" uid="uid://52v8s01xkaxw" path="res://Assets/Buildings/Progress/casa_vila_005_ani_frame2.PNG" id="2_vcoan"]
+[ext_resource type="Texture2D" uid="uid://dbde010ggmuu4" path="res://Assets/Buildings/Progress/casa_vila_005_ani_frame3.PNG" id="3_2a8dw"]
+[ext_resource type="Texture2D" uid="uid://cjqumln3m2l48" path="res://Assets/Buildings/Progress/casa_vila_005_ani_frame1.PNG" id="4_3qg7s"]
+
+[resource]
+script = ExtResource("2_k5h6s")
+StaticTextures = Array[Texture2D]([ExtResource("1_xaia7"), ExtResource("3_2a8dw"), ExtResource("2_vcoan"), ExtResource("4_3qg7s")])
+StaticOffsets = Array[Vector2]([Vector2(0, -16), Vector2(0, 0), Vector2(0, -24), Vector2(0, 40)])

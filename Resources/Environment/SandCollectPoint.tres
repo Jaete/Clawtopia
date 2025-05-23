@@ -9,3 +9,4 @@
 [resource]
 script = ExtResource("1_7oeif")
 StaticTextures = Array[Texture2D]([ExtResource("1_rfkby"), ExtResource("2_y2d2l"), ExtResource("3_5lyco"), ExtResource("4_ccpjt")])
+StaticOffsets = null

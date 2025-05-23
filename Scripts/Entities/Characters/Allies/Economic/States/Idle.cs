@@ -8,6 +8,7 @@ public partial class Idle : EconomicState
         /* TODO
          Tocar animacao de idle quando houver
         */
+        SpriteHandler.ChangeAnimation(Ally.Sprite, "Idle");
     }
 
     public override void Update(double delta)

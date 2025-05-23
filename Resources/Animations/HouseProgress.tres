@@ -1,0 +1,54 @@
+[gd_resource type="SpriteFrames" load_steps=6 format=3 uid="uid://cshff1pojua1t"]
+
+[ext_resource type="Texture2D" uid="uid://dmv6ocou7ovny" path="res://Assets/Buildings/casa_vila_005_ani.png" id="1_u7e3b"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hlvet"]
+atlas = ExtResource("1_u7e3b")
+region = Rect2(0, 0, 150, 150)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_a8m6o"]
+atlas = ExtResource("1_u7e3b")
+region = Rect2(450, 0, 150, 150)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pcudf"]
+atlas = ExtResource("1_u7e3b")
+region = Rect2(150, 0, 150, 150)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_743x2"]
+atlas = ExtResource("1_u7e3b")
+region = Rect2(300, 0, 150, 150)
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hlvet")
+}],
+"loop": true,
+"name": &"Empty",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_a8m6o")
+}],
+"loop": true,
+"name": &"Full",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pcudf")
+}],
+"loop": false,
+"name": &"Low",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_743x2")
+}],
+"loop": true,
+"name": &"Medium",
+"speed": 5.0
+}]

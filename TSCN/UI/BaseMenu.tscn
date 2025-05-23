@@ -13,6 +13,7 @@ mouse_filter = 1
 script = ExtResource("1_d8kja")
 
 [node name="HudClawFundo" type="Sprite2D" parent="."]
+visible = false
 position = Vector2(307, 92)
 scale = Vector2(1.46049, 1.54854)
 texture = ExtResource("2_8kh8r")

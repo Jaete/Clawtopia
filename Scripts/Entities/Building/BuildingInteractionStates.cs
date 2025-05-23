@@ -7,5 +7,5 @@ public enum BuildingInteractionStates
     UNHOVER,
     BUILDING_ERROR,
     BUILDING_OK,
-    BUILD_FINISHED,
+    BUILD_PLACED,
 }

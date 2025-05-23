@@ -22,16 +22,17 @@ region_rect = Rect2(8, 758, 114, 141)
 [node name="NavigationBody" type="StaticBody2D" parent="."]
 
 [node name="Shape" type="CollisionPolygon2D" parent="NavigationBody"]
+visible = false
 polygon = PackedVector2Array(-64, 4, 0, 36, 64, 8, 0, -24)
 
 [node name="GridArea" type="Area2D" parent="."]
 input_pickable = false
 
 [node name="Shape" type="CollisionPolygon2D" parent="GridArea"]
-visible = false
-polygon = PackedVector2Array(-80, 8, -16, 40, 80, -8, 16, -40)
+polygon = PackedVector2Array(-88, -8, -24, 20, 40, -8, -24, -36)
 
 [node name="InteractionShape" type="CollisionPolygon2D" parent="."]
+visible = false
 polygon = PackedVector2Array(-61, 5, -61, -56, -19, -98, 49, -65, 70, -51, 64, -43, 64, 8, 0, 37)
 
 [node name="BuildingSounds" type="AudioStreamPlayer" parent="."]

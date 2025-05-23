@@ -1,9 +1,9 @@
-using System;
 using ClawtopiaCs.Scripts.Entities.Building;
 using ClawtopiaCs.Scripts.Systems;
 using ClawtopiaCs.Scripts.Systems.GameModes;
 using Godot;
 using Godot.Collections;
+using static Godot.WebSocketPeer;
 
 public partial class Building : Area2D
 {
@@ -15,6 +15,8 @@ public partial class Building : Area2D
 
     [Signal]
     public delegate void DestroyedEventHandler ();
+
+    private int _progress;
 
     private BuildingData _buildingData;
 
@@ -28,6 +30,7 @@ public partial class Building : Area2D
 
     [ExportGroup("Structure")]
     [Export] public BuildingData Data;
+    public ProgressStructure Structure;
 
     [Export] public bool IsPreSpawned = false;
 
@@ -36,20 +39,28 @@ public partial class Building : Area2D
     public Color OkColor = new Color("2eff3f81");
     public Color RegularColor = new Color(1, 1, 1);
 
+    //( Internal Logic )
+    public string ResourceType;
+    public int SelfIndex;
     public bool IsBuildingInFront;
     public bool IsBuilt;
     public bool Placed;
     public bool IsRotated;
 
-    // TIMER PARA TICK DE TEMPO DE CONSTRUCAO
+    //( Build time logic )
     public Timer BuildTickTimer;
     public Array<Ally> CurrentBuilders = new();
     public int MaxProgress = 50;
-    public int Progress;
-    public float TickTime = 1.0f;
+    public int Progress {
+        get => _progress;
+        set {
+            _progress = value;
+            ChangeSpriteOnBreakpoint();
+        }
+    }
 
-    public string ResourceType;
-    public int SelfIndex;
+
+    public float TickTime = 1.0f;
 
     public override void _Ready()
     {
@@ -161,10 +172,15 @@ public partial class Building : Area2D
 
     public async void ConstructionStarted(Building building)
     {
+        if (building != this) return;
+
+        Structure = building.IsRotated ? Data.Structure.RotatedProgressStructure : Data.Structure.ProgressStructure;
         Progress = 0;
         BuildTickTimer.Start(TickTime);
         Sounds.Stream = Data.PlaceBuildingSound;
         Sounds.Play();
+        Placed = true;
+        ModulateBuilding(building, BuildingInteractionStates.BUILD_PLACED);
         await ToSignal(Sounds, AudioStreamPlayer2D.SignalName.Finished);
     }
     private async void OnDestroyed()
@@ -177,8 +193,12 @@ public partial class Building : Area2D
 
     public void ConstructionTimeElapsed()
     {
+        if (CurrentBuilders.Count == 0)
+        {
+            BuildTickTimer.Start(TickTime);
+            return;
+        }
         var nextProgress = Progress + CurrentBuilders.Count;
-
         if (nextProgress < MaxProgress)
         {
             Progress = nextProgress;
@@ -226,10 +246,10 @@ public partial class Building : Area2D
         switch (state)
         {
             case BuildingInteractionStates.HOVER:
-                building.Modulate = building.IsBuilt ? building.HoverColor : building.OkColor;
+                building.Modulate = building.Placed ? building.HoverColor : building.OkColor;
                 break;
             case BuildingInteractionStates.UNHOVER:
-                building.Modulate = building.IsBuilt ? building.RegularColor : building.OkColor;
+                building.Modulate = building.Placed ? building.RegularColor : building.OkColor;
                 break;
             case BuildingInteractionStates.BUILDING_ERROR:
                 building.Modulate = building.ErrorColor;
@@ -237,7 +257,7 @@ public partial class Building : Area2D
             case BuildingInteractionStates.BUILDING_OK:
                 building.Modulate = building.OkColor;
                 break;
-            case BuildingInteractionStates.BUILD_FINISHED:
+            case BuildingInteractionStates.BUILD_PLACED:
                 building.Modulate = building.RegularColor;
                 break;
         }
@@ -245,18 +265,15 @@ public partial class Building : Area2D
 
     public static void PlaceBuilding(Building building)
     {
+        building.Progress = building.MaxProgress;
         if (building.IsRotated)
         {
-            building.Sprite.Texture = building.Data.Structure.RotatedPlacedTexture;
             building.Sprite.Offset = (building.Sprite.Offset + building.Data.Structure.RotatedPlacedOffset);
         }
         else
         {
-            building.Sprite.Texture = building.Data.Structure.PlacedTexture;
             building.Sprite.Offset = (building.Sprite.Offset + building.Data.Structure.PlacedOffset);
         }
-       
-        ModulateBuilding(building, BuildingInteractionStates.BUILD_FINISHED);
 
         building.AddSelfOnList();
         building.CurrentBuilders.Clear();
@@ -270,6 +287,7 @@ public partial class Building : Area2D
             building.Sprite.Texture = building.Data.Structure.PreviewTexture;
             building.BodyShape.Polygon = building.Data.Structure.Collision.Segments;
             building.InteractionShape.Polygon = building.Data.Structure.Interaction.Segments;
+            building.Structure = building.Data.Structure.RotatedProgressStructure;
             building.IsRotated = false;
         }
         else
@@ -277,7 +295,44 @@ public partial class Building : Area2D
             building.Sprite.Texture = building.Data.Structure.RotatedPreviewTexture;
             building.BodyShape.Polygon = building.Data.Structure.RotatedCollision.Segments;
             building.InteractionShape.Polygon = building.Data.Structure.RotatedInteraction.Segments;
+            building.Structure = building.Data.Structure.ProgressStructure;
             building.IsRotated = true;
+        }
+    }
+
+    public void ChangeSpriteOnBreakpoint()
+    {
+        if (Progress == 0)
+        {
+            SpriteHandler.ChangeSprite(
+                Sprite,
+                Structure.StaticTextures[(int)ProgressStructure.States.Empty],
+                Structure.StaticOffsets[(int)ProgressStructure.States.Empty]
+            );
+        }
+        else if (Progress >= 0.25 * MaxProgress && Progress <= 0.5 * MaxProgress)
+        {
+            SpriteHandler.ChangeSprite(
+                Sprite,
+                Structure.StaticTextures[(int)ProgressStructure.States.Low],
+                Structure.StaticOffsets[(int)ProgressStructure.States.Low]
+            );
+        }
+        else if (Progress >= 0.5 * MaxProgress && Progress <= 0.75 * MaxProgress)
+        {
+            SpriteHandler.ChangeSprite(
+                Sprite,
+                Structure.StaticTextures[(int)ProgressStructure.States.Medium],
+                Structure.StaticOffsets[(int)ProgressStructure.States.Medium]
+            );
+        }
+        else if (Progress == MaxProgress)
+        {
+            SpriteHandler.ChangeSprite(
+                Sprite,
+                Structure.StaticTextures[(int)ProgressStructure.States.Full],
+                Structure.StaticOffsets[(int)ProgressStructure.States.Full]
+            );
         }
     }
 }

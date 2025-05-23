@@ -10,6 +10,8 @@ public partial class ProgressStructure : Resource
         Empty
     }
 
+    
+
     public static Dictionary<int, string> Animations = new()
     {
         { (int) States.Full, "Full" },
@@ -19,6 +21,7 @@ public partial class ProgressStructure : Resource
     };
 
     [Export] public Array<Texture2D> StaticTextures;
+    [Export] public Array<Vector2> StaticOffsets;
     [Export] public SpriteFrames AnimatedTextures;
 }
 
