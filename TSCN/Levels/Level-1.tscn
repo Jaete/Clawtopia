@@ -22,7 +22,7 @@ vertices = PackedVector2Array(691.531, 124.938, 1401.65, 480, 724.211, 818.719, 
 polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3, 4, 5, 6, 7), PackedInt32Array(8, 9, 10, 11, 12, 13), PackedInt32Array(14, 15, 13, 12, 16, 17), PackedInt32Array(18, 17, 16), PackedInt32Array(19, 20, 18, 16, 21, 22), PackedInt32Array(23, 24, 22, 21, 11, 25), PackedInt32Array(25, 11, 10)])
 outlines = Array[PackedVector2Array]([PackedVector2Array(657, 1288, -889, 517, 540, -204, 2073, 584)])
 
-[sub_resource type="Resource" id="Resource_lfgj0"]
+[sub_resource type="Resource" id="Resource_172vl"]
 resource_local_to_scene = true
 script = ExtResource("13_dedtm")
 PlaceBuildingSound = ExtResource("11_wvlsq")
@@ -67,37 +67,20 @@ tile_set = ExtResource("1_pkymm")
 [node name="Camera2D" parent="." instance=ExtResource("2_np81b")]
 position = Vector2(576, 324)
 
-[node name="Purrlament" parent="." instance=ExtResource("3_wt2d7")]
-position = Vector2(576, 328)
-Data = SubResource("Resource_lfgj0")
-IsPreSpawned = true
-
 [node name="Economic" parent="." instance=ExtResource("8_xv7v7")]
 position = Vector2(688, 424)
 
-[node name="SalmonCollectPoint" parent="." instance=ExtResource("14_kat3n")]
-position = Vector2(233, 708)
-ResourceType = "Salmon"
+[node name="Purrlament" parent="." instance=ExtResource("3_wt2d7")]
+position = Vector2(576, 328)
+Data = SubResource("Resource_172vl")
+IsPreSpawned = true
 
 [node name="CatnipCollectPoint" parent="." instance=ExtResource("15_3ij5l")]
-position = Vector2(249, 452)
-ResourceType = "Catnip"
+position = Vector2(380, 353)
 MaxResourceQuantity = 10
 
-[node name="CatnipCollectPoint2" parent="." instance=ExtResource("15_3ij5l")]
-position = Vector2(290, 392)
-ResourceType = "Catnip"
-MaxResourceQuantity = 6
+[node name="SalmonCollectPoint" parent="." instance=ExtResource("14_kat3n")]
+position = Vector2(83, 612)
 
 [node name="SandCollectPoint" parent="." instance=ExtResource("16_thxtt")]
-position = Vector2(481, 623)
-ResourceType = "Sand"
-
-[node name="SalmonCollectPoint2" parent="." instance=ExtResource("14_kat3n")]
-position = Vector2(313, 748)
-ResourceType = "Salmon"
-
-[node name="CatnipCollectPoint3" parent="." instance=ExtResource("15_3ij5l")]
-position = Vector2(824, 640)
-ResourceType = "Catnip"
-MaxResourceQuantity = 20
+position = Vector2(228, 456)

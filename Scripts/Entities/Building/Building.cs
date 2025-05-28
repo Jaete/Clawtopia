@@ -63,7 +63,7 @@ public partial class Building : Area2D
         Sprite.Texture = Data.Structure.PreviewTexture;
         BodyShape.Polygon = Data.Structure.Collision.Segments;
         InteractionShape.Polygon = Data.Structure.Interaction.Segments;
-        GridShape.Polygon = Data.Structure.Collision.Segments;
+        GridShape.Polygon = Data.Structure.GridArea.Segments;
 
         Name = Data.Name + "_" + Data.Type + "_" + SelfIndex;
 
@@ -270,6 +270,7 @@ public partial class Building : Area2D
             building.Sprite.Texture = building.Data.Structure.PreviewTexture;
             building.BodyShape.Polygon = building.Data.Structure.Collision.Segments;
             building.InteractionShape.Polygon = building.Data.Structure.Interaction.Segments;
+            building.GridShape.Polygon = building.Data.Structure.GridArea.Segments;
             building.IsRotated = false;
         }
         else
@@ -277,6 +278,7 @@ public partial class Building : Area2D
             building.Sprite.Texture = building.Data.Structure.RotatedPreviewTexture;
             building.BodyShape.Polygon = building.Data.Structure.RotatedCollision.Segments;
             building.InteractionShape.Polygon = building.Data.Structure.RotatedInteraction.Segments;
+            building.GridShape.Polygon = building.Data.Structure.RotatedGridArea.Segments;
             building.IsRotated = true;
         }
     }

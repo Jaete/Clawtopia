@@ -1,4 +1,4 @@
-﻿using Godot;
+using Godot;
 using Godot.Collections;
 
 namespace ClawtopiaCs.Scripts.Entities.Building
@@ -15,5 +15,7 @@ namespace ClawtopiaCs.Scripts.Entities.Building
         [Export] public Vector2 RotatedPlacedOffset;
         [Export] public ConcavePolygonShape2D RotatedCollision;
         [Export] public ConcavePolygonShape2D RotatedInteraction;
+        [Export] public ConcavePolygonShape2D GridArea;
+        [Export] public ConcavePolygonShape2D RotatedGridArea;
     }
 }

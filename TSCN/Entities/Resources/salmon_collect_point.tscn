@@ -10,6 +10,7 @@ radius = 32.0
 [node name="SalmonCollectPoint" type="StaticBody2D" node_paths=PackedStringArray("Sprite", "Interaction")]
 script = ExtResource("1_duwpn")
 Sprite = NodePath("Sprite")
+ResourceType = "Salmon"
 Interaction = NodePath("Interaction")
 Structure = ExtResource("2_qh1hm")
 MaxResourceQuantity = 15
