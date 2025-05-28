@@ -34,11 +34,6 @@ input_pickable = false
 position = Vector2(16, -4)
 polygon = PackedVector2Array(-80, 8, -64, 16, -80, 28, -56, 44, -32, 32, -16, 40, 48, 8, -16, -20)
 
-[node name="AreaShape2" type="CollisionPolygon2D" parent="GridArea"]
-visible = false
-position = Vector2(16, -4)
-polygon = PackedVector2Array(-80, 8, -16, 40, 8, 28, 40, 40, 64, 24, 40, 12, 48, 8, -16, -20)
-
 [node name="InteractionShape" type="CollisionPolygon2D" parent="."]
 visible = false
 polygon = PackedVector2Array(-61, 5, -61, -56, -19, -98, 49, -65, 70, -51, 64, -43, 64, 8, 0, 37)
