@@ -169,6 +169,13 @@ public partial class Building : Area2D
     }
     private async void OnDestroyed()
     {
+        var RefundResource = new Dictionary<string, int>();
+        foreach (var resource in Data.ResourceCosts)
+        {
+            RefundResource[resource.Key] = resource.Value / 2;
+        }
+        LevelManager.Singleton.EmitSignal(LevelManager.SignalName.ResourceDelivered, RefundResource);
+
         Sounds.Stream = Data.DestroyBuildingSounds[GD.RandRange(0, Data.DestroyBuildingSounds.Count - 1)];
         Sounds.Play();
         await ToSignal(Sounds, AudioStreamPlayer2D.SignalName.Finished);
