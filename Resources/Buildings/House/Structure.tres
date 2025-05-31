@@ -1,4 +1,4 @@
-[gd_resource type="Resource" load_steps=10 format=3 uid="uid://bqcw48sao4aj0"]
+[gd_resource type="Resource" load_steps=12 format=3 uid="uid://bqcw48sao4aj0"]
 
 [ext_resource type="Texture2D" uid="uid://bdiutwxamfcfe" path="res://Assets/Buildings/casa_vila_005_flip_build.png" id="1_2a4fv"]
 [ext_resource type="Texture2D" uid="uid://cte2tclkdk3i3" path="res://Assets/Buildings/casa_vila_005.png" id="1_dwh80"]
@@ -9,11 +9,17 @@
 [sub_resource type="ConcavePolygonShape2D" id="ConcavePolygonShape2D_dsicy"]
 segments = PackedVector2Array(-64, 4, 0, 36, 64, 8, 0, -24)
 
+[sub_resource type="ConcavePolygonShape2D" id="ConcavePolygonShape2D_mu3r4"]
+segments = PackedVector2Array(-80, 8, -64, 16, -80, 28, -56, 44, -32, 32, -16, 40, 48, 8, -16, -20)
+
 [sub_resource type="ConcavePolygonShape2D" id="ConcavePolygonShape2D_onjix"]
 segments = PackedVector2Array(-53, 9, -53, -52, -11, -94, 49, -65, 80, -45, 72, -36, 73, 10, 7, 40)
 
 [sub_resource type="ConcavePolygonShape2D" id="ConcavePolygonShape2D_rcjts"]
 segments = PackedVector2Array(-64, 4, 0, 32, 64, 4, 0, -24)
+
+[sub_resource type="ConcavePolygonShape2D" id="ConcavePolygonShape2D_nye25"]
+segments = PackedVector2Array(-80, 8, -16, 40, 8, 28, 40, 40, 64, 24, 40, 12, 48, 8, -16, -20)
 
 [sub_resource type="ConcavePolygonShape2D" id="ConcavePolygonShape2D_swenq"]
 segments = PackedVector2Array(-64, -48, -64, -52, -32, -72, 24, -96, 64, -56, 64, 8, 0, 36, -64, 4)
@@ -30,3 +36,5 @@ RotatedPlacedTexture = ExtResource("3_f6xlb")
 RotatedPlacedOffset = Vector2(32, 16)
 RotatedCollision = SubResource("ConcavePolygonShape2D_rcjts")
 RotatedInteraction = SubResource("ConcavePolygonShape2D_swenq")
+GridArea = SubResource("ConcavePolygonShape2D_mu3r4")
+RotatedGridArea = SubResource("ConcavePolygonShape2D_nye25")
