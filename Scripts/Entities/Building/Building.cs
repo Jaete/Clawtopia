@@ -1,7 +1,9 @@
 using System;
+using ClawtopiaCs.Scripts.Entities;
 using ClawtopiaCs.Scripts.Entities.Building;
 using ClawtopiaCs.Scripts.Systems;
 using ClawtopiaCs.Scripts.Systems.GameModes;
+using ClawtopiaCs.Scripts.Systems.Interactions;
 using Godot;
 using Godot.Collections;
 
@@ -30,11 +32,6 @@ public partial class Building : Area2D
     [Export] public BuildingData Data;
 
     [Export] public bool IsPreSpawned = false;
-
-    public Color ErrorColor = new Color("ba000079");
-    public Color HoverColor = new Color(1.3f, 1.3f, 1.3f);
-    public Color OkColor = new Color("2eff3f81");
-    public Color RegularColor = new Color(1, 1, 1);
 
     public bool IsBuildingInFront;
     public bool IsBuilt;
@@ -228,27 +225,6 @@ public partial class Building : Area2D
         RemoveSelfFromList();
     }
 
-    public static void ModulateBuilding(Building building, BuildingInteractionStates state)
-    {
-        switch (state)
-        {
-            case BuildingInteractionStates.HOVER:
-                building.Modulate = building.IsBuilt ? building.HoverColor : building.OkColor;
-                break;
-            case BuildingInteractionStates.UNHOVER:
-                building.Modulate = building.IsBuilt ? building.RegularColor : building.OkColor;
-                break;
-            case BuildingInteractionStates.BUILDING_ERROR:
-                building.Modulate = building.ErrorColor;
-                break;
-            case BuildingInteractionStates.BUILDING_OK:
-                building.Modulate = building.OkColor;
-                break;
-            case BuildingInteractionStates.BUILD_FINISHED:
-                building.Modulate = building.RegularColor;
-                break;
-        }
-    }
 
     public static void PlaceBuilding(Building building)
     {
@@ -263,7 +239,7 @@ public partial class Building : Area2D
             building.Sprite.Offset = (building.Sprite.Offset + building.Data.Structure.PlacedOffset);
         }
        
-        ModulateBuilding(building, BuildingInteractionStates.BUILD_FINISHED);
+        Modulation.AssignState(building, InteractionStates.FINISHED);
 
         building.AddSelfOnList();
         building.CurrentBuilders.Clear();

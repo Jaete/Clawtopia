@@ -1,4 +1,5 @@
 using System;
+using ClawtopiaCs.Scripts.Entities;
 using ClawtopiaCs.Scripts.Entities.Building;
 using ClawtopiaCs.Scripts.Systems;
 using ClawtopiaCs.Scripts.Systems.GameModes;
@@ -147,9 +148,9 @@ public partial class BuildMode : GameMode
             }
         }
 
-        Building.ModulateBuilding(
+        Modulation.AssignState(
             CurrentBuilding,
-            IsOverlappingBuildings ? BuildingInteractionStates.BUILDING_ERROR : BuildingInteractionStates.BUILDING_OK
+            IsOverlappingBuildings ? InteractionStates.ERROR : InteractionStates.OK
         );
     }
 

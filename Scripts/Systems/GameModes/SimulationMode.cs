@@ -1,3 +1,4 @@
+using ClawtopiaCs.Scripts.Entities;
 using ClawtopiaCs.Scripts.Entities.Building;
 using Godot;
 using Godot.Collections;
@@ -111,11 +112,14 @@ public partial class SimulationMode : GameMode
             BuildingsToInteract[^1] = lastBuildingInteracted;
         }
 
-        Building.ModulateBuilding(BuildingsToInteract[0], BuildingInteractionStates.HOVER);
+        if (BuildingsToInteract[0].IsBuilt)
+        {
+            Modulation.AssignState(BuildingsToInteract[0], InteractionStates.HOVER);
+        }
 
         if(BuildingsToInteract.Count > 1)
         {
-            Building.ModulateBuilding(BuildingsToInteract[^1], BuildingInteractionStates.UNHOVER);
+            Modulation.AssignState(BuildingsToInteract[^1], InteractionStates.UNHOVER);
         }
     }
 
@@ -126,11 +130,14 @@ public partial class SimulationMode : GameMode
             BuildingsToInteract.Remove(building);
         }
 
-        Building.ModulateBuilding(building, BuildingInteractionStates.UNHOVER);
+        if (building.IsBuilt)
+        {
+            Modulation.AssignState(building, InteractionStates.UNHOVER);
+        }
 
         if (BuildingsToInteract.Count > 0)
         {
-            Building.ModulateBuilding(BuildingsToInteract[0], BuildingInteractionStates.HOVER);
+            Modulation.AssignState(BuildingsToInteract[0], InteractionStates.HOVER);
         }
     }
 

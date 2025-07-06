@@ -1,4 +1,6 @@
 
+using ClawtopiaCs.Scripts.Entities;
+using ClawtopiaCs.Scripts.Entities.Building;
 using Godot;
 
 public partial class Unit : CharacterBody2D
@@ -8,4 +10,5 @@ public partial class Unit : CharacterBody2D
     [Export] public StateMachine StateMachine;
     [Export] public NavigationAgent2D Navigation;
     [Export] public AnimatedSprite2D Sprite;
+    [Export] public Area2D InteractionShape;
 }

@@ -7,7 +7,6 @@ public partial class SalmonCollectPoint : CollectPoint
     public override void _Ready()
     {
         base._Ready();
-        HoverColor = new Color(0.7f, 0.7f, 0.7f);
         Sprite.SpriteFrames = Structure.AnimatedTextures;
         ChangeAnimation(ProgressStructure.States.Full);
     }
