@@ -1,3 +1,5 @@
+using ClawtopiaCs.Scripts.Entities;
+using ClawtopiaCs.Scripts.Entities.Building;
 using ClawtopiaCs.Scripts.Systems;
 using Godot;
 using Godot.Collections;
@@ -9,9 +11,6 @@ public partial class CollectPoint : StaticBody2D
 
 
     private int _resourceQuantity = 0;
-
-    public Color HoverColor = new Color(1.3f, 1.3f, 1.3f);
-    public Color NormalColor = new Color(1f, 1f, 1f);
     public int SelfIndex;
 
     [Export(PropertyHint.Enum, Constants.RESOURCE_LIST)] public string ResourceType;
@@ -57,8 +56,8 @@ public partial class CollectPoint : StaticBody2D
 
     public virtual void OnHover()
     {
-        Modulate = HoverColor;
-
+        Modulation.AssignState(this, InteractionStates.HOVER);
+    }
         if (SimulationMode.Singleton.SelectedAllies.Count > 0)
         {
             switch (ResourceType.ToLower())
@@ -81,9 +80,8 @@ public partial class CollectPoint : StaticBody2D
     
     public virtual void OnUnhover()
     {
-        Modulate = NormalColor;
-
-        CustomCursor.Instance.SetCursor(CustomCursor.CursorType.Default);
+       CustomCursor.Instance.SetCursor(CustomCursor.CursorType.Default);
+       Modulation.AssignState(this, InteractionStates.UNHOVER);
     }
     public virtual void ChangeSpriteOnBreakpoint() { }
 }

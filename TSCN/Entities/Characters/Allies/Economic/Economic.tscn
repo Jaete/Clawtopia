@@ -29,13 +29,14 @@ animations = [{
 radius = 16.0
 height = 64.0
 
-[node name="Economic" type="CharacterBody2D" node_paths=PackedStringArray("StateMachine", "Navigation", "Sprite")]
+[node name="Economic" type="CharacterBody2D" node_paths=PackedStringArray("StateMachine", "Navigation", "Sprite", "InteractionShape")]
 script = ExtResource("1_kr1my")
 Category = "Economic"
 Attributes = ExtResource("2_ku51o")
 StateMachine = NodePath("FSM")
 Navigation = NodePath("Navigation")
 Sprite = NodePath("Sprite")
+InteractionShape = NodePath("InteractionShape")
 
 [node name="SelectionCircle" type="Line2D" parent="."]
 visible = false
