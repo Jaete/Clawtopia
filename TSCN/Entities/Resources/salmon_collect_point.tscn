@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://c1hfodw7xtym7"]
 
-[ext_resource type="Script" path="res://Scripts/Entities/Resources/SalmonCollectPoint.cs" id="1_duwpn"]
+[ext_resource type="Script" uid="uid://cgndydqx6t2p2" path="res://Scripts/Entities/Resources/SalmonCollectPoint.cs" id="1_duwpn"]
 [ext_resource type="Resource" uid="uid://cavajiufwf4bg" path="res://Resources/Environment/SalmonCollectPoint.tres" id="2_qh1hm"]
 [ext_resource type="SpriteFrames" uid="uid://cbbcav4heu0w2" path="res://Resources/Animations/Salmon.tres" id="2_yqlqm"]
 

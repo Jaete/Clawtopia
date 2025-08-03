@@ -7,13 +7,13 @@
 [ext_resource type="AudioStream" uid="uid://cnx6g6fuhlhlp" path="res://Assets/Audio/SFX/Building/destroy-004.ogg" id="5_27a45"]
 [ext_resource type="AudioStream" uid="uid://cx71cf6ffwqvg" path="res://Assets/Audio/SFX/Building/destroy-005.ogg" id="6_gxe4y"]
 [ext_resource type="AudioStream" uid="uid://865i76f5bwrx" path="res://Assets/Audio/SFX/Building/plot.ogg" id="7_lcibm"]
-[ext_resource type="Script" path="res://Scripts/Entities/Building/BuildingData.cs" id="8_x7nc2"]
+[ext_resource type="Script" uid="uid://iy7w2gbfhvuy" path="res://Scripts/Entities/Building/BuildingData.cs" id="8_x7nc2"]
 [ext_resource type="Resource" uid="uid://drb6adc0v0ylm" path="res://Resources/Buildings/Economy/Sand/Structure.tres" id="8_yrmnn"]
 
 [resource]
 script = ExtResource("8_x7nc2")
 PlaceBuildingSound = ExtResource("7_lcibm")
-DestroyBuildingSounds = [ExtResource("2_gq0kb"), ExtResource("3_xh8po"), ExtResource("4_s06wq"), ExtResource("5_27a45"), ExtResource("6_gxe4y")]
+DestroyBuildingSounds = Array[AudioStream]([ExtResource("2_gq0kb"), ExtResource("3_xh8po"), ExtResource("4_s06wq"), ExtResource("5_27a45"), ExtResource("6_gxe4y")])
 CancelSound = ExtResource("1_v5ckq")
 Type = "Resource"
 ResourceType = "Sand"

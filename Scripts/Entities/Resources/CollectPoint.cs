@@ -1,6 +1,7 @@
 using ClawtopiaCs.Scripts.Systems;
 using Godot;
 using Godot.Collections;
+using ClawtopiaCs.Scripts.Systems.GameModes;
 
 public partial class CollectPoint : StaticBody2D
 {
@@ -19,9 +20,11 @@ public partial class CollectPoint : StaticBody2D
     [Export] public ProgressStructure Structure;
     [Export] public int MaxResourceQuantity;
 
-    public int ResourceQuantity { 
+    public int ResourceQuantity
+    {
         get => _resourceQuantity;
-        set {
+        set
+        {
             _resourceQuantity = value;
             if (_resourceQuantity - value < 0)
             {
@@ -55,11 +58,32 @@ public partial class CollectPoint : StaticBody2D
     public virtual void OnHover()
     {
         Modulate = HoverColor;
-    }
 
+        if (SimulationMode.Singleton.SelectedAllies.Count > 0)
+        {
+            switch (ResourceType.ToLower())
+            {
+                case "salmon":
+                    CustomCursor.Instance.SetCursor(CustomCursor.CursorType.Vara);
+                    break;
+                case "sand":
+                    CustomCursor.Instance.SetCursor(CustomCursor.CursorType.Pa);
+                    break;
+                case "catnip":
+                    CustomCursor.Instance.SetCursor(CustomCursor.CursorType.Foice);
+                    break;
+                default:
+                    CustomCursor.Instance.SetCursor(CustomCursor.CursorType.Default);
+                    break;
+            }
+        }
+    }
+    
     public virtual void OnUnhover()
     {
         Modulate = NormalColor;
+
+        CustomCursor.Instance.SetCursor(CustomCursor.CursorType.Default);
     }
     public virtual void ChangeSpriteOnBreakpoint() { }
 }

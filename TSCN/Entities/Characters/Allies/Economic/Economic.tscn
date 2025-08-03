@@ -1,14 +1,14 @@
 [gd_scene load_steps=13 format=3 uid="uid://d3gh4jmuicqic"]
 
-[ext_resource type="Script" path="res://Scripts/Entities/Characters/Allies/Ally.cs" id="1_kr1my"]
+[ext_resource type="Script" uid="uid://dgjx0mjlsyyt4" path="res://Scripts/Entities/Characters/Allies/Ally.cs" id="1_kr1my"]
 [ext_resource type="Resource" uid="uid://cg7alavmqxtqn" path="res://Resources/Characters/Allies/Attributes/Communist.tres" id="2_ku51o"]
-[ext_resource type="Script" path="res://Scripts/Entities/Characters/StateMachine.cs" id="3_5j1te"]
-[ext_resource type="Script" path="res://Scripts/Entities/Characters/Allies/Economic/States/Idle.cs" id="4_gul40"]
-[ext_resource type="Script" path="res://Scripts/Entities/Characters/Allies/Economic/States/Move.cs" id="5_2gbdh"]
-[ext_resource type="Script" path="res://Scripts/Entities/Characters/Allies/Economic/States/Build.cs" id="6_g88hf"]
-[ext_resource type="Script" path="res://Scripts/Entities/Characters/Allies/Economic/States/Collect.cs" id="7_cnf8a"]
+[ext_resource type="Script" uid="uid://chx6rbmbkfufb" path="res://Scripts/Entities/Characters/StateMachine.cs" id="3_5j1te"]
+[ext_resource type="Script" uid="uid://btwq6qkpr8fsi" path="res://Scripts/Entities/Characters/Allies/Economic/States/Idle.cs" id="4_gul40"]
+[ext_resource type="Script" uid="uid://cnuc0uh6yhf5j" path="res://Scripts/Entities/Characters/Allies/Economic/States/Move.cs" id="5_2gbdh"]
+[ext_resource type="Script" uid="uid://bsxst58fn6eug" path="res://Scripts/Entities/Characters/Allies/Economic/States/Build.cs" id="6_g88hf"]
+[ext_resource type="Script" uid="uid://62txym8l2bxo" path="res://Scripts/Entities/Characters/Allies/Economic/States/Collect.cs" id="7_cnf8a"]
 [ext_resource type="Texture2D" uid="uid://davy57qg772li" path="res://Assets/Spritesheets/Characters/Allies/test_kitten_artstyle64.png" id="8_21cwc"]
-[ext_resource type="Script" path="res://Scripts/EcoDebug.cs" id="9_f5t16"]
+[ext_resource type="Script" uid="uid://dcrkjbpgq8px1" path="res://Scripts/EcoDebug.cs" id="9_f5t16"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_kwluu"]
 atlas = ExtResource("8_21cwc")

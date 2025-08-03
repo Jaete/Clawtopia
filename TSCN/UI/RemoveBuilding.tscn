@@ -1,8 +1,8 @@
 [gd_scene load_steps=15 format=3 uid="uid://bdb1ycgemgal4"]
 
-[ext_resource type="Texture2D" uid="uid://br5ydadhldshi" path="res://Assets/UI/64px_botoes_corB.png" id="1_5wuwv"]
-[ext_resource type="Texture2D" uid="uid://daxi84t0vn6q" path="res://Assets/UI/Teclas_ativas_unic.png" id="2_d4x2o"]
-[ext_resource type="FontFile" uid="uid://cr6wq0358x1n6" path="res://Assets/UI/bitfantasy.ttf" id="3_4n8p8"]
+[ext_resource type="Texture2D" uid="uid://br5ydadhldshi" path="res://Assets/UI/Old UI/64px_botoes_corB.png" id="1_5wuwv"]
+[ext_resource type="Texture2D" uid="uid://daxi84t0vn6q" path="res://Assets/UI/Old UI/Teclas_ativas_unic.png" id="2_d4x2o"]
+[ext_resource type="FontFile" uid="uid://cr6wq0358x1n6" path="res://Assets/UI/Old UI/bitfantasy.ttf" id="3_4n8p8"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_l17nu"]
 

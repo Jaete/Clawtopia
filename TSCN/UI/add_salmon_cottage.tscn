@@ -1,10 +1,8 @@
-[gd_scene load_steps=17 format=3 uid="uid://b4expjtsyc8um"]
+[gd_scene load_steps=15 format=3 uid="uid://b4expjtsyc8um"]
 
-[ext_resource type="Script" path="res://Scripts/Entities/UI/AddBuilding.cs" id="1_gp4cw"]
+[ext_resource type="Script" uid="uid://cmjhmv6wwd1tn" path="res://Scripts/Entities/UI/AddBuilding.cs" id="1_gp4cw"]
 [ext_resource type="Resource" uid="uid://f0n4etcb423u" path="res://Resources/Buildings/Economy/Salmon/SalmonCottage.tres" id="2_cb2yu"]
-[ext_resource type="Texture2D" uid="uid://br5ydadhldshi" path="res://Assets/UI/64px_botoes_corB.png" id="3_hgkhq"]
-[ext_resource type="Texture2D" uid="uid://daxi84t0vn6q" path="res://Assets/UI/Teclas_ativas_unic.png" id="4_8ku1q"]
-[ext_resource type="FontFile" uid="uid://cr6wq0358x1n6" path="res://Assets/UI/bitfantasy.ttf" id="5_xkq6i"]
+[ext_resource type="Texture2D" uid="uid://dctwksay4d8ec" path="res://Assets/UI/New UI/salmon-storage-icon.png" id="3_pbwt2"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_vf24x"]
 
@@ -39,10 +37,8 @@ mouse_filter = 1
 
 [node name="Button" type="Button" parent="."]
 layout_mode = 0
-offset_left = -23.0
-offset_top = -26.0
-offset_right = 30.0
-offset_bottom = 31.0
+offset_right = 64.0
+offset_bottom = 68.0
 mouse_filter = 1
 theme_override_styles/focus = SubResource("StyleBoxEmpty_vf24x")
 theme_override_styles/disabled_mirrored = SubResource("StyleBoxEmpty_swuj3")
@@ -58,24 +54,8 @@ theme_override_styles/normal = SubResource("StyleBoxEmpty_vqutg")
 script = ExtResource("1_gp4cw")
 Building = ExtResource("2_cb2yu")
 
-[node name="Icon" type="Sprite2D" parent="."]
-position = Vector2(3, 2.5)
-scale = Vector2(0.84375, 0.890625)
-texture = ExtResource("3_hgkhq")
-region_enabled = true
-region_rect = Rect2(192, 0, 64, 64)
-
-[node name="Keybind" type="Sprite2D" parent="."]
-position = Vector2(16, -24)
-scale = Vector2(1.55882, 1.8)
-texture = ExtResource("4_8ku1q")
-
-[node name="Key" type="Label" parent="Keybind"]
-offset_left = -3.20755
-offset_top = -5.0
-offset_right = 36.7924
-offset_bottom = 18.0
-scale = Vector2(0.7, 0.7)
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_fonts/font = ExtResource("5_xkq6i")
-text = "Q"
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(32, 34)
+scale = Vector2(2, 2)
+texture = ExtResource("3_pbwt2")
+region_rect = Rect2(128, 0, 64, 64)

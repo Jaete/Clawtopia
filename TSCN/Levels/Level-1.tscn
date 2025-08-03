@@ -12,7 +12,7 @@
 [ext_resource type="AudioStream" uid="uid://cx71cf6ffwqvg" path="res://Assets/Audio/SFX/Building/destroy-005.ogg" id="10_gcu5t"]
 [ext_resource type="AudioStream" uid="uid://865i76f5bwrx" path="res://Assets/Audio/SFX/Building/plot.ogg" id="11_wvlsq"]
 [ext_resource type="Resource" uid="uid://6k5dlxrryvt" path="res://Resources/Buildings/GreatCommune/Structure.tres" id="12_15jvm"]
-[ext_resource type="Script" path="res://Scripts/Entities/Building/BuildingData.cs" id="13_dedtm"]
+[ext_resource type="Script" uid="uid://iy7w2gbfhvuy" path="res://Scripts/Entities/Building/BuildingData.cs" id="13_dedtm"]
 [ext_resource type="PackedScene" uid="uid://c1hfodw7xtym7" path="res://TSCN/Entities/Resources/salmon_collect_point.tscn" id="14_kat3n"]
 [ext_resource type="PackedScene" uid="uid://cyff605bjg08y" path="res://TSCN/Entities/Resources/catnip_collect_point.tscn" id="15_3ij5l"]
 [ext_resource type="PackedScene" uid="uid://cay5olbev7ruh" path="res://TSCN/Entities/Resources/sand_collect_point.tscn" id="16_thxtt"]
@@ -22,11 +22,11 @@ vertices = PackedVector2Array(691.531, 124.938, 1401.65, 480, 724.211, 818.719, 
 polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3, 4, 5, 6, 7), PackedInt32Array(8, 9, 10, 11, 12, 13), PackedInt32Array(14, 15, 13, 12, 16, 17), PackedInt32Array(18, 17, 16), PackedInt32Array(19, 20, 18, 16, 21, 22), PackedInt32Array(23, 24, 22, 21, 11, 25), PackedInt32Array(25, 11, 10)])
 outlines = Array[PackedVector2Array]([PackedVector2Array(657, 1288, -889, 517, 540, -204, 2073, 584)])
 
-[sub_resource type="Resource" id="Resource_5032d"]
+[sub_resource type="Resource" id="Resource_2cqx2"]
 resource_local_to_scene = true
 script = ExtResource("13_dedtm")
 PlaceBuildingSound = ExtResource("11_wvlsq")
-DestroyBuildingSounds = [ExtResource("6_aiini"), ExtResource("7_k4nil"), ExtResource("8_7ctwn"), ExtResource("9_jydgs"), ExtResource("10_gcu5t")]
+DestroyBuildingSounds = Array[AudioStream]([ExtResource("6_aiini"), ExtResource("7_k4nil"), ExtResource("8_7ctwn"), ExtResource("9_jydgs"), ExtResource("10_gcu5t")])
 CancelSound = ExtResource("5_f75f1")
 Type = "Commune"
 ResourceType = ""
@@ -72,7 +72,7 @@ position = Vector2(688, 424)
 
 [node name="Purrlament" parent="." instance=ExtResource("3_wt2d7")]
 position = Vector2(576, 328)
-Data = SubResource("Resource_5032d")
+Data = SubResource("Resource_2cqx2")
 IsPreSpawned = true
 
 [node name="CatnipCollectPoint" parent="." instance=ExtResource("15_3ij5l")]

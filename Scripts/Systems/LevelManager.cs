@@ -39,9 +39,9 @@ public partial class LevelManager : Node2D
         Singleton = this;
         Ui = GetNode<UI>("/root/Game/UI");
         ResCount = Ui.GetNode<Control>("ResourcesCount");
-        CatnipLabel = ResCount.GetNode<Label>("CatnipLabel");
-        SalmonLabel = ResCount.GetNode<Label>("SalmonLabel");
-        SandLabel = ResCount.GetNode<Label>("SandLabel");
+        CatnipLabel = ResCount.GetNode<Label>("Labels/CatnipLabel");
+        SalmonLabel = ResCount.GetNode<Label>("Labels/SalmonLabel");
+        SandLabel = ResCount.GetNode<Label>("Labels/SandLabel");
         ResourceDelivered += When_resource_delivered;
         ResourceExpended += WhenResourceExpended;
         CurrentResources[Constants.SALMON] = InitialSalmonQuantity;

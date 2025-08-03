@@ -1,58 +1,191 @@
-[gd_scene load_steps=8 format=3 uid="uid://dlafn1y1tob36"]
+[gd_scene load_steps=22 format=3 uid="uid://dmpleu5th8yqj"]
 
-[ext_resource type="Script" path="res://Scripts/Entities/UI/CommunistMenu.cs" id="1_qbug2"]
-[ext_resource type="Texture2D" uid="uid://dimtwl0njuc1a" path="res://Assets/UI/HUD_Claw_FUNDO.png" id="2_1xsvr"]
+[ext_resource type="Script" uid="uid://dj6hrby0pkdt5" path="res://Scripts/Entities/UI/CommunistMenu.cs" id="1_qbug2"]
+[ext_resource type="Texture2D" uid="uid://d0solxch24hu0" path="res://Assets/UI/New UI/building-background-frame.png" id="2_eij0w"]
 [ext_resource type="PackedScene" uid="uid://be6qpul8cdl7" path="res://TSCN/UI/add_fighter_tower.tscn" id="4_dufqv"]
 [ext_resource type="PackedScene" uid="uid://b4expjtsyc8um" path="res://TSCN/UI/add_salmon_cottage.tscn" id="5_ibcmm"]
 [ext_resource type="PackedScene" uid="uid://cc5007ymclpse" path="res://TSCN/UI/add_house.tscn" id="5_mfa1r"]
-[ext_resource type="PackedScene" uid="uid://c3pqhyhaqpi4" path="res://TSCN/UI/add_catnip_farm.tscn" id="6_pehtm"]
-[ext_resource type="PackedScene" uid="uid://c06hgevw4voan" path="res://TSCN/UI/add_sand_mine.tscn" id="7_7wdud"]
+[ext_resource type="Texture2D" uid="uid://b0361h5aik4sx" path="res://Assets/UI/New UI/artist-tower-icon.png" id="5_plqm2"]
+[ext_resource type="Texture2D" uid="uid://dqd3jwlwx70fr" path="res://Assets/UI/New UI/engineer-tower-house.png" id="8_t8ul8"]
+[ext_resource type="PackedScene" uid="uid://r3nspwyj6qa4" path="res://TSCN/UI/add_sand_mine.tscn" id="9_gfsh3"]
+[ext_resource type="Texture2D" uid="uid://cdse27kpapcwh" path="res://Assets/UI/New UI/catnip-storage-icon.png" id="9_yc07d"]
+[ext_resource type="PackedScene" uid="uid://dro8ui4lldrko" path="res://TSCN/UI/UnitMenu.tscn" id="10_acvrd"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_7fdb8"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_dlfan"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_08exl"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_cd8xp"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_7oh83"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_lwitm"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_aucvs"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_rwsy0"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_60c3q"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ojue0"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_jtp1b"]
 
 [node name="CommunistMenu" type="Control"]
-custom_minimum_size = Vector2(500, 200)
 layout_mode = 3
-anchors_preset = 0
-offset_right = 619.0
-offset_bottom = 200.0
-mouse_filter = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = -345.0
+offset_top = 12.0
+offset_bottom = 297.0
+grow_horizontal = 2
 script = ExtResource("1_qbug2")
 
-[node name="HudClawFundo" type="Sprite2D" parent="."]
-position = Vector2(307, 92)
-scale = Vector2(1.46049, 1.54854)
-texture = ExtResource("2_1xsvr")
+[node name="HContainer" type="HBoxContainer" parent="."]
+layout_mode = 0
+offset_left = 199.0
+offset_top = 11.0
+offset_right = 1114.0
+offset_bottom = 299.0
+theme_override_constants/separation = 325
+alignment = 2
 
-[node name="AddSalmonCottage" parent="." instance=ExtResource("5_ibcmm")]
-layout_mode = 1
-offset_left = 98.0
-offset_top = 57.0
-offset_right = 98.0
-offset_bottom = 57.0
+[node name="UnitMenu" parent="HContainer" instance=ExtResource("10_acvrd")]
+layout_mode = 2
 
-[node name="AddHouse" parent="." instance=ExtResource("5_mfa1r")]
-layout_mode = 1
-offset_left = 215.0
-offset_top = 57.0
-offset_right = 215.0
-offset_bottom = 57.0
+[node name="VContainer" type="VBoxContainer" parent="HContainer"]
+layout_mode = 2
+alignment = 1
 
-[node name="AddFighterTower" parent="." instance=ExtResource("4_dufqv")]
-layout_mode = 1
-offset_left = 156.0
-offset_top = 57.0
-offset_right = 156.0
-offset_bottom = 57.0
+[node name="GridContainer" type="GridContainer" parent="HContainer/VContainer"]
+layout_mode = 2
+theme_override_constants/h_separation = 7
+theme_override_constants/v_separation = 5
+columns = 3
 
-[node name="AddCatnipFarm" parent="." instance=ExtResource("6_pehtm")]
-layout_mode = 1
-offset_left = 98.0
-offset_top = 118.0
-offset_right = 98.0
-offset_bottom = 118.0
+[node name="HudClawFundo" type="Sprite2D" parent="HContainer/VContainer/GridContainer"]
+position = Vector2(103, 102)
+scale = Vector2(2, 2)
+texture = ExtResource("2_eij0w")
 
-[node name="AddSandMine" parent="." instance=ExtResource("7_7wdud")]
+[node name="AddHouse" parent="HContainer/VContainer/GridContainer" instance=ExtResource("5_mfa1r")]
+layout_mode = 2
+
+[node name="ArtistTower" type="Control" parent="HContainer/VContainer/GridContainer"]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+size_flags_horizontal = 4
+mouse_filter = 1
+
+[node name="Button" type="Button" parent="HContainer/VContainer/GridContainer/ArtistTower"]
 layout_mode = 1
-offset_left = 156.0
-offset_top = 118.0
-offset_right = 156.0
-offset_bottom = 118.0
+anchors_preset = -1
+anchor_left = 0.182
+anchor_top = 0.254
+anchor_right = 0.182
+anchor_bottom = 0.254
+offset_left = -11.648
+offset_top = -16.256
+offset_right = 52.352
+offset_bottom = 47.744
+mouse_filter = 1
+theme_override_styles/focus = SubResource("StyleBoxEmpty_7fdb8")
+theme_override_styles/disabled_mirrored = SubResource("StyleBoxEmpty_dlfan")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_08exl")
+theme_override_styles/hover_pressed_mirrored = SubResource("StyleBoxEmpty_cd8xp")
+theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_7oh83")
+theme_override_styles/hover_mirrored = SubResource("StyleBoxEmpty_lwitm")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_aucvs")
+theme_override_styles/pressed_mirrored = SubResource("StyleBoxEmpty_rwsy0")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_60c3q")
+theme_override_styles/normal_mirrored = SubResource("StyleBoxEmpty_ojue0")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_jtp1b")
+
+[node name="Sprite2D" type="Sprite2D" parent="HContainer/VContainer/GridContainer/ArtistTower"]
+position = Vector2(32, 34)
+scale = Vector2(2, 2)
+texture = ExtResource("5_plqm2")
+region_rect = Rect2(128, 0, 64, 64)
+
+[node name="EngineerTower" type="Control" parent="HContainer/VContainer/GridContainer"]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+size_flags_horizontal = 4
+mouse_filter = 1
+
+[node name="Button" type="Button" parent="HContainer/VContainer/GridContainer/EngineerTower"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.182
+anchor_top = 0.254
+anchor_right = 0.182
+anchor_bottom = 0.254
+offset_left = -11.648
+offset_top = -16.256
+offset_right = 52.352
+offset_bottom = 47.744
+mouse_filter = 1
+theme_override_styles/focus = SubResource("StyleBoxEmpty_7fdb8")
+theme_override_styles/disabled_mirrored = SubResource("StyleBoxEmpty_dlfan")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_08exl")
+theme_override_styles/hover_pressed_mirrored = SubResource("StyleBoxEmpty_cd8xp")
+theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_7oh83")
+theme_override_styles/hover_mirrored = SubResource("StyleBoxEmpty_lwitm")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_aucvs")
+theme_override_styles/pressed_mirrored = SubResource("StyleBoxEmpty_rwsy0")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_60c3q")
+theme_override_styles/normal_mirrored = SubResource("StyleBoxEmpty_ojue0")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_jtp1b")
+
+[node name="Sprite2D" type="Sprite2D" parent="HContainer/VContainer/GridContainer/EngineerTower"]
+position = Vector2(32, 34)
+scale = Vector2(2, 2)
+texture = ExtResource("8_t8ul8")
+region_rect = Rect2(128, 0, 64, 64)
+
+[node name="CatnipStorage" type="Control" parent="HContainer/VContainer/GridContainer"]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+size_flags_horizontal = 4
+mouse_filter = 1
+
+[node name="Button" type="Button" parent="HContainer/VContainer/GridContainer/CatnipStorage"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.182
+anchor_top = 0.254
+anchor_right = 0.182
+anchor_bottom = 0.254
+offset_left = -11.648
+offset_top = -16.256
+offset_right = 52.352
+offset_bottom = 47.744
+mouse_filter = 1
+theme_override_styles/focus = SubResource("StyleBoxEmpty_7fdb8")
+theme_override_styles/disabled_mirrored = SubResource("StyleBoxEmpty_dlfan")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_08exl")
+theme_override_styles/hover_pressed_mirrored = SubResource("StyleBoxEmpty_cd8xp")
+theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_7oh83")
+theme_override_styles/hover_mirrored = SubResource("StyleBoxEmpty_lwitm")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_aucvs")
+theme_override_styles/pressed_mirrored = SubResource("StyleBoxEmpty_rwsy0")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_60c3q")
+theme_override_styles/normal_mirrored = SubResource("StyleBoxEmpty_ojue0")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_jtp1b")
+
+[node name="Sprite2D" type="Sprite2D" parent="HContainer/VContainer/GridContainer/CatnipStorage"]
+position = Vector2(32, 34)
+scale = Vector2(2, 2)
+texture = ExtResource("9_yc07d")
+region_rect = Rect2(128, 0, 64, 64)
+
+[node name="AddFighterTower" parent="HContainer/VContainer/GridContainer" instance=ExtResource("4_dufqv")]
+layout_mode = 2
+
+[node name="AddSalmonCottage" parent="HContainer/VContainer/GridContainer" instance=ExtResource("5_ibcmm")]
+layout_mode = 2
+
+[node name="AddSandMine" parent="HContainer/VContainer/GridContainer" instance=ExtResource("9_gfsh3")]
+layout_mode = 2

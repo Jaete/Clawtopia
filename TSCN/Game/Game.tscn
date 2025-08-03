@@ -1,11 +1,12 @@
-[gd_scene load_steps=7 format=3 uid="uid://cnyghgsmgc77a"]
+[gd_scene load_steps=8 format=3 uid="uid://cnyghgsmgc77a"]
 
 [ext_resource type="PackedScene" uid="uid://c73kwxuuwdacc" path="res://TSCN/Levels/Level-1.tscn" id="1_6kvq8"]
-[ext_resource type="Script" path="res://Scripts/Systems/LevelManager.cs" id="1_rxf7b"]
+[ext_resource type="Script" uid="uid://0wkhaudw8r7b" path="res://Scripts/Systems/LevelManager.cs" id="1_rxf7b"]
 [ext_resource type="PackedScene" uid="uid://sbqaktg77w31" path="res://TSCN/Systems/GameModes/ModeManager.tscn" id="2_u37th"]
 [ext_resource type="PackedScene" uid="uid://dg1278ax8xp1f" path="res://TSCN/UI/UI.tscn" id="3_bq1ev"]
-[ext_resource type="PackedScene" path="res://TSCN/Systems/Controller.tscn" id="4_ak1ec"]
-[ext_resource type="Script" path="res://Scripts/Systems/TerrainBaking/TerrainBaking.cs" id="6_3jkoc"]
+[ext_resource type="PackedScene" uid="uid://drliam15ta6fq" path="res://TSCN/Systems/Controller.tscn" id="4_ak1ec"]
+[ext_resource type="Script" uid="uid://ctecux5x35stj" path="res://Scripts/Systems/TerrainBaking/TerrainBaking.cs" id="6_3jkoc"]
+[ext_resource type="Script" uid="uid://dae2eaw5tplkd" path="res://Scripts/Entities/UI/CustomCursor.cs" id="7_b81cf"]
 
 [node name="Game" type="Node2D"]
 y_sort_enabled = true
@@ -17,6 +18,7 @@ InitialSalmonQuantity = 1000
 InitialSandQuantity = 1000
 
 [node name="Level" parent="LevelManager" instance=ExtResource("1_6kvq8")]
+position = Vector2(16, -92)
 
 [node name="ModeManager" parent="." instance=ExtResource("2_u37th")]
 
@@ -26,3 +28,6 @@ InitialSandQuantity = 1000
 
 [node name="TerrainBaking" type="Node2D" parent="."]
 script = ExtResource("6_3jkoc")
+
+[node name="CustomCursor" type="Node" parent="."]
+script = ExtResource("7_b81cf")

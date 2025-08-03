@@ -7,24 +7,21 @@ public partial class UI : CanvasLayer
     public static UI Singleton;
 
     public PackedScene BaseMenu = GD.Load<PackedScene>("res://TSCN/UI/BaseMenu.tscn");
-
-    public Building Building;
     public PackedScene HouseMenu = GD.Load<PackedScene>("res://TSCN/UI/HouseMenu.tscn");
-    public BuildingMenu BuildingMenuControl;
     public PackedScene CommunistMenu = GD.Load<PackedScene>("res://TSCN/UI/CommunistMenu.tscn");
-
-    public HFlowContainer Container;
-
-
-    public Control CurrentWindow;
-
-    public bool IsResettingUi;
-
-    private PauseMenu pauseMenu;
+    public PackedScene UnitMenu = GD.Load<PackedScene>("res://TSCN/UI/UnitMenu.tscn");
     public PackedScene PauseMenuScene = GD.Load<PackedScene>("res://TSCN/UI/PauseMenu.tscn");
     public PackedScene PurrlamentMenu = GD.Load<PackedScene>("res://TSCN/UI/PurrlamentMenu.tscn");
 
+
+    public Building Building;
+    public BuildingMenu BuildingMenuControl;
+    public HFlowContainer Container;
+    public Control CurrentWindow;
     public UIMode UiMode;
+    private PauseMenu pauseMenu;
+    
+    public bool IsResettingUi;
 
     public override void _Ready()
     {

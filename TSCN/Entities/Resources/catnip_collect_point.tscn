@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://cyff605bjg08y"]
 
-[ext_resource type="Script" path="res://Scripts/Entities/Resources/CatnipCollectPoint.cs" id="1_pe6jj"]
+[ext_resource type="Script" uid="uid://cgpojyl445qlb" path="res://Scripts/Entities/Resources/CatnipCollectPoint.cs" id="1_pe6jj"]
 [ext_resource type="Texture2D" uid="uid://cq16jpph5052d" path="res://Assets/Spritesheets/Resources/asset_catnip_material3.png" id="2_6o2av"]
 [ext_resource type="Resource" uid="uid://bp0mgb5whmxtu" path="res://Resources/Environment/CatnipCollectPoint.tres" id="2_e53q3"]
 
