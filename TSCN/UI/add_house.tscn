@@ -1,10 +1,10 @@
 [gd_scene load_steps=17 format=3 uid="uid://cc5007ymclpse"]
 
-[ext_resource type="Script" path="res://Scripts/Entities/UI/AddBuilding.cs" id="1_47mjx"]
-[ext_resource type="Resource" uid="uid://bnn4y64wn2h21" path="res://Resources/Buildings/House/House.tres" id="2_6nink"]
+[ext_resource type="Script" uid="uid://bx22nkbg6fbk3" path="res://Scripts/Entities/UI/AddBuilding.cs" id="1_47mjx"]
 [ext_resource type="Texture2D" uid="uid://br5ydadhldshi" path="res://Assets/UI/64px_botoes_corB.png" id="3_nhp2c"]
 [ext_resource type="Texture2D" uid="uid://daxi84t0vn6q" path="res://Assets/UI/Teclas_ativas_unic.png" id="4_krolp"]
 [ext_resource type="FontFile" uid="uid://cr6wq0358x1n6" path="res://Assets/UI/bitfantasy.ttf" id="5_86q5u"]
+[ext_resource type="Resource" uid="uid://dgyot4a6awefd" path="res://Resources/Buildings/House/House.tres" id="5_e5421"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_vf24x"]
 
@@ -79,4 +79,4 @@ theme_override_styles/pressed = SubResource("StyleBoxEmpty_8t6ra")
 theme_override_styles/normal_mirrored = SubResource("StyleBoxEmpty_ulnfm")
 theme_override_styles/normal = SubResource("StyleBoxEmpty_vqutg")
 script = ExtResource("1_47mjx")
-Building = ExtResource("2_6nink")
+BuildingToAdd = ExtResource("5_e5421")

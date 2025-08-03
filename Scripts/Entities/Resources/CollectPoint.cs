@@ -2,7 +2,7 @@ using ClawtopiaCs.Scripts.Entities;
 using ClawtopiaCs.Scripts.Entities.Building;
 using ClawtopiaCs.Scripts.Systems;
 using Godot;
-using Godot.Collections;
+using static BuildingData;
 
 public partial class CollectPoint : StaticBody2D
 {
@@ -12,7 +12,7 @@ public partial class CollectPoint : StaticBody2D
     private int _resourceQuantity = 0;
     public int SelfIndex;
 
-    [Export(PropertyHint.Enum, Constants.RESOURCE_LIST)] public string ResourceType;
+    [Export(PropertyHint.Enum, Constants.RESOURCE_LIST)] public ResourceType ResourceType;
 
     [Export] public Area2D Interaction;
     [Export] public ProgressStructure Structure;

@@ -1,6 +1,6 @@
 [gd_scene load_steps=8 format=3 uid="uid://dlafn1y1tob36"]
 
-[ext_resource type="Script" path="res://Scripts/Entities/UI/CommunistMenu.cs" id="1_qbug2"]
+[ext_resource type="Script" uid="uid://dltuw2f7p1yr7" path="res://Scripts/Entities/UI/CommunistMenu.cs" id="1_qbug2"]
 [ext_resource type="Texture2D" uid="uid://dimtwl0njuc1a" path="res://Assets/UI/HUD_Claw_FUNDO.png" id="2_1xsvr"]
 [ext_resource type="PackedScene" uid="uid://be6qpul8cdl7" path="res://TSCN/UI/add_fighter_tower.tscn" id="4_dufqv"]
 [ext_resource type="PackedScene" uid="uid://b4expjtsyc8um" path="res://TSCN/UI/add_salmon_cottage.tscn" id="5_ibcmm"]

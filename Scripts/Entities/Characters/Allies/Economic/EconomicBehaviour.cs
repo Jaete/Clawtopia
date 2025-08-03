@@ -2,10 +2,11 @@
 using ClawtopiaCs.Scripts.Systems.GameModes;
 using Godot;
 using Godot.Collections;
+using static BuildingData;
 
 public partial class EconomicBehaviour : Resource
 {
-    public static void SeekResource(Ally ally, string resourceType)
+    public static void SeekResource(Ally ally, ResourceType resourceType)
     {
         Array<CollectPoint> resourceToSeek = Selectors.GetCollectPoints(resourceType);
 
@@ -24,10 +25,10 @@ public partial class EconomicBehaviour : Resource
 
     public static void DeliverResource(Ally ally)
     {
-        var resource = new Dictionary<string, int>
-            {
-                { ally.InteractedResource.ResourceType, ally.ResourceCurrentQuantity }
-            };
+        var resource = new Dictionary<ResourceType, int>
+        {
+            { ally.InteractedResource.ResourceType, ally.ResourceCurrentQuantity }
+        };
 
         LevelManager.Singleton.EmitSignal(LevelManager.SignalName.ResourceDelivered, resource);
 
@@ -51,8 +52,8 @@ public partial class EconomicBehaviour : Resource
         }
         else
         {
-            string interactedResource = Selectors.GetInteractedResourceType(ally, coords);
-            if (interactedResource != null)
+            ResourceType interactedResource = Selectors.GetInteractedResourceType(ally, coords);
+            if (interactedResource != ResourceType.None)
             {
                 Array<CollectPoint> collectPoints = Selectors.GetCollectPoints(interactedResource);
                 nextTarget = Selectors.GetClosestCollectPoint(ally, coords, collectPoints[0]).GlobalPosition;

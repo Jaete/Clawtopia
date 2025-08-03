@@ -1,11 +1,12 @@
-[gd_scene load_steps=7 format=3 uid="uid://cnyghgsmgc77a"]
+[gd_scene load_steps=8 format=3 uid="uid://cnyghgsmgc77a"]
 
 [ext_resource type="PackedScene" uid="uid://c73kwxuuwdacc" path="res://TSCN/Levels/Level-1.tscn" id="1_6kvq8"]
-[ext_resource type="Script" path="res://Scripts/Systems/LevelManager.cs" id="1_rxf7b"]
+[ext_resource type="Script" uid="uid://dc1dfj40aqcwp" path="res://Scripts/Systems/LevelManager.cs" id="1_rxf7b"]
 [ext_resource type="PackedScene" uid="uid://sbqaktg77w31" path="res://TSCN/Systems/GameModes/ModeManager.tscn" id="2_u37th"]
 [ext_resource type="PackedScene" uid="uid://dg1278ax8xp1f" path="res://TSCN/UI/UI.tscn" id="3_bq1ev"]
 [ext_resource type="PackedScene" uid="uid://drliam15ta6fq" path="res://TSCN/Systems/Controller.tscn" id="4_ak1ec"]
-[ext_resource type="Script" path="res://Scripts/Systems/TerrainBaking/TerrainBaking.cs" id="6_3jkoc"]
+[ext_resource type="Script" uid="uid://tpsa0l2j5l83" path="res://Scripts/Systems/TerrainBaking/TerrainBaking.cs" id="6_3jkoc"]
+[ext_resource type="PackedScene" uid="uid://b2scej65ukivw" path="res://TSCN/Systems/BuildingLoader.tscn" id="7_b81cf"]
 
 [node name="Game" type="Node2D"]
 y_sort_enabled = true
@@ -26,3 +27,5 @@ InitialSandQuantity = 1000
 
 [node name="TerrainBaking" type="Node2D" parent="."]
 script = ExtResource("6_3jkoc")
+
+[node name="BuildingLoader" parent="." instance=ExtResource("7_b81cf")]

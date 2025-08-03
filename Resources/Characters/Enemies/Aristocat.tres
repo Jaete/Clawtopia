@@ -1,13 +1,15 @@
 [gd_resource type="Resource" load_steps=2 format=3 uid="uid://dlk2hkjw0hlgg"]
 
-[ext_resource type="Script" path="res://Scripts/Entities/Characters/Attributes.cs" id="1_2wypq"]
+[ext_resource type="Script" uid="uid://btxekm4nlcmuj" path="res://Scripts/Entities/Characters/Attributes.cs" id="1_2wypq"]
 
 [resource]
 script = ExtResource("1_2wypq")
-hp = 250
-damage = 15
-move_speed = 100.0
-attack_speed = 1.0
-vision_range = 8
-attack_range = 1
-accuracy = 0.8
+Hp = 0
+Damage = 0
+MoveSpeed = 0.0
+AttackSpeed = 0.0
+VisionRange = 0
+AttackRange = 0
+SalmonCost = 0
+CatnipCost = 0
+SandCost = 0

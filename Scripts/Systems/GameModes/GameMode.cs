@@ -10,7 +10,7 @@ public partial class GameMode : Node2D
     public delegate void ConstructionStartedEventHandler(Building building);
 
     [Signal]
-    public delegate void ModeTransitionEventHandler(String mode, BuildingData building);
+    public delegate void ModeTransitionEventHandler(string mode, Building building);
 
 
     public const string BUILD_MODE = "BuildMode";

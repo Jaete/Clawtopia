@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://sbqaktg77w31"]
 
-[ext_resource type="Script" path="res://Scripts/Systems/GameModes/ModeManager.cs" id="1_vj4ky"]
+[ext_resource type="Script" uid="uid://d1yor6h6tvfii" path="res://Scripts/Systems/GameModes/ModeManager.cs" id="1_vj4ky"]
 [ext_resource type="PackedScene" uid="uid://biyro53k4fy7v" path="res://TSCN/Systems/GameModes/BuildMode.tscn" id="2_qywjl"]
 [ext_resource type="PackedScene" uid="uid://dx1ar78jg5hmu" path="res://TSCN/Systems/GameModes/SimulationMode.tscn" id="3_ckubm"]
 [ext_resource type="PackedScene" uid="uid://dvspfp66ibghj" path="res://TSCN/Systems/GameModes/UIMode.tscn" id="4_x3d6f"]

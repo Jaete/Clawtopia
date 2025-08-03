@@ -1,5 +1,6 @@
 using Godot;
 using Godot.Collections;
+using static BuildingData;
 
 public partial class Attributes : Resource
 {
@@ -22,12 +23,12 @@ public partial class Attributes : Resource
     [Export]
     public int SandCost;
 
-    public Dictionary<string, int> ResourceCosts = new();
+    public Dictionary<ResourceType, int> ResourceCosts = new();
 
     public void Initialize()
     {
-        ResourceCosts[Constants.SALMON] = SalmonCost;
-        ResourceCosts[Constants.CATNIP] = CatnipCost;
-        ResourceCosts[Constants.SAND] = SandCost;
+        ResourceCosts[ResourceType.Salmon] = SalmonCost;
+        ResourceCosts[ResourceType.Catnip] = CatnipCost;
+        ResourceCosts[ResourceType.Sand] = SandCost;
     }
 }

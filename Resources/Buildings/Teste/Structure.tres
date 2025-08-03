@@ -1,0 +1,21 @@
+[gd_resource type="Resource" script_class="BuildingStructure" load_steps=6 format=3 uid="uid://dqteysb5rrtdx"]
+
+[ext_resource type="Texture2D" uid="uid://i4du7qbwwiff" path="res://Assets/Buildings/casa_decor_002_build.png" id="1_bf2bv"]
+[ext_resource type="Script" uid="uid://dnhnx2nty75bw" path="res://Scripts/Entities/Building/BuildingStructure.cs" id="2_uhne0"]
+
+[sub_resource type="ConcavePolygonShape2D" id="ConcavePolygonShape2D_1dn7u"]
+
+[sub_resource type="ConcavePolygonShape2D" id="ConcavePolygonShape2D_62cab"]
+
+[sub_resource type="ConcavePolygonShape2D" id="ConcavePolygonShape2D_hs718"]
+
+[resource]
+script = ExtResource("2_uhne0")
+PreviewTexture = ExtResource("1_bf2bv")
+PlacedOffset = Vector2(0, 0)
+Collision = SubResource("ConcavePolygonShape2D_1dn7u")
+Interaction = SubResource("ConcavePolygonShape2D_hs718")
+RotatedPreviewTexture = ExtResource("1_bf2bv")
+RotatedPlacedOffset = Vector2(0, 0)
+GridArea = SubResource("ConcavePolygonShape2D_62cab")
+metadata/_custom_type_script = "uid://dnhnx2nty75bw"

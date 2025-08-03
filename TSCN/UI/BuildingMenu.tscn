@@ -1,6 +1,6 @@
 [gd_scene load_steps=17 format=3 uid="uid://b2s5n54rhbq6x"]
 
-[ext_resource type="Script" path="res://Scripts/Entities/UI/BuildingMenu.cs" id="1_5opv1"]
+[ext_resource type="Script" uid="uid://btuyma8unkoqa" path="res://Scripts/Entities/UI/BuildingMenu.cs" id="1_5opv1"]
 [ext_resource type="Texture2D" uid="uid://dimtwl0njuc1a" path="res://Assets/UI/HUD_Claw_FUNDO.png" id="2_wase5"]
 [ext_resource type="Texture2D" uid="uid://br5ydadhldshi" path="res://Assets/UI/64px_botoes_corB.png" id="3_m166v"]
 [ext_resource type="Texture2D" uid="uid://daxi84t0vn6q" path="res://Assets/UI/Teclas_ativas_unic.png" id="4_f6lwy"]

@@ -1,0 +1,31 @@
+[gd_resource type="Resource" script_class="BuildingData" load_steps=10 format=3 uid="uid://cvy6qskfhv6yf"]
+
+[ext_resource type="AudioStream" uid="uid://c6nf3cvt1mwmj" path="res://Assets/Audio/UI/ui-click-cancel.ogg" id="1_qm4pe"]
+[ext_resource type="AudioStream" uid="uid://c11gv7w0q6nrn" path="res://Assets/Audio/SFX/Building/destroy-001.ogg" id="2_qlikx"]
+[ext_resource type="AudioStream" uid="uid://bsh3gnwhsuydr" path="res://Assets/Audio/SFX/Building/destroy-002.ogg" id="3_3ks0b"]
+[ext_resource type="AudioStream" uid="uid://bd4t165n2t0s0" path="res://Assets/Audio/SFX/Building/destroy-003.ogg" id="4_stg57"]
+[ext_resource type="AudioStream" uid="uid://cnx6g6fuhlhlp" path="res://Assets/Audio/SFX/Building/destroy-004.ogg" id="5_lcpvb"]
+[ext_resource type="AudioStream" uid="uid://cx71cf6ffwqvg" path="res://Assets/Audio/SFX/Building/destroy-005.ogg" id="6_0uj4k"]
+[ext_resource type="AudioStream" uid="uid://865i76f5bwrx" path="res://Assets/Audio/SFX/Building/plot.ogg" id="7_s46f5"]
+[ext_resource type="Resource" uid="uid://dlynddr435irg" path="res://Resources/Buildings/Mercado/Structure.tres" id="8_n3ts3"]
+[ext_resource type="Script" uid="uid://cua4780o8n42m" path="res://Scripts/Entities/Building/BuildingData.cs" id="9_7uaje"]
+
+[resource]
+resource_local_to_scene = true
+script = ExtResource("9_7uaje")
+PlaceBuildingSound = ExtResource("7_s46f5")
+DestroyBuildingSounds = Array[AudioStream]([ExtResource("2_qlikx"), ExtResource("3_3ks0b"), ExtResource("4_stg57"), ExtResource("5_lcpvb"), ExtResource("6_0uj4k")])
+CancelSound = ExtResource("1_qm4pe")
+BuildingType = 0
+Resource = 0
+TowerType = ""
+Name = "Mercado"
+CatnipCost = 100
+SalmonCost = 50
+SandCost = 0
+Hp = 4000
+MaxProgress = 21
+Structure = ExtResource("8_n3ts3")
+Scale = Vector2(1, 1)
+Offset = Vector2(8, -12)
+RotatedOffset = Vector2(-11, -13)

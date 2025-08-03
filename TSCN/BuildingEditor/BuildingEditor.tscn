@@ -1,0 +1,53 @@
+[gd_scene load_steps=10 format=3 uid="uid://ddrl4h1n32j7c"]
+
+[ext_resource type="Script" uid="uid://ikxpnyj8t3fs" path="res://Scripts/Systems/Tooling/BuildingEditor/BuildingEditor.cs" id="1_uu33o"]
+[ext_resource type="PackedScene" uid="uid://d2xeg5t6t85er" path="res://TSCN/Entities/Buildings/Building.tscn" id="2_dpayh"]
+[ext_resource type="Resource" uid="uid://b6f51bygtvaek" path="res://Resources/GameSettings/BuildingEditorSettings.tres" id="2_ey833"]
+[ext_resource type="Script" uid="uid://b51qd5jqnm03j" path="res://Scripts/Entities/Building/Building.cs" id="4_ip8i0"]
+[ext_resource type="Resource" uid="uid://dfvh701kyops1" path="res://Resources/Buildings/BuildingList.tres" id="5_vmre3"]
+[ext_resource type="Resource" uid="uid://cnajvh3haer3a" path="res://Resources/Buildings/GreatCommune/GreatCommune.tres" id="6_7tchl"]
+[ext_resource type="Texture2D" uid="uid://cetwuv6ymt5pa" path="res://Assets/Buildings/casa_comuna_001_build.png" id="7_ohig2"]
+[ext_resource type="Script" uid="uid://cg5auuagwupqw" path="res://Scripts/Entities/Building/BuildingSprite.cs" id="8_e6kly"]
+[ext_resource type="Script" uid="uid://c0r7qpn3hxhtm" path="res://Scripts/Entities/Building/PolygonArea.cs" id="9_jrl80"]
+
+[node name="BuildingEditor" type="Node2D"]
+script = ExtResource("1_uu33o")
+Settings = ExtResource("2_ey833")
+BuildingToLoad = "Purrlamento"
+
+[node name="Purrlamento" parent="." node_paths=PackedStringArray("BodyShape", "GridShape", "InteractionShape", "Sprite", "StaticBody", "Sounds") instance=ExtResource("2_dpayh")]
+y_sort_enabled = true
+script = ExtResource("4_ip8i0")
+Buildings = ExtResource("5_vmre3")
+BodyShape = NodePath("NavigationBody/Shape")
+GridShape = NodePath("GridArea/AreaShape")
+InteractionShape = NodePath("InteractionShape")
+Sprite = NodePath("Sprite2D")
+StaticBody = NodePath("NavigationBody")
+Sounds = NodePath("BuildingSounds")
+Type = "Purrlamento"
+Data = ExtResource("6_7tchl")
+metadata/IsBuilding = true
+
+[node name="Sprite2D" parent="Purrlamento" index="0" node_paths=PackedStringArray("_building")]
+texture = ExtResource("7_ohig2")
+region_rect = Rect2(8, 758, 114, 141)
+script = ExtResource("8_e6kly")
+_building = NodePath("..")
+
+[node name="Shape" parent="Purrlamento/NavigationBody" index="0" node_paths=PackedStringArray("_building")]
+script = ExtResource("9_jrl80")
+_building = NodePath("../..")
+
+[node name="GridArea" parent="Purrlamento" index="2"]
+input_pickable = false
+
+[node name="AreaShape" parent="Purrlamento/GridArea" index="0" node_paths=PackedStringArray("_building")]
+script = ExtResource("9_jrl80")
+_building = NodePath("../..")
+
+[node name="InteractionShape" parent="Purrlamento" index="3" node_paths=PackedStringArray("_building")]
+script = ExtResource("9_jrl80")
+_building = NodePath("..")
+
+[editable path="Purrlamento"]

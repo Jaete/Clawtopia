@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://n5nsi4usmryr"]
 
-[ext_resource type="Script" path="res://Scripts/Entities/UI/BaseMenu.cs" id="1_d8kja"]
+[ext_resource type="Script" uid="uid://rmixd5yoyal2" path="res://Scripts/Entities/UI/BaseMenu.cs" id="1_d8kja"]
 [ext_resource type="Texture2D" uid="uid://dimtwl0njuc1a" path="res://Assets/UI/HUD_Claw_FUNDO.png" id="2_8kh8r"]
 
 [node name="BaseMenu" type="Control"]

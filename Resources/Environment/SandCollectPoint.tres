@@ -1,6 +1,6 @@
 [gd_resource type="Resource" load_steps=6 format=3 uid="uid://5l5fchbx4dox"]
 
-[ext_resource type="Script" path="res://Scripts/Entities/ProgressStructure.cs" id="1_7oeif"]
+[ext_resource type="Script" uid="uid://iduor1fuumu0" path="res://Scripts/Entities/ProgressStructure.cs" id="1_7oeif"]
 [ext_resource type="Texture2D" uid="uid://5as0vxb6jya4" path="res://Assets/Spritesheets/Resources/asset_areia_material3.png" id="1_rfkby"]
 [ext_resource type="Texture2D" uid="uid://cvtbp1rw76km" path="res://Assets/Spritesheets/Resources/asset_areia_material2.png" id="2_y2d2l"]
 [ext_resource type="Texture2D" uid="uid://1qsnpodd7f74" path="res://Assets/Spritesheets/Resources/asset_areia_material1.png" id="3_5lyco"]
@@ -9,4 +9,3 @@
 [resource]
 script = ExtResource("1_7oeif")
 StaticTextures = Array[Texture2D]([ExtResource("1_rfkby"), ExtResource("2_y2d2l"), ExtResource("3_5lyco"), ExtResource("4_ccpjt")])
-StaticOffsets = null

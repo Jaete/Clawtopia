@@ -1,32 +1,40 @@
-[gd_resource type="Resource" load_steps=10 format=3 uid="uid://drb6adc0v0ylm"]
+[gd_resource type="Resource" script_class="BuildingStructure" load_steps=12 format=3 uid="uid://drb6adc0v0ylm"]
 
 [ext_resource type="Texture2D" uid="uid://blrmj4d3wp2d8" path="res://Assets/Buildings/casa_recurso_003_flip_build.png" id="1_htusk"]
-[ext_resource type="Script" path="res://Scripts/Entities/Building/BuildingStructure.cs" id="1_r34gg"]
+[ext_resource type="Script" uid="uid://dnhnx2nty75bw" path="res://Scripts/Entities/Building/BuildingStructure.cs" id="1_r34gg"]
 [ext_resource type="Texture2D" uid="uid://bfvc5a0wu36ra" path="res://Assets/Buildings/casa_recurso_003.png" id="1_xxgrr"]
 [ext_resource type="Texture2D" uid="uid://ptkd3yhhvovj" path="res://Assets/Buildings/casa_recurso_003_build.png" id="2_x6aga"]
 [ext_resource type="Texture2D" uid="uid://c5ldwhuu3w0kq" path="res://Assets/Buildings/casa_recurso_003_flip.png" id="3_gegs6"]
 
-[sub_resource type="ConcavePolygonShape2D" id="ConcavePolygonShape2D_2ya71"]
+[sub_resource type="ConcavePolygonShape2D" id="ConcavePolygonShape2D_dnmi2"]
 segments = PackedVector2Array(-80, 8, -16, 40, 80, -8, 16, -40)
 
-[sub_resource type="ConcavePolygonShape2D" id="ConcavePolygonShape2D_yemfs"]
+[sub_resource type="ConcavePolygonShape2D" id="ConcavePolygonShape2D_xlpvt"]
+segments = PackedVector2Array(-80, 8, -16, 40, 80, -8, 16, -40)
+
+[sub_resource type="ConcavePolygonShape2D" id="ConcavePolygonShape2D_vdj40"]
 segments = PackedVector2Array(-80, 8, -80, -44, -72, -52, -64, -56, -56, -56, 48, -104, 64, -96, 80, -60, 80, -8, -16, 40)
 
-[sub_resource type="ConcavePolygonShape2D" id="ConcavePolygonShape2D_5t56k"]
+[sub_resource type="ConcavePolygonShape2D" id="ConcavePolygonShape2D_ianks"]
 segments = PackedVector2Array(-80, -8, 16, 40, 80, 8, -16, -36)
 
-[sub_resource type="ConcavePolygonShape2D" id="ConcavePolygonShape2D_tl3v3"]
+[sub_resource type="ConcavePolygonShape2D" id="ConcavePolygonShape2D_wkgm0"]
+segments = PackedVector2Array(-80, -8, 16, 40, 80, 8, -16, -36)
+
+[sub_resource type="ConcavePolygonShape2D" id="ConcavePolygonShape2D_kf6wt"]
 segments = PackedVector2Array(-80, -8, -80, -44, -80, -56, -72, -84, -48, -104, 56, -56, 72, -52, 80, -40, 80, 8, 16, 40)
 
 [resource]
 script = ExtResource("1_r34gg")
 PreviewTexture = ExtResource("2_x6aga")
 PlacedTexture = ExtResource("1_xxgrr")
-PlacedOffset = Vector2(32, 16)
-Collision = SubResource("ConcavePolygonShape2D_2ya71")
-Interaction = SubResource("ConcavePolygonShape2D_yemfs")
+PlacedOffset = Vector2(32, -16)
+Collision = SubResource("ConcavePolygonShape2D_dnmi2")
+Interaction = SubResource("ConcavePolygonShape2D_vdj40")
 RotatedPreviewTexture = ExtResource("1_htusk")
 RotatedPlacedTexture = ExtResource("3_gegs6")
-RotatedPlacedOffset = Vector2(20, 12)
-RotatedCollision = SubResource("ConcavePolygonShape2D_5t56k")
-RotatedInteraction = SubResource("ConcavePolygonShape2D_tl3v3")
+RotatedPlacedOffset = Vector2(20, -20)
+RotatedCollision = SubResource("ConcavePolygonShape2D_ianks")
+RotatedInteraction = SubResource("ConcavePolygonShape2D_kf6wt")
+GridArea = SubResource("ConcavePolygonShape2D_xlpvt")
+RotatedGridArea = SubResource("ConcavePolygonShape2D_wkgm0")

@@ -1,4 +1,4 @@
-[gd_resource type="Resource" load_steps=10 format=3 uid="uid://bn7g36cki0dp4"]
+[gd_resource type="Resource" script_class="BuildingData" load_steps=10 format=3 uid="uid://c0ejkuiikxvk2"]
 
 [ext_resource type="AudioStream" uid="uid://c6nf3cvt1mwmj" path="res://Assets/Audio/UI/ui-click-cancel.ogg" id="1_v5ckq"]
 [ext_resource type="AudioStream" uid="uid://c11gv7w0q6nrn" path="res://Assets/Audio/SFX/Building/destroy-001.ogg" id="2_gq0kb"]
@@ -7,22 +7,24 @@
 [ext_resource type="AudioStream" uid="uid://cnx6g6fuhlhlp" path="res://Assets/Audio/SFX/Building/destroy-004.ogg" id="5_27a45"]
 [ext_resource type="AudioStream" uid="uid://cx71cf6ffwqvg" path="res://Assets/Audio/SFX/Building/destroy-005.ogg" id="6_gxe4y"]
 [ext_resource type="AudioStream" uid="uid://865i76f5bwrx" path="res://Assets/Audio/SFX/Building/plot.ogg" id="7_lcibm"]
-[ext_resource type="Script" path="res://Scripts/Entities/Building/BuildingData.cs" id="8_x7nc2"]
+[ext_resource type="Script" uid="uid://cua4780o8n42m" path="res://Scripts/Entities/Building/BuildingData.cs" id="8_x7nc2"]
 [ext_resource type="Resource" uid="uid://drb6adc0v0ylm" path="res://Resources/Buildings/Economy/Sand/Structure.tres" id="8_yrmnn"]
 
 [resource]
 script = ExtResource("8_x7nc2")
 PlaceBuildingSound = ExtResource("7_lcibm")
-DestroyBuildingSounds = [ExtResource("2_gq0kb"), ExtResource("3_xh8po"), ExtResource("4_s06wq"), ExtResource("5_27a45"), ExtResource("6_gxe4y")]
+DestroyBuildingSounds = Array[AudioStream]([ExtResource("2_gq0kb"), ExtResource("3_xh8po"), ExtResource("4_s06wq"), ExtResource("5_27a45"), ExtResource("6_gxe4y")])
 CancelSound = ExtResource("1_v5ckq")
-Type = "Resource"
-ResourceType = "Sand"
+BuildingType = 1
+Resource = 2
 TowerType = ""
+Name = "Mina de Areia"
 CatnipCost = 0
-SalmonCost = 50
-SandCost = 100
-Hp = 2500
-MaxProgress = 20
+SalmonCost = 0
+SandCost = 0
+Hp = 0
+MaxProgress = 0
 Structure = ExtResource("8_yrmnn")
 Scale = Vector2(1, 1)
-Offset = Vector2(0, 0)
+Offset = Vector2(0, -32)
+RotatedOffset = Vector2(0, -32)

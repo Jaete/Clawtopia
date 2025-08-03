@@ -1,8 +1,8 @@
-[gd_resource type="Resource" load_steps=10 format=3 uid="uid://byglexam8jwef"]
+[gd_resource type="Resource" script_class="BuildingData" load_steps=10 format=3 uid="uid://cnajvh3haer3a"]
 
 [ext_resource type="AudioStream" uid="uid://c6nf3cvt1mwmj" path="res://Assets/Audio/UI/ui-click-cancel.ogg" id="1_lgsbq"]
-[ext_resource type="Resource" uid="uid://dqintb8tp7i26" path="res://Resources/Buildings/GreatCommune/Structure.tres" id="1_qa3rg"]
-[ext_resource type="Script" path="res://Scripts/Entities/Building/BuildingData.cs" id="1_r233n"]
+[ext_resource type="Resource" uid="uid://6k5dlxrryvt" path="res://Resources/Buildings/GreatCommune/Structure.tres" id="1_qa3rg"]
+[ext_resource type="Script" uid="uid://cua4780o8n42m" path="res://Scripts/Entities/Building/BuildingData.cs" id="1_r233n"]
 [ext_resource type="AudioStream" uid="uid://c11gv7w0q6nrn" path="res://Assets/Audio/SFX/Building/destroy-001.ogg" id="2_e8233"]
 [ext_resource type="AudioStream" uid="uid://bsh3gnwhsuydr" path="res://Assets/Audio/SFX/Building/destroy-002.ogg" id="3_ypyfg"]
 [ext_resource type="AudioStream" uid="uid://bd4t165n2t0s0" path="res://Assets/Audio/SFX/Building/destroy-003.ogg" id="4_qhf5g"]
@@ -11,14 +11,14 @@
 [ext_resource type="AudioStream" uid="uid://865i76f5bwrx" path="res://Assets/Audio/SFX/Building/plot.ogg" id="7_7m6ve"]
 
 [resource]
-resource_local_to_scene = true
 script = ExtResource("1_r233n")
 PlaceBuildingSound = ExtResource("7_7m6ve")
-DestroyBuildingSounds = [ExtResource("2_e8233"), ExtResource("3_ypyfg"), ExtResource("4_qhf5g"), ExtResource("5_p5u78"), ExtResource("6_y6oqf")]
+DestroyBuildingSounds = Array[AudioStream]([ExtResource("2_e8233"), ExtResource("3_ypyfg"), ExtResource("4_qhf5g"), ExtResource("5_p5u78"), ExtResource("6_y6oqf")])
 CancelSound = ExtResource("1_lgsbq")
-Type = "Commune"
-ResourceType = ""
+BuildingType = 0
+Resource = -1
 TowerType = ""
+Name = "Purrlamento"
 CatnipCost = 0
 SalmonCost = 0
 SandCost = 0
@@ -26,4 +26,5 @@ Hp = 10000
 MaxProgress = 0
 Structure = ExtResource("1_qa3rg")
 Scale = Vector2(1, 1)
-Offset = Vector2(0, -32)
+Offset = Vector2(0, 0)
+RotatedOffset = Vector2(0, 0)

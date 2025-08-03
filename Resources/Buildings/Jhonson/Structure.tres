@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="BuildingStructure" load_steps=3 format=3 uid="uid://buje2bddhblar"]
+
+[ext_resource type="Texture2D" uid="uid://kyg0g3yiqelf" path="res://Assets/Buildings/torre_lut_001.png" id="1_pqba4"]
+[ext_resource type="Script" uid="uid://dnhnx2nty75bw" path="res://Scripts/Entities/Building/BuildingStructure.cs" id="2_78xg5"]
+
+[resource]
+script = ExtResource("2_78xg5")
+PreviewTexture = ExtResource("1_pqba4")
+PlacedOffset = Vector2(0, 0)
+RotatedPreviewTexture = ExtResource("1_pqba4")
+RotatedPlacedOffset = Vector2(0, 0)
+metadata/_custom_type_script = "uid://dnhnx2nty75bw"
