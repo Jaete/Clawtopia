@@ -1,9 +1,9 @@
 [gd_scene load_steps=5 format=3 uid="uid://cj0xphjp3n84w"]
 
-[ext_resource type="Script" uid="uid://c12gsifanakfw" path="res://Scripts/Entities/UI/PurrlamentMenu.cs" id="1_1cuu7"]
+[ext_resource type="Script" uid="uid://dx8xe44c3wwj4" path="res://Scripts/Entities/UI/PurrlamentMenu.cs" id="1_1cuu7"]
 [ext_resource type="PackedScene" uid="uid://wo4g4o4cxp7g" path="res://TSCN/UI/add_communist.tscn.tscn" id="2_77pqg"]
-[ext_resource type="Texture2D" uid="uid://dimtwl0njuc1a" path="res://Assets/UI/HUD_Claw_FUNDO.png" id="2_lo0pb"]
-[ext_resource type="Texture2D" uid="uid://daxi84t0vn6q" path="res://Assets/UI/Teclas_ativas_unic.png" id="4_33pgb"]
+[ext_resource type="Texture2D" uid="uid://dimtwl0njuc1a" path="res://Assets/UI/Old UI/HUD_Claw_FUNDO.png" id="2_lo0pb"]
+[ext_resource type="Texture2D" uid="uid://daxi84t0vn6q" path="res://Assets/UI/Old UI/Teclas_ativas_unic.png" id="4_33pgb"]
 
 [node name="BaseMenu" type="Control"]
 custom_minimum_size = Vector2(500, 200)

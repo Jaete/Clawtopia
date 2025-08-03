@@ -1,7 +1,7 @@
 [gd_resource type="Resource" load_steps=3 format=3 uid="uid://cavajiufwf4bg"]
 
 [ext_resource type="SpriteFrames" uid="uid://cbbcav4heu0w2" path="res://Resources/Animations/Salmon.tres" id="1_jk6ty"]
-[ext_resource type="Script" uid="uid://iduor1fuumu0" path="res://Scripts/Entities/ProgressStructure.cs" id="2_jyqi4"]
+[ext_resource type="Script" uid="uid://cate2qdtu3nxb" path="res://Scripts/Entities/ProgressStructure.cs" id="2_jyqi4"]
 
 [resource]
 script = ExtResource("2_jyqi4")

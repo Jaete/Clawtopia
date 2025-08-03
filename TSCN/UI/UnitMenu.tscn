@@ -1,0 +1,222 @@
+[gd_scene load_steps=13 format=3 uid="uid://dro8ui4lldrko"]
+
+[ext_resource type="Texture2D" uid="uid://cka8jxgoa6ej" path="res://Assets/UI/New UI/cat-menu-frame.png" id="1_6thm3"]
+[ext_resource type="Texture2D" uid="uid://bvfw38f5vckpg" path="res://Assets/UI/New UI/cat-menu-icon.png" id="2_pt75v"]
+[ext_resource type="Texture2D" uid="uid://cnl3gu1mxkt0l" path="res://Assets/UI/New UI/counter-frame4.png" id="3_ux8lh"]
+[ext_resource type="Texture2D" uid="uid://ctaj6klnl2nlg" path="res://Assets/UI/New UI/cat-life-frame.png" id="4_wl0m4"]
+[ext_resource type="Texture2D" uid="uid://b14jq5yrg8e1s" path="res://Assets/UI/New UI/cat-life-bar.png" id="5_cb1mf"]
+[ext_resource type="FontFile" uid="uid://cr6wq0358x1n6" path="res://Assets/UI/Old UI/bitfantasy.ttf" id="6_geann"]
+[ext_resource type="Texture2D" uid="uid://pk58aniqmpd5" path="res://Assets/UI/New UI/counter-frame5.png" id="7_l5yfy"]
+[ext_resource type="Texture2D" uid="uid://dfn5lhl43wic5" path="res://Assets/UI/New UI/speed-icon.png" id="8_crg8b"]
+[ext_resource type="Texture2D" uid="uid://b7a5uetld33qr" path="res://Assets/UI/New UI/coin-icon.png" id="9_eorfj"]
+[ext_resource type="Texture2D" uid="uid://mlknvkro14g1" path="res://Assets/UI/New UI/damage-icon.png" id="10_pn5j4"]
+[ext_resource type="Texture2D" uid="uid://d2l6yxhwes7ua" path="res://Assets/UI/New UI/atack-speed-icon.png" id="11_lo48c"]
+[ext_resource type="Texture2D" uid="uid://bq82qrfkr7ggo" path="res://Assets/UI/New UI/range-attack-icon.png" id="12_aay6m"]
+
+[node name="UnitMenu" type="Control"]
+custom_minimum_size = Vector2(384, 288)
+layout_mode = 3
+anchors_preset = 0
+offset_right = 384.0
+offset_bottom = 288.0
+
+[node name="HudClawFundo" type="Sprite2D" parent="."]
+position = Vector2(192, 144)
+scale = Vector2(2, 2)
+texture = ExtResource("1_6thm3")
+
+[node name="Unit" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 6.0
+offset_top = 47.0
+offset_right = 146.0
+offset_bottom = 289.0
+
+[node name="Control" type="Control" parent="Unit"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_top = 12.0
+offset_bottom = 12.0
+grow_horizontal = 2
+
+[node name="Icon" type="Sprite2D" parent="Unit/Control"]
+scale = Vector2(2, 2)
+texture = ExtResource("2_pt75v")
+
+[node name="Counter" type="Sprite2D" parent="Unit/Control"]
+position = Vector2(0, 82)
+scale = Vector2(2, 2)
+texture = ExtResource("3_ux8lh")
+
+[node name="Frame" type="Sprite2D" parent="Unit/Control"]
+position = Vector2(0, 53)
+scale = Vector2(2, 2)
+texture = ExtResource("4_wl0m4")
+
+[node name="Life" type="Sprite2D" parent="Unit/Control"]
+position = Vector2(0, 53)
+scale = Vector2(2, 2)
+texture = ExtResource("5_cb1mf")
+
+[node name="HouseLifeLabel" type="Label" parent="Unit/Control"]
+layout_mode = 0
+offset_left = -34.5
+offset_top = 73.0
+offset_right = 35.5
+offset_bottom = 90.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("6_geann")
+theme_override_font_sizes/font_size = 19
+text = "100/100"
+horizontal_alignment = 1
+justification_flags = 161
+
+[node name="HContainer" type="HBoxContainer" parent="."]
+layout_mode = 0
+offset_left = 156.0
+offset_top = 15.0
+offset_right = 378.0
+offset_bottom = 282.0
+theme_override_constants/separation = 5
+
+[node name="VContainer" type="VBoxContainer" parent="HContainer"]
+layout_mode = 2
+theme_override_constants/separation = 7
+
+[node name="Damage" type="Control" parent="HContainer/VContainer"]
+custom_minimum_size = Vector2(106, 60)
+layout_mode = 2
+
+[node name="Counter" type="Sprite2D" parent="HContainer/VContainer/Damage"]
+position = Vector2(81, 39)
+scale = Vector2(2, 2)
+texture = ExtResource("7_l5yfy")
+
+[node name="Icon" type="Sprite2D" parent="HContainer/VContainer/Damage"]
+position = Vector2(28, 30)
+scale = Vector2(2, 2)
+texture = ExtResource("10_pn5j4")
+
+[node name="DamageLabel" type="Label" parent="HContainer/VContainer/Damage"]
+layout_mode = 0
+offset_left = 64.0
+offset_top = 31.0
+offset_right = 101.0
+offset_bottom = 46.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("6_geann")
+theme_override_font_sizes/font_size = 17
+text = "1000"
+horizontal_alignment = 1
+justification_flags = 161
+
+[node name="AttackSpeed" type="Control" parent="HContainer/VContainer"]
+custom_minimum_size = Vector2(106, 60)
+layout_mode = 2
+
+[node name="Counter" type="Sprite2D" parent="HContainer/VContainer/AttackSpeed"]
+position = Vector2(81, 39)
+scale = Vector2(2, 2)
+texture = ExtResource("7_l5yfy")
+
+[node name="Icon" type="Sprite2D" parent="HContainer/VContainer/AttackSpeed"]
+position = Vector2(28, 30)
+scale = Vector2(2, 2)
+texture = ExtResource("11_lo48c")
+
+[node name="AttackSpeedLabel" type="Label" parent="HContainer/VContainer/AttackSpeed"]
+layout_mode = 0
+offset_left = 64.0
+offset_top = 31.0
+offset_right = 101.0
+offset_bottom = 46.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("6_geann")
+theme_override_font_sizes/font_size = 17
+text = "1000"
+horizontal_alignment = 1
+justification_flags = 161
+
+[node name="Range" type="Control" parent="HContainer/VContainer"]
+custom_minimum_size = Vector2(106, 60)
+layout_mode = 2
+
+[node name="Counter" type="Sprite2D" parent="HContainer/VContainer/Range"]
+position = Vector2(81, 39)
+scale = Vector2(2, 2)
+texture = ExtResource("7_l5yfy")
+
+[node name="Icon" type="Sprite2D" parent="HContainer/VContainer/Range"]
+position = Vector2(28, 30)
+scale = Vector2(2, 2)
+texture = ExtResource("12_aay6m")
+
+[node name="RangeLabel" type="Label" parent="HContainer/VContainer/Range"]
+layout_mode = 0
+offset_left = 64.0
+offset_top = 31.0
+offset_right = 101.0
+offset_bottom = 46.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("6_geann")
+theme_override_font_sizes/font_size = 17
+text = "1000"
+horizontal_alignment = 1
+justification_flags = 161
+
+[node name="Speed" type="Control" parent="HContainer/VContainer"]
+custom_minimum_size = Vector2(106, 60)
+layout_mode = 2
+
+[node name="Counter" type="Sprite2D" parent="HContainer/VContainer/Speed"]
+position = Vector2(81, 39)
+scale = Vector2(2, 2)
+texture = ExtResource("7_l5yfy")
+
+[node name="Icon" type="Sprite2D" parent="HContainer/VContainer/Speed"]
+position = Vector2(28, 30)
+scale = Vector2(2, 2)
+texture = ExtResource("8_crg8b")
+
+[node name="SpeedLabel" type="Label" parent="HContainer/VContainer/Speed"]
+layout_mode = 0
+offset_left = 64.0
+offset_top = 31.0
+offset_right = 101.0
+offset_bottom = 46.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("6_geann")
+theme_override_font_sizes/font_size = 17
+text = "1000"
+horizontal_alignment = 1
+justification_flags = 161
+
+[node name="Cost" type="Control" parent="HContainer"]
+custom_minimum_size = Vector2(106, 60)
+layout_mode = 2
+
+[node name="Counter" type="Sprite2D" parent="HContainer/Cost"]
+position = Vector2(81, 39)
+scale = Vector2(2, 2)
+texture = ExtResource("7_l5yfy")
+
+[node name="Icon" type="Sprite2D" parent="HContainer/Cost"]
+position = Vector2(28, 30)
+scale = Vector2(2, 2)
+texture = ExtResource("9_eorfj")
+
+[node name="CostLabel" type="Label" parent="HContainer/Cost"]
+layout_mode = 0
+offset_left = 64.0
+offset_top = 31.0
+offset_right = 101.0
+offset_bottom = 46.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("6_geann")
+theme_override_font_sizes/font_size = 17
+text = "1000"
+horizontal_alignment = 1
+justification_flags = 161

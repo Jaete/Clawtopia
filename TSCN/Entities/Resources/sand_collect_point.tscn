@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://cay5olbev7ruh"]
 
-[ext_resource type="Script" uid="uid://dtodoj0xuwmyw" path="res://Scripts/Entities/Resources/SandCollectPoint.cs" id="1_r6k4k"]
+[ext_resource type="Script" uid="uid://fd1pdyvbw5go" path="res://Scripts/Entities/Resources/SandCollectPoint.cs" id="1_r6k4k"]
 [ext_resource type="Resource" uid="uid://5l5fchbx4dox" path="res://Resources/Environment/SandCollectPoint.tres" id="2_7y8a8"]
 [ext_resource type="Texture2D" uid="uid://5as0vxb6jya4" path="res://Assets/Spritesheets/Resources/asset_areia_material3.png" id="2_40v8c"]
 

@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="BuildingStructure" load_steps=12 format=3 uid="uid://drb6adc0v0ylm"]
 
 [ext_resource type="Texture2D" uid="uid://blrmj4d3wp2d8" path="res://Assets/Buildings/casa_recurso_003_flip_build.png" id="1_htusk"]
-[ext_resource type="Script" uid="uid://dnhnx2nty75bw" path="res://Scripts/Entities/Building/BuildingStructure.cs" id="1_r34gg"]
+[ext_resource type="Script" uid="uid://15qifmmd5x2c" path="res://Scripts/Entities/Building/BuildingStructure.cs" id="1_r34gg"]
 [ext_resource type="Texture2D" uid="uid://bfvc5a0wu36ra" path="res://Assets/Buildings/casa_recurso_003.png" id="1_xxgrr"]
 [ext_resource type="Texture2D" uid="uid://ptkd3yhhvovj" path="res://Assets/Buildings/casa_recurso_003_build.png" id="2_x6aga"]
 [ext_resource type="Texture2D" uid="uid://c5ldwhuu3w0kq" path="res://Assets/Buildings/casa_recurso_003_flip.png" id="3_gegs6"]

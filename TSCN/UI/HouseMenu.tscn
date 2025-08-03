@@ -1,11 +1,15 @@
-[gd_scene load_steps=18 format=3 uid="uid://cqd1fw7ln0x4l"]
+[gd_scene load_steps=22 format=3 uid="uid://dho18abrmfc1q"]
 
-[ext_resource type="Script" uid="uid://bon8j3n5lg8tb" path="res://Scripts/Entities/UI/HouseMenu.cs" id="1_ktwdd"]
-[ext_resource type="Texture2D" uid="uid://dimtwl0njuc1a" path="res://Assets/UI/HUD_Claw_FUNDO.png" id="2_jjxqu"]
-[ext_resource type="Texture2D" uid="uid://br5ydadhldshi" path="res://Assets/UI/64px_botoes_corB.png" id="3_lf2n4"]
-[ext_resource type="Texture2D" uid="uid://daxi84t0vn6q" path="res://Assets/UI/Teclas_ativas_unic.png" id="4_bya5r"]
+[ext_resource type="Script" uid="uid://byq50iadns3cp" path="res://Scripts/Entities/UI/HouseMenu.cs" id="1_ktwdd"]
+[ext_resource type="Texture2D" uid="uid://uds1dtcw43fy" path="res://Assets/UI/New UI/house-menu-background.png" id="2_64ccs"]
+[ext_resource type="Texture2D" uid="uid://xlala6v07p6y" path="res://Assets/UI/New UI/house-icon.png" id="3_p05gr"]
 [ext_resource type="PackedScene" uid="uid://wo4g4o4cxp7g" path="res://TSCN/UI/add_communist.tscn.tscn" id="4_gnne7"]
-[ext_resource type="FontFile" uid="uid://cr6wq0358x1n6" path="res://Assets/UI/bitfantasy.ttf" id="5_ew25i"]
+[ext_resource type="Texture2D" uid="uid://cnl3gu1mxkt0l" path="res://Assets/UI/New UI/counter-frame4.png" id="4_uxcfq"]
+[ext_resource type="Texture2D" uid="uid://dobma0uhe8v3a" path="res://Assets/UI/New UI/house-life-frame.png" id="5_niv8t"]
+[ext_resource type="Texture2D" uid="uid://xivdqhshp1j3" path="res://Assets/UI/New UI/house-life-bar.png" id="6_w5l80"]
+[ext_resource type="Texture2D" uid="uid://7cmipqyyvkms" path="res://Assets/UI/New UI/destroy-house-icon.png" id="7_aylvs"]
+[ext_resource type="FontFile" uid="uid://cr6wq0358x1n6" path="res://Assets/UI/Old UI/bitfantasy.ttf" id="7_cvhde"]
+[ext_resource type="Texture2D" uid="uid://pk58aniqmpd5" path="res://Assets/UI/New UI/counter-frame5.png" id="9_fb6y8"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_l17nu"]
 
@@ -30,34 +34,96 @@
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_auymu"]
 
 [node name="HouseMenu" type="Control" node_paths=PackedStringArray("RemoveBuildingButton")]
-custom_minimum_size = Vector2(500, 200)
+custom_minimum_size = Vector2(532, 294)
 layout_mode = 3
 anchors_preset = 0
-offset_right = 619.0
-offset_bottom = 200.0
+offset_right = 532.0
+offset_bottom = 284.0
+size_flags_horizontal = 4
+size_flags_vertical = 8
 mouse_filter = 1
 script = ExtResource("1_ktwdd")
-RemoveBuildingButton = NodePath("RemoveBuilding/Button")
+RemoveBuildingButton = NodePath("Control/House/Buttons/RemoveBuilding/Button")
 
-[node name="HudClawFundo" type="Sprite2D" parent="."]
-position = Vector2(307, 92)
-scale = Vector2(1.46049, 1.54854)
-texture = ExtResource("2_jjxqu")
-
-[node name="RemoveBuilding" type="Control" parent="."]
+[node name="Control" type="Control" parent="."]
 layout_mode = 1
-anchors_preset = 15
+anchors_preset = 1
+anchor_left = 1.0
 anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 101.0
-offset_top = 57.0
-offset_right = 101.0
-offset_bottom = 57.0
+offset_left = -280.0
+offset_bottom = 288.0
+grow_horizontal = 0
+
+[node name="House" type="Control" parent="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 5.0
+offset_top = 47.0
+offset_right = 148.0
+offset_bottom = 289.0
+
+[node name="HudClawFundo" type="Sprite2D" parent="Control/House"]
+position = Vector2(136, 98)
+scale = Vector2(2, 2)
+texture = ExtResource("2_64ccs")
+
+[node name="Control" type="Control" parent="Control/House"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_top = 12.0
+offset_bottom = 12.0
 grow_horizontal = 2
-grow_vertical = 2
+
+[node name="Icon" type="Sprite2D" parent="Control/House/Control"]
+scale = Vector2(2.5, 2.5)
+texture = ExtResource("3_p05gr")
+
+[node name="Counter" type="Sprite2D" parent="Control/House/Control"]
+position = Vector2(0, 91)
+scale = Vector2(2, 2)
+texture = ExtResource("4_uxcfq")
+
+[node name="Frame" type="Sprite2D" parent="Control/House/Control"]
+position = Vector2(0, 62)
+scale = Vector2(2, 2)
+texture = ExtResource("5_niv8t")
+
+[node name="Life" type="Sprite2D" parent="Control/House/Control"]
+position = Vector2(0, 62)
+scale = Vector2(2, 2)
+texture = ExtResource("6_w5l80")
+
+[node name="HouseLifeLabel" type="Label" parent="Control/House/Control"]
+layout_mode = 0
+offset_left = -34.5
+offset_top = 82.0
+offset_right = 35.5
+offset_bottom = 99.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("7_cvhde")
+theme_override_font_sizes/font_size = 19
+text = "100/100"
+horizontal_alignment = 1
+justification_flags = 161
+
+[node name="Buttons" type="Control" parent="Control/House"]
+anchors_preset = 0
+offset_left = 185.0
+offset_top = 14.0
+offset_right = 272.0
+offset_bottom = 197.0
+
+[node name="RemoveBuilding" type="Control" parent="Control/House/Buttons"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+grow_vertical = 0
 mouse_filter = 1
 
-[node name="Button" type="Button" parent="RemoveBuilding"]
+[node name="Button" type="Button" parent="Control/House/Buttons/RemoveBuilding"]
 layout_mode = 0
 offset_left = -32.0
 offset_top = -32.0
@@ -76,32 +142,35 @@ theme_override_styles/pressed = SubResource("StyleBoxEmpty_6jamm")
 theme_override_styles/normal_mirrored = SubResource("StyleBoxEmpty_u4e2o")
 theme_override_styles/normal = SubResource("StyleBoxEmpty_auymu")
 
-[node name="Sprite2D" type="Sprite2D" parent="RemoveBuilding"]
-position = Vector2(4.17233e-07, 2)
-scale = Vector2(0.84375, 0.90625)
-texture = ExtResource("3_lf2n4")
-region_enabled = true
+[node name="Sprite2D" type="Sprite2D" parent="Control/House/Buttons/RemoveBuilding"]
+position = Vector2(0, 2)
+scale = Vector2(2, 2)
+texture = ExtResource("7_aylvs")
 region_rect = Rect2(128, 0, 64, 64)
 
-[node name="Keybind" type="Sprite2D" parent="RemoveBuilding"]
-position = Vector2(14, -24)
-scale = Vector2(1.55882, 1.8)
-texture = ExtResource("4_bya5r")
+[node name="Counter" type="Sprite2D" parent="Control/House/Buttons"]
+position = Vector2(56, 11)
+scale = Vector2(2, 2)
+texture = ExtResource("9_fb6y8")
+region_rect = Rect2(256, 0, 64, 64)
 
-[node name="Key" type="Label" parent="RemoveBuilding/Keybind"]
-offset_left = -3.20755
-offset_top = -5.0
-offset_right = 36.7924
-offset_bottom = 18.0
-scale = Vector2(0.7, 0.7)
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_fonts/font = ExtResource("5_ew25i")
-text = "Q
-"
-
-[node name="Communists" parent="." instance=ExtResource("4_gnne7")]
+[node name="Communists" parent="Control/House/Buttons" instance=ExtResource("4_gnne7")]
 layout_mode = 1
-offset_left = 157.0
-offset_top = 57.0
-offset_right = 157.0
-offset_bottom = 57.0
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+grow_horizontal = 1
+grow_vertical = 1
+
+[node name="CatLabel" type="Label" parent="Control/House/Buttons/Communists"]
+layout_mode = 0
+offset_left = 39.0
+offset_top = 4.0
+offset_right = 76.0
+offset_bottom = 19.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("7_cvhde")
+theme_override_font_sizes/font_size = 17
+text = "1000"
+horizontal_alignment = 1
+justification_flags = 161

@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://dx1ar78jg5hmu"]
 
-[ext_resource type="Script" uid="uid://dt8oergt48hi5" path="res://Scripts/Systems/GameModes/SimulationMode.cs" id="1_qov7i"]
+[ext_resource type="Script" uid="uid://bwga25glu6lj5" path="res://Scripts/Systems/GameModes/SimulationMode.cs" id="1_qov7i"]
 
 [node name="SimulationMode" type="Node2D" node_paths=PackedStringArray("Debug")]
 script = ExtResource("1_qov7i")

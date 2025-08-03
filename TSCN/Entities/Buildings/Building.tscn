@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://d2xeg5t6t85er"]
 
-[ext_resource type="Script" uid="uid://b51qd5jqnm03j" path="res://Scripts/Entities/Building/Building.cs" id="1_pb7cr"]
+[ext_resource type="Script" uid="uid://bnf1bqse85i37" path="res://Scripts/Entities/Building/Building.cs" id="1_pb7cr"]
 [ext_resource type="Script" uid="uid://cg5auuagwupqw" path="res://Scripts/Entities/Building/BuildingSprite.cs" id="2_qsor8"]
 [ext_resource type="Resource" uid="uid://dfvh701kyops1" path="res://Resources/Buildings/BuildingList.tres" id="2_ux2or"]
 [ext_resource type="Script" uid="uid://c0r7qpn3hxhtm" path="res://Scripts/Entities/Building/PolygonArea.cs" id="2_w84yx"]

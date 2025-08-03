@@ -1,6 +1,6 @@
-[gd_resource type="Resource" script_class="BuildingStructure" load_steps=4 format=3 uid="uid://chq668a8hdxk1"]
+[gd_resource type="Resource" load_steps=4 format=3 uid="uid://chq668a8hdxk1"]
 
-[ext_resource type="Script" uid="uid://dnhnx2nty75bw" path="res://Scripts/Entities/Building/BuildingStructure.cs" id="1_fevlf"]
+[ext_resource type="Script" uid="uid://15qifmmd5x2c" path="res://Scripts/Entities/Building/BuildingStructure.cs" id="1_fevlf"]
 
 [sub_resource type="ConcavePolygonShape2D" id="ConcavePolygonShape2D_evh3y"]
 segments = PackedVector2Array(-24, 36, 24, 36, 56, 16, 56, -8, 24, -24, -24, -24, -56, -8, -56, 20)

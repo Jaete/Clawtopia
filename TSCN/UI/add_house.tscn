@@ -1,10 +1,8 @@
-[gd_scene load_steps=17 format=3 uid="uid://cc5007ymclpse"]
+[gd_scene load_steps=15 format=3 uid="uid://cc5007ymclpse"]
 
-[ext_resource type="Script" uid="uid://bx22nkbg6fbk3" path="res://Scripts/Entities/UI/AddBuilding.cs" id="1_47mjx"]
-[ext_resource type="Texture2D" uid="uid://br5ydadhldshi" path="res://Assets/UI/64px_botoes_corB.png" id="3_nhp2c"]
-[ext_resource type="Texture2D" uid="uid://daxi84t0vn6q" path="res://Assets/UI/Teclas_ativas_unic.png" id="4_krolp"]
-[ext_resource type="FontFile" uid="uid://cr6wq0358x1n6" path="res://Assets/UI/bitfantasy.ttf" id="5_86q5u"]
-[ext_resource type="Resource" uid="uid://dgyot4a6awefd" path="res://Resources/Buildings/House/House.tres" id="5_e5421"]
+[ext_resource type="Script" uid="uid://cmjhmv6wwd1tn" path="res://Scripts/Entities/UI/AddBuilding.cs" id="1_47mjx"]
+[ext_resource type="Resource" uid="uid://bnn4y64wn2h21" path="res://Resources/Buildings/House/House.tres" id="2_6nink"]
+[ext_resource type="Texture2D" uid="uid://s36512x2awor" path="res://Assets/UI/New UI/communist-house-icon.png" id="3_l52rp"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_vf24x"]
 
@@ -37,35 +35,10 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 1
 
-[node name="Icon" type="Sprite2D" parent="."]
-position = Vector2(3, 2.5)
-scale = Vector2(0.84375, 0.890625)
-texture = ExtResource("3_nhp2c")
-region_enabled = true
-region_rect = Rect2(64, 0, 64, 64)
-
-[node name="Keybind" type="Sprite2D" parent="."]
-position = Vector2(16, -24)
-scale = Vector2(1.55882, 1.8)
-texture = ExtResource("4_krolp")
-
-[node name="Key" type="Label" parent="Keybind"]
-offset_left = -3.20755
-offset_top = -5.0
-offset_right = 36.7924
-offset_bottom = 18.0
-scale = Vector2(0.7, 0.7)
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_fonts/font = ExtResource("5_86q5u")
-text = "R
-"
-
 [node name="Button" type="Button" parent="."]
 layout_mode = 0
-offset_left = -24.0
-offset_top = -26.0
-offset_right = 30.0
-offset_bottom = 31.0
+offset_right = 64.0
+offset_bottom = 68.0
 mouse_filter = 1
 theme_override_styles/focus = SubResource("StyleBoxEmpty_vf24x")
 theme_override_styles/disabled_mirrored = SubResource("StyleBoxEmpty_swuj3")
@@ -79,4 +52,10 @@ theme_override_styles/pressed = SubResource("StyleBoxEmpty_8t6ra")
 theme_override_styles/normal_mirrored = SubResource("StyleBoxEmpty_ulnfm")
 theme_override_styles/normal = SubResource("StyleBoxEmpty_vqutg")
 script = ExtResource("1_47mjx")
-BuildingToAdd = ExtResource("5_e5421")
+Building = ExtResource("2_6nink")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(32, 34)
+scale = Vector2(2, 2)
+texture = ExtResource("3_l52rp")
+region_rect = Rect2(128, 0, 64, 64)
