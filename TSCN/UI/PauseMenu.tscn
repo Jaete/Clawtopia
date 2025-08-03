@@ -1,8 +1,8 @@
 [gd_scene load_steps=5 format=3 uid="uid://cyuuxto5tciyl"]
 
-[ext_resource type="Texture2D" uid="uid://ceag2kowiv5m7" path="res://Assets/UI/banner_vertical.png" id="1_66fli"]
-[ext_resource type="Script" path="res://Scripts/Entities/UI/PauseMenu.cs" id="1_tu2jm"]
-[ext_resource type="FontFile" uid="uid://cr6wq0358x1n6" path="res://Assets/UI/bitfantasy.ttf" id="2_4mn0e"]
+[ext_resource type="Texture2D" uid="uid://ceag2kowiv5m7" path="res://Assets/UI/Old UI/banner_vertical.png" id="1_66fli"]
+[ext_resource type="Script" uid="uid://bpsi4j00g3rjp" path="res://Scripts/Entities/UI/PauseMenu.cs" id="1_tu2jm"]
+[ext_resource type="FontFile" uid="uid://cr6wq0358x1n6" path="res://Assets/UI/Old UI/bitfantasy.ttf" id="2_4mn0e"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_fkhum"]
 content_margin_left = 24.0

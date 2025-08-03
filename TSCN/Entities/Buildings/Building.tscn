@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://d2xeg5t6t85er"]
 
-[ext_resource type="Script" path="res://Scripts/Entities/Building/Building.cs" id="1_pb7cr"]
+[ext_resource type="Script" uid="uid://bnf1bqse85i37" path="res://Scripts/Entities/Building/Building.cs" id="1_pb7cr"]
 [ext_resource type="Texture2D" uid="uid://c3nyrua731gw4" path="res://Assets/Buildings/casa_vila_005_flip.png" id="2_tdwf2"]
 [ext_resource type="Texture2D" uid="uid://bdiutwxamfcfe" path="res://Assets/Buildings/casa_vila_005_flip_build.png" id="2_vutb4"]
 

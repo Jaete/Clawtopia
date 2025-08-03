@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://4dbxbatuy8k"]
 
-[ext_resource type="Script" path="res://Scripts/Entities/UI/MilitaryMenu.cs" id="1_bkk1y"]
+[ext_resource type="Script" uid="uid://b4iwyahnufbg4" path="res://Scripts/Entities/UI/MilitaryMenu.cs" id="1_bkk1y"]
 
 [node name="GameHUD" type="Control"]
 custom_minimum_size = Vector2(500, 200)

@@ -1,18 +1,21 @@
 [gd_scene load_steps=3 format=3 uid="uid://n5nsi4usmryr"]
 
-[ext_resource type="Script" path="res://Scripts/Entities/UI/BaseMenu.cs" id="1_d8kja"]
-[ext_resource type="Texture2D" uid="uid://dimtwl0njuc1a" path="res://Assets/UI/HUD_Claw_FUNDO.png" id="2_8kh8r"]
+[ext_resource type="Script" uid="uid://ckuj7bec86nv6" path="res://Scripts/Entities/UI/BaseMenu.cs" id="1_d8kja"]
+[ext_resource type="Texture2D" uid="uid://d0solxch24hu0" path="res://Assets/UI/New UI/building-background-frame.png" id="2_f6or2"]
 
 [node name="BaseMenu" type="Control"]
-custom_minimum_size = Vector2(500, 200)
 layout_mode = 3
 anchors_preset = 0
-offset_right = 619.0
-offset_bottom = 200.0
+offset_left = 4.0
+offset_right = 193.0
+offset_bottom = 151.0
+size_flags_horizontal = 0
+size_flags_vertical = 0
 mouse_filter = 1
 script = ExtResource("1_d8kja")
 
 [node name="HudClawFundo" type="Sprite2D" parent="."]
-position = Vector2(307, 92)
-scale = Vector2(1.46049, 1.54854)
-texture = ExtResource("2_8kh8r")
+visible = false
+position = Vector2(112, 113)
+scale = Vector2(2, 2)
+texture = ExtResource("2_f6or2")
