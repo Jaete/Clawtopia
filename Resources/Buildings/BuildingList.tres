@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="BuildingList" load_steps=9 format=3 uid="uid://dfvh701kyops1"]
+
+[ext_resource type="Resource" uid="uid://mqcdu0esv2dq" path="res://Resources/Buildings/GreatCommune/GreatCommune.tres" id="2_o0sih"]
+[ext_resource type="Resource" uid="uid://doxwfxcwc6nd1" path="res://Resources/Buildings/House/House.tres" id="3_1155u"]
+[ext_resource type="Resource" uid="uid://cvy6qskfhv6yf" path="res://Resources/Buildings/Mercado/Mercado.tres" id="3_gt5sc"]
+[ext_resource type="Resource" uid="uid://toxg3dsy3hqv" path="res://Resources/Buildings/Economy/Salmon/SalmonCottage.tres" id="4_u5tsb"]
+[ext_resource type="Resource" uid="uid://rs4cciu3h1rm" path="res://Resources/Buildings/Economy/Catnip/CatnipFarm.tres" id="5_mnw8i"]
+[ext_resource type="Resource" uid="uid://c0ejkuiikxvk2" path="res://Resources/Buildings/Economy/Sand/SandMine.tres" id="6_u135y"]
+[ext_resource type="Script" uid="uid://iy7w2gbfhvuy" path="res://Scripts/Entities/Building/BuildingData.cs" id="9_u4isb"]
+[ext_resource type="Script" uid="uid://2ln6ip2go3ni" path="res://Scripts/Systems/Tooling/BuildingLoader/BuildingList.cs" id="10_nohcg"]
+
+[resource]
+script = ExtResource("10_nohcg")
+List = Array[ExtResource("9_u4isb")]([ExtResource("2_o0sih"), ExtResource("5_mnw8i"), ExtResource("4_u5tsb"), ExtResource("6_u135y"), ExtResource("3_1155u"), ExtResource("3_gt5sc")])

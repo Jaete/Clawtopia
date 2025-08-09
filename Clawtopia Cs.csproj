@@ -6,8 +6,16 @@
     <RootNamespace>ClawtopiaCs</RootNamespace>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Remove="Scripts\Systems\NewFolder\**" />
+    <EmbeddedResource Remove="Scripts\Systems\NewFolder\**" />
+  </ItemGroup>
+  <ItemGroup>
     <Folder Include="Scripts\Entities\Characters\Enemies\" />
     <Folder Include="Scripts\Systems\Controller\" />
+    <Folder Include="Scripts\Systems\Filesystem\" />
+    <Folder Include="Scripts\Systems\Tooling\BuildingLoader\" />
+    <Folder Include="Scripts\Systems\Tooling\BuildingEditor\" />
+    <Folder Include="Scripts\Systems\Tooling\UI\" />
     <Folder Include="TSCN\Entities\Characters\Allies\Economic\" />
     <Folder Include="TSCN\UI\" />
   </ItemGroup>

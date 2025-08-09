@@ -1,6 +1,7 @@
 using ClawtopiaCs.Scripts.Entities;
 using ClawtopiaCs.Scripts.Entities.Building;
 using Godot;
+using static BuildingData;
 
 public partial class Ally : Unit
 {

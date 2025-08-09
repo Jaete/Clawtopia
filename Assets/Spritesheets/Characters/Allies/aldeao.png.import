@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bj038j6t2et33"
-path="res://.godot/imported/cursor32x32.png-3f803deb493eb74ada025583ae3ade98.ctex"
+uid="uid://cjsdjojql88kk"
+path="res://.godot/imported/aldeao.png-f15baab397e79f2c64317d953a421987.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/UI/Old UI/cursor32x32.png"
-dest_files=["res://.godot/imported/cursor32x32.png-3f803deb493eb74ada025583ae3ade98.ctex"]
+source_file="res://Assets/Spritesheets/Characters/Allies/aldeao.png"
+dest_files=["res://.godot/imported/aldeao.png-f15baab397e79f2c64317d953a421987.ctex"]
 
 [params]
 

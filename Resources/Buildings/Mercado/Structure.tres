@@ -1,0 +1,40 @@
+[gd_resource type="Resource" script_class="BuildingStructure" load_steps=12 format=3 uid="uid://dlynddr435irg"]
+
+[ext_resource type="Texture2D" uid="uid://drkdvin45nblh" path="res://Assets/Buildings/casa_decor_002.png" id="1_dqmy8"]
+[ext_resource type="Texture2D" uid="uid://i4du7qbwwiff" path="res://Assets/Buildings/casa_decor_002_build.png" id="2_j4wiq"]
+[ext_resource type="Texture2D" uid="uid://c2yp0fa3mth3u" path="res://Assets/Buildings/casa_decor_002_flip.png" id="3_i3ovn"]
+[ext_resource type="Texture2D" uid="uid://coibbqvqti3ig" path="res://Assets/Buildings/casa_decor_002_flip_build.png" id="4_4xtk5"]
+[ext_resource type="Script" uid="uid://15qifmmd5x2c" path="res://Scripts/Entities/Building/BuildingStructure.cs" id="5_xlxy2"]
+
+[sub_resource type="ConcavePolygonShape2D" id="ConcavePolygonShape2D_4xtk5"]
+segments = PackedVector2Array(-36, -2, 28, 30, 60, 14, -4, -18)
+
+[sub_resource type="ConcavePolygonShape2D" id="ConcavePolygonShape2D_xlxy2"]
+segments = PackedVector2Array(-4, -28, -56, -2, 28, 42, 84, 16)
+
+[sub_resource type="ConcavePolygonShape2D" id="ConcavePolygonShape2D_nd3gl"]
+
+[sub_resource type="ConcavePolygonShape2D" id="ConcavePolygonShape2D_dqmy8"]
+segments = PackedVector2Array(-56, 14, -28, 28, 32, -2, 4, -16)
+
+[sub_resource type="ConcavePolygonShape2D" id="ConcavePolygonShape2D_j4wiq"]
+segments = PackedVector2Array(-76, 14, 4, -26, 56, -2, -28, 40)
+
+[sub_resource type="ConcavePolygonShape2D" id="ConcavePolygonShape2D_i3ovn"]
+segments = PackedVector2Array(-55, 14, -55, -28, 3, -54, 26, -42, 26, -37, 23, -35, 23, -21, 33, -15, 33, -2, -28, 28)
+
+[resource]
+script = ExtResource("5_xlxy2")
+PreviewTexture = ExtResource("2_j4wiq")
+PlacedTexture = ExtResource("1_dqmy8")
+PlacedOffset = Vector2(25, -5)
+Collision = SubResource("ConcavePolygonShape2D_4xtk5")
+Interaction = SubResource("ConcavePolygonShape2D_nd3gl")
+RotatedPreviewTexture = ExtResource("4_4xtk5")
+RotatedPlacedTexture = ExtResource("3_i3ovn")
+RotatedPlacedOffset = Vector2(5, -10)
+RotatedCollision = SubResource("ConcavePolygonShape2D_dqmy8")
+RotatedInteraction = SubResource("ConcavePolygonShape2D_i3ovn")
+GridArea = SubResource("ConcavePolygonShape2D_xlxy2")
+RotatedGridArea = SubResource("ConcavePolygonShape2D_j4wiq")
+metadata/_custom_type_script = "uid://dnhnx2nty75bw"

@@ -1,5 +1,6 @@
 using Godot;
 using Godot.Collections;
+using static BuildingData;
 
 namespace ClawtopiaCs.Scripts.Systems;
 
@@ -33,8 +34,8 @@ public partial class Selectors : Node2D
     {
         var buildingInFront = SelectTopBuilding(overlappingAreas);
         if (buildingInFront is null) { return; }
-        switch (buildingInFront.Data.Type) {
-            case Constants.HOUSE:
+        switch (buildingInFront.Data.BuildingType) {
+            case BuildingData.Type.House:
                 ui.Instantiate_window(Constants.HOUSE_MENU, buildingInFront);
                 break;
             default:
@@ -105,7 +106,7 @@ public partial class Selectors : Node2D
         return ally;
     }
 
-    public static string GetInteractedResourceType(Ally ally, Vector2 coords)
+    public static ResourceType GetInteractedResourceType(Ally ally, Vector2 coords)
     {
         PhysicsDirectSpaceState2D space = ally.GetWorld2D().DirectSpaceState;
         PhysicsPointQueryParameters2D query = new();
@@ -121,21 +122,21 @@ public partial class Selectors : Node2D
 
                 if (collider is SalmonCollectPoint)
                 {
-                    return Constants.SALMON;
+                    return ResourceType.Salmon;
                 }
 
                 if (collider is CatnipCollectPoint)
                 {
-                    return Constants.CATNIP;
+                    return ResourceType.Catnip;
                 }
 
                 if (collider is SandCollectPoint)
                 {
-                    return Constants.SAND;
+                    return ResourceType.Sand;
                 }
             }
         }
-        return null;
+        return ResourceType.None;
     }
 
     public static CollectPoint GetClosestCollectPoint(Ally ally, Vector2 coords, CollectPoint resource)
@@ -167,11 +168,11 @@ public partial class Selectors : Node2D
         return currentClosest;
     }
 
-    public static Array<CollectPoint> GetCollectPoints(string type) {
+    public static Array<CollectPoint> GetCollectPoints(BuildingData.ResourceType type) {
         Array<CollectPoint> points = new();
 
         switch (type) { 
-            case Constants.SALMON:
+            case ResourceType.Salmon:
                 foreach (var item in LevelManager.Singleton.CollectPoints)
                 {
                     if (item is SalmonCollectPoint)
@@ -180,7 +181,7 @@ public partial class Selectors : Node2D
                     }
                 }
                 break;
-            case Constants.CATNIP:
+            case ResourceType.Catnip:
                 foreach (var item in LevelManager.Singleton.CollectPoints)
                 {
                     if (item is CatnipCollectPoint)
@@ -189,7 +190,7 @@ public partial class Selectors : Node2D
                     }
                 }
                 break;
-            case Constants.SAND:
+            case ResourceType.Sand:
                 foreach (var item in LevelManager.Singleton.CollectPoints)
                 {
                     if (item is SandCollectPoint)

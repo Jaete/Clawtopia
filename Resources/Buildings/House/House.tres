@@ -1,4 +1,4 @@
-[gd_resource type="Resource" load_steps=10 format=3 uid="uid://bnn4y64wn2h21"]
+[gd_resource type="Resource" script_class="BuildingData" load_steps=10 format=3 uid="uid://doxwfxcwc6nd1"]
 
 [ext_resource type="AudioStream" uid="uid://c6nf3cvt1mwmj" path="res://Assets/Audio/UI/ui-click-cancel.ogg" id="1_0gy2o"]
 [ext_resource type="Script" uid="uid://iy7w2gbfhvuy" path="res://Scripts/Entities/Building/BuildingData.cs" id="1_42v36"]
@@ -15,15 +15,17 @@ script = ExtResource("1_42v36")
 PlaceBuildingSound = ExtResource("7_xl8e2")
 DestroyBuildingSounds = Array[AudioStream]([ExtResource("2_7enqu"), ExtResource("3_msl3u"), ExtResource("4_6yqs5"), ExtResource("5_nkcge"), ExtResource("6_yr20o")])
 CancelSound = ExtResource("1_0gy2o")
-Type = "House"
-ResourceType = ""
+BuildingType = 3
+Resource = -1
 TowerType = ""
+Name = "Casa da Comuna"
 CatnipCost = 0
 SalmonCost = 0
 SandCost = 120
-Hp = 500
-MaxProgress = 20
+Hp = 0
+MaxProgress = 0
 Structure = ExtResource("8_t405w")
 Scale = Vector2(1, 1)
-Offset = Vector2(0, 0)
+Offset = Vector2(4, -36)
+RotatedOffset = Vector2(0, -34)
 metadata/IsBuilding = true

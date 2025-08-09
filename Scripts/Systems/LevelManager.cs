@@ -1,15 +1,17 @@
 using Godot;
 using Godot.Collections;
+using static BuildingData;
+
 
 namespace ClawtopiaCs.Scripts.Systems;
 
 public partial class LevelManager : Node2D
 {
     [Signal]
-    public delegate void ResourceDeliveredEventHandler(Dictionary<string, int> resources);
+    public delegate void ResourceDeliveredEventHandler(Dictionary<ResourceType, int> resources);
 
     [Signal]
-    public delegate void ResourceExpendedEventHandler(Dictionary<string, int> resources);
+    public delegate void ResourceExpendedEventHandler(Dictionary<ResourceType, int> resources);
 
     public static LevelManager Singleton { get; private set; }
 
@@ -21,8 +23,7 @@ public partial class LevelManager : Node2D
     public Label SalmonLabel;
     public Label SandLabel;
 
-    public Dictionary<string, int> CurrentResources = new();
-
+    public Dictionary<ResourceType, int> CurrentResources = new();
 
     [Export] public int InitialCatnipQuantity = 0;
     [Export] public int InitialSalmonQuantity = 0;
@@ -42,15 +43,15 @@ public partial class LevelManager : Node2D
         CatnipLabel = ResCount.GetNode<Label>("Labels/CatnipLabel");
         SalmonLabel = ResCount.GetNode<Label>("Labels/SalmonLabel");
         SandLabel = ResCount.GetNode<Label>("Labels/SandLabel");
-        ResourceDelivered += When_resource_delivered;
+        ResourceDelivered += WhenResourceDelivered;
         ResourceExpended += WhenResourceExpended;
-        CurrentResources[Constants.SALMON] = InitialSalmonQuantity;
-        CurrentResources[Constants.CATNIP] = InitialCatnipQuantity;
-        CurrentResources[Constants.SAND] = InitialSandQuantity;
+        CurrentResources[ResourceType.Salmon] = InitialSalmonQuantity;
+        CurrentResources[ResourceType.Catnip] = InitialCatnipQuantity;
+        CurrentResources[ResourceType.Sand] = InitialSandQuantity;
         UpdateLabels();
     }
 
-    private void WhenResourceExpended(Dictionary<string, int> resources)
+    private void WhenResourceExpended(Dictionary<ResourceType, int> resources)
     {
         foreach (var resource in resources)
         {
@@ -59,7 +60,7 @@ public partial class LevelManager : Node2D
         }
     }
 
-    public void When_resource_delivered(Dictionary<string, int> resources)
+    public void WhenResourceDelivered(Dictionary<ResourceType, int> resources)
     {
         foreach (var resource in resources)
         {
@@ -70,8 +71,8 @@ public partial class LevelManager : Node2D
 
     private void UpdateLabels()
     {
-        SalmonLabel.Text = $"{CurrentResources[Constants.SALMON]}";
-        CatnipLabel.Text = $"{CurrentResources[Constants.CATNIP]}";
-        SandLabel.Text = $"{CurrentResources[Constants.SAND]}";
+        SalmonLabel.Text = $"{CurrentResources[ResourceType.Salmon]}";
+        CatnipLabel.Text = $"{CurrentResources[ResourceType.Catnip]}";
+        SandLabel.Text = $"{CurrentResources[ResourceType.Sand]}";
     }
 }

@@ -4,6 +4,7 @@ using ClawtopiaCs.Scripts.Systems;
 using Godot;
 using Godot.Collections;
 using ClawtopiaCs.Scripts.Systems.GameModes;
+using static BuildingData;
 
 public partial class CollectPoint : StaticBody2D
 {
@@ -13,7 +14,7 @@ public partial class CollectPoint : StaticBody2D
     private int _resourceQuantity = 0;
     public int SelfIndex;
 
-    [Export(PropertyHint.Enum, Constants.RESOURCE_LIST)] public string ResourceType;
+    [Export(PropertyHint.Enum, Constants.RESOURCE_LIST)] public ResourceType ResourceType;
 
     [Export] public Area2D Interaction;
     [Export] public ProgressStructure Structure;
@@ -57,18 +58,17 @@ public partial class CollectPoint : StaticBody2D
     public virtual void OnHover()
     {
         Modulation.AssignState(this, InteractionStates.HOVER);
-    }
         if (SimulationMode.Singleton.SelectedAllies.Count > 0)
         {
-            switch (ResourceType.ToLower())
+            switch (ResourceType)
             {
-                case "salmon":
+                case ResourceType.Salmon:
                     CustomCursor.Instance.SetCursor(CustomCursor.CursorType.Vara);
                     break;
-                case "sand":
+                case ResourceType.Sand:
                     CustomCursor.Instance.SetCursor(CustomCursor.CursorType.Pa);
                     break;
-                case "catnip":
+                case ResourceType.Catnip:
                     CustomCursor.Instance.SetCursor(CustomCursor.CursorType.Foice);
                     break;
                 default:

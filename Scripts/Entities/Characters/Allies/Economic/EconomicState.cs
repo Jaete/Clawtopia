@@ -1,7 +1,7 @@
 using ClawtopiaCs.Scripts.Systems;
-using ClawtopiaCs.Scripts.Systems.GameModes;
 using Godot;
 using Godot.Collections;
+using static BuildingData;
 
 public partial class EconomicState : AllyState
 {
@@ -51,20 +51,20 @@ public partial class EconomicState : AllyState
     /// de codigo.
     /// </summary>
     /// <returns> <c>Building</c> Construcao mais proxima</returns>
-    public static Building GetClosestResourceBuilding(Vector2 coords, string resource)
+    public static Building GetClosestResourceBuilding(Vector2 coords, ResourceType resource)
     {
         Building closestBuilding = default;
         Array<Building> buildingsToSearch = new();
 
         switch (resource)
         {
-            case Constants.SALMON:
+            case ResourceType.Salmon:
                 buildingsToSearch = LevelManager.Singleton.SalmonBuildings;
                 break;
-            case Constants.CATNIP:
+            case ResourceType.Catnip:
                 buildingsToSearch = LevelManager.Singleton.CatnipBuildings;
                 break;
-            case Constants.SAND:
+            case ResourceType.Sand:
                 buildingsToSearch = LevelManager.Singleton.SandBuildings;
                 break;
         }

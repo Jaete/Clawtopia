@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://d3gh4jmuicqic"]
+[gd_scene load_steps=22 format=3 uid="uid://d3gh4jmuicqic"]
 
 [ext_resource type="Script" uid="uid://dgjx0mjlsyyt4" path="res://Scripts/Entities/Characters/Allies/Ally.cs" id="1_kr1my"]
 [ext_resource type="Resource" uid="uid://cg7alavmqxtqn" path="res://Resources/Characters/Allies/Attributes/Communist.tres" id="2_ku51o"]
@@ -10,19 +10,87 @@
 [ext_resource type="Texture2D" uid="uid://davy57qg772li" path="res://Assets/Spritesheets/Characters/Allies/test_kitten_artstyle64.png" id="8_21cwc"]
 [ext_resource type="Script" uid="uid://dcrkjbpgq8px1" path="res://Scripts/EcoDebug.cs" id="9_f5t16"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_kwluu"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_v75up"]
 atlas = ExtResource("8_21cwc")
 region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3at7o"]
+atlas = ExtResource("8_21cwc")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_c6gkr"]
+atlas = ExtResource("8_21cwc")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_67r0s"]
+atlas = ExtResource("8_21cwc")
+region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_llesm"]
+atlas = ExtResource("8_21cwc")
+region = Rect2(0, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ygid7"]
+atlas = ExtResource("8_21cwc")
+region = Rect2(64, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xmbi4"]
+atlas = ExtResource("8_21cwc")
+region = Rect2(128, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dlkyp"]
+atlas = ExtResource("8_21cwc")
+region = Rect2(192, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_odh6d"]
+atlas = ExtResource("8_21cwc")
+region = Rect2(256, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gy22r"]
+atlas = ExtResource("8_21cwc")
+region = Rect2(320, 64, 64, 64)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_38oll"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_kwluu")
+"texture": SubResource("AtlasTexture_v75up")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3at7o")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_c6gkr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_67r0s")
 }],
 "loop": true,
 "name": &"default",
 "speed": 4.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_llesm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ygid7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xmbi4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dlkyp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_odh6d")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gy22r")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 6.0
 }]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_1wlnv"]
@@ -66,7 +134,7 @@ debug_enabled = true
 
 [node name="Sprite" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_38oll")
-frame_progress = 0.563649
+frame_progress = 0.179406
 offset = Vector2(0, -24)
 
 [node name="InteractionShape" type="Area2D" parent="."]
@@ -76,7 +144,6 @@ position = Vector2(0, -24)
 shape = SubResource("CapsuleShape2D_1wlnv")
 
 [node name="Label" type="Label" parent="."]
-visible = false
 offset_left = -21.0
 offset_right = 19.0
 offset_bottom = 23.0

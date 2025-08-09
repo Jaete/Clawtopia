@@ -1,6 +1,7 @@
-using System;
+
 using Godot;
 using Godot.Collections;
+using static BuildingData;
 
 namespace ClawtopiaCs.Scripts.Systems.GameModes;
 
@@ -56,14 +57,14 @@ public partial class ModeManager : Node2D
         Controller.RotateBuilding += RotateBuilding;
     }
 
-    public void ChangeMode(string mode, BuildingData building)
+    public void ChangeMode(string mode, Building building)
     {
         CurrentMode.Exit();
         CurrentMode = (GameMode)GameModes[mode];
 
         if (CurrentMode is BuildMode buildMode)
         {
-            buildMode.CurrentBuildingData = building;
+            buildMode.CurrentBuilding = building;
         }
 
         CurrentMode.Enter();
@@ -120,16 +121,13 @@ public partial class ModeManager : Node2D
                 BuildingCount++;
                 Building building = build;
 
-                if (building.Data.Type == Constants.TOWER)
+                if (building.Data.BuildingType == Type.House)
                 {
-                    if (building.Name.ToString().Contains(Constants.FIGHTERS))
-                    {
-                        building.SelfIndex = FightersTowerCount;
-                        FightersTowerCount++;
-                    }
+                    building.SelfIndex = HouseCount;
+                    HouseCount++;
                 }
 
-                if (building.Data.Type == Constants.RESOURCE)
+                if (building.Data.BuildingType == Type.Resource)
                 {
                     if (building.Name.ToString().Contains(Constants.COMMUNIST))
                     {
@@ -138,7 +136,7 @@ public partial class ModeManager : Node2D
                     }
                 }
 
-                if (building.Data.Type == Constants.COMMUNE)
+                if (building.Data.BuildingType == Type.Commune)
                 {
                     building.SelfIndex = GreatCommuneCount;
                     GreatCommuneCount++;

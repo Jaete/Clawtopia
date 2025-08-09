@@ -23,7 +23,6 @@ offset_left = 98.0
 offset_top = 57.0
 offset_right = -402.0
 offset_bottom = -143.0
-mouse_filter = 1
 
 [node name="TeclasAtivasUnic" type="Sprite2D" parent="."]
 visible = false

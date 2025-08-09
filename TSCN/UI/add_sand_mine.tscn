@@ -1,7 +1,7 @@
-[gd_scene load_steps=15 format=3 uid="uid://r3nspwyj6qa4"]
+[gd_scene load_steps=15 format=3 uid="uid://c06hgevw4voan"]
 
 [ext_resource type="Script" uid="uid://cmjhmv6wwd1tn" path="res://Scripts/Entities/UI/AddBuilding.cs" id="1_16wsy"]
-[ext_resource type="Resource" uid="uid://bn7g36cki0dp4" path="res://Resources/Buildings/Economy/Sand/SandMine.tres" id="2_ujd3d"]
+[ext_resource type="Resource" uid="uid://c0ejkuiikxvk2" path="res://Resources/Buildings/Economy/Sand/SandMine.tres" id="2_nc7aq"]
 [ext_resource type="Texture2D" uid="uid://cifa3j2mc2c1n" path="res://Assets/UI/New UI/sand-storage-icon.png" id="3_4koo5"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_vf24x"]
@@ -39,7 +39,6 @@ mouse_filter = 1
 layout_mode = 0
 offset_right = 64.0
 offset_bottom = 68.0
-mouse_filter = 1
 theme_override_styles/focus = SubResource("StyleBoxEmpty_vf24x")
 theme_override_styles/disabled_mirrored = SubResource("StyleBoxEmpty_swuj3")
 theme_override_styles/disabled = SubResource("StyleBoxEmpty_hub66")
@@ -52,7 +51,7 @@ theme_override_styles/pressed = SubResource("StyleBoxEmpty_8t6ra")
 theme_override_styles/normal_mirrored = SubResource("StyleBoxEmpty_ulnfm")
 theme_override_styles/normal = SubResource("StyleBoxEmpty_vqutg")
 script = ExtResource("1_16wsy")
-Building = ExtResource("2_ujd3d")
+BuildingToAdd = ExtResource("2_nc7aq")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(32, 34)

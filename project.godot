@@ -10,8 +10,8 @@ config_version=5
 
 [application]
 
-config/name="Clawtopia Cs 4.3"
-run/main_scene="res://TSCN/Game/Game.tscn"
+config/name="Clawtopia Cs 4.4"
+run/main_scene="uid://c6n7oxydiul4x"
 config/features=PackedStringArray("4.4", "C#", "Forward Plus")
 config/icon="res://Assets/Spritesheets/Characters/Allies/test_kitten_artstyle64.png"
 
@@ -24,7 +24,6 @@ CustomCursor="*res://Scripts/Entities/UI/CustomCursor.cs"
 window/stretch/mode="canvas_items"
 window/stretch/aspect="expand"
 window/vsync/vsync_mode=0
-mouse_cursor/custom_image="res://Assets/UI/cursor32x32.png"
 
 [dotnet]
 
