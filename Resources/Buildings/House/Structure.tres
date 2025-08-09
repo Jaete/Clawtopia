@@ -7,13 +7,13 @@
 [ext_resource type="Script" uid="uid://15qifmmd5x2c" path="res://Scripts/Entities/Building/BuildingStructure.cs" id="3_s3kc4"]
 
 [sub_resource type="ConcavePolygonShape2D" id="ConcavePolygonShape2D_8c5aq"]
-segments = PackedVector2Array(-64, 0, 0, 32, 64, 0, 0, -28)
+segments = PackedVector2Array(-64, 0, 0, 32, 64, 2, 0, -28)
 
 [sub_resource type="ConcavePolygonShape2D" id="ConcavePolygonShape2D_sfo45"]
-segments = PackedVector2Array(-104, 20, -40, 52, 64, 0, 0, -28)
+segments = PackedVector2Array(-104, 20, -44, 52, 64, 2, 0, -28)
 
 [sub_resource type="ConcavePolygonShape2D" id="ConcavePolygonShape2D_s5awt"]
-segments = PackedVector2Array(-64, 0, -64, -60, -16, -100, 40, -76, 72, -52, 64, -48, 64, 0, 0, 32)
+segments = PackedVector2Array(-64, 0, -64, -60, -20, -102, 36, -76, 72, -56, 64, -48, 64, 2, 0, 32)
 
 [sub_resource type="ConcavePolygonShape2D" id="ConcavePolygonShape2D_gmray"]
 

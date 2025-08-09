@@ -73,7 +73,6 @@ namespace ClawtopiaCs.Scripts.Systems.Tooling
             Building building = Settings.BaseBuilding.Instantiate<Building>();
             building.Data = buildingData;
             building.Initialize();
-            GD.Print("DATA Load: ", building.Data);
             return building;
         }
     }

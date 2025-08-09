@@ -1,8 +1,6 @@
-[gd_scene load_steps=15 format=3 uid="uid://bdb1ycgemgal4"]
+[gd_scene load_steps=13 format=3 uid="uid://bdb1ycgemgal4"]
 
-[ext_resource type="Texture2D" uid="uid://br5ydadhldshi" path="res://Assets/UI/Old UI/64px_botoes_corB.png" id="1_5wuwv"]
-[ext_resource type="Texture2D" uid="uid://daxi84t0vn6q" path="res://Assets/UI/Old UI/Teclas_ativas_unic.png" id="2_d4x2o"]
-[ext_resource type="FontFile" uid="uid://cr6wq0358x1n6" path="res://Assets/UI/Old UI/bitfantasy.ttf" id="3_4n8p8"]
+[ext_resource type="Texture2D" uid="uid://7cmipqyyvkms" path="res://Assets/UI/New UI/destroy-house-icon.png" id="1_bsl0v"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_l17nu"]
 
@@ -28,11 +26,10 @@
 
 [node name="RemoveBuilding" type="Control"]
 layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
+anchors_preset = 2
+anchor_top = 1.0
 anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+grow_vertical = 0
 mouse_filter = 1
 
 [node name="Button" type="Button" parent="."]
@@ -55,24 +52,7 @@ theme_override_styles/normal_mirrored = SubResource("StyleBoxEmpty_u4e2o")
 theme_override_styles/normal = SubResource("StyleBoxEmpty_auymu")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(4.17233e-07, 2)
-scale = Vector2(0.84375, 0.90625)
-texture = ExtResource("1_5wuwv")
-region_enabled = true
+position = Vector2(0, 2)
+scale = Vector2(2, 2)
+texture = ExtResource("1_bsl0v")
 region_rect = Rect2(128, 0, 64, 64)
-
-[node name="Keybind" type="Sprite2D" parent="."]
-position = Vector2(14, -24)
-scale = Vector2(1.55882, 1.8)
-texture = ExtResource("2_d4x2o")
-
-[node name="Key" type="Label" parent="Keybind"]
-offset_left = -3.20755
-offset_top = -5.0
-offset_right = 36.7924
-offset_bottom = 18.0
-scale = Vector2(0.7, 0.7)
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_fonts/font = ExtResource("3_4n8p8")
-text = "Q
-"

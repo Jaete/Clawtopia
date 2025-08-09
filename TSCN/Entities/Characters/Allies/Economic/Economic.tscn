@@ -11,43 +11,43 @@
 [ext_resource type="Script" uid="uid://dcrkjbpgq8px1" path="res://Scripts/EcoDebug.cs" id="9_f5t16"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_v75up"]
-atlas = ExtResource("8_dcrfn")
+atlas = ExtResource("8_21cwc")
 region = Rect2(0, 0, 64, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_3at7o"]
-atlas = ExtResource("8_dcrfn")
+atlas = ExtResource("8_21cwc")
 region = Rect2(64, 0, 64, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_c6gkr"]
-atlas = ExtResource("8_dcrfn")
+atlas = ExtResource("8_21cwc")
 region = Rect2(128, 0, 64, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_67r0s"]
-atlas = ExtResource("8_dcrfn")
+atlas = ExtResource("8_21cwc")
 region = Rect2(192, 0, 64, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_llesm"]
-atlas = ExtResource("8_dcrfn")
+atlas = ExtResource("8_21cwc")
 region = Rect2(0, 64, 64, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ygid7"]
-atlas = ExtResource("8_dcrfn")
+atlas = ExtResource("8_21cwc")
 region = Rect2(64, 64, 64, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_xmbi4"]
-atlas = ExtResource("8_dcrfn")
+atlas = ExtResource("8_21cwc")
 region = Rect2(128, 64, 64, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_dlkyp"]
-atlas = ExtResource("8_dcrfn")
+atlas = ExtResource("8_21cwc")
 region = Rect2(192, 64, 64, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_odh6d"]
-atlas = ExtResource("8_dcrfn")
+atlas = ExtResource("8_21cwc")
 region = Rect2(256, 64, 64, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_gy22r"]
-atlas = ExtResource("8_dcrfn")
+atlas = ExtResource("8_21cwc")
 region = Rect2(320, 64, 64, 64)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_38oll"]

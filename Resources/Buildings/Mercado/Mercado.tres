@@ -8,7 +8,7 @@
 [ext_resource type="AudioStream" uid="uid://cx71cf6ffwqvg" path="res://Assets/Audio/SFX/Building/destroy-005.ogg" id="6_0uj4k"]
 [ext_resource type="AudioStream" uid="uid://865i76f5bwrx" path="res://Assets/Audio/SFX/Building/plot.ogg" id="7_s46f5"]
 [ext_resource type="Resource" uid="uid://dlynddr435irg" path="res://Resources/Buildings/Mercado/Structure.tres" id="8_n3ts3"]
-[ext_resource type="Script" uid="uid://cua4780o8n42m" path="res://Scripts/Entities/Building/BuildingData.cs" id="9_7uaje"]
+[ext_resource type="Script" uid="uid://iy7w2gbfhvuy" path="res://Scripts/Entities/Building/BuildingData.cs" id="9_7uaje"]
 
 [resource]
 resource_local_to_scene = true

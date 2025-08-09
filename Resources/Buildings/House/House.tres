@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="BuildingData" load_steps=10 format=3 uid="uid://py2ahwce3210"]
+[gd_resource type="Resource" script_class="BuildingData" load_steps=10 format=3 uid="uid://doxwfxcwc6nd1"]
 
 [ext_resource type="AudioStream" uid="uid://c6nf3cvt1mwmj" path="res://Assets/Audio/UI/ui-click-cancel.ogg" id="1_0gy2o"]
 [ext_resource type="Script" uid="uid://iy7w2gbfhvuy" path="res://Scripts/Entities/Building/BuildingData.cs" id="1_42v36"]
@@ -21,11 +21,11 @@ TowerType = ""
 Name = "Casa da Comuna"
 CatnipCost = 0
 SalmonCost = 0
-SandCost = 0
+SandCost = 120
 Hp = 0
 MaxProgress = 0
 Structure = ExtResource("8_t405w")
 Scale = Vector2(1, 1)
 Offset = Vector2(4, -36)
-RotatedOffset = Vector2(0, -32)
+RotatedOffset = Vector2(0, -34)
 metadata/IsBuilding = true

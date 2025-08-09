@@ -22,7 +22,6 @@ grow_horizontal = 2
 grow_vertical = 0
 scale = Vector2(0.75, 0.75)
 size_flags_horizontal = 3
-mouse_filter = 0
 
 [node name="BaseMenu" parent="Container" instance=ExtResource("2_4hf2e")]
 layout_mode = 2

@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="BuildingData" load_steps=10 format=3 uid="uid://cnajvh3haer3a"]
+[gd_resource type="Resource" script_class="BuildingData" load_steps=10 format=3 uid="uid://mqcdu0esv2dq"]
 
 [ext_resource type="AudioStream" uid="uid://c6nf3cvt1mwmj" path="res://Assets/Audio/UI/ui-click-cancel.ogg" id="1_lgsbq"]
 [ext_resource type="Resource" uid="uid://6k5dlxrryvt" path="res://Resources/Buildings/GreatCommune/Structure.tres" id="1_qa3rg"]
@@ -26,5 +26,5 @@ Hp = 10000
 MaxProgress = 0
 Structure = ExtResource("1_qa3rg")
 Scale = Vector2(1, 1)
-Offset = Vector2(0, 0)
+Offset = Vector2(-10, -10)
 RotatedOffset = Vector2(0, 0)

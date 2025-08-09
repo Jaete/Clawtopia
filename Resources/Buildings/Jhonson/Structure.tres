@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="BuildingStructure" load_steps=3 format=3 uid="uid://buje2bddhblar"]
 
 [ext_resource type="Texture2D" uid="uid://kyg0g3yiqelf" path="res://Assets/Buildings/torre_lut_001.png" id="1_pqba4"]
-[ext_resource type="Script" uid="uid://dnhnx2nty75bw" path="res://Scripts/Entities/Building/BuildingStructure.cs" id="2_78xg5"]
+[ext_resource type="Script" uid="uid://15qifmmd5x2c" path="res://Scripts/Entities/Building/BuildingStructure.cs" id="2_78xg5"]
 
 [resource]
 script = ExtResource("2_78xg5")

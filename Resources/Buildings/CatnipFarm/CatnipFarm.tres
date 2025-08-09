@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="BuildingData" load_steps=15 format=3 uid="uid://djcej2tp2oa4j"]
+[gd_resource type="Resource" script_class="BuildingData" load_steps=18 format=3 uid="uid://c1vkuhrdcypox"]
 
 [ext_resource type="AudioStream" uid="uid://c6nf3cvt1mwmj" path="res://Assets/Audio/UI/ui-click-cancel.ogg" id="1_0hv4n"]
 [ext_resource type="AudioStream" uid="uid://c11gv7w0q6nrn" path="res://Assets/Audio/SFX/Building/destroy-001.ogg" id="2_6475p"]
@@ -11,17 +11,26 @@
 [ext_resource type="Texture2D" uid="uid://i4du7qbwwiff" path="res://Assets/Buildings/casa_decor_002_build.png" id="9_cg6by"]
 [ext_resource type="Texture2D" uid="uid://c2yp0fa3mth3u" path="res://Assets/Buildings/casa_decor_002_flip.png" id="10_8tw36"]
 [ext_resource type="Texture2D" uid="uid://coibbqvqti3ig" path="res://Assets/Buildings/casa_decor_002_flip_build.png" id="11_8do3k"]
-[ext_resource type="Script" uid="uid://dnhnx2nty75bw" path="res://Scripts/Entities/Building/BuildingStructure.cs" id="12_tsy8l"]
-[ext_resource type="Script" uid="uid://cua4780o8n42m" path="res://Scripts/Entities/Building/BuildingData.cs" id="13_k51hi"]
+[ext_resource type="Script" uid="uid://15qifmmd5x2c" path="res://Scripts/Entities/Building/BuildingStructure.cs" id="12_tsy8l"]
+[ext_resource type="Script" uid="uid://iy7w2gbfhvuy" path="res://Scripts/Entities/Building/BuildingData.cs" id="13_k51hi"]
+
+[sub_resource type="ConcavePolygonShape2D" id="ConcavePolygonShape2D_1keyp"]
+
+[sub_resource type="ConcavePolygonShape2D" id="ConcavePolygonShape2D_hpl3m"]
+
+[sub_resource type="ConcavePolygonShape2D" id="ConcavePolygonShape2D_igxb0"]
 
 [sub_resource type="Resource" id="Resource_2qqnp"]
 script = ExtResource("12_tsy8l")
 PreviewTexture = ExtResource("9_cg6by")
 PlacedTexture = ExtResource("8_6niyc")
 PlacedOffset = Vector2(0, 0)
+Collision = SubResource("ConcavePolygonShape2D_1keyp")
+Interaction = SubResource("ConcavePolygonShape2D_igxb0")
 RotatedPreviewTexture = ExtResource("11_8do3k")
 RotatedPlacedTexture = ExtResource("10_8tw36")
 RotatedPlacedOffset = Vector2(0, 0)
+GridArea = SubResource("ConcavePolygonShape2D_hpl3m")
 metadata/_custom_type_script = "uid://dnhnx2nty75bw"
 
 [resource]
@@ -32,7 +41,7 @@ CancelSound = ExtResource("1_0hv4n")
 BuildingType = 0
 Resource = 0
 TowerType = ""
-Name = "CatnipFarm"
+Name = "Purrlamento"
 CatnipCost = 100
 SalmonCost = 50
 SandCost = 0

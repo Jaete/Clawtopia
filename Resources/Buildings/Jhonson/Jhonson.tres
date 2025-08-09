@@ -8,7 +8,7 @@
 [ext_resource type="AudioStream" uid="uid://cx71cf6ffwqvg" path="res://Assets/Audio/SFX/Building/destroy-005.ogg" id="6_uxgqo"]
 [ext_resource type="AudioStream" uid="uid://865i76f5bwrx" path="res://Assets/Audio/SFX/Building/plot.ogg" id="7_jaf7a"]
 [ext_resource type="Resource" uid="uid://buje2bddhblar" path="res://Resources/Buildings/Jhonson/Structure.tres" id="8_ub6bg"]
-[ext_resource type="Script" uid="uid://cua4780o8n42m" path="res://Scripts/Entities/Building/BuildingData.cs" id="9_avw5l"]
+[ext_resource type="Script" uid="uid://iy7w2gbfhvuy" path="res://Scripts/Entities/Building/BuildingData.cs" id="9_avw5l"]
 
 [resource]
 script = ExtResource("9_avw5l")

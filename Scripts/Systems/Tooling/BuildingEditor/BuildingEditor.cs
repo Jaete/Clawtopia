@@ -118,6 +118,38 @@ public partial class BuildingEditor : Node2D
 
     }
 
+    [ExportGroup("Save building")]
+    [ExportToolButton("Save current building", Icon = "Save")]
+    public Callable SaveCurrentBuilding => Callable.From(() =>
+    {
+        Save(BuildingToDelete);
+    });
+
+    private void Save(string buildingToDelete)
+    {
+        if (!Engine.IsEditorHint()) { return; }
+
+        Building building = (Building) GetChildren()[0];
+
+        BuildingSprite sprite = (BuildingSprite) building.Sprite;
+        sprite.SaveSprite();
+
+        PolygonArea body = (PolygonArea)building.BodyShape;
+        body.OnRectChanged();
+
+        PolygonArea grid = (PolygonArea)building.GridShape;
+        grid.OnRectChanged();
+
+        PolygonArea interaction = (PolygonArea)building.InteractionShape;
+        interaction.OnRectChanged();
+
+        ResourceSaver.Singleton.Save(building.Data.Structure, building.Data.Structure.ResourcePath);
+        ResourceSaver.Singleton.Save(building.Data, building.Data.ResourcePath);
+
+        EditorUI.PopupAccept($"Building {building.Data.Name} saved successfully.");
+    }
+
+
     public static BuildingData LoadBuildingData(string buildingName, BuildingList buildings)
     {
         if (buildings == null)

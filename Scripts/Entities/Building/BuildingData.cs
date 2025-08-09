@@ -211,7 +211,6 @@ public partial class BuildingData : Resource
             GD.PushWarning("Structure collision segments are not set. If adding a new building, this is intended behaviour and you can ignore this warning.");
             return;
         }
-
         building.BodyShape.Polygon = building.IsRotated 
             ? Structure.RotatedCollision.Segments 
             : Structure.Collision.Segments;

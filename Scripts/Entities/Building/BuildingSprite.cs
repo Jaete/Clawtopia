@@ -21,7 +21,7 @@ public partial class BuildingSprite : Sprite2D
         }
     }
 
-    private void SaveSprite()
+    public void SaveSprite()
     {
         if (_building.IsRotated)
         {

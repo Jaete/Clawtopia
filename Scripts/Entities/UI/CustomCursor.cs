@@ -15,10 +15,11 @@ public partial class CustomCursor : Node
             Instance = this;
         else
             QueueFree();
-        defaultCursor = null;
+        defaultCursor = GD.Load<Texture2D>("res://Assets/UI/New UI/cursor32x32.png");
         foiceCursor = GD.Load<Texture2D>("res://Assets/UI/New UI/scickle-mouse.png");
         paCursor = GD.Load<Texture2D>("res://Assets/UI/New UI/shovel-mouse.png");
         varaCursor = GD.Load<Texture2D>("res://Assets/UI/New UI/fishing-rod-mouse.png");
+        SetCursor(CursorType.Default);
     }
 
     public void SetCursor(CursorType type)

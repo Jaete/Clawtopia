@@ -7,20 +7,21 @@ public partial class PolygonArea : CollisionPolygon2D
 {
     [Signal] public delegate void PolygonChangedEventHandler();
 
-    [Signal] public delegate void PointsChangedEventHandler();
-
     [Export] private Building _building;
 
     public override void _Ready()
     {
         base._Ready();
         PolygonChanged += OnRectChanged;
-        EmitSignal(SignalName.PolygonChanged);
     }
+
     public override bool _Set(StringName property, Variant value)
     {
         var result = base._Set(property, value);
-        EmitSignal(SignalName.PolygonChanged);
+        if (Engine.IsEditorHint())
+        {
+            EmitSignal(SignalName.PolygonChanged);
+        }
         return result;
     }
 
@@ -30,7 +31,6 @@ public partial class PolygonArea : CollisionPolygon2D
         {
             return;
         }
-
         if (IsNameEquals(_building.GridShape.Name))
         {
             SetGridArea();

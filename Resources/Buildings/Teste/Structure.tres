@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="BuildingStructure" load_steps=6 format=3 uid="uid://dqteysb5rrtdx"]
 
 [ext_resource type="Texture2D" uid="uid://i4du7qbwwiff" path="res://Assets/Buildings/casa_decor_002_build.png" id="1_bf2bv"]
-[ext_resource type="Script" uid="uid://dnhnx2nty75bw" path="res://Scripts/Entities/Building/BuildingStructure.cs" id="2_uhne0"]
+[ext_resource type="Script" uid="uid://15qifmmd5x2c" path="res://Scripts/Entities/Building/BuildingStructure.cs" id="2_uhne0"]
 
 [sub_resource type="ConcavePolygonShape2D" id="ConcavePolygonShape2D_1dn7u"]
 

@@ -1,12 +1,10 @@
-[gd_resource type="Resource" script_class="BuildingLoaderSettings" load_steps=4 format=3 uid="uid://7xpfdsvu2rwg"]
+[gd_resource type="Resource" script_class="BuildingLoaderSettings" load_steps=3 format=3 uid="uid://7xpfdsvu2rwg"]
 
 [ext_resource type="PackedScene" uid="uid://d2xeg5t6t85er" path="res://TSCN/Entities/Buildings/Building.tscn" id="1_fqb8w"]
 [ext_resource type="Script" uid="uid://2pj60k48jshe" path="res://Scripts/Systems/GameSettings/BuildingLoaderSettings.cs" id="1_mcxlx"]
-[ext_resource type="PackedScene" uid="uid://ddrl4h1n32j7c" path="res://TSCN/BuildingEditor/BuildingEditor.tscn" id="1_y3us2"]
 
 [resource]
 script = ExtResource("1_mcxlx")
-ResourceDirectory = "res://Resources"
-BuildingEditor = ExtResource("1_y3us2")
 BaseBuilding = ExtResource("1_fqb8w")
+ResourceDirectory = "res://Resources"
 metadata/_custom_type_script = "uid://2pj60k48jshe"

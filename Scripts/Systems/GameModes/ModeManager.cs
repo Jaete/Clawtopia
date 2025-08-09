@@ -123,11 +123,8 @@ public partial class ModeManager : Node2D
 
                 if (building.Data.BuildingType == Type.House)
                 {
-                    if (building.Name.ToString().Contains(Constants.FIGHTERS))
-                    {
-                        building.SelfIndex = FightersTowerCount;
-                        FightersTowerCount++;
-                    }
+                    building.SelfIndex = HouseCount;
+                    HouseCount++;
                 }
 
                 if (building.Data.BuildingType == Type.Resource)

@@ -79,6 +79,7 @@ public partial class Building : Area2D
                 {
                     Data = null;
                     Reset(this);
+                    GD.Print("Jhonson?");
                     return;
                 }
                 if (Data != null && Data.Name == value) return;
@@ -96,6 +97,7 @@ public partial class Building : Area2D
             if (_buildingData is null)
             {
                 Reset(this);
+                GD.Print("Jhonson?");
                 return;
             }
 
@@ -150,7 +152,7 @@ public partial class Building : Area2D
         
         ConnectSignals();
         Data.Initialize(this);
-        
+
         if (IsPreSpawned) { CallDeferred(MethodName.PlaceBuilding, this); }
     }
 
