@@ -3,27 +3,29 @@
 [ext_resource type="Script" uid="uid://ikxpnyj8t3fs" path="res://Scripts/Systems/Tooling/BuildingEditor/BuildingEditor.cs" id="1_uu33o"]
 [ext_resource type="PackedScene" uid="uid://d2xeg5t6t85er" path="res://TSCN/Entities/Buildings/Building.tscn" id="2_dpayh"]
 [ext_resource type="Resource" uid="uid://b6f51bygtvaek" path="res://Resources/GameSettings/BuildingEditorSettings.tres" id="2_ey833"]
-[ext_resource type="Resource" uid="uid://cvy6qskfhv6yf" path="res://Resources/Buildings/Mercado/Mercado.tres" id="6_ip8i0"]
-[ext_resource type="Texture2D" uid="uid://drkdvin45nblh" path="res://Assets/Buildings/casa_decor_002.png" id="7_vmre3"]
+[ext_resource type="Resource" uid="uid://gsdfrdo0nsnm" path="res://Resources/Buildings/Mercado 2/Mercado 2.tres" id="6_ip8i0"]
+[ext_resource type="Texture2D" uid="uid://cg4mlrppvw1ce" path="res://Assets/Buildings/casa_decor_001.png" id="7_ip8i0"]
 
 [node name="BuildingEditor" type="Node2D"]
 script = ExtResource("1_uu33o")
 Settings = ExtResource("2_ey833")
-BuildingToLoad = "Mercado"
 
-[node name="Mercado" parent="." instance=ExtResource("2_dpayh")]
+[node name="Mercado 2" parent="." instance=ExtResource("2_dpayh")]
 IsPreSpawned = true
-Type = "Mercado"
+IsRotated = true
+Type = "Mercado 2"
 Data = ExtResource("6_ip8i0")
 
-[node name="Sprite2D" parent="Mercado" index="0"]
-texture = ExtResource("7_vmre3")
-offset = Vector2(25, -5)
+[node name="Sprite2D" parent="Mercado 2" index="0"]
+texture = ExtResource("7_ip8i0")
 
-[node name="Shape" parent="Mercado/NavigationBody" index="0"]
-polygon = PackedVector2Array(-36, -2, 28, 30, 60, 14, -4, -18)
+[node name="Shape" parent="Mercado 2/NavigationBody" index="0"]
+polygon = PackedVector2Array(-80, 8, -4, 52, 76, 10, 0, -36)
 
-[node name="AreaShape" parent="Mercado/GridArea" index="0"]
-polygon = PackedVector2Array(-4, -28, -56, -2, 28, 42, 84, 16)
+[node name="AreaShape" parent="Mercado 2/GridArea" index="0"]
+polygon = PackedVector2Array(-108, 8, 0, -52, 108, 10, -4, 68)
 
-[editable path="Mercado"]
+[node name="InteractionShape" parent="Mercado 2" index="3"]
+polygon = PackedVector2Array(-4, 50, -88, 12, -84, -26, -52, -44, -32, -34, -24, -26, 20, -26, 32, -36, 48, -40, 72, -28, 80, -20, 76, 10)
+
+[editable path="Mercado 2"]

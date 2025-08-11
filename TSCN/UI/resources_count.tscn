@@ -28,6 +28,7 @@ grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(0.85, 0.85)
 size_flags_horizontal = 0
+mouse_filter = 1
 
 [node name="CommuneLifeFrame" type="Sprite2D" parent="."]
 position = Vector2(517, 36)
@@ -74,7 +75,7 @@ scale = Vector2(1.5, 1.5)
 texture = ExtResource("1_tpg15")
 
 [node name="Counter6" type="Sprite2D" parent="Counters"]
-position = Vector2(803.846, 63.8462)
+position = Vector2(961.086, 62.3077)
 scale = Vector2(1.5, 1.5)
 texture = ExtResource("2_jyj8v")
 
@@ -87,7 +88,7 @@ scale = Vector2(2, 2.432)
 texture = ExtResource("2_xvpgi")
 
 [node name="CountersBackground2" type="Sprite2D" parent="Icons"]
-position = Vector2(1064, 32.184)
+position = Vector2(1268.41, 30.184)
 scale = Vector2(2, 2.432)
 texture = ExtResource("6_ybm6o")
 
@@ -122,12 +123,12 @@ scale = Vector2(2, 2)
 texture = ExtResource("8_tyyrg")
 
 [node name="Exit" type="Sprite2D" parent="Icons"]
-position = Vector2(1118, 40.184)
+position = Vector2(1322.41, 38.184)
 scale = Vector2(2, 2)
 texture = ExtResource("13_qd6vl")
 
 [node name="Timer" type="Sprite2D" parent="Icons"]
-position = Vector2(1045, 40.184)
+position = Vector2(1249.41, 38.184)
 scale = Vector2(2, 2)
 texture = ExtResource("14_fnwhb")
 
@@ -204,10 +205,10 @@ justification_flags = 161
 
 [node name="TimerLabel" type="Label" parent="Labels"]
 layout_mode = 0
-offset_left = 1023.0
-offset_top = 75.0
-offset_right = 1065.0
-offset_bottom = 90.0
+offset_left = 1227.41
+offset_top = 73.0
+offset_right = 1269.41
+offset_bottom = 88.0
 theme_override_colors/font_color = Color(1, 0.760784, 0.501961, 1)
 theme_override_fonts/font = ExtResource("9_y8ayo")
 theme_override_font_sizes/font_size = 17

@@ -1,10 +1,10 @@
-[gd_scene load_steps=17 format=3 uid="uid://cvn6s8v6efmu3"]
+[gd_scene load_steps=17 format=3 uid="uid://nfalpy65pq2n"]
 
-[ext_resource type="Script" uid="uid://cmjhmv6wwd1tn" path="res://Scripts/Entities/UI/AddBuilding.cs" id="1_uflwx"]
-[ext_resource type="Resource" uid="uid://cvy6qskfhv6yf" path="res://Resources/Buildings/Mercado/Mercado.tres" id="2_j835l"]
-[ext_resource type="Texture2D" uid="uid://br5ydadhldshi" path="res://Assets/UI/Old UI/64px_botoes_corB.png" id="3_crqtq"]
-[ext_resource type="Texture2D" uid="uid://daxi84t0vn6q" path="res://Assets/UI/Old UI/Teclas_ativas_unic.png" id="4_kayp3"]
-[ext_resource type="FontFile" uid="uid://cr6wq0358x1n6" path="res://Assets/UI/Old UI/bitfantasy.ttf" id="5_bwswc"]
+[ext_resource type="Script" uid="uid://cmjhmv6wwd1tn" path="res://Scripts/Entities/UI/AddBuilding.cs" id="1_8u1fu"]
+[ext_resource type="Resource" uid="uid://gsdfrdo0nsnm" path="res://Resources/Buildings/Mercado 2/Mercado 2.tres" id="2_8u1fu"]
+[ext_resource type="Texture2D" uid="uid://br5ydadhldshi" path="res://Assets/UI/Old UI/64px_botoes_corB.png" id="3_36fsd"]
+[ext_resource type="Texture2D" uid="uid://daxi84t0vn6q" path="res://Assets/UI/Old UI/Teclas_ativas_unic.png" id="4_f2i3o"]
+[ext_resource type="FontFile" uid="uid://cr6wq0358x1n6" path="res://Assets/UI/Old UI/bitfantasy.ttf" id="5_o46w7"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_vf24x"]
 
@@ -28,9 +28,14 @@
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_vqutg"]
 
-[node name="AddMarketButton" type="Control"]
+[node name="AddCatnipFarm" type="Control"]
 layout_mode = 3
-anchors_preset = 0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
 
 [node name="Button" type="Button" parent="."]
 layout_mode = 0
@@ -48,21 +53,21 @@ theme_override_styles/pressed_mirrored = SubResource("StyleBoxEmpty_eqqp1")
 theme_override_styles/pressed = SubResource("StyleBoxEmpty_8t6ra")
 theme_override_styles/normal_mirrored = SubResource("StyleBoxEmpty_ulnfm")
 theme_override_styles/normal = SubResource("StyleBoxEmpty_vqutg")
-script = ExtResource("1_uflwx")
-BuildingToAdd = ExtResource("2_j835l")
+script = ExtResource("1_8u1fu")
+BuildingToAdd = ExtResource("2_8u1fu")
 
 [node name="Icon" type="Sprite2D" parent="."]
 modulate = Color(0, 0.698225, 0.309678, 1)
 position = Vector2(27, 28.5)
 scale = Vector2(0.84375, 0.890625)
-texture = ExtResource("3_crqtq")
+texture = ExtResource("3_36fsd")
 region_enabled = true
 region_rect = Rect2(192, 0, 64, 64)
 
 [node name="Keybind" type="Sprite2D" parent="."]
 position = Vector2(40, 57)
 scale = Vector2(1.55882, 1.8)
-texture = ExtResource("4_kayp3")
+texture = ExtResource("4_f2i3o")
 
 [node name="Key" type="Label" parent="Keybind"]
 offset_left = -3.20755
@@ -71,5 +76,5 @@ offset_right = 36.7924
 offset_bottom = 18.0
 scale = Vector2(0.7, 0.7)
 theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_fonts/font = ExtResource("5_bwswc")
+theme_override_fonts/font = ExtResource("5_o46w7")
 text = "z"

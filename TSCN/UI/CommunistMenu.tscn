@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://dlafn1y1tob36"]
+[gd_scene load_steps=24 format=3 uid="uid://dlafn1y1tob36"]
 
 [ext_resource type="Script" uid="uid://dj6hrby0pkdt5" path="res://Scripts/Entities/UI/CommunistMenu.cs" id="1_qbug2"]
 [ext_resource type="Texture2D" uid="uid://d0solxch24hu0" path="res://Assets/UI/New UI/building-background-frame.png" id="2_eij0w"]
@@ -11,6 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://c06hgevw4voan" path="res://TSCN/UI/add_sand_mine.tscn" id="9_gfsh3"]
 [ext_resource type="PackedScene" uid="uid://dro8ui4lldrko" path="res://TSCN/UI/UnitMenu.tscn" id="10_acvrd"]
 [ext_resource type="PackedScene" uid="uid://cvn6s8v6efmu3" path="res://TSCN/UI/AddMarketButton.tscn" id="11_cbwuu"]
+[ext_resource type="PackedScene" uid="uid://nfalpy65pq2n" path="res://TSCN/UI/add_market_two.tscn" id="12_dppop"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_7fdb8"]
 
@@ -160,4 +161,7 @@ layout_mode = 2
 layout_mode = 2
 
 [node name="AddMarketButton" parent="HContainer/VContainer/GridContainer" instance=ExtResource("11_cbwuu")]
+layout_mode = 2
+
+[node name="AddCatnipFarm" parent="HContainer/VContainer/GridContainer" instance=ExtResource("12_dppop")]
 layout_mode = 2

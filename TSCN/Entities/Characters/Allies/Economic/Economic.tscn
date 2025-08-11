@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://d3gh4jmuicqic"]
+[gd_scene load_steps=23 format=3 uid="uid://d3gh4jmuicqic"]
 
 [ext_resource type="Script" uid="uid://dgjx0mjlsyyt4" path="res://Scripts/Entities/Characters/Allies/Ally.cs" id="1_kr1my"]
 [ext_resource type="Resource" uid="uid://cg7alavmqxtqn" path="res://Resources/Characters/Allies/Attributes/Communist.tres" id="2_ku51o"]
@@ -8,22 +8,23 @@
 [ext_resource type="Script" uid="uid://bsxst58fn6eug" path="res://Scripts/Entities/Characters/Allies/Economic/States/Build.cs" id="6_g88hf"]
 [ext_resource type="Script" uid="uid://62txym8l2bxo" path="res://Scripts/Entities/Characters/Allies/Economic/States/Collect.cs" id="7_cnf8a"]
 [ext_resource type="Texture2D" uid="uid://davy57qg772li" path="res://Assets/Spritesheets/Characters/Allies/test_kitten_artstyle64.png" id="8_21cwc"]
+[ext_resource type="Texture2D" uid="uid://cpotp8oelp7nw" path="res://Assets/Spritesheets/Characters/Allies/gato-guerreiro-animacao.png" id="8_kyvtq"]
 [ext_resource type="Script" uid="uid://dcrkjbpgq8px1" path="res://Scripts/EcoDebug.cs" id="9_f5t16"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_v75up"]
-atlas = ExtResource("8_21cwc")
+[sub_resource type="AtlasTexture" id="AtlasTexture_5ps2m"]
+atlas = ExtResource("8_kyvtq")
 region = Rect2(0, 0, 64, 64)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_3at7o"]
-atlas = ExtResource("8_21cwc")
+[sub_resource type="AtlasTexture" id="AtlasTexture_524be"]
+atlas = ExtResource("8_kyvtq")
 region = Rect2(64, 0, 64, 64)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_c6gkr"]
-atlas = ExtResource("8_21cwc")
+[sub_resource type="AtlasTexture" id="AtlasTexture_jetmm"]
+atlas = ExtResource("8_kyvtq")
 region = Rect2(128, 0, 64, 64)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_67r0s"]
-atlas = ExtResource("8_21cwc")
+[sub_resource type="AtlasTexture" id="AtlasTexture_rwx17"]
+atlas = ExtResource("8_kyvtq")
 region = Rect2(192, 0, 64, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_llesm"]
@@ -54,16 +55,16 @@ region = Rect2(320, 64, 64, 64)
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_v75up")
+"texture": SubResource("AtlasTexture_5ps2m")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_3at7o")
+"texture": SubResource("AtlasTexture_524be")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_c6gkr")
+"texture": SubResource("AtlasTexture_jetmm")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_67r0s")
+"texture": SubResource("AtlasTexture_rwx17")
 }],
 "loop": true,
 "name": &"default",
@@ -130,7 +131,6 @@ script = ExtResource("7_cnf8a")
 MaxQuantity = 4
 
 [node name="Navigation" type="NavigationAgent2D" parent="."]
-debug_enabled = true
 
 [node name="Sprite" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_38oll")
@@ -144,6 +144,7 @@ position = Vector2(0, -24)
 shape = SubResource("CapsuleShape2D_1wlnv")
 
 [node name="Label" type="Label" parent="."]
+visible = false
 offset_left = -21.0
 offset_right = 19.0
 offset_bottom = 23.0
