@@ -1,7 +1,7 @@
 [gd_scene load_steps=17 format=3 uid="uid://b2kufecd3we63"]
 
 [ext_resource type="Script" uid="uid://cmjhmv6wwd1tn" path="res://Scripts/Entities/UI/AddBuilding.cs" id="1_1dkp4"]
-[ext_resource type="Resource" uid="uid://rs4cciu3h1rm" path="res://Resources/Buildings/Economy/Catnip/CatnipFarm.tres" id="2_o87h5"]
+[ext_resource type="Resource" uid="uid://rs4cciu3h1rm" path="res://Resources/Buildings/CatnipFarm/CatnipFarm.tres" id="2_o87h5"]
 [ext_resource type="Texture2D" uid="uid://br5ydadhldshi" path="res://Assets/UI/Old UI/64px_botoes_corB.png" id="3_jscbq"]
 [ext_resource type="Texture2D" uid="uid://daxi84t0vn6q" path="res://Assets/UI/Old UI/Teclas_ativas_unic.png" id="4_wj52d"]
 [ext_resource type="FontFile" uid="uid://cr6wq0358x1n6" path="res://Assets/UI/Old UI/bitfantasy.ttf" id="5_c7e77"]

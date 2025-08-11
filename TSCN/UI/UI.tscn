@@ -1,8 +1,10 @@
-[gd_scene load_steps=4 format=3 uid="uid://dg1278ax8xp1f"]
+[gd_scene load_steps=6 format=3 uid="uid://dg1278ax8xp1f"]
 
 [ext_resource type="Script" uid="uid://dev4tvcptb0pe" path="res://Scripts/Entities/UI/UI.cs" id="1_mmgiv"]
 [ext_resource type="PackedScene" uid="uid://n5nsi4usmryr" path="res://TSCN/UI/BaseMenu.tscn" id="2_4hf2e"]
 [ext_resource type="PackedScene" uid="uid://iev22enkbmga" path="res://TSCN/UI/resources_count.tscn" id="3_vj4q2"]
+[ext_resource type="Script" uid="uid://ddxqmonhh2esf" path="res://Scripts/Entities/UI/ClickMarker.cs" id="4_nrgu2"]
+[ext_resource type="SpriteFrames" uid="uid://b00fa67msu4j8" path="res://Resources/Animations/ClickMarker.tres" id="5_gpweb"]
 
 [node name="UI" type="CanvasLayer"]
 script = ExtResource("1_mmgiv")
@@ -34,3 +36,7 @@ anchor_right = 0.0
 anchor_bottom = 0.0
 grow_horizontal = 1
 grow_vertical = 1
+
+[node name="ClickMarker" type="Node2D" parent="."]
+script = ExtResource("4_nrgu2")
+ClickAnimation = ExtResource("5_gpweb")

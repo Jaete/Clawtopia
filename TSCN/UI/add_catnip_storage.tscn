@@ -2,7 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://cdse27kpapcwh" path="res://Assets/UI/New UI/catnip-storage-icon.png" id="1_3f4q3"]
 [ext_resource type="Script" uid="uid://cmjhmv6wwd1tn" path="res://Scripts/Entities/UI/AddBuilding.cs" id="1_rpuoa"]
-[ext_resource type="Resource" uid="uid://djcej2tp2oa4j" path="res://Resources/Buildings/CatnipFarm/CatnipFarm.tres" id="2_5ekdt"]
+[ext_resource type="Resource" uid="uid://rs4cciu3h1rm" path="res://Resources/Buildings/CatnipFarm/CatnipFarm.tres" id="2_5ekdt"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_7fdb8"]
 
@@ -44,7 +44,6 @@ offset_left = -11.648
 offset_top = -16.256
 offset_right = 52.352
 offset_bottom = 47.744
-mouse_filter = 1
 theme_override_styles/focus = SubResource("StyleBoxEmpty_7fdb8")
 theme_override_styles/disabled_mirrored = SubResource("StyleBoxEmpty_dlfan")
 theme_override_styles/disabled = SubResource("StyleBoxEmpty_08exl")
