@@ -57,7 +57,7 @@ public partial class CollectPoint : StaticBody2D
     public virtual void OnHover()
     {
         Modulation.AssignState(this, InteractionStates.HOVER);
-    }
+        
         if (SimulationMode.Singleton.SelectedAllies.Count > 0)
         {
             switch (ResourceType.ToLower())

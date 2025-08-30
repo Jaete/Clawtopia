@@ -33,6 +33,6 @@ public partial class SalmonCollectPoint : CollectPoint
 
     private void ChangeAnimation(ProgressStructure.States state)
     {
-        SpriteHandler.ChangeAnimation(Sprite, ProgressStructure.Animations[(int) state]);
+        SpriteHandler.ChangeAnimation(Sprite, ProgressStructure.Animations[(int) state], false);
     }
 }

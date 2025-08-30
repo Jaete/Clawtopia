@@ -6,8 +6,9 @@ public partial class SpriteHandler
         sprite.Texture = texture;
     }
 
-    public static void ChangeAnimation(AnimatedSprite2D sprite, string animation)
+    public static void ChangeAnimation(AnimatedSprite2D sprite, string animation, bool flipH)
     {
+        sprite.FlipH = flipH;
         sprite.Play(animation);
     }
 }

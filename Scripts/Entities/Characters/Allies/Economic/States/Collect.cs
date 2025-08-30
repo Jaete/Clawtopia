@@ -1,4 +1,5 @@
 using Godot;
+using ClawtopiaCs.Scripts.Entities.Characters;
 
 public partial class Collect : EconomicState
 {
@@ -21,8 +22,10 @@ public partial class Collect : EconomicState
             return;
         }
 
-        ResourceTickTimer = GetTree().CreateTimer(TickTime); 
+        ResourceTickTimer = GetTree().CreateTimer(TickTime);
         ResourceTickTimer.Timeout += CollectTimeTicked;
+
+        PlayCollectAnimation();
     }
 
     public override void Update(double delta) { }
@@ -43,11 +46,12 @@ public partial class Collect : EconomicState
         Ally.InteractedResource.EmitSignal(CollectPoint.SignalName.ResourceCollected, collectedQuantity);
         Ally.ResourceCurrentQuantity += collectedQuantity;
 
-        if (Ally.ResourceCurrentQuantity != MaxQuantity && Ally.InteractedResource.ResourceQuantity > 0) {
+        if (Ally.ResourceCurrentQuantity != MaxQuantity && Ally.InteractedResource.ResourceQuantity > 0)
+        {
             ResourceTickTimer = GetTree().CreateTimer(TickTime);
             ResourceTickTimer.Timeout += CollectTimeTicked;
         }
-        else 
+        else
         {
             var target = GetClosestResourceBuilding(Ally.GlobalPosition, CurrentlyCollecting.ResourceType);
             Ally.Navigation.SetTargetPosition(target.GlobalPosition);
@@ -84,11 +88,34 @@ public partial class Collect : EconomicState
 
     public override void CommandReceived(Vector2 coords)
     {
-        if (!Ally.CurrentlySelected) {
+        if (!Ally.CurrentlySelected)
+        {
             return;
         }
 
         ChooseNextTargetPosition(coords);
         ChangeState("Move");
+    }
+    
+    private void PlayCollectAnimation()
+    {
+        float angle = Mathf.RadToDeg(Ally.LastDirection.Angle());
+
+        if (angle <= 90 && angle > -90)
+        {
+            if (Ally.InteractedResource.ResourceType == Constants.CATNIP)
+                SpriteHandler.ChangeAnimation(Ally.Sprite, Ally.AnimController.animMap[CharacterAnim.CatnipRight], false);
+            else if (Ally.InteractedResource.ResourceType == Constants.SAND)
+                SpriteHandler.ChangeAnimation(Ally.Sprite, Ally.AnimController.animMap[CharacterAnim.SandRight], false);
+            else if (Ally.InteractedResource.ResourceType == Constants.SALMON)
+                SpriteHandler.ChangeAnimation(Ally.Sprite, Ally.AnimController.animMap[CharacterAnim.SalmonRight], false);
+        }
+        else
+            if (Ally.InteractedResource.ResourceType == Constants.CATNIP)
+                SpriteHandler.ChangeAnimation(Ally.Sprite, Ally.AnimController.animMap[CharacterAnim.CatnipLeft], false);
+            else if (Ally.InteractedResource.ResourceType == Constants.SAND)
+                SpriteHandler.ChangeAnimation(Ally.Sprite, Ally.AnimController.animMap[CharacterAnim.SandLeft], false);
+            else if (Ally.InteractedResource.ResourceType == Constants.SALMON)
+                SpriteHandler.ChangeAnimation(Ally.Sprite, Ally.AnimController.animMap[CharacterAnim.SalmonLeft], false);
     }
 }

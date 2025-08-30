@@ -1,4 +1,5 @@
 using Godot;
+using ClawtopiaCs.Scripts.Entities.Characters;
 
 public partial class Build : EconomicState
 {
@@ -6,8 +7,8 @@ public partial class Build : EconomicState
     {
         Ally.ConstructionToBuild = Ally.InteractedBuilding;
         Ally.ConstructionToBuild.CurrentBuilders.Add(Ally);
-        /*TODO
-         TOCAR ANIMAÇÃO DE BUILD QUANDO TIVER*/
+
+        PlayBuildAnimation();
     }
 
     public override void Update(double delta) { }
@@ -23,4 +24,14 @@ public partial class Build : EconomicState
     public override void CommandReceived(Vector2 coords) { }
 
     public override void NavigationFinished() { }
+
+    private void PlayBuildAnimation()
+    {
+        float angle = Mathf.RadToDeg(Ally.LastDirection.Angle());
+
+        if (angle <= 90 && angle > -90)
+            SpriteHandler.ChangeAnimation(Ally.Sprite, Ally.AnimController.animMap[CharacterAnim.BuildingRight], false);
+        else
+            SpriteHandler.ChangeAnimation(Ally.Sprite, Ally.AnimController.animMap[CharacterAnim.BuildingLeft], false);
+    }
 }

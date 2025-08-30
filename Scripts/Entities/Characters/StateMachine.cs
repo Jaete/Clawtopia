@@ -33,8 +33,10 @@ public partial class StateMachine : Node
         Navigation.NavigationFinished += NavigationFinished;
     }
 
-    public override void _PhysicsProcess(double delta){
-        if(!InTransition){
+    public override void _PhysicsProcess(double delta)
+    {
+        if (!InTransition)
+        {
             CurrentState.Update(delta);
         }
     }
