@@ -108,7 +108,7 @@ public partial class Collect : EconomicState
             else if (Ally.InteractedResource.ResourceType == Constants.SAND)
                 SpriteHandler.ChangeAnimation(Ally.Sprite, Ally.AnimController.animMap[CharacterAnim.SandRight], false);
             else if (Ally.InteractedResource.ResourceType == Constants.SALMON)
-                SpriteHandler.ChangeAnimation(Ally.Sprite, Ally.AnimController.animMap[CharacterAnim.SalmonRight], false);
+                SpriteHandler.ChangeAnimation(Ally.Sprite, Ally.AnimController.animMap[CharacterAnim.FishingRight], false);
         }
         else
             if (Ally.InteractedResource.ResourceType == Constants.CATNIP)
@@ -116,6 +116,6 @@ public partial class Collect : EconomicState
             else if (Ally.InteractedResource.ResourceType == Constants.SAND)
                 SpriteHandler.ChangeAnimation(Ally.Sprite, Ally.AnimController.animMap[CharacterAnim.SandLeft], false);
             else if (Ally.InteractedResource.ResourceType == Constants.SALMON)
-                SpriteHandler.ChangeAnimation(Ally.Sprite, Ally.AnimController.animMap[CharacterAnim.SalmonLeft], false);
+                SpriteHandler.ChangeAnimation(Ally.Sprite, Ally.AnimController.animMap[CharacterAnim.FishingLeft], false);
     }
 }
