@@ -5,7 +5,6 @@ public partial class Idle : EconomicState
 {
     public override void Enter()
     {
-        GD.Print("IDLE");
         Ally.Velocity = Vector2.Zero;
         PlayIdleAnimation();
     }

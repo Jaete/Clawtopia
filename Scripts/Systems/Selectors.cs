@@ -37,6 +37,10 @@ public partial class Selectors : Node2D
             case Constants.HOUSE:
                 ui.Instantiate_window(Constants.HOUSE_MENU, buildingInFront);
                 break;
+            case Constants.RESOURCE:
+                if (buildingInFront.Data.ResourceType == Constants.SALMON)
+                    ui.Instantiate_window(Constants.SALMON_MENU, buildingInFront);
+                break;
             default:
                 ui.Instantiate_window(Constants.BUILDING_MENU, buildingInFront);
                 break;
@@ -154,7 +158,7 @@ public partial class Selectors : Node2D
     }
 
     public static Node2D GetClosestObject(Vector2 coords, Node2D currentClosest, Node2D item) {
-        // SE É A PRIMEIRA ITERACAO, RETORNA DIRETO
+        // SE ï¿½ A PRIMEIRA ITERACAO, RETORNA DIRETO
         if (currentClosest == default)
         {
             return item;

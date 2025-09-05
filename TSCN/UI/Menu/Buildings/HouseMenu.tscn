@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://byq50iadns3cp" path="res://Scripts/Entities/UI/HouseMenu.cs" id="1_ktwdd"]
 [ext_resource type="Texture2D" uid="uid://uds1dtcw43fy" path="res://Assets/UI/New UI/house-menu-background.png" id="2_64ccs"]
 [ext_resource type="Texture2D" uid="uid://xlala6v07p6y" path="res://Assets/UI/New UI/house-icon.png" id="3_p05gr"]
-[ext_resource type="PackedScene" uid="uid://wo4g4o4cxp7g" path="res://TSCN/UI/add_communist.tscn.tscn" id="4_gnne7"]
+[ext_resource type="PackedScene" uid="uid://wo4g4o4cxp7g" path="res://TSCN/UI/Buttons/add_communist.tscn.tscn" id="4_gnne7"]
 [ext_resource type="Texture2D" uid="uid://cnl3gu1mxkt0l" path="res://Assets/UI/New UI/counter-frame4.png" id="4_uxcfq"]
 [ext_resource type="Texture2D" uid="uid://dobma0uhe8v3a" path="res://Assets/UI/New UI/house-life-frame.png" id="5_niv8t"]
 [ext_resource type="Texture2D" uid="uid://xivdqhshp1j3" path="res://Assets/UI/New UI/house-life-bar.png" id="6_w5l80"]

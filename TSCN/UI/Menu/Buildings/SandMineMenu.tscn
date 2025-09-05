@@ -1,0 +1,177 @@
+[gd_scene load_steps=22 format=3 uid="uid://brbtd7y65e1mt"]
+
+[ext_resource type="Script" uid="uid://cyxditnpdj18h" path="res://Scripts/Entities/UI/SandMineMenu.cs" id="1_crive"]
+[ext_resource type="Texture2D" uid="uid://uds1dtcw43fy" path="res://Assets/UI/New UI/house-menu-background.png" id="2_ajvxf"]
+[ext_resource type="Texture2D" uid="uid://cifa3j2mc2c1n" path="res://Assets/UI/New UI/sand-storage-icon.png" id="3_xpvep"]
+[ext_resource type="Texture2D" uid="uid://cnl3gu1mxkt0l" path="res://Assets/UI/New UI/counter-frame4.png" id="4_bik2p"]
+[ext_resource type="Texture2D" uid="uid://dobma0uhe8v3a" path="res://Assets/UI/New UI/house-life-frame.png" id="5_j84av"]
+[ext_resource type="Texture2D" uid="uid://xivdqhshp1j3" path="res://Assets/UI/New UI/house-life-bar.png" id="6_70abh"]
+[ext_resource type="FontFile" uid="uid://cr6wq0358x1n6" path="res://Assets/UI/Old UI/bitfantasy.ttf" id="7_eguxl"]
+[ext_resource type="Texture2D" uid="uid://7cmipqyyvkms" path="res://Assets/UI/New UI/destroy-house-icon.png" id="8_lw03t"]
+[ext_resource type="Texture2D" uid="uid://pk58aniqmpd5" path="res://Assets/UI/New UI/counter-frame5.png" id="9_ly2hn"]
+[ext_resource type="Texture2D" uid="uid://cq7tjfes4aks5" path="res://Assets/UI/New UI/sand-icon.png" id="10_ivvsy"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_l17nu"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_6rvac"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_4mipc"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_qyw0k"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_4mh1k"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_oca38"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_v74tr"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_lwpos"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_6jamm"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_u4e2o"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_auymu"]
+
+[node name="SandMineMenu" type="Control"]
+custom_minimum_size = Vector2(532, 294)
+layout_mode = 3
+anchors_preset = 0
+offset_right = 532.0
+offset_bottom = 284.0
+size_flags_horizontal = 4
+size_flags_vertical = 8
+mouse_filter = 1
+script = ExtResource("1_crive")
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -280.0
+offset_bottom = 288.0
+grow_horizontal = 0
+
+[node name="Building" type="Control" parent="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 5.0
+offset_top = 47.0
+offset_right = 148.0
+offset_bottom = 289.0
+
+[node name="HudClawFundo" type="Sprite2D" parent="Control/Building"]
+position = Vector2(136, 98)
+scale = Vector2(2, 2)
+texture = ExtResource("2_ajvxf")
+
+[node name="Control" type="Control" parent="Control/Building"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_top = 12.0
+offset_bottom = 12.0
+grow_horizontal = 2
+
+[node name="Icon" type="Sprite2D" parent="Control/Building/Control"]
+scale = Vector2(2.5, 2.5)
+texture = ExtResource("3_xpvep")
+
+[node name="Counter" type="Sprite2D" parent="Control/Building/Control"]
+position = Vector2(0, 91)
+scale = Vector2(2, 2)
+texture = ExtResource("4_bik2p")
+
+[node name="Frame" type="Sprite2D" parent="Control/Building/Control"]
+position = Vector2(0, 62)
+scale = Vector2(2, 2)
+texture = ExtResource("5_j84av")
+
+[node name="Life" type="Sprite2D" parent="Control/Building/Control"]
+position = Vector2(0, 62)
+scale = Vector2(2, 2)
+texture = ExtResource("6_70abh")
+
+[node name="BuildingLifeLabel" type="Label" parent="Control/Building/Control"]
+layout_mode = 0
+offset_left = -34.5
+offset_top = 82.0
+offset_right = 35.5
+offset_bottom = 99.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("7_eguxl")
+theme_override_font_sizes/font_size = 19
+text = "100/100"
+horizontal_alignment = 1
+justification_flags = 161
+
+[node name="Stats" type="Control" parent="Control/Building"]
+anchors_preset = 0
+offset_left = 185.0
+offset_top = 14.0
+offset_right = 272.0
+offset_bottom = 197.0
+
+[node name="RemoveBuilding" type="Control" parent="Control/Building/Stats"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+grow_vertical = 0
+mouse_filter = 1
+
+[node name="Button" type="Button" parent="Control/Building/Stats/RemoveBuilding"]
+layout_mode = 0
+offset_left = -32.0
+offset_top = -32.0
+offset_right = 32.0
+offset_bottom = 32.0
+mouse_filter = 1
+theme_override_styles/focus = SubResource("StyleBoxEmpty_l17nu")
+theme_override_styles/disabled_mirrored = SubResource("StyleBoxEmpty_6rvac")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_4mipc")
+theme_override_styles/hover_pressed_mirrored = SubResource("StyleBoxEmpty_qyw0k")
+theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_4mh1k")
+theme_override_styles/hover_mirrored = SubResource("StyleBoxEmpty_oca38")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_v74tr")
+theme_override_styles/pressed_mirrored = SubResource("StyleBoxEmpty_lwpos")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_6jamm")
+theme_override_styles/normal_mirrored = SubResource("StyleBoxEmpty_u4e2o")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_auymu")
+
+[node name="Sprite2D" type="Sprite2D" parent="Control/Building/Stats/RemoveBuilding"]
+position = Vector2(0, 2)
+scale = Vector2(2, 2)
+texture = ExtResource("8_lw03t")
+region_rect = Rect2(128, 0, 64, 64)
+
+[node name="SandStats" type="Control" parent="Control/Building/Stats"]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Counter" type="Sprite2D" parent="Control/Building/Stats/SandStats"]
+position = Vector2(56, 11)
+scale = Vector2(2, 2)
+texture = ExtResource("9_ly2hn")
+region_rect = Rect2(256, 0, 64, 64)
+
+[node name="Sand" type="Sprite2D" parent="Control/Building/Stats/SandStats"]
+position = Vector2(-2, -1)
+scale = Vector2(2, 2)
+texture = ExtResource("10_ivvsy")
+
+[node name="SandLabel" type="Label" parent="Control/Building/Stats/SandStats"]
+layout_mode = 0
+offset_left = 39.0
+offset_top = 4.0
+offset_right = 76.0
+offset_bottom = 19.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("7_eguxl")
+theme_override_font_sizes/font_size = 17
+text = "1000"
+horizontal_alignment = 1
+justification_flags = 161

@@ -19,13 +19,19 @@ public partial class Constants : Node
 
     public const string BUILDING_MENU = "BuildingMenu";
     public const string COMMUNIST_MENU = "CommunistMenu";
-    public const string PURRLAMENT_MENU = "PurrLamentMenu";
+    public const string PURRLAMENT_MENU = "PurrlamentMenu";
     public const string HOUSE_MENU = "HouseMenu";
     public const string BASE_MENU = "BaseMenu";
+    public const string CATNIP_MENU = "CatnipFarmMenu";
+    public const string SALMON_MENU = "SalmonCottageMenu";
+    public const string SAND_MENU = "SandMineMenu";
 
-    public const string MENU_LIST = BASE_MENU +
-                                    COMMUNIST_MENU +
-                                    BUILDING_MENU;
+    public const string MENU_LIST = BASE_MENU + ","
+                                    + COMMUNIST_MENU + ","
+                                    + BUILDING_MENU + ","
+                                    + CATNIP_MENU + ","
+                                    + SALMON_MENU + ","
+                                    + SAND_MENU;
 
     public const string RESOURCE_LIST = SALMON + ","
                                                + CATNIP + ","

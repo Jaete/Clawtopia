@@ -6,12 +6,16 @@ public partial class UI : CanvasLayer
 {
     public static UI Singleton;
 
-    public PackedScene BaseMenu = GD.Load<PackedScene>("res://TSCN/UI/BaseMenu.tscn");
-    public PackedScene HouseMenu = GD.Load<PackedScene>("res://TSCN/UI/HouseMenu.tscn");
-    public PackedScene CommunistMenu = GD.Load<PackedScene>("res://TSCN/UI/CommunistMenu.tscn");
-    public PackedScene UnitMenu = GD.Load<PackedScene>("res://TSCN/UI/UnitMenu.tscn");
-    public PackedScene PauseMenuScene = GD.Load<PackedScene>("res://TSCN/UI/PauseMenu.tscn");
-    public PackedScene PurrlamentMenu = GD.Load<PackedScene>("res://TSCN/UI/PurrlamentMenu.tscn");
+    public PackedScene BaseMenu = GD.Load<PackedScene>("res://TSCN/UI/Menu/BaseMenu.tscn");
+    public PackedScene HouseMenu = GD.Load<PackedScene>("res://TSCN/UI/Menu/Buildings/HouseMenu.tscn");
+    public PackedScene CatnipFarmMenu = GD.Load<PackedScene>("res://TSCN/UI/Menu/Buildings/CatnipFarmMenu.tscn");
+    public PackedScene CommunistMenu = GD.Load<PackedScene>("res://TSCN/UI/Menu/Characters/CommunistMenu.tscn");
+    public PackedScene UnitMenu = GD.Load<PackedScene>("res://TSCN/UI/Menu/Characters/UnitMenu.tscn");
+    public PackedScene PauseMenuScene = GD.Load<PackedScene>("res://TSCN/UI/Menu/PauseMenu.tscn");
+    public PackedScene PurrlamentMenu = GD.Load<PackedScene>("res://TSCN/UI/Menu/Buildings/PurrlamentMenu.tscn");
+    public PackedScene SalmonCottageMenu = GD.Load<PackedScene>("res://TSCN/UI/Menu/Buildings/SalmonCottageMenu.tscn");
+    public PackedScene SandMineMenu = GD.Load<PackedScene>("res://TSCN/UI/Menu/Buildings/SandMineMenu.tscn");
+
 
 
     public Building Building;
@@ -49,6 +53,15 @@ public partial class UI : CanvasLayer
                     BuildingMenuControl = HouseMenu.Instantiate<HouseMenu>();
                     BuildingMenuControl.Building = building;
                     BuildingMenuControl.Name = Constants.HOUSE_MENU;
+                    CurrentWindow = BuildingMenuControl;
+                }
+                break;
+            case Constants.SALMON_MENU:
+                if (building != null)
+                {
+                    BuildingMenuControl = SalmonCottageMenu.Instantiate<SalmonCottageMenu>();
+                    BuildingMenuControl.Building = building;
+                    BuildingMenuControl.Name = Constants.SALMON_MENU;
                     CurrentWindow = BuildingMenuControl;
                 }
                 break;
