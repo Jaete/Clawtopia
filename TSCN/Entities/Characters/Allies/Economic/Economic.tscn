@@ -1,6 +1,7 @@
-[gd_scene load_steps=14 format=3 uid="uid://d3gh4jmuicqic"]
+[gd_scene load_steps=15 format=3 uid="uid://d3gh4jmuicqic"]
 
 [ext_resource type="Script" uid="uid://dgjx0mjlsyyt4" path="res://Scripts/Entities/Characters/Allies/Ally.cs" id="1_kr1my"]
+[ext_resource type="PackedScene" uid="uid://dlafn1y1tob36" path="res://TSCN/UI/Menu/Characters/CommunistMenu.tscn" id="2_jetmm"]
 [ext_resource type="Resource" uid="uid://cg7alavmqxtqn" path="res://Data/Characters/Allies/Attributes/Communist.tres" id="2_ku51o"]
 [ext_resource type="Script" uid="uid://chx6rbmbkfufb" path="res://Scripts/Entities/Characters/StateMachine.cs" id="3_5j1te"]
 [ext_resource type="Script" uid="uid://btwq6qkpr8fsi" path="res://Scripts/Entities/Characters/Allies/Economic/States/Idle.cs" id="4_gul40"]
@@ -20,6 +21,7 @@ height = 64.0
 [node name="Economic" type="CharacterBody2D" node_paths=PackedStringArray("StateMachine", "Navigation", "Sprite", "InteractionShape")]
 script = ExtResource("1_kr1my")
 Category = "Economic"
+UIMenu = ExtResource("2_jetmm")
 Attributes = ExtResource("2_ku51o")
 StateMachine = NodePath("FSM")
 Navigation = NodePath("Navigation")
@@ -59,6 +61,7 @@ position = Vector2(0, 7)
 sprite_frames = ExtResource("9_kyvtq")
 animation = &"move_up_left"
 autoplay = "idle_right"
+frame_progress = 0.37953
 offset = Vector2(0, -24)
 
 [node name="InteractionShape" type="Area2D" parent="."]

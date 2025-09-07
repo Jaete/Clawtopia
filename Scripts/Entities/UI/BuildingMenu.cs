@@ -1,28 +1,24 @@
-using ClawtopiaCs.Scripts.Systems.GameModes;
 using Godot;
 
-public partial class BuildingMenu : Control
+public partial class BuildingMenu : BaseMenu
 {
+    [ExportGroup("Settings")]
     [Export] public Button RemoveBuildingButton;
-    
-    public Building Building;
-    public ModeManager ModeManager;
-    public UI Ui;
+
+    public ulong BuildingLevelID;
 
     public override void _Ready()
     {
-        Name = Constants.BUILDING_MENU;
-        ModeManager = GetNode<ModeManager>("/root/Game/ModeManager");
-        Ui = GetNode<UI>("/root/Game/UI");
+        base._Ready();
+        if (RemoveBuildingButton is null) return;
         RemoveBuildingButton.Pressed += RemoveBuilding;
-        MouseEntered += Ui.EnterUiMode;
-        MouseExited += Ui.ExitUiMode;
     }
 
     public void RemoveBuilding()
     {
-        TerrainBaking.Singleton.RebakeRemoveBuilding(Building);
-        Building.EmitSignal(Building.SignalName.Destroyed);
-        Ui.Reset_ui();
+        var building = (Building)InstanceFromId(BuildingLevelID);
+        TerrainBaking.Singleton.RebakeRemoveBuilding(building);
+        building.EmitSignal(Building.SignalName.Destroyed);
+        UI.ResetUI();
     }
 }

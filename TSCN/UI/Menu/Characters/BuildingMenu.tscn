@@ -2,12 +2,12 @@
 
 [ext_resource type="Script" uid="uid://cdbhltw42a1au" path="res://Scripts/Entities/UI/BuildingMenu.cs" id="1_5opv1"]
 [ext_resource type="Texture2D" uid="uid://d0solxch24hu0" path="res://Assets/UI/New UI/building-background-frame.png" id="2_gihqt"]
-[ext_resource type="PackedScene" uid="uid://cc5007ymclpse" path="res://TSCN/UI/add_house.tscn" id="3_6rxsg"]
+[ext_resource type="PackedScene" uid="uid://cc5007ymclpse" path="res://TSCN/UI/Buttons/add_house.tscn" id="3_6rxsg"]
 [ext_resource type="Texture2D" uid="uid://b0361h5aik4sx" path="res://Assets/UI/New UI/artist-tower-icon.png" id="5_os6bn"]
-[ext_resource type="PackedScene" uid="uid://be6qpul8cdl7" path="res://TSCN/UI/add_fighter_tower.tscn" id="7_lhx8g"]
+[ext_resource type="PackedScene" uid="uid://be6qpul8cdl7" path="res://TSCN/UI/Buttons/add_fighter_tower.tscn" id="7_lhx8g"]
 [ext_resource type="Texture2D" uid="uid://dqd3jwlwx70fr" path="res://Assets/UI/New UI/engineer-tower-house.png" id="8_713uc"]
-[ext_resource type="PackedScene" uid="uid://b4expjtsyc8um" path="res://TSCN/UI/add_salmon_cottage.tscn" id="8_xtxgd"]
-[ext_resource type="PackedScene" uid="uid://c06hgevw4voan" path="res://TSCN/UI/add_sand_mine.tscn" id="9_0oq7m"]
+[ext_resource type="PackedScene" uid="uid://b4expjtsyc8um" path="res://TSCN/UI/Buttons/add_salmon_cottage.tscn" id="8_xtxgd"]
+[ext_resource type="PackedScene" uid="uid://c06hgevw4voan" path="res://TSCN/UI/Buttons/add_sand_mine.tscn" id="9_0oq7m"]
 [ext_resource type="Texture2D" uid="uid://cdse27kpapcwh" path="res://Assets/UI/New UI/catnip-storage-icon.png" id="9_wjwl8"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_h6ofd"]

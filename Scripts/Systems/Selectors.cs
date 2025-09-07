@@ -31,18 +31,11 @@ public partial class Selectors : Node2D
         return buildingInFront;
     }
 
-    public static void SelectSingleBuilding(Array<Area2D> overlappingAreas, UI ui)
+    public static Building SelectSingleBuilding(Array<Area2D> overlappingAreas, UI ui)
     {
         var buildingInFront = SelectTopBuilding(overlappingAreas);
-        if (buildingInFront is null) { return; }
-        switch (buildingInFront.Data.BuildingType) {
-            case BuildingData.Type.House:
-                ui.Instantiate_window(Constants.HOUSE_MENU, buildingInFront);
-                break;
-            default:
-                ui.Instantiate_window(Constants.BUILDING_MENU, buildingInFront);
-                break;
-        }
+        if (buildingInFront is null) { return null; }
+        return buildingInFront;
     }
 
     public static Ally SelectSingleUnit(Array<Area2D> overlappingAreas, UI ui)
@@ -135,7 +128,7 @@ public partial class Selectors : Node2D
         ally.InteractedCollectPoint = resource;
         foreach (var point in LevelManager.Singleton.CollectPoints)
         {
-            ally.InteractedCollectPoint = (CollectPoint) Selectors.GetClosestObject(
+            ally.InteractedCollectPoint = (CollectPoint) GetClosestObject(
                 coords,
                 ally.InteractedCollectPoint,
                 point
@@ -160,7 +153,6 @@ public partial class Selectors : Node2D
     }
 
     public static Array<CollectPoint> GetCollectPoints(Collectable collectable) {
-        CollectableList list = CollectableLoader.Singleton.Collectables;
         
         var collectables = LevelManager.Singleton.CollectPoints
             .Where(p => p.Resource.Name == collectable.Name)

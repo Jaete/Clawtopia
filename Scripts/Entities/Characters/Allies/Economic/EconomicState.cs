@@ -57,7 +57,8 @@ public partial class EconomicState : AllyState
         Building closestBuilding = default;
 
         Building[] buildingsToSearch = LevelManager.Singleton.CollectorBuildings
-            .Where(b => b.ResourceType == resource.Name)
+            .Where(b => b.Data?.Resource?.Name != null)
+            .Where(b => b.Data.Resource.Name == resource.Name)
             .ToArray();
 
         if (buildingsToSearch.Length > 0)
