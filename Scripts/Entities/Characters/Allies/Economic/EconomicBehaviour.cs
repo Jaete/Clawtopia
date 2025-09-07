@@ -19,7 +19,6 @@ public partial class EconomicBehaviour : Resource
              );
         }
         ally.Navigation.SetTargetPosition(ally.InteractedCollectPoint.GlobalPosition);
-        ally.InteractedCollectPoint.Resource = resourceType;
         ally.InteractedWithBuilding = false;
     }
 

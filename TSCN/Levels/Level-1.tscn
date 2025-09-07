@@ -65,12 +65,14 @@ polygon = PackedVector2Array(0, 18, -32, 0, 0, -18, 32, 0)
 [node name="InteractionShape" parent="CollectPoint/Interaction" index="0"]
 polygon = PackedVector2Array(0, 16, -32, 0, 0, -18, 32, 0)
 
-[node name="@AnimatedSprite2D@109986" parent="CollectPoint" index="2"]
+[node name="@AnimatedSprite2D@65179" parent="CollectPoint" index="2"]
 sprite_frames = ExtResource("7_li3ex")
 animation = &"Full"
+frame_progress = 0.702862
 
 [node name="Building" parent="." instance=ExtResource("3_wt2d7")]
 position = Vector2(668, 254)
+IsPreSpawned = true
 Type = "GreatCommune"
 Data = ExtResource("5_k5038")
 
@@ -78,5 +80,12 @@ Data = ExtResource("5_k5038")
 position = Vector2(555.237, 496.937)
 Collectable = "Sand"
 Resource = ExtResource("10_li3ex")
+
+[node name="CollectPoint3" parent="." instance=ExtResource("7_gtnk8")]
+position = Vector2(310.625, 448.451)
+Collectable = "Catnip"
+MaxResourceQuantity = 200
+Resource = ExtResource("5_pxdvr")
+ResourceQuantity = 200
 
 [editable path="CollectPoint"]

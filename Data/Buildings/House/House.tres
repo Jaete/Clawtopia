@@ -16,6 +16,7 @@ script = ExtResource("1_42v36")
 PlaceBuildingSound = ExtResource("7_xl8e2")
 DestroyBuildingSounds = Array[AudioStream]([ExtResource("2_7enqu"), ExtResource("3_msl3u"), ExtResource("4_6yqs5"), ExtResource("5_nkcge"), ExtResource("6_yr20o")])
 CancelSound = ExtResource("1_0gy2o")
+UIMenu = "uid://cqd1fw7ln0x4l"
 BuildingType = 0
 TowerType = ""
 Name = "House"

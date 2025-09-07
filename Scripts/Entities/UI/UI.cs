@@ -7,19 +7,8 @@ public partial class UI : CanvasLayer
     public static UI Singleton;
 
     public PackedScene BaseMenu = GD.Load<PackedScene>("res://TSCN/UI/Menu/BaseMenu.tscn");
-    public PackedScene HouseMenu = GD.Load<PackedScene>("res://TSCN/UI/Menu/Buildings/HouseMenu.tscn");
-    public PackedScene CatnipFarmMenu = GD.Load<PackedScene>("res://TSCN/UI/Menu/Buildings/CatnipFarmMenu.tscn");
-    public PackedScene CommunistMenu = GD.Load<PackedScene>("res://TSCN/UI/Menu/Characters/CommunistMenu.tscn");
-    public PackedScene UnitMenu = GD.Load<PackedScene>("res://TSCN/UI/Menu/Characters/UnitMenu.tscn");
     public PackedScene PauseMenuScene = GD.Load<PackedScene>("res://TSCN/UI/Menu/PauseMenu.tscn");
-    public PackedScene PurrlamentMenu = GD.Load<PackedScene>("res://TSCN/UI/Menu/Buildings/PurrlamentMenu.tscn");
-    public PackedScene SalmonCottageMenu = GD.Load<PackedScene>("res://TSCN/UI/Menu/Buildings/SalmonCottageMenu.tscn");
-    public PackedScene SandMineMenu = GD.Load<PackedScene>("res://TSCN/UI/Menu/Buildings/SandMineMenu.tscn");
 
-
-
-    public Building Building;
-    public BuildingMenu BuildingMenuControl;
     public HFlowContainer Container;
     public Control CurrentWindow;
     public UIMode UiMode;
@@ -27,9 +16,13 @@ public partial class UI : CanvasLayer
     
     public bool IsResettingUi;
 
-    public override void _Ready()
+    public override void _EnterTree()
     {
         Singleton = this;
+    }
+
+    public override void _Ready()
+    {
         pauseMenu = PauseMenuScene.Instantiate<PauseMenu>();
         AddChild(pauseMenu);
         CallDeferred("Initialize");
@@ -43,66 +36,57 @@ public partial class UI : CanvasLayer
         UiMode = (UIMode)ModeManager.Singleton.GameModes[GameMode.UI_MODE];
     }
 
-    public void Instantiate_window(String window, Building building = null)
+    public static void OpenMenu(Node2D entity)
     {
-        switch (window)
-        { 
-            case Constants.HOUSE_MENU:
-                if (building != null)
-                {
-                    BuildingMenuControl = HouseMenu.Instantiate<HouseMenu>();
-                    BuildingMenuControl.Building = building;
-                    BuildingMenuControl.Name = Constants.HOUSE_MENU;
-                    CurrentWindow = BuildingMenuControl;
-                }
-                break;
-            case Constants.SALMON_MENU:
-                if (building != null)
-                {
-                    BuildingMenuControl = SalmonCottageMenu.Instantiate<SalmonCottageMenu>();
-                    BuildingMenuControl.Building = building;
-                    BuildingMenuControl.Name = Constants.SALMON_MENU;
-                    CurrentWindow = BuildingMenuControl;
-                }
-                break;
-            case Constants.COMMUNIST_MENU:
-                CurrentWindow = CommunistMenu.Instantiate<CommunistMenu>();
-                CurrentWindow.Name = Constants.COMMUNIST_MENU;
-                break;
+        if (entity is Building building)
+        {
+            var buildingMenu = GD.Load<PackedScene>(building.Data.UIMenu).Instantiate<BuildingMenu>();
+            GD.Print("datamenu: " + building.Data.UIMenu);
+            GD.Print("buildingmenu: " + buildingMenu);
+            GD.Print("Building: ", building);
+            buildingMenu.BuildingLevelID = building.GetInstanceId();
+            buildingMenu.Name = building.Name + "_Menu";
+            Singleton.CurrentWindow = buildingMenu;
         }
 
-        var previousMenu = Container.GetChild<Control>(0);
+        if (entity is Ally unit)
+        {
+            var allyMenu = unit.UIMenu.Instantiate<AllyMenu>();
+            allyMenu.Name = unit.Name + "_Menu";
+            Singleton.CurrentWindow = allyMenu;
+        }
+        var previousMenu = Singleton.Container.GetChild<Control>(0);
 
-        if (previousMenu.Name == CurrentWindow.Name)
+        if (previousMenu.Name == Singleton.CurrentWindow.Name)
         {
             return;
         }
 
         previousMenu.QueueFree();
-        Container.AddChild(CurrentWindow);
+        Singleton.Container.AddChild(Singleton.CurrentWindow);
     }
 
-    public void Reset_ui()
+    public static void ResetUI()
     {
-        IsResettingUi = true;
-        var previousMenu = Container.GetChild<Control>(0);
+        Singleton.IsResettingUi = true;
+        var previousMenu = Singleton.Container.GetChild<Control>(0);
         previousMenu.QueueFree();
-        CurrentWindow = BaseMenu.Instantiate<Control>();
-        CurrentWindow.Name = Constants.BASE_MENU;
-        Container.AddChild(CurrentWindow);
-        IsResettingUi = false;
+        Singleton.CurrentWindow = Singleton.BaseMenu.Instantiate<Control>();
+        Singleton.CurrentWindow.Name = Constants.BASE_MENU;
+        Singleton.Container.AddChild(Singleton.CurrentWindow);
+        Singleton.IsResettingUi = false;
     }
 
-    public void EnterUiMode()
+    public static void EnterUIMode()
     {
         if (ModeManager.Singleton.CurrentMode is not SimulationMode) { return; }
         if (SimulationMode.Singleton.Dragging) { return; }
         SimulationMode.Singleton.EmitSignal(GameMode.SignalName.ModeTransition, GameMode.UI_MODE, "", "");
     }
 
-    public void ExitUiMode()
+    public static void ExitUIMode()
     {
         if (ModeManager.Singleton.CurrentMode is not UIMode) { return; }
-        EmitSignal(GameMode.SignalName.ModeTransition, GameMode.SIMULATION_MODE, "", "");
+        Singleton.EmitSignal(GameMode.SignalName.ModeTransition, GameMode.SIMULATION_MODE, "", "");
     }
 }

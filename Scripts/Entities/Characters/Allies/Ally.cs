@@ -8,6 +8,9 @@ using static BuildingData;
 public partial class Ally : Unit
 {
     [Export(PropertyHint.Enum, Constants.ALLY_CATEGORY_LIST)] public string Category;
+
+    [ExportGroup("UI Settings")]
+    [Export] public PackedScene UIMenu;
     // DETECTA SE ALIADO ESTA SELECIONADO
     public bool CurrentlySelected;
 

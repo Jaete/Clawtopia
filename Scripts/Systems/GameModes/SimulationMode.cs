@@ -150,7 +150,7 @@ public partial class SimulationMode : GameMode
         var ui = GetNode<UI>("/root/Game/UI");
         if (overlappingAreas.Count == 0)
         {
-            ui.Reset_ui();
+            UI.ResetUI();
             Selectors.ClearSelectedAllies(SelectedAllies);
             SelectedBuilding = null;
             EraseSelectionBox();
@@ -165,7 +165,16 @@ public partial class SimulationMode : GameMode
             }
             if (hasBuildings)
             {
-                Selectors.SelectSingleBuilding(overlappingAreas, ui);
+                var topBuilding = Selectors.SelectSingleBuilding(overlappingAreas, ui);
+                if (topBuilding != null)
+                {
+                    SelectedBuilding = topBuilding;
+                    UI.OpenMenu(topBuilding);
+                }
+                else
+                {
+                    SelectedBuilding = null;
+                }
             }
             else
             {
@@ -183,7 +192,7 @@ public partial class SimulationMode : GameMode
 
         if (SelectedAllies.Count > 0)
         {
-            ui.Instantiate_window(Constants.COMMUNIST_MENU);
+            UI.OpenMenu(SelectedAllies[0]);
         }
 
         EraseSelectionBox();

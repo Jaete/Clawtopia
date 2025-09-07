@@ -20,8 +20,8 @@ public partial class AddCommunist : UIButton
     {
         base._Ready();
         Ui = GetNode<UI>("/root/Game/UI");
-        MouseEntered += Ui.EnterUiMode;
-        MouseExited += Ui.ExitUiMode;
+        MouseEntered += UI.EnterUIMode;
+        MouseExited += UI.EnterUIMode;
         Pressed += OnPressed;
     }
 
@@ -34,7 +34,8 @@ public partial class AddCommunist : UIButton
     private void SpawnCommunist()
     { 
         var communist = _scene.Instantiate<Ally>();
-        var houseNode = UI.Singleton.BuildingMenuControl.Building;
+        var buildingMenu = UI.Singleton.CurrentWindow as BuildingMenu;
+        var houseNode = (Node2D) InstanceFromId(buildingMenu.BuildingLevelID);
 
         //INICIA SPAWN DOS GATOS CAMPONESES
         ResourceSpawnTimer = GetTree().CreateTimer(SpawnTimer);
@@ -52,15 +53,18 @@ public partial class AddCommunist : UIButton
         LevelManager.Singleton.EmitSignal(LevelManager.SignalName.ResourceExpended, communist.Attributes.ResourceCosts);
         ResourceSpawnTimer.Timeout += delegate
         {
-            if (houseNode.IsRotated)
+            if (houseNode is Building house)
             {
-                communist.GlobalPosition = houseNode.GlobalPosition + _communistPositionRotated;
+                if (house.IsRotated)
+                {
+                    communist.GlobalPosition = houseNode.GlobalPosition + _communistPositionRotated;
+                }
+                else
+                {
+                    communist.GlobalPosition = houseNode.GlobalPosition + _communistPosition;
+                }
+                ModeManager.Singleton.CurrentLevel.AddChild(communist);
             }
-            else
-            {
-                communist.GlobalPosition = houseNode.GlobalPosition + _communistPosition;
-            }
-            ModeManager.Singleton.CurrentLevel.AddChild(communist);
         };
     }
 }

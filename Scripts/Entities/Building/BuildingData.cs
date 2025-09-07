@@ -37,6 +37,9 @@ public partial class BuildingData : Resource
     };
     [Export] public AudioStream CancelSound = GD.Load<AudioStream>("res://Assets/Audio/UI/ui-click-cancel.ogg");
 
+    [ExportGroup("UI Settings")]
+    [Export(PropertyHint.File)] public string UIMenu = null;
+
     [ExportGroup("Type Settings")]
     [Export(PropertyHint.Enum)]
     public Type BuildingType;
