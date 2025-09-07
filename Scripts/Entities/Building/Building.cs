@@ -30,7 +30,7 @@ public partial class Building : Area2D
         set
         {
             _isPreSpawned = value;
-            if (Engine.IsEditorHint() && !IsInitializing)
+            if (Engine.IsEditorHint() && IsNodeReady())
             {
                 BuildingEditor.ReloadBuilding(this);
             }
@@ -43,7 +43,7 @@ public partial class Building : Area2D
         set
         {
             _isRotated = value;
-            if (Engine.IsEditorHint() && !IsInitializing)
+            if (Engine.IsEditorHint() && IsNodeReady())
             {
                 BuildingEditor.ReloadBuilding(this);
             }
@@ -72,7 +72,7 @@ public partial class Building : Area2D
         {
             if (_type == value) return;
             _type = value;
-            if (Engine.IsEditorHint())
+            if (Engine.IsEditorHint() && IsNodeReady())
             {
                 if (string.IsNullOrEmpty(value)) 
                 {
@@ -92,13 +92,13 @@ public partial class Building : Area2D
         {
             if (_buildingData == value) return;
             _buildingData = value;
-            if (_buildingData is null && !IsInitializing)
+            if (_buildingData is null && IsNodeReady())
             {
                 Reset(this);
                 return;
             }
 
-            if (Engine.IsEditorHint() && !IsInitializing) 
+            if (Engine.IsEditorHint() && IsNodeReady()) 
             {
                 BuildingEditor.ReloadBuilding(this); 
             }
@@ -128,10 +128,7 @@ public partial class Building : Area2D
 
     public override void _Ready()
     {
-        if (!Engine.IsEditorHint() && IsInitializing)
-        {
-            CallDeferred(MethodName.Initialize);
-        }
+        CallDeferred(MethodName.Initialize);
     }
 
     public void Initialize()

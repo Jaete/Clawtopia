@@ -5,8 +5,8 @@
 [ext_resource type="Resource" uid="uid://b6f51bygtvaek" path="res://Data/GameSettings/BuildingEditorSettings.tres" id="2_ey833"]
 [ext_resource type="Script" uid="uid://bnf1bqse85i37" path="res://Scripts/Entities/Building/Building.cs" id="4_ip8i0"]
 [ext_resource type="Resource" uid="uid://dfvh701kyops1" path="res://Data/Buildings/BuildingList.tres" id="5_vmre3"]
-[ext_resource type="Resource" uid="uid://mqcdu0esv2dq" path="res://Data/Buildings/GreatCommune/GreatCommune.tres" id="6_ip8i0"]
-[ext_resource type="Texture2D" uid="uid://cetwuv6ymt5pa" path="res://Assets/Buildings/casa_comuna_001_build.png" id="7_vmre3"]
+[ext_resource type="Resource" uid="uid://cfiktvokkfdwx" path="res://Data/Buildings/SandMine/SandMine.tres" id="6_ip8i0"]
+[ext_resource type="Texture2D" uid="uid://ptkd3yhhvovj" path="res://Assets/Buildings/casa_recurso_003_build.png" id="7_vmre3"]
 [ext_resource type="Script" uid="uid://cg5auuagwupqw" path="res://Scripts/Entities/Building/BuildingSprite.cs" id="8_7tchl"]
 [ext_resource type="Script" uid="uid://h5p5om860dbv" path="res://Scripts/Entities/Building/BuildingPolygon.cs" id="9_ohig2"]
 
@@ -14,7 +14,7 @@
 script = ExtResource("1_uu33o")
 Settings = ExtResource("2_ey833")
 
-[node name="GreatCommune" parent="." node_paths=PackedStringArray("BodyShape", "GridShape", "InteractionShape", "Sprite", "StaticBody", "Sounds") instance=ExtResource("2_dpayh")]
+[node name="SandMine" parent="." node_paths=PackedStringArray("BodyShape", "GridShape", "InteractionShape", "Sprite", "StaticBody", "Sounds") instance=ExtResource("2_dpayh")]
 y_sort_enabled = true
 script = ExtResource("4_ip8i0")
 Buildings = ExtResource("5_vmre3")
@@ -24,33 +24,33 @@ InteractionShape = NodePath("InteractionShape")
 Sprite = NodePath("Sprite2D")
 StaticBody = NodePath("NavigationBody")
 Sounds = NodePath("BuildingSounds")
-Type = "GreatCommune"
+Type = "SandMine"
 Data = ExtResource("6_ip8i0")
 metadata/IsBuilding = true
 
-[node name="Sprite2D" parent="GreatCommune" index="0" node_paths=PackedStringArray("_building")]
+[node name="Sprite2D" parent="SandMine" index="0" node_paths=PackedStringArray("_building")]
 texture = ExtResource("7_vmre3")
-offset = Vector2(-10, -10)
+offset = Vector2(0, -32)
 region_rect = Rect2(8, 758, 114, 141)
 script = ExtResource("8_7tchl")
 _building = NodePath("..")
 
-[node name="Shape" parent="GreatCommune/NavigationBody" index="0" node_paths=PackedStringArray("Building")]
-polygon = PackedVector2Array(-140, 34, -20, 96, 128, 22, 0, -36)
+[node name="Shape" parent="SandMine/NavigationBody" index="0" node_paths=PackedStringArray("Building")]
+polygon = PackedVector2Array(-80, 8, -16, 40, 80, -8, 16, -40)
 script = ExtResource("9_ohig2")
 Building = NodePath("../..")
 
-[node name="GridArea" parent="GreatCommune" index="2"]
+[node name="GridArea" parent="SandMine" index="2"]
 input_pickable = false
 
-[node name="AreaShape" parent="GreatCommune/GridArea" index="0" node_paths=PackedStringArray("Building")]
-polygon = PackedVector2Array(-184, 34, 0, -58, 176, 22, -20, 122)
+[node name="AreaShape" parent="SandMine/GridArea" index="0" node_paths=PackedStringArray("Building")]
+polygon = PackedVector2Array(-80, 8, -16, 40, 80, -8, 16, -40)
 script = ExtResource("9_ohig2")
 Building = NodePath("../..")
 
-[node name="InteractionShape" parent="GreatCommune" index="3" node_paths=PackedStringArray("Building")]
-polygon = PackedVector2Array(-140, 34, -140, -16, -144, -20, -144, -24, -112, -42, 36, -116, 72, -72, 92, -82, 132, -38, 128, -32, 128, 22, -20, 96)
+[node name="InteractionShape" parent="SandMine" index="3" node_paths=PackedStringArray("Building")]
+polygon = PackedVector2Array(-80, 8, -80, -44, -72, -52, -64, -56, -56, -56, 48, -104, 64, -96, 80, -60, 80, -8, -16, 40)
 script = ExtResource("9_ohig2")
 Building = NodePath("..")
 
-[editable path="GreatCommune"]
+[editable path="SandMine"]

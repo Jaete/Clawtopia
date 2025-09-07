@@ -1,11 +1,8 @@
-[gd_resource type="Resource" script_class="Collectable" load_steps=11 format=3 uid="uid://bnm27wrbaa38i"]
+[gd_resource type="Resource" script_class="Collectable" load_steps=7 format=3 uid="uid://bnm27wrbaa38i"]
 
+[ext_resource type="SpriteFrames" uid="uid://xdmrkkv6u24t" path="res://Data/Animations/Characters/Economic.tres" id="1_a1tt3"]
 [ext_resource type="Texture2D" uid="uid://cf88odr0du6cl" path="res://Assets/UI/New UI/shovel-mouse.png" id="2_fgu4e"]
-[ext_resource type="Texture2D" uid="uid://5as0vxb6jya4" path="res://Assets/Spritesheets/Resources/asset_areia_material3.png" id="3_31lvm"]
-[ext_resource type="Texture2D" uid="uid://cvtbp1rw76km" path="res://Assets/Spritesheets/Resources/asset_areia_material2.png" id="4_aiahp"]
-[ext_resource type="Texture2D" uid="uid://1qsnpodd7f74" path="res://Assets/Spritesheets/Resources/asset_areia_material1.png" id="5_odo11"]
-[ext_resource type="Texture2D" uid="uid://bp87plpmwqdq5" path="res://Assets/Spritesheets/Resources/asset_areia_material0.png" id="6_x112b"]
-[ext_resource type="Script" uid="uid://cate2qdtu3nxb" path="res://Scripts/Entities/ProgressStructure.cs" id="7_pimr7"]
+[ext_resource type="Resource" uid="uid://b3mm1y5pdwumq" path="res://Data/Collectables/Sand/ProgressStructure.tres" id="3_a1tt3"]
 [ext_resource type="Script" uid="uid://31culyiluxic" path="res://Scripts/Entities/Resources/Collectable.cs" id="8_72c2c"]
 
 [sub_resource type="ConcavePolygonShape2D" id="ConcavePolygonShape2D_2v45h"]
@@ -14,18 +11,16 @@ segments = PackedVector2Array(-32, 4, 0, 20, 32, 4, 0, -12)
 [sub_resource type="ConcavePolygonShape2D" id="ConcavePolygonShape2D_2fpyp"]
 segments = PackedVector2Array(-28, 4, -8, 16, 12, 16, 28, 6, 4, -16, -4, -16)
 
-[sub_resource type="Resource" id="Resource_fgu4e"]
-script = ExtResource("7_pimr7")
-Type = 0
-StaticTextures = Array[Texture2D]([ExtResource("3_31lvm"), ExtResource("4_aiahp"), ExtResource("5_odo11"), ExtResource("6_x112b")])
-metadata/_custom_type_script = "uid://cate2qdtu3nxb"
-
 [resource]
 script = ExtResource("8_72c2c")
 Name = "Sand"
 Description = ""
+CollectorBuildingName = ""
 BodyShape = SubResource("ConcavePolygonShape2D_2v45h")
 Interaction = SubResource("ConcavePolygonShape2D_2fpyp")
 HoverCursor = ExtResource("2_fgu4e")
-ProgressStructure = SubResource("Resource_fgu4e")
+ProgressStructure = ExtResource("3_a1tt3")
+CollectorAnimations = ExtResource("1_a1tt3")
+CollectorAnimationLeft = "sand_left"
+CollectorAnimationRight = "sand_right"
 metadata/_custom_type_script = "uid://31culyiluxic"

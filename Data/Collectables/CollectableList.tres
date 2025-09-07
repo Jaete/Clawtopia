@@ -1,6 +1,5 @@
-[gd_resource type="Resource" script_class="CollectableList" load_steps=6 format=3 uid="uid://b6a4igbgv8bpp"]
+[gd_resource type="Resource" script_class="CollectableList" load_steps=5 format=3 uid="uid://b6a4igbgv8bpp"]
 
-[ext_resource type="Script" uid="uid://31culyiluxic" path="res://Scripts/Entities/Resources/Collectable.cs" id="1_1bpkx"]
 [ext_resource type="Resource" uid="uid://dhh6g7dtdcny6" path="res://Data/Collectables/Catnip/Catnip.tres" id="2_6imyt"]
 [ext_resource type="Script" uid="uid://bo3hgofvxvjua" path="res://Scripts/Entities/Resources/CollectableList.cs" id="2_f2ukp"]
 [ext_resource type="Resource" uid="uid://n1m0sqcfda43" path="res://Data/Collectables/Salmon/Salmon.tres" id="3_usof8"]
@@ -8,4 +7,4 @@
 
 [resource]
 script = ExtResource("2_f2ukp")
-Resources = Array[ExtResource("1_1bpkx")]([ExtResource("2_6imyt"), ExtResource("3_usof8"), ExtResource("4_f8qyu")])
+Resources = [ExtResource("2_6imyt"), ExtResource("3_usof8"), ExtResource("4_f8qyu")]

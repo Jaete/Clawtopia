@@ -14,7 +14,7 @@ public partial class Ally : Unit
     // DETECTA CONSTRUCAO INTERAGIDA, SE HOUVER
     // ABAIXO O MESMO PARA RECURSO
     public Building InteractedBuilding;
-    public CollectPoint InteractedResource;
+    public CollectPoint InteractedCollectPoint;
     public bool Delivering;
     public Vector2 CurrentResourceLastPosition = new();
     public int ResourceCurrentQuantity;
@@ -24,36 +24,6 @@ public partial class Ally : Unit
 
     public Vector2 LastDirection { get; private set; } = Vector2.Down;
 
-    public override void _EnterTree()
-    {
-        AnimController.SetAnimMap(new Dictionary<CharacterAnim, string>
-        {
-            { CharacterAnim.BuildingLeft, "building_left" },
-            { CharacterAnim.BuildingRight, "building_right" },
-
-            { CharacterAnim.CatnipLeft, "catnip_left" },
-            { CharacterAnim.CatnipRight, "catnip_right" },
-            { CharacterAnim.FishingLeft, "fishing_left" },
-            { CharacterAnim.FishingRight, "fishing_right" },
-            { CharacterAnim.SandLeft, "sand_left" },
-            { CharacterAnim.SandRight, "sand_right" },
-
-            { CharacterAnim.DeadLeft, "dead_left" },
-            { CharacterAnim.DeadRight, "dead_right" },
-
-            { CharacterAnim.IdleLeft, "idle_left" },
-            { CharacterAnim.IdleRight, "idle_right" },
-
-            { CharacterAnim.MoveDown, "move_down" },
-            { CharacterAnim.MoveDownLeft, "move_down_left" },
-            { CharacterAnim.MoveDownRight, "move_down_right" },
-            { CharacterAnim.MoveLeft, "move_left" },
-            { CharacterAnim.MoveRight, "move_right" },
-            { CharacterAnim.MoveUp, "move_up" },
-            { CharacterAnim.MoveUpLeft, "move_up_left" },
-            { CharacterAnim.MoveUpRight, "move_up_right" }
-        });
-    }
     public override void _Ready()
     {
         Initialize();

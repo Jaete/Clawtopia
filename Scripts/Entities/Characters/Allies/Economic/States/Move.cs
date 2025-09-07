@@ -63,7 +63,7 @@ public partial class Move : EconomicState
             }
         }
 
-        if (Ally.InteractedResource != null && !Ally.Delivering)
+        if (Ally.InteractedCollectPoint != null && !Ally.Delivering)
         {
             ChangeState("Collecting");
             return;
@@ -84,22 +84,22 @@ public partial class Move : EconomicState
         if (!isActive) return;
 
         float angle = Mathf.RadToDeg(Ally.LastDirection.Angle());
-        
+
         if (angle >= -22.5 && angle < 22.5)
-            SpriteHandler.ChangeAnimation(Ally.Sprite, Ally.AnimController.animMap[CharacterAnim.MoveRight], false);
+            SpriteHandler.ChangeAnimation(Ally.Sprite, AnimationController.AnimationRight);
         else if (angle >= 22.5 && angle < 67.5)
-            SpriteHandler.ChangeAnimation(Ally.Sprite, Ally.AnimController.animMap[CharacterAnim.MoveDownRight], false);
+            SpriteHandler.ChangeAnimation(Ally.Sprite, AnimationController.AnimationDownRight);
         else if (angle >= 67.5 && angle < 112.5)
-            SpriteHandler.ChangeAnimation(Ally.Sprite, Ally.AnimController.animMap[CharacterAnim.MoveDown], false);
+            SpriteHandler.ChangeAnimation(Ally.Sprite, AnimationController.AnimationDown);
         else if (angle >= 112.5 && angle < 157.5)
-            SpriteHandler.ChangeAnimation(Ally.Sprite, Ally.AnimController.animMap[CharacterAnim.MoveDownLeft], false);
+            SpriteHandler.ChangeAnimation(Ally.Sprite, AnimationController.AnimationDownLeft);
         else if (angle >= 157.5 || angle < -157.5)
-            SpriteHandler.ChangeAnimation(Ally.Sprite, Ally.AnimController.animMap[CharacterAnim.MoveLeft], false);
+            SpriteHandler.ChangeAnimation(Ally.Sprite, AnimationController.AnimationLeft);
         else if (angle >= -157.5 && angle < -112.5)
-            SpriteHandler.ChangeAnimation(Ally.Sprite, Ally.AnimController.animMap[CharacterAnim.MoveUpRight], true);
+            SpriteHandler.ChangeAnimation(Ally.Sprite, AnimationController.AnimationUpLeft, flipH: true);
         else if (angle >= -112.5 && angle < -67.5)
-            SpriteHandler.ChangeAnimation(Ally.Sprite, Ally.AnimController.animMap[CharacterAnim.MoveUp], false);
+            SpriteHandler.ChangeAnimation(Ally.Sprite, AnimationController.AnimationUp);
         else if (angle >= -67.5 && angle < -22.5)
-            SpriteHandler.ChangeAnimation(Ally.Sprite, Ally.AnimController.animMap[CharacterAnim.MoveUpRight], false);
+            SpriteHandler.ChangeAnimation(Ally.Sprite, AnimationController.AnimationUpRight);
     }
 }

@@ -27,8 +27,8 @@ public partial class Idle : EconomicState
         float angle = Mathf.RadToDeg(Ally.LastDirection.Angle());
 
         if (angle <= 90 && angle > -90)
-            SpriteHandler.ChangeAnimation(Ally.Sprite, Ally.AnimController.animMap[CharacterAnim.IdleRight], false);
+            SpriteHandler.ChangeAnimation(Ally.Sprite, AnimationController.AnimationRight);
         else
-            SpriteHandler.ChangeAnimation(Ally.Sprite, Ally.AnimController.animMap[CharacterAnim.IdleLeft], false);
+            SpriteHandler.ChangeAnimation(Ally.Sprite, AnimationController.AnimationLeft);
     }
 }

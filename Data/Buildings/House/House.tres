@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="BuildingData" load_steps=12 format=3 uid="uid://doxwfxcwc6nd1"]
+[gd_resource type="Resource" script_class="BuildingData" load_steps=11 format=3 uid="uid://doxwfxcwc6nd1"]
 
 [ext_resource type="AudioStream" uid="uid://c6nf3cvt1mwmj" path="res://Assets/Audio/UI/ui-click-cancel.ogg" id="1_0gy2o"]
 [ext_resource type="Script" uid="uid://iy7w2gbfhvuy" path="res://Scripts/Entities/Building/BuildingData.cs" id="1_42v36"]
@@ -8,9 +8,8 @@
 [ext_resource type="AudioStream" uid="uid://cnx6g6fuhlhlp" path="res://Assets/Audio/SFX/Building/destroy-004.ogg" id="5_nkcge"]
 [ext_resource type="AudioStream" uid="uid://cx71cf6ffwqvg" path="res://Assets/Audio/SFX/Building/destroy-005.ogg" id="6_yr20o"]
 [ext_resource type="AudioStream" uid="uid://865i76f5bwrx" path="res://Assets/Audio/SFX/Building/plot.ogg" id="7_xl8e2"]
-[ext_resource type="Script" uid="uid://31culyiluxic" path="res://Scripts/Entities/Resources/Collectable.cs" id="8_e4dcv"]
+[ext_resource type="Script" uid="uid://31culyiluxic" path="res://Scripts/Entities/Resources/Collectable.cs" id="8_fbe7i"]
 [ext_resource type="Resource" uid="uid://bqcw48sao4aj0" path="res://Data/Buildings/House/Structure.tres" id="8_t405w"]
-[ext_resource type="Resource" uid="uid://bnm27wrbaa38i" path="res://Data/Collectables/Sand/Sand.tres" id="9_e4dcv"]
 
 [resource]
 script = ExtResource("1_42v36")
@@ -20,9 +19,7 @@ CancelSound = ExtResource("1_0gy2o")
 BuildingType = 0
 TowerType = ""
 Name = "House"
-ResourceCosts = Dictionary[ExtResource("8_e4dcv"), int]({
-ExtResource("9_e4dcv"): 120
-})
+ResourceCosts = Dictionary[ExtResource("8_fbe7i"), int]({})
 Hp = 0
 MaxProgress = 0
 Structure = ExtResource("8_t405w")

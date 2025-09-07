@@ -12,14 +12,14 @@ public partial class EconomicBehaviour : Resource
 
         foreach (var point in resourceToSeek)
         {
-            ally.InteractedResource = (CollectPoint)Selectors.GetClosestObject(
+            ally.InteractedCollectPoint = (CollectPoint)Selectors.GetClosestObject(
                  ally.GlobalPosition,
-                 ally.InteractedResource,
+                 ally.InteractedCollectPoint,
                  point
              );
         }
-        ally.Navigation.SetTargetPosition(ally.InteractedResource.GlobalPosition);
-        ally.InteractedResource.Resource = resourceType;
+        ally.Navigation.SetTargetPosition(ally.InteractedCollectPoint.GlobalPosition);
+        ally.InteractedCollectPoint.Resource = resourceType;
         ally.InteractedWithBuilding = false;
     }
 
@@ -27,20 +27,20 @@ public partial class EconomicBehaviour : Resource
     {
         var resource = new Dictionary<Collectable, int>
         {
-            { ally.InteractedResource.Resource, ally.ResourceCurrentQuantity }
+            { ally.InteractedCollectPoint.Resource, ally.ResourceCurrentQuantity }
         };
 
         LevelManager.Singleton.EmitSignal(LevelManager.SignalName.ResourceDelivered, resource);
 
         ally.ResourceCurrentQuantity = 0;
         ally.Delivering = false;
-        ally.Navigation.SetTargetPosition(ally.InteractedResource.GlobalPosition);
+        ally.Navigation.SetTargetPosition(ally.InteractedCollectPoint.GlobalPosition);
     }
 
     public static void ChooseNextTargetPosition(Ally ally, Vector2 coords)
     {
         Vector2 nextTarget = coords;
-        ally.InteractedResource = null;
+        ally.InteractedCollectPoint = null;
         ally.InteractedBuilding = null;
         ally.InteractedWithBuilding = SimulationMode.Singleton.BuildingsToInteract.Count > 0;
 

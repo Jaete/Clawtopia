@@ -1,5 +1,4 @@
 using Godot;
-using ClawtopiaCs.Scripts.Entities.Characters;
 
 public partial class Build : EconomicState
 {
@@ -30,8 +29,8 @@ public partial class Build : EconomicState
         float angle = Mathf.RadToDeg(Ally.LastDirection.Angle());
 
         if (angle <= 90 && angle > -90)
-            SpriteHandler.ChangeAnimation(Ally.Sprite, Ally.AnimController.animMap[CharacterAnim.BuildingRight], false);
+            SpriteHandler.ChangeAnimation(Ally.Sprite, AnimationController.AnimationLeft);
         else
-            SpriteHandler.ChangeAnimation(Ally.Sprite, Ally.AnimController.animMap[CharacterAnim.BuildingLeft], false);
+            SpriteHandler.ChangeAnimation(Ally.Sprite, AnimationController.AnimationRight);
     }
 }

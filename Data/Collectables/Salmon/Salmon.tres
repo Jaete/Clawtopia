@@ -1,9 +1,9 @@
-[gd_resource type="Resource" script_class="Collectable" load_steps=8 format=3 uid="uid://n1m0sqcfda43"]
+[gd_resource type="Resource" script_class="Collectable" load_steps=7 format=3 uid="uid://n1m0sqcfda43"]
 
 [ext_resource type="Script" uid="uid://31culyiluxic" path="res://Scripts/Entities/Resources/Collectable.cs" id="1_i5sd3"]
+[ext_resource type="SpriteFrames" uid="uid://xdmrkkv6u24t" path="res://Data/Animations/Characters/Economic.tres" id="1_juoan"]
 [ext_resource type="Texture2D" uid="uid://kx00oyw2cjgg" path="res://Assets/UI/New UI/fishing-rod-mouse.png" id="2_auvri"]
-[ext_resource type="SpriteFrames" uid="uid://cbbcav4heu0w2" path="res://Data/Animations/Salmon.tres" id="3_xpx1x"]
-[ext_resource type="Script" uid="uid://cate2qdtu3nxb" path="res://Scripts/Entities/ProgressStructure.cs" id="4_w1mph"]
+[ext_resource type="Resource" uid="uid://joagk02rxg78" path="res://Data/Collectables/Salmon/ProgressStructure.tres" id="3_mo4fj"]
 
 [sub_resource type="ConcavePolygonShape2D" id="ConcavePolygonShape2D_juoan"]
 segments = PackedVector2Array(0, 18, -32, 0, 0, -18, 32, 0)
@@ -11,18 +11,16 @@ segments = PackedVector2Array(0, 18, -32, 0, 0, -18, 32, 0)
 [sub_resource type="ConcavePolygonShape2D" id="ConcavePolygonShape2D_mo4fj"]
 segments = PackedVector2Array(0, 16, -32, 0, 0, -18, 32, 0)
 
-[sub_resource type="Resource" id="Resource_auvri"]
-script = ExtResource("4_w1mph")
-Type = 1
-AnimatedTextures = ExtResource("3_xpx1x")
-metadata/_custom_type_script = "uid://cate2qdtu3nxb"
-
 [resource]
 script = ExtResource("1_i5sd3")
 Name = "Salmon"
 Description = ""
+CollectorBuildingName = ""
 BodyShape = SubResource("ConcavePolygonShape2D_juoan")
 Interaction = SubResource("ConcavePolygonShape2D_mo4fj")
 HoverCursor = ExtResource("2_auvri")
-ProgressStructure = SubResource("Resource_auvri")
+ProgressStructure = ExtResource("3_mo4fj")
+CollectorAnimations = ExtResource("1_juoan")
+CollectorAnimationLeft = "fishing_left"
+CollectorAnimationRight = "fishing_right"
 metadata/_custom_type_script = "uid://31culyiluxic"

@@ -1,12 +1,9 @@
-[gd_resource type="Resource" script_class="Collectable" load_steps=11 format=3 uid="uid://dhh6g7dtdcny6"]
+[gd_resource type="Resource" script_class="Collectable" load_steps=7 format=3 uid="uid://dhh6g7dtdcny6"]
 
 [ext_resource type="Script" uid="uid://31culyiluxic" path="res://Scripts/Entities/Resources/Collectable.cs" id="1_8mbk1"]
-[ext_resource type="Script" uid="uid://cate2qdtu3nxb" path="res://Scripts/Entities/ProgressStructure.cs" id="2_87wt7"]
+[ext_resource type="SpriteFrames" uid="uid://xdmrkkv6u24t" path="res://Data/Animations/Characters/Economic.tres" id="1_87wt7"]
+[ext_resource type="Resource" uid="uid://porkbmgs6mnv" path="res://Data/Collectables/Catnip/ProgressStructure.tres" id="2_47ruf"]
 [ext_resource type="Texture2D" uid="uid://be2a2t8wmgpwt" path="res://Assets/UI/New UI/scickle-mouse.png" id="2_neffb"]
-[ext_resource type="Texture2D" uid="uid://cq16jpph5052d" path="res://Assets/Spritesheets/Resources/asset_catnip_material3.png" id="2_wm4ii"]
-[ext_resource type="Texture2D" uid="uid://bba30bmyahs0v" path="res://Assets/Spritesheets/Resources/asset_catnip_material2.png" id="3_neffb"]
-[ext_resource type="Texture2D" uid="uid://dlg611dmn6k14" path="res://Assets/Spritesheets/Resources/asset_catnip_material1.png" id="4_m4kke"]
-[ext_resource type="Texture2D" uid="uid://dlfkg5fkf30lb" path="res://Assets/Spritesheets/Resources/asset_catnip_material0.png" id="5_4gs1a"]
 
 [sub_resource type="ConcavePolygonShape2D" id="ConcavePolygonShape2D_wm4ii"]
 segments = PackedVector2Array(0, 24, -32, 8, 0, -8, 32, 8)
@@ -14,18 +11,16 @@ segments = PackedVector2Array(0, 24, -32, 8, 0, -8, 32, 8)
 [sub_resource type="ConcavePolygonShape2D" id="ConcavePolygonShape2D_neffb"]
 segments = PackedVector2Array(24, 16, -24, 16, -24, -16, 24, -16)
 
-[sub_resource type="Resource" id="Resource_m4kke"]
-script = ExtResource("2_87wt7")
-Type = 0
-StaticTextures = Array[Texture2D]([ExtResource("2_wm4ii"), ExtResource("3_neffb"), ExtResource("4_m4kke"), ExtResource("5_4gs1a")])
-metadata/_custom_type_script = "uid://cate2qdtu3nxb"
-
 [resource]
 script = ExtResource("1_8mbk1")
 Name = "Catnip"
 Description = ""
+CollectorBuildingName = ""
 BodyShape = SubResource("ConcavePolygonShape2D_wm4ii")
 Interaction = SubResource("ConcavePolygonShape2D_neffb")
 HoverCursor = ExtResource("2_neffb")
-ProgressStructure = SubResource("Resource_m4kke")
+ProgressStructure = ExtResource("2_47ruf")
+CollectorAnimations = ExtResource("1_87wt7")
+CollectorAnimationLeft = "catnip_left"
+CollectorAnimationRight = "catnip_right"
 metadata/_custom_type_script = "uid://31culyiluxic"

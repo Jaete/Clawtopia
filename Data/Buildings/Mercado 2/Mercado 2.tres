@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="BuildingData" load_steps=12 format=3 uid="uid://gsdfrdo0nsnm"]
+[gd_resource type="Resource" script_class="BuildingData" load_steps=11 format=3 uid="uid://gsdfrdo0nsnm"]
 
 [ext_resource type="AudioStream" uid="uid://c6nf3cvt1mwmj" path="res://Assets/Audio/UI/ui-click-cancel.ogg" id="1_hubpr"]
 [ext_resource type="AudioStream" uid="uid://c11gv7w0q6nrn" path="res://Assets/Audio/SFX/Building/destroy-001.ogg" id="2_dajl6"]
@@ -7,9 +7,8 @@
 [ext_resource type="AudioStream" uid="uid://cnx6g6fuhlhlp" path="res://Assets/Audio/SFX/Building/destroy-004.ogg" id="5_g7e3l"]
 [ext_resource type="AudioStream" uid="uid://cx71cf6ffwqvg" path="res://Assets/Audio/SFX/Building/destroy-005.ogg" id="6_vsn4b"]
 [ext_resource type="AudioStream" uid="uid://865i76f5bwrx" path="res://Assets/Audio/SFX/Building/plot.ogg" id="7_5yuh5"]
-[ext_resource type="Script" uid="uid://31culyiluxic" path="res://Scripts/Entities/Resources/Collectable.cs" id="8_6ol0q"]
 [ext_resource type="Resource" uid="uid://cu2as4jidcjij" path="res://Data/Buildings/Mercado 2/Structure.tres" id="8_b3kwv"]
-[ext_resource type="Resource" uid="uid://bnm27wrbaa38i" path="res://Data/Collectables/Sand/Sand.tres" id="8_jl3bp"]
+[ext_resource type="Script" uid="uid://31culyiluxic" path="res://Scripts/Entities/Resources/Collectable.cs" id="8_jl3bp"]
 [ext_resource type="Script" uid="uid://iy7w2gbfhvuy" path="res://Scripts/Entities/Building/BuildingData.cs" id="9_bcgbp"]
 
 [resource]
@@ -20,9 +19,7 @@ CancelSound = ExtResource("1_hubpr")
 BuildingType = 0
 TowerType = ""
 Name = "Mercado 2"
-ResourceCosts = Dictionary[ExtResource("8_6ol0q"), int]({
-ExtResource("8_jl3bp"): 80
-})
+ResourceCosts = Dictionary[ExtResource("8_jl3bp"), int]({})
 Hp = 0
 MaxProgress = 0
 Structure = ExtResource("8_b3kwv")
