@@ -1,3 +1,4 @@
+using System.Linq;
 using Godot;
 using Godot.Collections;
 using static BuildingData;
@@ -106,7 +107,7 @@ public partial class Selectors : Node2D
         return ally;
     }
 
-    public static ResourceType GetInteractedResourceType(Ally ally, Vector2 coords)
+    public static Collectable GetInteractedResourceType(Ally ally, Vector2 coords)
     {
         PhysicsDirectSpaceState2D space = ally.GetWorld2D().DirectSpaceState;
         PhysicsPointQueryParameters2D query = new();
@@ -120,23 +121,13 @@ public partial class Selectors : Node2D
             {
                 var collider = collision["collider"].As<GodotObject>();
 
-                if (collider is SalmonCollectPoint)
+                if (collider is CollectPoint collectPoint)
                 {
-                    return ResourceType.Salmon;
-                }
-
-                if (collider is CatnipCollectPoint)
-                {
-                    return ResourceType.Catnip;
-                }
-
-                if (collider is SandCollectPoint)
-                {
-                    return ResourceType.Sand;
+                    return (Collectable) collectPoint.Resource;
                 }
             }
         }
-        return ResourceType.None;
+        return null;
     }
 
     public static CollectPoint GetClosestCollectPoint(Ally ally, Vector2 coords, CollectPoint resource)
@@ -144,7 +135,7 @@ public partial class Selectors : Node2D
         ally.InteractedResource = resource;
         foreach (var point in LevelManager.Singleton.CollectPoints)
         {
-            ally.InteractedResource = (CollectPoint)Selectors.GetClosestObject(
+            ally.InteractedResource = (CollectPoint) Selectors.GetClosestObject(
                 coords,
                 ally.InteractedResource,
                 point
@@ -155,52 +146,26 @@ public partial class Selectors : Node2D
     }
 
     public static Node2D GetClosestObject(Vector2 coords, Node2D currentClosest, Node2D item) {
-        // SE É A PRIMEIRA ITERACAO, RETORNA DIRETO
         if (currentClosest == default)
         {
             return item;
         }
-        // SENAO, COMPARA DISTANCIA
+
         if (currentClosest.GlobalPosition.DistanceSquaredTo(coords) > item.GlobalPosition.DistanceSquaredTo(coords))
         {
             return item;
         }
+
         return currentClosest;
     }
 
-    public static Array<CollectPoint> GetCollectPoints(BuildingData.ResourceType type) {
-        Array<CollectPoint> points = new();
-
-        switch (type) { 
-            case ResourceType.Salmon:
-                foreach (var item in LevelManager.Singleton.CollectPoints)
-                {
-                    if (item is SalmonCollectPoint)
-                    {
-                        points.Add(item);
-                    }
-                }
-                break;
-            case ResourceType.Catnip:
-                foreach (var item in LevelManager.Singleton.CollectPoints)
-                {
-                    if (item is CatnipCollectPoint)
-                    {
-                        points.Add(item);
-                    }
-                }
-                break;
-            case ResourceType.Sand:
-                foreach (var item in LevelManager.Singleton.CollectPoints)
-                {
-                    if (item is SandCollectPoint)
-                    {
-                        points.Add(item);
-                    }
-                }
-                break;
-        }
-
-        return points;
+    public static Array<CollectPoint> GetCollectPoints(Collectable collectable) {
+        CollectableList list = CollectableLoader.Singleton.Collectables;
+        
+        var collectables = LevelManager.Singleton.CollectPoints
+            .Where(p => p.Resource.Name == collectable.Name)
+            .ToArray();
+        
+        return new Array<CollectPoint>(collectables);
     }
 }

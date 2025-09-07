@@ -20,7 +20,6 @@ public partial class TerrainBaking : Node
     public void Initialize()
     {
         CurrentRegion = ModeManager.Singleton.Region;
-        GD.Print("Current Region: " + CurrentRegion.Name);
         CurrentRegion.BakeFinished += FreeToRebake;
     }
 

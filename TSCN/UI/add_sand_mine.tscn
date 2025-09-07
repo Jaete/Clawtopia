@@ -1,7 +1,7 @@
 [gd_scene load_steps=15 format=3 uid="uid://c06hgevw4voan"]
 
 [ext_resource type="Script" uid="uid://cmjhmv6wwd1tn" path="res://Scripts/Entities/UI/AddBuilding.cs" id="1_16wsy"]
-[ext_resource type="Resource" uid="uid://c0ejkuiikxvk2" path="res://Resources/Buildings/Economy/Sand/SandMine.tres" id="2_nc7aq"]
+[ext_resource type="Resource" uid="uid://cfiktvokkfdwx" path="res://Data/Buildings/SandMine/SandMine.tres" id="2_nc7aq"]
 [ext_resource type="Texture2D" uid="uid://cifa3j2mc2c1n" path="res://Assets/UI/New UI/sand-storage-icon.png" id="3_4koo5"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_vf24x"]

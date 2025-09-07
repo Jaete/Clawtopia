@@ -27,7 +27,6 @@ public partial class Ally : Unit
 
     public void Initialize()
     {
-        Attributes.Initialize();
         InteractionShape.MouseEntered += OnHover;
         InteractionShape.MouseExited += OnUnhover;
     }

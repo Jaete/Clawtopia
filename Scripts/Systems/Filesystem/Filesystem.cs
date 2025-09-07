@@ -5,7 +5,7 @@ public partial class Filesystem
 {
     public static bool DirectoryExists(string path)
     {
-        return DirAccess.Open(path) != null;
+        return DirAccess.Open(path) != null && DirAccess.DirExistsAbsolute(path);
     }
 
     public static bool FileExists(string path)

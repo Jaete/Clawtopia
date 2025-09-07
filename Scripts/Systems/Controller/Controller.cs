@@ -28,19 +28,19 @@ public partial class Controller : Node
         if (eventButton != null) { 
             if (eventButton is { Pressed: true, ButtonIndex: MouseButton.Left })
             {
-                EmitSignal(SignalName.MousePressed, ModeManager.Singleton.CurrentLevel.GetLocalMousePosition());
+                EmitSignal(SignalName.MousePressed, ModeManager.Singleton.CurrentLevel.GetGlobalMousePosition());
             }
             else if (eventButton is { Pressed: false, ButtonIndex: MouseButton.Left })
             {
-                EmitSignal(SignalName.MouseReleased, ModeManager.Singleton.CurrentLevel.GetLocalMousePosition());
+                EmitSignal(SignalName.MouseReleased, ModeManager.Singleton.CurrentLevel.GetGlobalMousePosition());
             }
             else if (eventButton is {  DoubleClick: true, ButtonIndex: MouseButton.Left })
             {
-                EmitSignal(SignalName.MouseDoubleClicked, ModeManager.Singleton.CurrentLevel.GetLocalMousePosition());
+                EmitSignal(SignalName.MouseDoubleClicked, ModeManager.Singleton.CurrentLevel.GetGlobalMousePosition());
             }
             else if (eventButton is { Pressed: false, ButtonIndex: MouseButton.Right })
             {
-                EmitSignal(SignalName.MouseRightPressed, ModeManager.Singleton.CurrentLevel.GetLocalMousePosition());
+                EmitSignal(SignalName.MouseRightPressed, ModeManager.Singleton.CurrentLevel.GetGlobalMousePosition());
             }
         } 
         else if (eventKey != null)

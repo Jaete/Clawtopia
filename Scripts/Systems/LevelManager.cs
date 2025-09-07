@@ -1,3 +1,4 @@
+using System.Linq;
 using Godot;
 using Godot.Collections;
 using static BuildingData;
@@ -8,26 +9,20 @@ namespace ClawtopiaCs.Scripts.Systems;
 public partial class LevelManager : Node2D
 {
     [Signal]
-    public delegate void ResourceDeliveredEventHandler(Dictionary<ResourceType, int> resources);
+    public delegate void ResourceDeliveredEventHandler(Dictionary<Collectable, int> resources);
 
     [Signal]
-    public delegate void ResourceExpendedEventHandler(Dictionary<ResourceType, int> resources);
+    public delegate void ResourceExpendedEventHandler(Dictionary<Collectable, int> resources);
 
     public static LevelManager Singleton { get; private set; }
 
-    public Array<Building> CatnipBuildings = new();
-    public Array<Building> SalmonBuildings = new();
-    public Array<Building> SandBuildings = new();
-    
-    public Label CatnipLabel;
-    public Label SalmonLabel;
-    public Label SandLabel;
+    public Array<Building> CollectorBuildings = new();
 
-    public Dictionary<ResourceType, int> CurrentResources = new();
+    public Array<ResourceLabel> ResourceLabels { get; set; }
 
-    [Export] public int InitialCatnipQuantity = 0;
-    [Export] public int InitialSalmonQuantity = 0;
-    [Export] public int InitialSandQuantity = 0;
+    [Export] public Dictionary<Collectable, int> InitialResources { get; set; }
+
+    public Dictionary<Collectable, int> CurrentResources { get; set; } = new();
     public Building Purrlament;
     public Control ResCount;
 
@@ -40,39 +35,48 @@ public partial class LevelManager : Node2D
         Singleton = this;
         Ui = GetNode<UI>("/root/Game/UI");
         ResCount = Ui.GetNode<Control>("ResourcesCount");
-        CatnipLabel = ResCount.GetNode<Label>("Labels/CatnipLabel");
-        SalmonLabel = ResCount.GetNode<Label>("Labels/SalmonLabel");
-        SandLabel = ResCount.GetNode<Label>("Labels/SandLabel");
+        ResourceLabels = new Array<ResourceLabel>();
+        ResCount.GetNode("Labels").GetChildren().ToList().ForEach(c => {
+            if (c is ResourceLabel label)
+            {
+                ResourceLabels.Add(label);
+            }
+        });
+        
         ResourceDelivered += WhenResourceDelivered;
         ResourceExpended += WhenResourceExpended;
-        CurrentResources[ResourceType.Salmon] = InitialSalmonQuantity;
-        CurrentResources[ResourceType.Catnip] = InitialCatnipQuantity;
-        CurrentResources[ResourceType.Sand] = InitialSandQuantity;
-        UpdateLabels();
+        foreach (var item in InitialResources)
+        {
+            CurrentResources.Add(item.Key, item.Value);
+        }
+        UpdateLabels(CurrentResources);
     }
 
-    private void WhenResourceExpended(Dictionary<ResourceType, int> resources)
+    private void WhenResourceExpended(Dictionary<Collectable, int> resources)
     {
         foreach (var resource in resources)
         {
             CurrentResources[resource.Key] -= resource.Value;
-            UpdateLabels();
+            UpdateLabels(CurrentResources);
         }
     }
 
-    public void WhenResourceDelivered(Dictionary<ResourceType, int> resources)
+    public void WhenResourceDelivered(Dictionary<Collectable, int> resources)
     {
         foreach (var resource in resources)
         {
             CurrentResources[resource.Key] += resource.Value;
-            UpdateLabels();
+            UpdateLabels(CurrentResources);
         }
     }
 
-    private void UpdateLabels()
+    private void UpdateLabels(Dictionary<Collectable, int> resources)
     {
-        SalmonLabel.Text = $"{CurrentResources[ResourceType.Salmon]}";
-        CatnipLabel.Text = $"{CurrentResources[ResourceType.Catnip]}";
-        SandLabel.Text = $"{CurrentResources[ResourceType.Sand]}";
+        foreach (var item in resources)
+        {
+            ResourceLabels
+                .FirstOrDefault(lb => lb.Collectable == item.Key)
+                .Text = item.Value.ToString();
+        }
     }
 }

@@ -1,7 +1,7 @@
 [gd_scene load_steps=15 format=3 uid="uid://b4expjtsyc8um"]
 
 [ext_resource type="Script" uid="uid://cmjhmv6wwd1tn" path="res://Scripts/Entities/UI/AddBuilding.cs" id="1_gp4cw"]
-[ext_resource type="Resource" uid="uid://toxg3dsy3hqv" path="res://Resources/Buildings/Economy/Salmon/SalmonCottage.tres" id="2_k5aik"]
+[ext_resource type="Resource" uid="uid://btqpr3ncys8yj" path="res://Data/Buildings/SalmonCottage/SalmonCottage.tres" id="2_k5aik"]
 [ext_resource type="Texture2D" uid="uid://dctwksay4d8ec" path="res://Assets/UI/New UI/salmon-storage-icon.png" id="3_pbwt2"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_vf24x"]

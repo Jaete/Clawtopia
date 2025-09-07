@@ -21,6 +21,7 @@ public partial class ClickMarker : Node2D
         Markers.Add(marker);
         marker.AnimationFinished += MarkerAnimationFinished;
         ModeManager.Singleton.CurrentLevel.AddChild(marker);
+        marker.GlobalPosition = coords;
         marker.Play(ClickAnimation.GetAnimationNames()[0]);
     }
 
@@ -35,7 +36,6 @@ public partial class ClickMarker : Node2D
         return new AnimatedSprite2D
         {
             SpriteFrames = ClickAnimation,
-            Position = coords,
             Visible = true,
         };
     }

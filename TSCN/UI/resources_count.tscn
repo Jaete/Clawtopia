@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://iev22enkbmga"]
+[gd_scene load_steps=21 format=3 uid="uid://iev22enkbmga"]
 
 [ext_resource type="Texture2D" uid="uid://c25qqisgh6sh1" path="res://Assets/UI/New UI/counter-frame1.png" id="1_tpg15"]
 [ext_resource type="Texture2D" uid="uid://b6k66d1tsqgpg" path="res://Assets/UI/New UI/counter-frame2.png" id="2_jyj8v"]
@@ -15,7 +15,11 @@
 [ext_resource type="FontFile" uid="uid://cr6wq0358x1n6" path="res://Assets/UI/Old UI/bitfantasy.ttf" id="9_y8ayo"]
 [ext_resource type="Texture2D" uid="uid://dq1ek7agxhjui" path="res://Assets/UI/New UI/exit-icon.png" id="13_qd6vl"]
 [ext_resource type="Texture2D" uid="uid://bim5x7jr325if" path="res://Assets/UI/New UI/timer-icon.png" id="14_fnwhb"]
+[ext_resource type="Script" uid="uid://cx4t5dakvgjd0" path="res://Scripts/Entities/UI/Labels/ResourceLabel.cs" id="16_g8b6g"]
 [ext_resource type="Script" uid="uid://b5nm2538gghof" path="res://Scripts/Entities/UI/Cronometer.cs" id="16_uef4r"]
+[ext_resource type="Resource" uid="uid://n1m0sqcfda43" path="res://Data/Collectables/Salmon/Salmon.tres" id="17_hwb2u"]
+[ext_resource type="Resource" uid="uid://dhh6g7dtdcny6" path="res://Data/Collectables/Catnip/Catnip.tres" id="18_i20fi"]
+[ext_resource type="Resource" uid="uid://bnm27wrbaa38i" path="res://Data/Collectables/Sand/Sand.tres" id="19_hkkdp"]
 
 [node name="ResourcesCount" type="Control"]
 layout_mode = 3
@@ -150,6 +154,8 @@ theme_override_font_sizes/font_size = 17
 text = "1000"
 horizontal_alignment = 1
 justification_flags = 161
+script = ExtResource("16_g8b6g")
+Collectable = ExtResource("17_hwb2u")
 
 [node name="CatnipLabel" type="Label" parent="Labels"]
 layout_mode = 0
@@ -163,6 +169,8 @@ theme_override_font_sizes/font_size = 17
 text = "1000"
 horizontal_alignment = 1
 justification_flags = 161
+script = ExtResource("16_g8b6g")
+Collectable = ExtResource("18_i20fi")
 
 [node name="SandLabel" type="Label" parent="Labels"]
 layout_mode = 0
@@ -176,6 +184,8 @@ theme_override_font_sizes/font_size = 17
 text = "1000"
 horizontal_alignment = 1
 justification_flags = 161
+script = ExtResource("16_g8b6g")
+Collectable = ExtResource("19_hkkdp")
 
 [node name="CatsLabel" type="Label" parent="Labels"]
 layout_mode = 0

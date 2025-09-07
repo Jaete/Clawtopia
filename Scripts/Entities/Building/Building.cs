@@ -6,7 +6,6 @@ using Godot;
 using Godot.Collections;
 using static BuildingData;
 using ClawtopiaCs.Scripts.Entities;
-using System.Linq;
 
 [GlobalClass, Tool]
 public partial class Building : Area2D
@@ -24,16 +23,16 @@ public partial class Building : Area2D
     [Export]
     public BuildingList Buildings;
 
-    [ExportGroup("Building states")]
-    [Export] public bool IsPreSpawned
+    [Export]
+    public bool IsPreSpawned
     {
         get => _isPreSpawned;
         set
         {
             _isPreSpawned = value;
-            if (Engine.IsEditorHint()) 
+            if (Engine.IsEditorHint() && !IsInitializing)
             {
-                BuildingEditor.ReloadBuilding(this); 
+                BuildingEditor.ReloadBuilding(this);
             }
         }
     }
@@ -44,7 +43,7 @@ public partial class Building : Area2D
         set
         {
             _isRotated = value;
-            if (Engine.IsEditorHint())
+            if (Engine.IsEditorHint() && !IsInitializing)
             {
                 BuildingEditor.ReloadBuilding(this);
             }
@@ -71,7 +70,7 @@ public partial class Building : Area2D
         get => _type ?? string.Empty;
         set
         {
-            if (!Engine.IsEditorHint() || _type == value) return;
+            if (_type == value) return;
             _type = value;
             if (Engine.IsEditorHint())
             {
@@ -79,7 +78,6 @@ public partial class Building : Area2D
                 {
                     Data = null;
                     Reset(this);
-                    GD.Print("Jhonson?");
                     return;
                 }
                 if (Data != null && Data.Name == value) return;
@@ -94,21 +92,20 @@ public partial class Building : Area2D
         {
             if (_buildingData == value) return;
             _buildingData = value;
-            if (_buildingData is null)
+            if (_buildingData is null && !IsInitializing)
             {
                 Reset(this);
-                GD.Print("Jhonson?");
                 return;
             }
 
-            if (Engine.IsEditorHint()) 
+            if (Engine.IsEditorHint() && !IsInitializing) 
             {
                 BuildingEditor.ReloadBuilding(this); 
             }
         }
     }
 
-    public bool IsInitializing { get; internal set; }
+    public bool IsInitializing = true;
 
     public bool IsBuildingInFront;
     public bool IsBuilt;
@@ -124,9 +121,14 @@ public partial class Building : Area2D
     public string ResourceType;
     public int SelfIndex;
 
+    public override void _EnterTree()
+    {
+        IsInitializing = true;
+    }
+
     public override void _Ready()
     {
-        if (!Engine.IsEditorHint() && !IsInitializing)
+        if (!Engine.IsEditorHint() && IsInitializing)
         {
             CallDeferred(MethodName.Initialize);
         }
@@ -134,26 +136,28 @@ public partial class Building : Area2D
 
     public void Initialize()
     {
-        if (IsInitializing) return; 
-
         IsBuilt = IsPreSpawned;
 
-        if (Engine.IsEditorHint())
+        if (!Engine.IsEditorHint())
         {
-            if (Type == null)
-            {
-                GD.PushError("Building Type is not set. Please assign it in the editor.");
-                return;
-            }
-            Data ??= Buildings?.List.FirstOrDefault(b => b.Name == Type) ?? null;
-            Data.CallDeferred(BuildingData.MethodName.Initialize, this);
-            return;
-        }
-        
-        ConnectSignals();
-        Data.Initialize(this);
+            CallDeferred(MethodName.ConnectSignals);
+        } 
+
+        CallDeferred(MethodName.LoadData);
 
         if (IsPreSpawned) { CallDeferred(MethodName.PlaceBuilding, this); }
+        IsInitializing = false;
+    }
+
+    protected void LoadData()
+    {
+        if (Type == null)
+        {
+            GD.PushError("Building Type is not set. Please assign it in the editor.");
+            return;
+        }
+        Data ??= BuildingEditor.LoadBuildingData(Type, Buildings);
+        Data.Initialize(this);
     }
 
     public void ConnectSignals()
@@ -170,38 +174,14 @@ public partial class Building : Area2D
 
     public void AddSelfOnList()
     {
-        switch (Data.Resource)
-        {
-            case BuildingData.ResourceType.Salmon:
-                ResourceType = Constants.SALMON;
-                LevelManager.Singleton.SalmonBuildings.Add(this);
-                break;
-            case BuildingData.ResourceType.Catnip:
-                ResourceType = Constants.CATNIP;
-                LevelManager.Singleton.CatnipBuildings.Add(this);
-                break;
-            case BuildingData.ResourceType.Sand:
-                ResourceType = Constants.SAND;
-                LevelManager.Singleton.SandBuildings.Add(this);
-                break;
-        }
+        LevelManager.Singleton.CollectorBuildings.Add(this);
     }
 
     public void RemoveSelfFromList()
     {
-        switch (Data.Resource)
-        {
-            case BuildingData.ResourceType.Salmon:
-                LevelManager.Singleton.SalmonBuildings.Remove(this);
-                break;
-            case BuildingData.ResourceType.Catnip:
-                LevelManager.Singleton.CatnipBuildings.Remove(this);
-                break;
-            case BuildingData.ResourceType.Sand:
-                LevelManager.Singleton.SandBuildings.Remove(this);
-                break;
-        }
+        LevelManager.Singleton.CollectorBuildings.Remove(this);
     }
+
 
     public async void ConstructionStarted(Building building)
     {
@@ -214,7 +194,7 @@ public partial class Building : Area2D
 
     public async void OnDestroyed()
     {
-        var RefundResource = new Dictionary<ResourceType, int>();
+        var RefundResource = new Dictionary<Collectable, int>();
         foreach (var resource in Data.ResourceCosts)
         {
             RefundResource[resource.Key] = resource.Value / 2;
@@ -280,6 +260,8 @@ public partial class Building : Area2D
         building.IsBuilt = true;
         Modulation.AssignState(building, InteractionStates.FINISHED);
         building.Data.SetSpriteTexture(building);
+        if (Engine.IsEditorHint()) return; 
+
         building.AddSelfOnList();
         building.CurrentBuilders.Clear();
     }

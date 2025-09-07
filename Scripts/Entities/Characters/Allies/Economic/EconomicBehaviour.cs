@@ -6,7 +6,7 @@ using static BuildingData;
 
 public partial class EconomicBehaviour : Resource
 {
-    public static void SeekResource(Ally ally, ResourceType resourceType)
+    public static void SeekResource(Ally ally, Collectable resourceType)
     {
         Array<CollectPoint> resourceToSeek = Selectors.GetCollectPoints(resourceType);
 
@@ -19,15 +19,15 @@ public partial class EconomicBehaviour : Resource
              );
         }
         ally.Navigation.SetTargetPosition(ally.InteractedResource.GlobalPosition);
-        ally.InteractedResource.ResourceType = resourceType;
+        ally.InteractedResource.Resource = resourceType;
         ally.InteractedWithBuilding = false;
     }
 
     public static void DeliverResource(Ally ally)
     {
-        var resource = new Dictionary<ResourceType, int>
+        var resource = new Dictionary<Collectable, int>
         {
-            { ally.InteractedResource.ResourceType, ally.ResourceCurrentQuantity }
+            { ally.InteractedResource.Resource, ally.ResourceCurrentQuantity }
         };
 
         LevelManager.Singleton.EmitSignal(LevelManager.SignalName.ResourceDelivered, resource);
@@ -52,14 +52,13 @@ public partial class EconomicBehaviour : Resource
         }
         else
         {
-            ResourceType interactedResource = Selectors.GetInteractedResourceType(ally, coords);
-            if (interactedResource != ResourceType.None)
+            Collectable interactedResource = Selectors.GetInteractedResourceType(ally, coords);
+            if (interactedResource != null)
             {
                 Array<CollectPoint> collectPoints = Selectors.GetCollectPoints(interactedResource);
                 nextTarget = Selectors.GetClosestCollectPoint(ally, coords, collectPoints[0]).GlobalPosition;
             }
         }
-
         ally.Navigation.SetTargetPosition(nextTarget);
     }
 

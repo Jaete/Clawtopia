@@ -49,6 +49,17 @@ namespace ClawtopiaCs.Scripts.Systems.Tooling
 
             return true;
         }
+
+        public static bool ValidateNewCollectable(Collectable collectable)
+        {
+            if (collectable.Name == null)
+            {
+                EditorUI.PopupAccept("New Collectable name is not set. Set before saving.");
+                return false;
+            }
+
+            return true;
+        }
     }
 
 

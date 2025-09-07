@@ -1,7 +1,7 @@
 [gd_scene load_steps=23 format=3 uid="uid://d3gh4jmuicqic"]
 
 [ext_resource type="Script" uid="uid://dgjx0mjlsyyt4" path="res://Scripts/Entities/Characters/Allies/Ally.cs" id="1_kr1my"]
-[ext_resource type="Resource" uid="uid://cg7alavmqxtqn" path="res://Resources/Characters/Allies/Attributes/Communist.tres" id="2_ku51o"]
+[ext_resource type="Resource" uid="uid://cg7alavmqxtqn" path="res://Data/Characters/Allies/Attributes/Communist.tres" id="2_ku51o"]
 [ext_resource type="Script" uid="uid://chx6rbmbkfufb" path="res://Scripts/Entities/Characters/StateMachine.cs" id="3_5j1te"]
 [ext_resource type="Script" uid="uid://btwq6qkpr8fsi" path="res://Scripts/Entities/Characters/Allies/Economic/States/Idle.cs" id="4_gul40"]
 [ext_resource type="Script" uid="uid://cnuc0uh6yhf5j" path="res://Scripts/Entities/Characters/Allies/Economic/States/Move.cs" id="5_2gbdh"]
@@ -144,7 +144,6 @@ position = Vector2(0, -24)
 shape = SubResource("CapsuleShape2D_1wlnv")
 
 [node name="Label" type="Label" parent="."]
-visible = false
 offset_left = -21.0
 offset_right = 19.0
 offset_bottom = 23.0

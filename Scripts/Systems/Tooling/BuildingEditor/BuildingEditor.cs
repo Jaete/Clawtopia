@@ -3,10 +3,7 @@ using ClawtopiaCs.Scripts.Systems.Tooling;
 using Godot;
 using Godot.Collections;
 using System;
-using System.IO;
 using System.Linq;
-using System.Net.NetworkInformation;
-using System.Runtime;
 
 [GlobalClass, Tool]
 public partial class BuildingEditor : Node2D
@@ -46,6 +43,11 @@ public partial class BuildingEditor : Node2D
         string buildingDataPath = $"{buildingPath}/{BuildingName}.tres";
         string buildingListPath = $"{buildingsPath}/BuildingList.tres";
         string buildingStructurePath = $"{buildingPath}/Structure.tres";
+
+        if (!Filesystem.DirectoryExists(buildingsPath))
+        {
+            Filesystem.CreateDir(Settings.ResourceDirectory, "Buildings");
+        }
 
         if (!Filesystem.DirectoryExists(buildingPath))
         {
@@ -106,26 +108,25 @@ public partial class BuildingEditor : Node2D
             EditorUI.PopupAccept($"Directory {buildingPath} does not exist. Check your Tool Settings for the actual Resources folder.");
             return;
         }
-        Error status = OS.MoveToTrash(buildingPath);
+        Error status = OS.MoveToTrash(ProjectSettings.GlobalizePath(buildingPath));
         if (status == Error.Ok)
         {
+            Settings.Buildings.List.Remove(LoadBuildingData(buildingToDelete, Settings.Buildings));
+            ResourceSaver.Save(Settings.Buildings, Settings.Buildings.ResourcePath);
             EditorUI.PopupAccept($"Building {buildingToDelete} moved to trash successfully. You can recover the file if this was by mistake.");
+            NotifyPropertyListChanged();
+            EditorInterface.Singleton.GetResourceFilesystem().Scan();
             return;
         }
 
         EditorUI.PopupAccept($"Failed to delete building {buildingToDelete}. Error: {status}.");
-
-
     }
 
     [ExportGroup("Save building")]
     [ExportToolButton("Save current building", Icon = "Save")]
-    public Callable SaveCurrentBuilding => Callable.From(() =>
-    {
-        Save(BuildingToDelete);
-    });
+    public Callable SaveCurrentBuilding => Callable.From(Save);
 
-    private void Save(string buildingToDelete)
+    private void Save()
     {
         if (!Engine.IsEditorHint()) { return; }
 
@@ -173,12 +174,8 @@ public partial class BuildingEditor : Node2D
     public static void ReloadBuilding(Building building)
     {
         building.NotifyPropertyListChanged();
-
-        if (BuildingData.ValidateBuilding(building, MethodName.ReloadBuilding))
-        {
-            building.Initialize();
-            building.QueueRedraw();
-        }
+        building.Initialize();
+        building.QueueRedraw();
     }
 
     private void SaveBuildingData(BuildingData newBuildingData, string buildingDataPath, string buildingStructurePath)
@@ -243,7 +240,7 @@ public partial class BuildingEditor : Node2D
         Building building = Settings.BaseBuilding.Instantiate<Building>();
         building.Data = buildingData;
         building.Initialize();
-            return building;
+        return building;
     }
 
     private void CleanNewBuildingEditorData()
@@ -274,7 +271,7 @@ public partial class BuildingEditor : Node2D
         if (property["name"].AsStringName() == PropertyName.BuildingToDelete)
         {
             var usage = property["usage"].As<PropertyUsageFlags>() | PropertyUsageFlags.ReadOnly;
-            property["hint_string"] = string.Join(",", Filesystem.GetDirectories($"{Settings.ResourceDirectory}/Buildings"));
+            property["hint_string"] = string.Join(",", BuildingLoader.GetBuildingNames(Settings.Buildings));
         }
 
         base._ValidateProperty(property);

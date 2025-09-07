@@ -24,9 +24,9 @@ public partial class AddBuilding : UIButton
 
         Building building = BuildingLoader.Singleton.LoadBuilding(BuildingToAdd);
 
-        foreach (var resource in LevelManager.Singleton.CurrentResources)
+        foreach (var resource in building.Data.ResourceCosts.Keys)
         {
-            if (LevelManager.Singleton.CurrentResources[resource.Key] < building.Data.ResourceCosts[resource.Key])
+            if (LevelManager.Singleton.CurrentResources[resource] < building.Data.ResourceCosts[resource])
             {
                 //TODO: colocar implementacao de exibir UI indicando que nao tem recurso, voz, etc.
                 GD.Print("Not enough resources");

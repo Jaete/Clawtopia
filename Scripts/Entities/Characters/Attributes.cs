@@ -17,18 +17,5 @@ public partial class Attributes : Resource
     [Export]
     public int AttackRange;
     [Export]
-    public int SalmonCost;
-    [Export]
-    public int CatnipCost;
-    [Export]
-    public int SandCost;
-
-    public Dictionary<ResourceType, int> ResourceCosts = new();
-
-    public void Initialize()
-    {
-        ResourceCosts[ResourceType.Salmon] = SalmonCost;
-        ResourceCosts[ResourceType.Catnip] = CatnipCost;
-        ResourceCosts[ResourceType.Sand] = SandCost;
-    }
+    public Dictionary<Collectable, int> ResourceCosts = new();
 }

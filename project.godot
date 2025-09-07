@@ -33,7 +33,7 @@ project/assembly_name="Clawtopia Cs"
 
 folder_colors={
 "res://Assets/": "green",
-"res://Resources/": "purple",
+"res://Data/": "purple",
 "res://Scripts/": "red",
 "res://TSCN/": "yellow"
 }

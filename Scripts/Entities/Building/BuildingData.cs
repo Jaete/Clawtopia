@@ -41,49 +41,31 @@ public partial class BuildingData : Resource
     [Export(PropertyHint.Enum)]
     public Type BuildingType;
     [Export(PropertyHint.Enum, Constants.RESOURCE_LIST)]
-    public ResourceType Resource;
+    public Collectable Resource;
     [Export(PropertyHint.Enum, Constants.TOWER_LIST)]
     public string TowerType;
     [Export(PropertyHint.Enum)]
     public string Name;
 
     [ExportGroup("Mechanic Settings")]
-    [Export] public int CatnipCost;
-    [Export] public int SalmonCost;
-    [Export] public int SandCost;
+    [Export] public Dictionary<Collectable, int> ResourceCosts = new();
     [Export] public int Hp;
     [Export] public int MaxProgress;
 
     [ExportGroup("Structure")]
     [Export] public BuildingStructure Structure = null;
     [Export] public Vector2 Scale = new(1, 1);
-    [Export] public Vector2 Offset
-    {
-        get => _offset;
-        set
-        {
-            _offset = value;
-            ReloadBuildingIfInEditor();
-        }
-    }
+    [Export] public Vector2 Offset { get; set; }
 
     [Export]
-    public Vector2 RotatedOffset
-    {
-        get => _rotatedOffset;
-        set
-        {
-            _rotatedOffset = value;
-            ReloadBuildingIfInEditor();
-        }
-    }
+    public Vector2 RotatedOffset { get; set; }
 
     private Building _building;
     private Vector2 _offset = Vector2.Zero;
     private Vector2 _rotatedOffset = Vector2.Zero;
     public int Level;
-    
-    public Dictionary<ResourceType, int> ResourceCosts = new();
+
+   
 
     public void Initialize(Building building)
     {
@@ -102,9 +84,6 @@ public partial class BuildingData : Resource
         }
 
         Level = 1;
-        ResourceCosts[ResourceType.Salmon] = SalmonCost;
-        ResourceCosts[ResourceType.Catnip] = CatnipCost;
-        ResourceCosts[ResourceType.Sand] = SandCost;
 
         switch (BuildingType)
         {
@@ -125,18 +104,7 @@ public partial class BuildingData : Resource
                 }
                 break;
             case Type.Resource:
-                switch (Resource)
-                {
-                    case ResourceType.Salmon:
-                        Name = Constants.FISHERMAN_HOUSE_EXTERNAL_NAME;
-                        break;
-                    case ResourceType.Catnip:
-                        Name = Constants.DISTILLERY_EXTERNAL_NAME;
-                        break;
-                    case ResourceType.Sand:
-                        Name = Constants.SAND_MINE_EXTERNAL_NAME;
-                        break;
-                }
+                Name = Resource.CollectorBuilding.Name;
                 break;
         }
 
@@ -246,12 +214,6 @@ public partial class BuildingData : Resource
 
         GD.PushWarning("\nNode refs, Data or Structure are missing. Probably Godot resetted some exported variables. \nSource: ", building?.Name ?? "Null building", "\nMethodName: ", source);
         return false;
-    }
-
-    private void ReloadBuildingIfInEditor()
-    {
-        if (!Engine.IsEditorHint() || !ValidateBuilding(_building, MethodName.ReloadBuildingIfInEditor)) return;
-        BuildingEditor.ReloadBuilding(_building);
     }
 
     public override void _ValidateProperty(Dictionary property)

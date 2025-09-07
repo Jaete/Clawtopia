@@ -167,7 +167,7 @@ public partial class ModeManager : Node2D
         SetInitialBuildings();
         SetInitialCollectionPoints();
 
-        TerrainBaking.Singleton.Rebake();
+        TerrainBaking.Singleton.CallDeferred(TerrainBaking.MethodName.Rebake);
         BuildingsToBake.Clear();
     }
 }
