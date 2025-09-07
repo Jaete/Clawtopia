@@ -1,12 +1,12 @@
 [gd_scene load_steps=17 format=3 uid="uid://c6n7oxydiul4x"]
 
 [ext_resource type="Script" uid="uid://0wkhaudw8r7b" path="res://Scripts/Systems/LevelManager.cs" id="1_rxf7b"]
-[ext_resource type="Resource" uid="uid://dhh6g7dtdcny6" path="res://Data/Collectables/Catnip/Catnip.tres" id="2_1w4xk"]
 [ext_resource type="PackedScene" uid="uid://c73kwxuuwdacc" path="res://TSCN/Levels/Level-1.tscn" id="2_b81cf"]
+[ext_resource type="Resource" uid="uid://dhh6g7dtdcny6" path="res://Data/Collectables/Catnip/Catnip.tres" id="2_pu4ws"]
 [ext_resource type="PackedScene" uid="uid://sbqaktg77w31" path="res://TSCN/Systems/GameModes/ModeManager.tscn" id="3_3hgku"]
-[ext_resource type="Resource" uid="uid://n1m0sqcfda43" path="res://Data/Collectables/Salmon/Salmon.tres" id="3_k6bu5"]
+[ext_resource type="Resource" uid="uid://n1m0sqcfda43" path="res://Data/Collectables/Salmon/Salmon.tres" id="3_lsrbm"]
 [ext_resource type="PackedScene" uid="uid://dg1278ax8xp1f" path="res://TSCN/UI/UI.tscn" id="4_32t0e"]
-[ext_resource type="Resource" uid="uid://bnm27wrbaa38i" path="res://Data/Collectables/Sand/Sand.tres" id="4_300vr"]
+[ext_resource type="Resource" uid="uid://bnm27wrbaa38i" path="res://Data/Collectables/Sand/Sand.tres" id="4_gvqi3"]
 [ext_resource type="PackedScene" uid="uid://drliam15ta6fq" path="res://TSCN/Systems/Controller.tscn" id="5_8vh0k"]
 [ext_resource type="Script" uid="uid://ctecux5x35stj" path="res://Scripts/Systems/TerrainBaking/TerrainBaking.cs" id="6_mrist"]
 [ext_resource type="Script" uid="uid://dae2eaw5tplkd" path="res://Scripts/Entities/UI/CustomCursor.cs" id="7_1w4xk"]
@@ -24,10 +24,10 @@ List = []
 
 [node name="LevelManager" type="Node2D" parent="."]
 script = ExtResource("1_rxf7b")
-InitialResources = Dictionary[Resource, int]({
-ExtResource("2_1w4xk"): 450,
-ExtResource("3_k6bu5"): 450,
-ExtResource("4_300vr"): 450
+InitialResources = Dictionary[Object, int]({
+ExtResource("2_pu4ws"): 500,
+ExtResource("3_lsrbm"): 500,
+ExtResource("4_gvqi3"): 500
 })
 
 [node name="Level" parent="LevelManager" instance=ExtResource("2_b81cf")]

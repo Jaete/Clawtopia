@@ -2,17 +2,31 @@ using System.Drawing;
 using ClawtopiaCs.Scripts.Systems;
 using Godot;
 using Godot.Collections;
+using ClawtopiaCs.Scripts.Entities.Characters;
 
 public partial class Move : EconomicState
 {
-    public override void Enter() {}
+
+    protected bool isActive;
+
+    public override void Enter()
+    {
+        isActive = true;
+    }
 
     public override void Update(double delta)
     {
+        
         Move();
+
+        Ally.UpdateDirection(Ally.Velocity);
+        PlayMoveAnimation();
     }
 
-    public override void Exit() {}
+    public override void Exit()
+    {
+        isActive = false;
+     }
 
     public override void CommandReceived(Vector2 coords)
     {
@@ -49,7 +63,7 @@ public partial class Move : EconomicState
             }
         }
 
-        if (Ally.InteractedResource != null && !Ally.Delivering)
+        if (Ally.InteractedCollectPoint != null && !Ally.Delivering)
         {
             ChangeState("Collecting");
             return;
@@ -60,7 +74,32 @@ public partial class Move : EconomicState
             EconomicBehaviour.DeliverResource(Ally);
             return;
         }
-
+        
         ChangeState("Idle");
+    }
+
+    private void PlayMoveAnimation()
+    {
+        // Se o Move ja tiver acabado, ele nao toca
+        if (!isActive) return;
+
+        float angle = Mathf.RadToDeg(Ally.LastDirection.Angle());
+
+        if (angle >= -22.5 && angle < 22.5)
+            SpriteHandler.ChangeAnimation(Ally.Sprite, AnimationController.AnimationRight);
+        else if (angle >= 22.5 && angle < 67.5)
+            SpriteHandler.ChangeAnimation(Ally.Sprite, AnimationController.AnimationDownRight);
+        else if (angle >= 67.5 && angle < 112.5)
+            SpriteHandler.ChangeAnimation(Ally.Sprite, AnimationController.AnimationDown);
+        else if (angle >= 112.5 && angle < 157.5)
+            SpriteHandler.ChangeAnimation(Ally.Sprite, AnimationController.AnimationDownLeft);
+        else if (angle >= 157.5 || angle < -157.5)
+            SpriteHandler.ChangeAnimation(Ally.Sprite, AnimationController.AnimationLeft);
+        else if (angle >= -157.5 && angle < -112.5)
+            SpriteHandler.ChangeAnimation(Ally.Sprite, AnimationController.AnimationUpLeft, flipH: true);
+        else if (angle >= -112.5 && angle < -67.5)
+            SpriteHandler.ChangeAnimation(Ally.Sprite, AnimationController.AnimationUp);
+        else if (angle >= -67.5 && angle < -22.5)
+            SpriteHandler.ChangeAnimation(Ally.Sprite, AnimationController.AnimationUpRight);
     }
 }

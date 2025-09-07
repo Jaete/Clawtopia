@@ -1,5 +1,7 @@
 using ClawtopiaCs.Scripts.Entities;
 using ClawtopiaCs.Scripts.Entities.Building;
+using ClawtopiaCs.Scripts.Entities.Characters;
+using System.Collections.Generic;
 using Godot;
 using static BuildingData;
 
@@ -12,13 +14,15 @@ public partial class Ally : Unit
     // DETECTA CONSTRUCAO INTERAGIDA, SE HOUVER
     // ABAIXO O MESMO PARA RECURSO
     public Building InteractedBuilding;
-    public CollectPoint InteractedResource;
+    public CollectPoint InteractedCollectPoint;
     public bool Delivering;
     public Vector2 CurrentResourceLastPosition = new();
     public int ResourceCurrentQuantity;
     public bool AllyIsBuilding;
     public bool InteractedWithBuilding;
     public Building ConstructionToBuild;
+
+    public Vector2 LastDirection { get; private set; } = Vector2.Down;
 
     public override void _Ready()
     {
@@ -29,6 +33,14 @@ public partial class Ally : Unit
     {
         InteractionShape.MouseEntered += OnHover;
         InteractionShape.MouseExited += OnUnhover;
+    }
+
+    public void UpdateDirection(Vector2 velocity)
+    {
+        if (velocity != Vector2.Zero)
+        {
+            LastDirection = velocity.Normalized();
+        }
     }
 
     public virtual void OnHover()

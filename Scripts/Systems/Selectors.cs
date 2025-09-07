@@ -132,17 +132,17 @@ public partial class Selectors : Node2D
 
     public static CollectPoint GetClosestCollectPoint(Ally ally, Vector2 coords, CollectPoint resource)
     {
-        ally.InteractedResource = resource;
+        ally.InteractedCollectPoint = resource;
         foreach (var point in LevelManager.Singleton.CollectPoints)
         {
-            ally.InteractedResource = (CollectPoint) Selectors.GetClosestObject(
+            ally.InteractedCollectPoint = (CollectPoint) Selectors.GetClosestObject(
                 coords,
-                ally.InteractedResource,
+                ally.InteractedCollectPoint,
                 point
             );
         }
 
-        return ally.InteractedResource;
+        return ally.InteractedCollectPoint;
     }
 
     public static Node2D GetClosestObject(Vector2 coords, Node2D currentClosest, Node2D item) {

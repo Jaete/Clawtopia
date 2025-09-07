@@ -84,33 +84,12 @@ public partial class BuildingData : Resource
         }
 
         Level = 1;
-
-        switch (BuildingType)
+        if (BuildingType == Type.Commune)
         {
-            case Type.Commune:
-                Name = Constants.COMMUNE_EXTERNAL_NAME;
-                LevelManager.Singleton.Purrlament = building;
-                break;
-            case Type.House:
-                Name = Constants.HOUSE_EXTERNAL_NAME;
-                break;
-            case Type.Tower:
-                switch (TowerType)
-                {
-                    case Constants.FIGHTERS:
-                        Name = Constants.FIGHTERS_TOWER_EXTERNAL_NAME;
-                        break;
-                        /*todo implementar o resto*/
-                }
-                break;
-            case Type.Resource:
-                Name = Resource.CollectorBuilding.Name;
-                break;
+            LevelManager.Singleton.Purrlament = building;
         }
-
         building.Name = Name;
         building.MaxProgress = OS.IsDebugBuild() ? 3 : MaxProgress;
-
         building.IsInitializing = false;
     }
     public static void Reset(Building building)

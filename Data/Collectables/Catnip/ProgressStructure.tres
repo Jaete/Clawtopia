@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="ProgressStructure" load_steps=6 format=3 uid="uid://porkbmgs6mnv"]
+
+[ext_resource type="Texture2D" uid="uid://cq16jpph5052d" path="res://Assets/Spritesheets/Resources/asset_catnip_material3.png" id="1_w2evg"]
+[ext_resource type="Texture2D" uid="uid://bba30bmyahs0v" path="res://Assets/Spritesheets/Resources/asset_catnip_material2.png" id="2_xdet7"]
+[ext_resource type="Texture2D" uid="uid://dlg611dmn6k14" path="res://Assets/Spritesheets/Resources/asset_catnip_material1.png" id="3_4p5fh"]
+[ext_resource type="Texture2D" uid="uid://dlfkg5fkf30lb" path="res://Assets/Spritesheets/Resources/asset_catnip_material0.png" id="4_tyoem"]
+[ext_resource type="Script" uid="uid://cate2qdtu3nxb" path="res://Scripts/Entities/ProgressStructure.cs" id="5_7ygwg"]
+
+[resource]
+script = ExtResource("5_7ygwg")
+Type = 0
+StaticTextures = Array[Texture2D]([ExtResource("1_w2evg"), ExtResource("2_xdet7"), ExtResource("3_4p5fh"), ExtResource("4_tyoem")])
+metadata/_custom_type_script = "uid://cate2qdtu3nxb"

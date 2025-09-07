@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="BuildingData" load_steps=12 format=3 uid="uid://btqpr3ncys8yj"]
+[gd_resource type="Resource" script_class="BuildingData" load_steps=11 format=3 uid="uid://btqpr3ncys8yj"]
 
 [ext_resource type="AudioStream" uid="uid://c6nf3cvt1mwmj" path="res://Assets/Audio/UI/ui-click-cancel.ogg" id="1_dyfq6"]
 [ext_resource type="AudioStream" uid="uid://c11gv7w0q6nrn" path="res://Assets/Audio/SFX/Building/destroy-001.ogg" id="2_qahin"]
@@ -7,8 +7,7 @@
 [ext_resource type="AudioStream" uid="uid://cnx6g6fuhlhlp" path="res://Assets/Audio/SFX/Building/destroy-004.ogg" id="5_cn7s1"]
 [ext_resource type="AudioStream" uid="uid://cx71cf6ffwqvg" path="res://Assets/Audio/SFX/Building/destroy-005.ogg" id="6_1jovd"]
 [ext_resource type="AudioStream" uid="uid://865i76f5bwrx" path="res://Assets/Audio/SFX/Building/plot.ogg" id="7_4m2h7"]
-[ext_resource type="Resource" uid="uid://bnm27wrbaa38i" path="res://Data/Collectables/Sand/Sand.tres" id="8_c8dvm"]
-[ext_resource type="Script" uid="uid://31culyiluxic" path="res://Scripts/Entities/Resources/Collectable.cs" id="8_qahin"]
+[ext_resource type="Script" uid="uid://31culyiluxic" path="res://Scripts/Entities/Resources/Collectable.cs" id="8_dyfq6"]
 [ext_resource type="Resource" uid="uid://w6je8nqk5kvy" path="res://Data/Buildings/SalmonCottage/Structure.tres" id="9_3cirx"]
 [ext_resource type="Script" uid="uid://iy7w2gbfhvuy" path="res://Scripts/Entities/Building/BuildingData.cs" id="10_b0nrq"]
 
@@ -20,9 +19,7 @@ CancelSound = ExtResource("1_dyfq6")
 BuildingType = 0
 TowerType = ""
 Name = "SalmonCottage"
-ResourceCosts = Dictionary[ExtResource("8_qahin"), int]({
-ExtResource("8_c8dvm"): 120
-})
+ResourceCosts = Dictionary[ExtResource("8_dyfq6"), int]({})
 Hp = 0
 MaxProgress = 0
 Structure = ExtResource("9_3cirx")

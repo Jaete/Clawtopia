@@ -1,4 +1,5 @@
 using Godot;
+using ClawtopiaCs.Scripts.Entities.Characters;
 
 public partial class Collect : EconomicState
 {
@@ -14,15 +15,16 @@ public partial class Collect : EconomicState
 
     public override void Enter()
     {
-        CurrentlyCollecting = Ally.InteractedResource;
+        CurrentlyCollecting = Ally.InteractedCollectPoint;
         if (CurrentlyCollecting.ResourceQuantity <= 0)
         {
             ChangeState("Idle");
             return;
         }
 
-        ResourceTickTimer = GetTree().CreateTimer(TickTime); 
+        ResourceTickTimer = GetTree().CreateTimer(TickTime);
         ResourceTickTimer.Timeout += CollectTimeTicked;
+        PlayCollectAnimation();
     }
 
     public override void Update(double delta) { }
@@ -40,14 +42,15 @@ public partial class Collect : EconomicState
     {
         var collectedQuantity = SetCollectedQuantity();
 
-        Ally.InteractedResource.EmitSignal(CollectPoint.SignalName.ResourceCollected, collectedQuantity);
+        Ally.InteractedCollectPoint.EmitSignal(CollectPoint.SignalName.ResourceCollected, collectedQuantity);
         Ally.ResourceCurrentQuantity += collectedQuantity;
 
-        if (Ally.ResourceCurrentQuantity != MaxQuantity && Ally.InteractedResource.ResourceQuantity > 0) {
+        if (Ally.ResourceCurrentQuantity != MaxQuantity && Ally.InteractedCollectPoint.ResourceQuantity > 0)
+        {
             ResourceTickTimer = GetTree().CreateTimer(TickTime);
             ResourceTickTimer.Timeout += CollectTimeTicked;
         }
-        else 
+        else
         {
             var target = GetClosestResourceBuilding(Ally.GlobalPosition, CurrentlyCollecting.Resource);
             Ally.Navigation.SetTargetPosition(target.GlobalPosition);
@@ -58,7 +61,7 @@ public partial class Collect : EconomicState
 
     private int SetCollectedQuantity()
     {
-        if (Ally.InteractedResource.ResourceQuantity - QuantityPerTick >= 0)
+        if (Ally.InteractedCollectPoint.ResourceQuantity - QuantityPerTick >= 0)
         {
             if (Ally.ResourceCurrentQuantity + QuantityPerTick < MaxQuantity)
             {
@@ -71,9 +74,9 @@ public partial class Collect : EconomicState
         }
         else
         {
-            if (Ally.ResourceCurrentQuantity + Ally.InteractedResource.ResourceQuantity < MaxQuantity)
+            if (Ally.ResourceCurrentQuantity + Ally.InteractedCollectPoint.ResourceQuantity < MaxQuantity)
             {
-                return Ally.InteractedResource.ResourceQuantity;
+                return Ally.InteractedCollectPoint.ResourceQuantity;
             }
             else
             {
@@ -84,11 +87,27 @@ public partial class Collect : EconomicState
 
     public override void CommandReceived(Vector2 coords)
     {
-        if (!Ally.CurrentlySelected) {
+        if (!Ally.CurrentlySelected)
+        {
             return;
         }
 
         ChooseNextTargetPosition(coords);
         ChangeState("Move");
+    }
+    
+    private void PlayCollectAnimation()
+    {
+        float angle = Mathf.RadToDeg(Ally.LastDirection.Angle());
+
+        if (angle <= 90 && angle > -90)
+        {   
+            SpriteHandler.ChangeAnimation(Ally.Sprite, Ally.InteractedCollectPoint.Resource.CollectorAnimationRight);
+        }
+        else
+        {
+            SpriteHandler.ChangeAnimation(Ally.Sprite, Ally.InteractedCollectPoint.Resource.CollectorAnimationLeft);
+        }
+
     }
 }

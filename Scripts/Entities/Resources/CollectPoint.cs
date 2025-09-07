@@ -12,7 +12,6 @@ public partial class CollectPoint : StaticBody2D
 {
     [Signal] public delegate void ResourceCollectedEventHandler(int quantity);
 
-
     private int _resourceQuantity = 10;
     public int SelfIndex;
 
@@ -217,7 +216,8 @@ public partial class CollectPoint : StaticBody2D
         {
             return ProgressStructure.States.Medium;
         }
-        else if (ResourceQuantity > MaxResourceQuantity * 0.25) {
+        else if (ResourceQuantity > MaxResourceQuantity * 0.25)
+        {
             return ProgressStructure.States.Low;
         }
         else
