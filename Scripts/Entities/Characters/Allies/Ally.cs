@@ -3,6 +3,7 @@ using ClawtopiaCs.Scripts.Entities.Building;
 using ClawtopiaCs.Scripts.Entities.Characters;
 using System.Collections.Generic;
 using Godot;
+using static BuildingData;
 
 public partial class Ally : Unit
 {
@@ -60,7 +61,6 @@ public partial class Ally : Unit
 
     public void Initialize()
     {
-        Attributes.Initialize();
         InteractionShape.MouseEntered += OnHover;
         InteractionShape.MouseExited += OnUnhover;
     }

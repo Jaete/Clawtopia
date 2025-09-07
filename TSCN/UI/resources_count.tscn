@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://iev22enkbmga"]
+[gd_scene load_steps=21 format=3 uid="uid://iev22enkbmga"]
 
 [ext_resource type="Texture2D" uid="uid://c25qqisgh6sh1" path="res://Assets/UI/New UI/counter-frame1.png" id="1_tpg15"]
 [ext_resource type="Texture2D" uid="uid://b6k66d1tsqgpg" path="res://Assets/UI/New UI/counter-frame2.png" id="2_jyj8v"]
@@ -15,7 +15,11 @@
 [ext_resource type="FontFile" uid="uid://cr6wq0358x1n6" path="res://Assets/UI/Old UI/bitfantasy.ttf" id="9_y8ayo"]
 [ext_resource type="Texture2D" uid="uid://dq1ek7agxhjui" path="res://Assets/UI/New UI/exit-icon.png" id="13_qd6vl"]
 [ext_resource type="Texture2D" uid="uid://bim5x7jr325if" path="res://Assets/UI/New UI/timer-icon.png" id="14_fnwhb"]
+[ext_resource type="Script" uid="uid://cx4t5dakvgjd0" path="res://Scripts/Entities/UI/Labels/ResourceLabel.cs" id="16_g8b6g"]
 [ext_resource type="Script" uid="uid://b5nm2538gghof" path="res://Scripts/Entities/UI/Cronometer.cs" id="16_uef4r"]
+[ext_resource type="Resource" uid="uid://n1m0sqcfda43" path="res://Data/Collectables/Salmon/Salmon.tres" id="17_hwb2u"]
+[ext_resource type="Resource" uid="uid://dhh6g7dtdcny6" path="res://Data/Collectables/Catnip/Catnip.tres" id="18_i20fi"]
+[ext_resource type="Resource" uid="uid://bnm27wrbaa38i" path="res://Data/Collectables/Sand/Sand.tres" id="19_hkkdp"]
 
 [node name="ResourcesCount" type="Control"]
 layout_mode = 3
@@ -26,18 +30,25 @@ offset_right = 384.0
 offset_bottom = 216.0
 grow_horizontal = 2
 grow_vertical = 2
-scale = Vector2(0.75, 0.75)
+scale = Vector2(0.85, 0.85)
 size_flags_horizontal = 0
+mouse_filter = 1
 
 [node name="CommuneLifeFrame" type="Sprite2D" parent="."]
 position = Vector2(517, 36)
 scale = Vector2(2, 2)
 texture = ExtResource("2_qtdtv")
 
-[node name="CommuneLifeBar" type="Sprite2D" parent="."]
-position = Vector2(517, 36)
+[node name="CommuneLifeBar" type="TextureProgressBar" parent="."]
+layout_mode = 0
+offset_left = 384.0
+offset_top = 27.0
+offset_right = 518.0
+offset_bottom = 36.0
 scale = Vector2(2, 2)
-texture = ExtResource("3_4rrdd")
+step = 0.1
+value = 100.0
+texture_progress = ExtResource("3_4rrdd")
 
 [node name="Counters" type="Node2D" parent="."]
 scale = Vector2(1.3, 1.3)
@@ -68,11 +79,12 @@ scale = Vector2(1.5, 1.5)
 texture = ExtResource("1_tpg15")
 
 [node name="Counter6" type="Sprite2D" parent="Counters"]
-position = Vector2(1096.41, 60.9108)
+position = Vector2(961.086, 62.3077)
 scale = Vector2(1.5, 1.5)
 texture = ExtResource("2_jyj8v")
 
 [node name="Icons" type="Node2D" parent="."]
+position = Vector2(0, -1)
 
 [node name="CountersBackground" type="Sprite2D" parent="Icons"]
 position = Vector2(188, 30)
@@ -80,7 +92,7 @@ scale = Vector2(2, 2.432)
 texture = ExtResource("2_xvpgi")
 
 [node name="CountersBackground2" type="Sprite2D" parent="Icons"]
-position = Vector2(1444.33, 29.184)
+position = Vector2(1268.41, 30.184)
 scale = Vector2(2, 2.432)
 texture = ExtResource("6_ybm6o")
 
@@ -115,18 +127,19 @@ scale = Vector2(2, 2)
 texture = ExtResource("8_tyyrg")
 
 [node name="Exit" type="Sprite2D" parent="Icons"]
-position = Vector2(1498.33, 37.184)
+position = Vector2(1322.41, 38.184)
 scale = Vector2(2, 2)
 texture = ExtResource("13_qd6vl")
 
 [node name="Timer" type="Sprite2D" parent="Icons"]
-position = Vector2(1425.33, 37.184)
+position = Vector2(1249.41, 38.184)
 scale = Vector2(2, 2)
 texture = ExtResource("14_fnwhb")
 
 [node name="Labels" type="Control" parent="."]
 anchors_preset = 0
-offset_right = 40.0
+offset_left = 1.0
+offset_right = 41.0
 offset_bottom = 40.0
 
 [node name="SalmonLabel" type="Label" parent="Labels"]
@@ -135,25 +148,29 @@ offset_left = 118.0
 offset_top = 75.0
 offset_right = 155.0
 offset_bottom = 90.0
-theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_color = Color(1, 0.760784, 0.501961, 1)
 theme_override_fonts/font = ExtResource("9_y8ayo")
 theme_override_font_sizes/font_size = 17
 text = "1000"
 horizontal_alignment = 1
 justification_flags = 161
+script = ExtResource("16_g8b6g")
+Collectable = ExtResource("17_hwb2u")
 
 [node name="CatnipLabel" type="Label" parent="Labels"]
 layout_mode = 0
-offset_left = 256.0
+offset_left = 253.0
 offset_top = 75.0
-offset_right = 293.0
-offset_bottom = 90.0
-theme_override_colors/font_color = Color(0, 0, 0, 1)
+offset_right = 295.0
+offset_bottom = 95.0
+theme_override_colors/font_color = Color(1, 0.760784, 0.501961, 1)
 theme_override_fonts/font = ExtResource("9_y8ayo")
 theme_override_font_sizes/font_size = 17
 text = "1000"
 horizontal_alignment = 1
 justification_flags = 161
+script = ExtResource("16_g8b6g")
+Collectable = ExtResource("18_i20fi")
 
 [node name="SandLabel" type="Label" parent="Labels"]
 layout_mode = 0
@@ -161,12 +178,14 @@ offset_left = 187.0
 offset_top = 75.0
 offset_right = 224.0
 offset_bottom = 90.0
-theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_color = Color(1, 0.760784, 0.501961, 1)
 theme_override_fonts/font = ExtResource("9_y8ayo")
 theme_override_font_sizes/font_size = 17
 text = "1000"
 horizontal_alignment = 1
 justification_flags = 161
+script = ExtResource("16_g8b6g")
+Collectable = ExtResource("19_hkkdp")
 
 [node name="CatsLabel" type="Label" parent="Labels"]
 layout_mode = 0
@@ -174,7 +193,7 @@ offset_left = 49.0
 offset_top = 75.0
 offset_right = 86.0
 offset_bottom = 90.0
-theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_color = Color(1, 0.760784, 0.501961, 1)
 theme_override_fonts/font = ExtResource("9_y8ayo")
 theme_override_font_sizes/font_size = 17
 text = "1000"
@@ -187,7 +206,7 @@ offset_left = 49.0
 offset_top = 166.0
 offset_right = 86.0
 offset_bottom = 181.0
-theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_color = Color(1, 0.760784, 0.501961, 1)
 theme_override_fonts/font = ExtResource("9_y8ayo")
 theme_override_font_sizes/font_size = 17
 text = "1000"
@@ -196,11 +215,11 @@ justification_flags = 161
 
 [node name="TimerLabel" type="Label" parent="Labels"]
 layout_mode = 0
-offset_left = 1405.33
-offset_top = 71.184
-offset_right = 1447.33
-offset_bottom = 86.184
-theme_override_colors/font_color = Color(0, 0, 0, 1)
+offset_left = 1227.41
+offset_top = 73.0
+offset_right = 1269.41
+offset_bottom = 88.0
+theme_override_colors/font_color = Color(1, 0.760784, 0.501961, 1)
 theme_override_fonts/font = ExtResource("9_y8ayo")
 theme_override_font_sizes/font_size = 17
 text = "00:00"

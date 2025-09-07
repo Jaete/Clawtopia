@@ -55,7 +55,7 @@ public partial class TerrainBaking : Node
     {
         if (!CurrentlyBaking)
         {
-            StaticBody2D obstacle = CurrentRegion.GetNode<StaticBody2D>("Obstacle_Region_" + building.Data.Type + "_" + building.SelfIndex);
+            StaticBody2D obstacle = CurrentRegion.GetNode<StaticBody2D>("Obstacle_Region_" + building.Data.Name + "_" + building.SelfIndex);
             obstacle.Reparent(building);
             Rebake();
             CurrentlyBaking = true;
@@ -64,7 +64,7 @@ public partial class TerrainBaking : Node
 
     public void SetRebakeBuilding(Building building)
     {
-        building.StaticBody.Name = "Obstacle_Region_" + building.Data.Type + "_" + building.SelfIndex;
+        building.StaticBody.Name = "Obstacle_Region_" + building.Data.Name + "_" + building.SelfIndex;
         building.StaticBody.Reparent(CurrentRegion);
         CurrentlyBaking = true;
     }

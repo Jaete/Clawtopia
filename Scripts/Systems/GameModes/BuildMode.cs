@@ -37,55 +37,11 @@ public partial class BuildMode : GameMode
 
     public override void Enter()
     {
-        String buildingPath = Constants.BUILDING_PATH;
-
-        ModeManager.Singleton.BuildingCount++;
-        InstantiateBuilding(buildingPath);
-
-        if (CurrentBuilding.Data.Type == Constants.TOWER)
-        {
-            ModeManager.Singleton.FightersTowerCount++;
-            CurrentBuilding.SelfIndex = ModeManager.Singleton.FightersTowerCount;
-            CurrentBuilding.Name = ModeManager.Singleton.TowerType + "_T1_" + CurrentBuilding.SelfIndex;
-            CurrentBuilding.Data = GD.Load<BuildingData>("res://Resources/Buildings/Towers/Fighters/Fighters.tres");
-        }
-        if (CurrentBuilding.Data.Type == Constants.RESOURCE)
-        {
-            switch (CurrentBuilding.Data.ResourceType)
-            {
-                case Constants.SALMON:
-                    ModeManager.Singleton.SalmonCottageCount++;
-                    CurrentBuilding.SelfIndex = ModeManager.Singleton.SalmonCottageCount;
-                    CurrentBuilding.Name = "" + Constants.FISHERMAN_HOUSE_EXTERNAL_NAME + "_" + CurrentBuilding.SelfIndex;
-                    CurrentBuilding.Data = GD.Load<BuildingData>("res://Resources/Buildings/Economy/Salmon/SalmonCottage.tres");
-                    break;
-                case Constants.CATNIP:
-                    ModeManager.Singleton.CatnipFarmCount++;
-                    CurrentBuilding.SelfIndex = ModeManager.Singleton.CatnipFarmCount;
-                    CurrentBuilding.Name = "" + Constants.DISTILLERY_EXTERNAL_NAME + "_" + CurrentBuilding.SelfIndex;
-                    CurrentBuilding.Data = GD.Load<BuildingData>("res://Resources/Buildings/Economy/Catnip/CatnipFarm.tres");
-                    break;
-                case Constants.SAND:
-                    ModeManager.Singleton.SandDepositCount++;
-                    CurrentBuilding.SelfIndex = ModeManager.Singleton.SandDepositCount;
-                    CurrentBuilding.Name = "" + Constants.SAND_MINE_EXTERNAL_NAME+ "_" + CurrentBuilding.SelfIndex;
-                    CurrentBuilding.Data = GD.Load<BuildingData>("res://Resources/Buildings/Economy/Sand/SandMine.tres");
-                    break;
-            }
-        }
-        if (CurrentBuilding.Data.Type == Constants.HOUSE)
-        {
-            ModeManager.Singleton.HouseCount++;
-            CurrentBuilding.SelfIndex = ModeManager.Singleton.HouseCount;
-            CurrentBuilding.Name = "" + Constants.HOUSE_EXTERNAL_NAME + "_" + CurrentBuilding.SelfIndex;
-            CurrentBuilding.Data = GD.Load<BuildingData>("res://Resources/Buildings/House/House.tres");
-        }
-
         CurrentBuilding.InputPickable = false;
         ModeManager.Singleton.CurrentLevel.AddChild(CurrentBuilding);
         MousePosition = ModeManager.Singleton.CurrentLevel.GetGlobalMousePosition();
         CurrentBuilding.GlobalPosition = MousePosition;
-        CurrentConstructors = GetNode<SimulationMode>("../SimulationMode").SelectedAllies;
+        CurrentConstructors = SimulationMode.Singleton.SelectedAllies;
     }
 
     public override void Update()
@@ -184,13 +140,6 @@ public partial class BuildMode : GameMode
             CurrentBuilding.GlobalPosition.X + newX,
             CurrentBuilding.GlobalPosition.Y + newY
         );
-    }
-
-    private void InstantiateBuilding(String buildingPath)
-    {
-        PackedScene buildingScene = GD.Load<PackedScene>(buildingPath);
-        CurrentBuilding = (Building)buildingScene.Instantiate();
-        CurrentBuilding.Data = CurrentBuildingData;
     }
 
     public void WhenBuildingCompleted(Building building)

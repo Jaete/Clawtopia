@@ -53,7 +53,7 @@ public partial class Collect : EconomicState
         }
         else
         {
-            var target = GetClosestResourceBuilding(Ally.GlobalPosition, CurrentlyCollecting.ResourceType);
+            var target = GetClosestResourceBuilding(Ally.GlobalPosition, CurrentlyCollecting.Resource);
             Ally.Navigation.SetTargetPosition(target.GlobalPosition);
             Ally.Delivering = true;
             ChangeState("Move");

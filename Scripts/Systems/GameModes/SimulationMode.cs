@@ -57,8 +57,9 @@ public partial class SimulationMode : GameMode
     {
         if (Dragging)
         {
-            ShapeSize = ModeManager.Singleton.CurrentLevel.GetGlobalMousePosition() - StartingPoint;
-            ShapePosition = ShapeSize / 2;
+            var shapeSize = ModeManager.Singleton.CurrentLevel.GetGlobalMousePosition() - StartingPoint;
+            ShapeSize = shapeSize != Vector2.Zero ? shapeSize : Vector2.One;
+            ShapePosition = ShapeSize / 2;  
             VisualSelection.SelectionShape.Size = ShapeSize.Abs();
             SelectionPolygon.Position = ShapePosition;
             VisualSelection.Position = ShapePosition;
@@ -75,6 +76,7 @@ public partial class SimulationMode : GameMode
         VisualSelection = new SelectionBox();
         SelectionPolygon.Shape = SelectionShape;
         VisualSelection.SelectionShape = SelectionShape;
+        VisualSelection.SelectionShape.Size = Vector2.One;
         SelectionArea.AddChild(SelectionPolygon);
         SelectionArea.AddChild(VisualSelection);
         AddChild(SelectionArea);
@@ -146,7 +148,6 @@ public partial class SimulationMode : GameMode
        
         var overlappingAreas = SelectionArea.GetOverlappingAreas();
         var ui = GetNode<UI>("/root/Game/UI");
-
         if (overlappingAreas.Count == 0)
         {
             ui.Reset_ui();

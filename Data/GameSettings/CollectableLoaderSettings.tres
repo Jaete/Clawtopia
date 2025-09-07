@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="CollectableLoaderSettings" load_steps=3 format=3 uid="uid://bok8wu8nfwmsr"]
+
+[ext_resource type="PackedScene" uid="uid://do112iq0j68lm" path="res://TSCN/Entities/Resources/Collectable.tscn" id="1_wsjjy"]
+[ext_resource type="Script" uid="uid://c154s0oq7odwh" path="res://Scripts/Systems/Tooling/CollectableLoader/CollectableLoaderSettings.cs" id="2_t2vhr"]
+
+[resource]
+script = ExtResource("2_t2vhr")
+BaseCollectable = ExtResource("1_wsjjy")
+ResourceDirectory = "res://Data"
+metadata/_custom_type_script = "uid://c154s0oq7odwh"

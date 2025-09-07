@@ -1,7 +1,7 @@
 [gd_scene load_steps=15 format=3 uid="uid://b4expjtsyc8um"]
 
 [ext_resource type="Script" uid="uid://cmjhmv6wwd1tn" path="res://Scripts/Entities/UI/AddBuilding.cs" id="1_gp4cw"]
-[ext_resource type="Resource" uid="uid://f0n4etcb423u" path="res://Resources/Buildings/Economy/Salmon/SalmonCottage.tres" id="2_cb2yu"]
+[ext_resource type="Resource" uid="uid://btqpr3ncys8yj" path="res://Data/Buildings/SalmonCottage/SalmonCottage.tres" id="2_k5aik"]
 [ext_resource type="Texture2D" uid="uid://dctwksay4d8ec" path="res://Assets/UI/New UI/salmon-storage-icon.png" id="3_pbwt2"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_vf24x"]
@@ -39,7 +39,6 @@ mouse_filter = 1
 layout_mode = 0
 offset_right = 64.0
 offset_bottom = 68.0
-mouse_filter = 1
 theme_override_styles/focus = SubResource("StyleBoxEmpty_vf24x")
 theme_override_styles/disabled_mirrored = SubResource("StyleBoxEmpty_swuj3")
 theme_override_styles/disabled = SubResource("StyleBoxEmpty_hub66")
@@ -52,7 +51,7 @@ theme_override_styles/pressed = SubResource("StyleBoxEmpty_8t6ra")
 theme_override_styles/normal_mirrored = SubResource("StyleBoxEmpty_ulnfm")
 theme_override_styles/normal = SubResource("StyleBoxEmpty_vqutg")
 script = ExtResource("1_gp4cw")
-Building = ExtResource("2_cb2yu")
+BuildingToAdd = ExtResource("2_k5aik")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(32, 34)

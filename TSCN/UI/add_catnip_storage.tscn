@@ -1,0 +1,65 @@
+[gd_scene load_steps=15 format=3 uid="uid://dtreq5vxxycqb"]
+
+[ext_resource type="Texture2D" uid="uid://cdse27kpapcwh" path="res://Assets/UI/New UI/catnip-storage-icon.png" id="1_3f4q3"]
+[ext_resource type="Script" uid="uid://cmjhmv6wwd1tn" path="res://Scripts/Entities/UI/AddBuilding.cs" id="1_rpuoa"]
+[ext_resource type="Resource" uid="uid://rs4cciu3h1rm" path="res://Data/Buildings/CatnipFarm/CatnipFarm.tres" id="2_5ekdt"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_7fdb8"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_dlfan"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_08exl"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_cd8xp"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_7oh83"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_lwitm"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_aucvs"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_rwsy0"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_60c3q"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ojue0"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_jtp1b"]
+
+[node name="CatnipStorage" type="Control"]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 3
+anchors_preset = 0
+size_flags_horizontal = 4
+mouse_filter = 1
+
+[node name="Button" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.182
+anchor_top = 0.254
+anchor_right = 0.182
+anchor_bottom = 0.254
+offset_left = -11.648
+offset_top = -16.256
+offset_right = 52.352
+offset_bottom = 47.744
+theme_override_styles/focus = SubResource("StyleBoxEmpty_7fdb8")
+theme_override_styles/disabled_mirrored = SubResource("StyleBoxEmpty_dlfan")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_08exl")
+theme_override_styles/hover_pressed_mirrored = SubResource("StyleBoxEmpty_cd8xp")
+theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_7oh83")
+theme_override_styles/hover_mirrored = SubResource("StyleBoxEmpty_lwitm")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_aucvs")
+theme_override_styles/pressed_mirrored = SubResource("StyleBoxEmpty_rwsy0")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_60c3q")
+theme_override_styles/normal_mirrored = SubResource("StyleBoxEmpty_ojue0")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_jtp1b")
+script = ExtResource("1_rpuoa")
+BuildingToAdd = ExtResource("2_5ekdt")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(32, 34)
+scale = Vector2(2, 2)
+texture = ExtResource("1_3f4q3")
+region_rect = Rect2(128, 0, 64, 64)

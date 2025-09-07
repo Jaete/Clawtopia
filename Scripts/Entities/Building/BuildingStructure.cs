@@ -3,6 +3,7 @@ using Godot.Collections;
 
 namespace ClawtopiaCs.Scripts.Entities.Building
 {
+    [GlobalClass, Tool]
     public partial class BuildingStructure : Resource
     {
         [Export] public Texture2D PreviewTexture;

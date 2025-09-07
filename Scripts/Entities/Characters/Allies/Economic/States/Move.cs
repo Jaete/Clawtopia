@@ -52,13 +52,13 @@ public partial class Move : EconomicState
                 return;
             }
 
-            switch (Ally.InteractedBuilding.Data.Type)
+            switch (Ally.InteractedBuilding.Data.BuildingType)
             {
-                case Constants.TOWER:
+                case BuildingData.Type.Tower:
                     ChangeState("Taking_shelter");
                     return;
-                case Constants.RESOURCE:
-                    EconomicBehaviour.SeekResource(Ally, Ally.InteractedBuilding.Data.ResourceType);
+                case BuildingData.Type.Resource:
+                    EconomicBehaviour.SeekResource(Ally, Ally.InteractedBuilding.Data.Resource);
                     return;
             }
         }

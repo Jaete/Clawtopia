@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://dho18abrmfc1q"]
+[gd_scene load_steps=22 format=3 uid="uid://cqd1fw7ln0x4l"]
 
 [ext_resource type="Script" uid="uid://byq50iadns3cp" path="res://Scripts/Entities/UI/HouseMenu.cs" id="1_ktwdd"]
 [ext_resource type="Texture2D" uid="uid://uds1dtcw43fy" path="res://Assets/UI/New UI/house-menu-background.png" id="2_64ccs"]

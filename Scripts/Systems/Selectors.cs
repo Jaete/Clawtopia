@@ -1,5 +1,7 @@
+using System.Linq;
 using Godot;
 using Godot.Collections;
+using static BuildingData;
 
 namespace ClawtopiaCs.Scripts.Systems;
 
@@ -33,8 +35,8 @@ public partial class Selectors : Node2D
     {
         var buildingInFront = SelectTopBuilding(overlappingAreas);
         if (buildingInFront is null) { return; }
-        switch (buildingInFront.Data.Type) {
-            case Constants.HOUSE:
+        switch (buildingInFront.Data.BuildingType) {
+            case BuildingData.Type.House:
                 ui.Instantiate_window(Constants.HOUSE_MENU, buildingInFront);
                 break;
             default:
@@ -105,7 +107,7 @@ public partial class Selectors : Node2D
         return ally;
     }
 
-    public static string GetInteractedResourceType(Ally ally, Vector2 coords)
+    public static Collectable GetInteractedResourceType(Ally ally, Vector2 coords)
     {
         PhysicsDirectSpaceState2D space = ally.GetWorld2D().DirectSpaceState;
         PhysicsPointQueryParameters2D query = new();
@@ -119,19 +121,9 @@ public partial class Selectors : Node2D
             {
                 var collider = collision["collider"].As<GodotObject>();
 
-                if (collider is SalmonCollectPoint)
+                if (collider is CollectPoint collectPoint)
                 {
-                    return Constants.SALMON;
-                }
-
-                if (collider is CatnipCollectPoint)
-                {
-                    return Constants.CATNIP;
-                }
-
-                if (collider is SandCollectPoint)
-                {
-                    return Constants.SAND;
+                    return (Collectable) collectPoint.Resource;
                 }
             }
         }
@@ -143,7 +135,7 @@ public partial class Selectors : Node2D
         ally.InteractedResource = resource;
         foreach (var point in LevelManager.Singleton.CollectPoints)
         {
-            ally.InteractedResource = (CollectPoint)Selectors.GetClosestObject(
+            ally.InteractedResource = (CollectPoint) Selectors.GetClosestObject(
                 coords,
                 ally.InteractedResource,
                 point
@@ -154,52 +146,26 @@ public partial class Selectors : Node2D
     }
 
     public static Node2D GetClosestObject(Vector2 coords, Node2D currentClosest, Node2D item) {
-        // SE É A PRIMEIRA ITERACAO, RETORNA DIRETO
         if (currentClosest == default)
         {
             return item;
         }
-        // SENAO, COMPARA DISTANCIA
+
         if (currentClosest.GlobalPosition.DistanceSquaredTo(coords) > item.GlobalPosition.DistanceSquaredTo(coords))
         {
             return item;
         }
+
         return currentClosest;
     }
 
-    public static Array<CollectPoint> GetCollectPoints(string type) {
-        Array<CollectPoint> points = new();
-
-        switch (type) { 
-            case Constants.SALMON:
-                foreach (var item in LevelManager.Singleton.CollectPoints)
-                {
-                    if (item is SalmonCollectPoint)
-                    {
-                        points.Add(item);
-                    }
-                }
-                break;
-            case Constants.CATNIP:
-                foreach (var item in LevelManager.Singleton.CollectPoints)
-                {
-                    if (item is CatnipCollectPoint)
-                    {
-                        points.Add(item);
-                    }
-                }
-                break;
-            case Constants.SAND:
-                foreach (var item in LevelManager.Singleton.CollectPoints)
-                {
-                    if (item is SandCollectPoint)
-                    {
-                        points.Add(item);
-                    }
-                }
-                break;
-        }
-
-        return points;
+    public static Array<CollectPoint> GetCollectPoints(Collectable collectable) {
+        CollectableList list = CollectableLoader.Singleton.Collectables;
+        
+        var collectables = LevelManager.Singleton.CollectPoints
+            .Where(p => p.Resource.Name == collectable.Name)
+            .ToArray();
+        
+        return new Array<CollectPoint>(collectables);
     }
 }

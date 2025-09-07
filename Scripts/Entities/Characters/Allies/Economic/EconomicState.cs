@@ -1,7 +1,8 @@
+using System.Linq;
 using ClawtopiaCs.Scripts.Systems;
-using ClawtopiaCs.Scripts.Systems.GameModes;
 using Godot;
 using Godot.Collections;
+using static BuildingData;
 
 public partial class EconomicState : AllyState
 {
@@ -47,28 +48,19 @@ public partial class EconomicState : AllyState
     /// Procura todos os nodes de construcoes do recurso especifico no cenario
     /// e retorna as coordenadas globais da construcao mais proxima.
     ///
-    /// Utiliza-se da funcao <c>GetClosestBuilding</c> para evitar repeticao
+    /// Utiliza-se da funcao <c>GetClosestObject</c> para evitar repeticao
     /// de codigo.
     /// </summary>
     /// <returns> <c>Building</c> Construcao mais proxima</returns>
-    public static Building GetClosestResourceBuilding(Vector2 coords, string resource)
+    public static Building GetClosestResourceBuilding(Vector2 coords, Collectable resource)
     {
         Building closestBuilding = default;
-        Array<Building> buildingsToSearch = new();
 
-        switch (resource)
-        {
-            case Constants.SALMON:
-                buildingsToSearch = LevelManager.Singleton.SalmonBuildings;
-                break;
-            case Constants.CATNIP:
-                buildingsToSearch = LevelManager.Singleton.CatnipBuildings;
-                break;
-            case Constants.SAND:
-                buildingsToSearch = LevelManager.Singleton.SandBuildings;
-                break;
-        }
-        if (buildingsToSearch.Count > 0)
+        Building[] buildingsToSearch = LevelManager.Singleton.CollectorBuildings
+            .Where(b => b.ResourceType == resource.Name)
+            .ToArray();
+
+        if (buildingsToSearch.Length > 0)
         {
             foreach (var building in buildingsToSearch)
             {
