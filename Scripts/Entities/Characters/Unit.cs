@@ -11,5 +11,4 @@ public partial class Unit : CharacterBody2D
     [Export] public NavigationAgent2D Navigation;
     [Export] public AnimatedSprite2D Sprite;
     [Export] public Area2D InteractionShape;
-    [Export] public AnimController AnimController;
 }

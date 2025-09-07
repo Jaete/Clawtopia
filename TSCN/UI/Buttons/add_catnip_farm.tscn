@@ -1,10 +1,10 @@
-[gd_scene load_steps=17 format=3 uid="uid://c3pqhyhaqpi4"]
+[gd_scene load_steps=17 format=3 uid="uid://nfalpy65pq2n"]
 
-[ext_resource type="Script" path="res://Scripts/Entities/UI/AddBuilding.cs" id="1_1dkp4"]
-[ext_resource type="Resource" uid="uid://bms2vyey7k06o" path="res://Resources/Buildings/Economy/Catnip/CatnipFarm.tres" id="2_nofyq"]
-[ext_resource type="Texture2D" uid="uid://br5ydadhldshi" path="res://Assets/UI/64px_botoes_corB.png" id="3_jscbq"]
-[ext_resource type="Texture2D" uid="uid://daxi84t0vn6q" path="res://Assets/UI/Teclas_ativas_unic.png" id="4_wj52d"]
-[ext_resource type="FontFile" uid="uid://cr6wq0358x1n6" path="res://Assets/UI/bitfantasy.ttf" id="5_c7e77"]
+[ext_resource type="Script" uid="uid://cmjhmv6wwd1tn" path="res://Scripts/Entities/UI/AddBuilding.cs" id="1_8u1fu"]
+[ext_resource type="Resource" uid="uid://gsdfrdo0nsnm" path="res://Data/Buildings/Mercado 2/Mercado 2.tres" id="2_8u1fu"]
+[ext_resource type="Texture2D" uid="uid://br5ydadhldshi" path="res://Assets/UI/Old UI/64px_botoes_corB.png" id="3_36fsd"]
+[ext_resource type="Texture2D" uid="uid://daxi84t0vn6q" path="res://Assets/UI/Old UI/Teclas_ativas_unic.png" id="4_f2i3o"]
+[ext_resource type="FontFile" uid="uid://cr6wq0358x1n6" path="res://Assets/UI/Old UI/bitfantasy.ttf" id="5_o46w7"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_vf24x"]
 
@@ -39,11 +39,9 @@ mouse_filter = 1
 
 [node name="Button" type="Button" parent="."]
 layout_mode = 0
-offset_left = -23.0
-offset_top = -26.0
-offset_right = 30.0
-offset_bottom = 31.0
-mouse_filter = 1
+offset_left = 1.0
+offset_right = 54.0
+offset_bottom = 57.0
 theme_override_styles/focus = SubResource("StyleBoxEmpty_vf24x")
 theme_override_styles/disabled_mirrored = SubResource("StyleBoxEmpty_swuj3")
 theme_override_styles/disabled = SubResource("StyleBoxEmpty_hub66")
@@ -55,21 +53,21 @@ theme_override_styles/pressed_mirrored = SubResource("StyleBoxEmpty_eqqp1")
 theme_override_styles/pressed = SubResource("StyleBoxEmpty_8t6ra")
 theme_override_styles/normal_mirrored = SubResource("StyleBoxEmpty_ulnfm")
 theme_override_styles/normal = SubResource("StyleBoxEmpty_vqutg")
-script = ExtResource("1_1dkp4")
-Building = ExtResource("2_nofyq")
+script = ExtResource("1_8u1fu")
+BuildingToAdd = ExtResource("2_8u1fu")
 
 [node name="Icon" type="Sprite2D" parent="."]
 modulate = Color(0, 0.698225, 0.309678, 1)
-position = Vector2(3, 2.5)
+position = Vector2(27, 28.5)
 scale = Vector2(0.84375, 0.890625)
-texture = ExtResource("3_jscbq")
+texture = ExtResource("3_36fsd")
 region_enabled = true
 region_rect = Rect2(192, 0, 64, 64)
 
 [node name="Keybind" type="Sprite2D" parent="."]
-position = Vector2(16, 31)
+position = Vector2(40, 57)
 scale = Vector2(1.55882, 1.8)
-texture = ExtResource("4_wj52d")
+texture = ExtResource("4_f2i3o")
 
 [node name="Key" type="Label" parent="Keybind"]
 offset_left = -3.20755
@@ -78,5 +76,5 @@ offset_right = 36.7924
 offset_bottom = 18.0
 scale = Vector2(0.7, 0.7)
 theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_fonts/font = ExtResource("5_c7e77")
+theme_override_fonts/font = ExtResource("5_o46w7")
 text = "z"

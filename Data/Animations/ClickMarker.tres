@@ -1,0 +1,42 @@
+[gd_resource type="SpriteFrames" load_steps=6 format=3 uid="uid://b00fa67msu4j8"]
+
+[ext_resource type="Texture2D" uid="uid://da5480rcjrmeu" path="res://Assets/UI/New UI/clickmarker.png" id="1_tr1gv"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nrgu2"]
+atlas = ExtResource("1_tr1gv")
+region = Rect2(64, 0, 64, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gpweb"]
+atlas = ExtResource("1_tr1gv")
+region = Rect2(128, 0, 64, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_c82rk"]
+atlas = ExtResource("1_tr1gv")
+region = Rect2(192, 0, 64, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xuxbw"]
+atlas = ExtResource("1_tr1gv")
+region = Rect2(0, 0, 64, 32)
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nrgu2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gpweb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_c82rk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xuxbw")
+}, {
+"duration": 1.0,
+"texture": null
+}],
+"loop": false,
+"name": &"click",
+"speed": 8.0
+}]

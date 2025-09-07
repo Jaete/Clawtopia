@@ -2,44 +2,45 @@
 using ClawtopiaCs.Scripts.Systems.GameModes;
 using Godot;
 using Godot.Collections;
+using static BuildingData;
 
 public partial class EconomicBehaviour : Resource
 {
-    public static void SeekResource(Ally ally, string resourceType)
+    public static void SeekResource(Ally ally, Collectable resourceType)
     {
         Array<CollectPoint> resourceToSeek = Selectors.GetCollectPoints(resourceType);
 
         foreach (var point in resourceToSeek)
         {
-            ally.InteractedResource = (CollectPoint)Selectors.GetClosestObject(
+            ally.InteractedCollectPoint = (CollectPoint)Selectors.GetClosestObject(
                  ally.GlobalPosition,
-                 ally.InteractedResource,
+                 ally.InteractedCollectPoint,
                  point
              );
         }
-        ally.Navigation.SetTargetPosition(ally.InteractedResource.GlobalPosition);
-        ally.InteractedResource.ResourceType = resourceType;
+        ally.Navigation.SetTargetPosition(ally.InteractedCollectPoint.GlobalPosition);
+        ally.InteractedCollectPoint.Resource = resourceType;
         ally.InteractedWithBuilding = false;
     }
 
     public static void DeliverResource(Ally ally)
     {
-        var resource = new Dictionary<string, int>
-            {
-                { ally.InteractedResource.ResourceType, ally.ResourceCurrentQuantity }
-            };
+        var resource = new Dictionary<Collectable, int>
+        {
+            { ally.InteractedCollectPoint.Resource, ally.ResourceCurrentQuantity }
+        };
 
         LevelManager.Singleton.EmitSignal(LevelManager.SignalName.ResourceDelivered, resource);
 
         ally.ResourceCurrentQuantity = 0;
         ally.Delivering = false;
-        ally.Navigation.SetTargetPosition(ally.InteractedResource.GlobalPosition);
+        ally.Navigation.SetTargetPosition(ally.InteractedCollectPoint.GlobalPosition);
     }
 
     public static void ChooseNextTargetPosition(Ally ally, Vector2 coords)
     {
         Vector2 nextTarget = coords;
-        ally.InteractedResource = null;
+        ally.InteractedCollectPoint = null;
         ally.InteractedBuilding = null;
         ally.InteractedWithBuilding = SimulationMode.Singleton.BuildingsToInteract.Count > 0;
 
@@ -51,14 +52,13 @@ public partial class EconomicBehaviour : Resource
         }
         else
         {
-            string interactedResource = Selectors.GetInteractedResourceType(ally, coords);
+            Collectable interactedResource = Selectors.GetInteractedResourceType(ally, coords);
             if (interactedResource != null)
             {
                 Array<CollectPoint> collectPoints = Selectors.GetCollectPoints(interactedResource);
                 nextTarget = Selectors.GetClosestCollectPoint(ally, coords, collectPoints[0]).GlobalPosition;
             }
         }
-
         ally.Navigation.SetTargetPosition(nextTarget);
     }
 

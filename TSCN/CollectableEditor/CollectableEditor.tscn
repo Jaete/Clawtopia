@@ -1,0 +1,38 @@
+[gd_scene load_steps=9 format=3 uid="uid://dg4pgl076pl22"]
+
+[ext_resource type="Script" uid="uid://c6csbyu1t3yu2" path="res://Scripts/Systems/Tooling/CollectableEditor/CollectableEditor.cs" id="1_ket31"]
+[ext_resource type="PackedScene" uid="uid://do112iq0j68lm" path="res://TSCN/Entities/Resources/Collectable.tscn" id="2_levy6"]
+[ext_resource type="Resource" uid="uid://b7o0ai8823dnj" path="res://Data/GameSettings/CollectableEditorSettings.tres" id="2_xmclw"]
+[ext_resource type="Script" uid="uid://h8pm7g1mrlmc" path="res://Scripts/Entities/Resources/CollectPoint.cs" id="4_k1xae"]
+[ext_resource type="Resource" uid="uid://b6a4igbgv8bpp" path="res://Data/Collectables/CollectableList.tres" id="5_lbxcg"]
+[ext_resource type="Resource" uid="uid://dhh6g7dtdcny6" path="res://Data/Collectables/Catnip/Catnip.tres" id="6_k1xae"]
+[ext_resource type="Script" uid="uid://3atiy2cgerbv" path="res://Scripts/Entities/Resources/CollectPointPolygon.cs" id="7_yic56"]
+[ext_resource type="Texture2D" uid="uid://cq16jpph5052d" path="res://Assets/Spritesheets/Resources/asset_catnip_material3.png" id="8_lbxcg"]
+
+[node name="CollectableEditor" type="Node2D"]
+script = ExtResource("1_ket31")
+Settings = ExtResource("2_xmclw")
+CollectableToLoad = "Catnip"
+
+[node name="Catnip" parent="." node_paths=PackedStringArray("Interaction", "InteractionShape", "BodyShape") instance=ExtResource("2_levy6")]
+script = ExtResource("4_k1xae")
+Collectables = ExtResource("5_lbxcg")
+Interaction = NodePath("Interaction")
+InteractionShape = NodePath("Interaction/InteractionShape")
+BodyShape = NodePath("BodyShape")
+Resource = ExtResource("6_k1xae")
+
+[node name="BodyShape" parent="Catnip" index="0" node_paths=PackedStringArray("Point")]
+polygon = PackedVector2Array(0, 24, -32, 8, 0, -8, 32, 8)
+script = ExtResource("7_yic56")
+Point = NodePath("..")
+
+[node name="InteractionShape" parent="Catnip/Interaction" index="0" node_paths=PackedStringArray("Point")]
+polygon = PackedVector2Array(24, 16, -24, 16, -24, -16, 24, -16)
+script = ExtResource("7_yic56")
+Point = NodePath("../..")
+
+[node name="@Sprite2D@71740" parent="Catnip" index="2"]
+texture = ExtResource("8_lbxcg")
+
+[editable path="Catnip"]

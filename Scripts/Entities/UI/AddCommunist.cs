@@ -33,32 +33,34 @@ public partial class AddCommunist : UIButton
 
     private void SpawnCommunist()
     { 
-        var addCommunist = _scene.Instantiate<Ally>();
+        var communist = _scene.Instantiate<Ally>();
         var houseNode = UI.Singleton.BuildingMenuControl.Building;
 
         //INICIA SPAWN DOS GATOS CAMPONESES
         ResourceSpawnTimer = GetTree().CreateTimer(SpawnTimer);
 
-        if (LevelManager.Singleton.CurrentResources[Constants.SALMON] >= 100)
+        foreach (var cost in communist.Attributes.ResourceCosts)
         {
-            LevelManager.Singleton.EmitSignal(LevelManager.SignalName.ResourceExpended, addCommunist.Attributes.ResourceCosts);
-            ResourceSpawnTimer.Timeout += delegate
+            if (LevelManager.Singleton.CurrentResources[cost.Key] < communist.Attributes.ResourceCosts[cost.Key])
             {
-                if (houseNode.IsRotated)
-                {
-                    addCommunist.GlobalPosition = houseNode.GlobalPosition + _communistPositionRotated;
-                }
-                else
-                {
-                    addCommunist.GlobalPosition = houseNode.GlobalPosition + _communistPosition;
-                }
-                ModeManager.Singleton.CurrentLevel.AddChild(addCommunist);
-            };
+                //TODO: colocar implementacao de exibir UI indicando que nao tem recurso, voz, etc.
+                GD.Print("QUANTIDADE INSUFICIENTE DE RECURSO");
+                return;   
+            }
         }
-        else
+
+        LevelManager.Singleton.EmitSignal(LevelManager.SignalName.ResourceExpended, communist.Attributes.ResourceCosts);
+        ResourceSpawnTimer.Timeout += delegate
         {
-            //TODO: colocar implementacao de exibir UI indicando que nao tem recurso, voz, etc.
-            GD.Print("QUANTIDADE INSUFICIENTE DE RECURSO");
-        }
+            if (houseNode.IsRotated)
+            {
+                communist.GlobalPosition = houseNode.GlobalPosition + _communistPositionRotated;
+            }
+            else
+            {
+                communist.GlobalPosition = houseNode.GlobalPosition + _communistPosition;
+            }
+            ModeManager.Singleton.CurrentLevel.AddChild(communist);
+        };
     }
 }

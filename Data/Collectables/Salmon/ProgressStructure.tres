@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="ProgressStructure" load_steps=3 format=3 uid="uid://joagk02rxg78"]
+
+[ext_resource type="SpriteFrames" uid="uid://cbbcav4heu0w2" path="res://Data/Animations/Salmon.tres" id="1_8l1w3"]
+[ext_resource type="Script" uid="uid://cate2qdtu3nxb" path="res://Scripts/Entities/ProgressStructure.cs" id="2_6ph07"]
+
+[resource]
+script = ExtResource("2_6ph07")
+Type = 1
+AnimatedTextures = ExtResource("1_8l1w3")
+metadata/_custom_type_script = "uid://cate2qdtu3nxb"

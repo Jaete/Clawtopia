@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="AnimController" load_steps=3 format=3 uid="uid://c70km055hj735"]
+
+[ext_resource type="SpriteFrames" uid="uid://xdmrkkv6u24t" path="res://Data/Animations/Characters/Economic.tres" id="1_3f8iv"]
+[ext_resource type="Script" uid="uid://cxcex0k6mphj3" path="res://Scripts/Entities/Characters/AnimController.cs" id="2_0fg6k"]
+
+[resource]
+script = ExtResource("2_0fg6k")
+Animations = ExtResource("1_3f8iv")
+AnimationLeft = "idle_left"
+AnimationRight = "idle_right"
+AnimationUpLeft = ""
+AnimationUpRight = ""
+AnimationDownLeft = ""
+AnimationDownRight = ""
+AnimationDown = ""
+AnimationUp = ""
+metadata/_custom_type_script = "uid://cxcex0k6mphj3"

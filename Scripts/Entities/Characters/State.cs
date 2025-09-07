@@ -7,6 +7,9 @@ public partial class State : Node
     [Signal]
     public delegate void StateTransitionEventHandler(State current, String next);
 
+    [ExportGroup("Settings")]
+    [Export] public AnimController AnimationController { get; set; }
+
     public Unit Unit;
 
     public virtual void Enter() {}

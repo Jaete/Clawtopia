@@ -54,6 +54,14 @@ public partial class Constants : Node
     public const string DISTILLERY_EXTERNAL_NAME = "Destilaria";
     public const string SAND_MINE_EXTERNAL_NAME = "Mina de Areia";
 
+    public const string BUILDING_EXTERNAL_NAME_LIST =
+        HOUSE_EXTERNAL_NAME + "," +
+        COMMUNE_EXTERNAL_NAME + "," +
+        FIGHTERS_TOWER_EXTERNAL_NAME + "," +
+        FISHERMAN_HOUSE_EXTERNAL_NAME + "," +
+        DISTILLERY_EXTERNAL_NAME + "," +
+        SAND_MINE_EXTERNAL_NAME;
+
     public const string BUILDING_PATH = "res://TSCN/Entities/Buildings/Building.tscn";
     public const string MODE_MANAGER_PATH = "/root/Game/ModeManager";
     public const string BUILD_MODE_PATH = "/root/Game/ModeManager/BuildMode";

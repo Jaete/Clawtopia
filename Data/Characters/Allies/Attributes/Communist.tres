@@ -1,0 +1,14 @@
+[gd_resource type="Resource" load_steps=3 format=3 uid="uid://cg7alavmqxtqn"]
+
+[ext_resource type="Script" uid="uid://cwq6oc3ubchh3" path="res://Scripts/Entities/Characters/Attributes.cs" id="1_7c5nw"]
+[ext_resource type="Script" uid="uid://31culyiluxic" path="res://Scripts/Entities/Resources/Collectable.cs" id="1_inycw"]
+
+[resource]
+script = ExtResource("1_7c5nw")
+Hp = 50
+Damage = 0
+MoveSpeed = 100.0
+AttackSpeed = 0.0
+VisionRange = 0
+AttackRange = 0
+ResourceCosts = Dictionary[ExtResource("1_inycw"), int]({})

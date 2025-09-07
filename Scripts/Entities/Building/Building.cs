@@ -1,12 +1,13 @@
-using System;
-using ClawtopiaCs.Scripts.Entities;
 using ClawtopiaCs.Scripts.Entities.Building;
 using ClawtopiaCs.Scripts.Systems;
 using ClawtopiaCs.Scripts.Systems.GameModes;
-using ClawtopiaCs.Scripts.Systems.Interactions;
+using ClawtopiaCs.Scripts.Systems.Tooling;
 using Godot;
 using Godot.Collections;
+using static BuildingData;
+using ClawtopiaCs.Scripts.Entities;
 
+[GlobalClass, Tool]
 public partial class Building : Area2D
 {
     [Signal]
@@ -18,7 +19,41 @@ public partial class Building : Area2D
     [Signal]
     public delegate void DestroyedEventHandler ();
 
+    [ExportGroup("Building Settings")]
+    [Export]
+    public BuildingList Buildings;
+
+    [Export]
+    public bool IsPreSpawned
+    {
+        get => _isPreSpawned;
+        set
+        {
+            _isPreSpawned = value;
+            if (Engine.IsEditorHint() && IsNodeReady())
+            {
+                BuildingEditor.ReloadBuilding(this);
+            }
+        }
+    }
+
+    [Export] public bool IsRotated
+    {
+        get => _isRotated;
+        set
+        {
+            _isRotated = value;
+            if (Engine.IsEditorHint() && IsNodeReady())
+            {
+                BuildingEditor.ReloadBuilding(this);
+            }
+        }
+    }
+
+    private bool _isPreSpawned = false;
+    private bool _isRotated = false;
     private BuildingData _buildingData;
+    private string _type = string.Empty;
 
     [ExportGroup("Node Refs")]
     [Export] public CollisionPolygon2D BodyShape;
@@ -29,14 +64,52 @@ public partial class Building : Area2D
     [Export] public AudioStreamPlayer Sounds;
 
     [ExportGroup("Structure")]
-    [Export] public BuildingData Data;
+    [Export(PropertyHint.Enum)]
+    public string Type
+    {
+        get => _type ?? string.Empty;
+        set
+        {
+            if (_type == value) return;
+            _type = value;
+            if (Engine.IsEditorHint() && IsNodeReady())
+            {
+                if (string.IsNullOrEmpty(value)) 
+                {
+                    Data = null;
+                    Reset(this);
+                    return;
+                }
+                if (Data != null && Data.Name == value) return;
+                Data = BuildingEditor.LoadBuildingData(value, Buildings);
+                BuildingEditor.ReloadBuilding(this);
+            }
+        }
+    }
+    [Export] public BuildingData Data {
+        get => _buildingData;
+        set
+        {
+            if (_buildingData == value) return;
+            _buildingData = value;
+            if (_buildingData is null && IsNodeReady())
+            {
+                Reset(this);
+                return;
+            }
 
-    [Export] public bool IsPreSpawned = false;
+            if (Engine.IsEditorHint() && IsNodeReady()) 
+            {
+                BuildingEditor.ReloadBuilding(this); 
+            }
+        }
+    }
+
+    public bool IsInitializing = true;
 
     public bool IsBuildingInFront;
     public bool IsBuilt;
     public bool Placed;
-    public bool IsRotated;
 
     // TIMER PARA TICK DE TEMPO DE CONSTRUCAO
     public Timer BuildTickTimer;
@@ -48,61 +121,44 @@ public partial class Building : Area2D
     public string ResourceType;
     public int SelfIndex;
 
+    public override void _EnterTree()
+    {
+        IsInitializing = true;
+    }
+
     public override void _Ready()
     {
         CallDeferred(MethodName.Initialize);
     }
 
     public void Initialize()
-    { 
-        StaticBody = GetNode<StaticBody2D>("NavigationBody");
-        Data.Initialize();
-        Sprite.Texture = Data.Structure.PreviewTexture;
-        BodyShape.Polygon = Data.Structure.Collision.Segments;
-        InteractionShape.Polygon = Data.Structure.Interaction.Segments;
-        GridShape.Polygon = Data.Structure.GridArea.Segments;
+    {
+        IsBuilt = IsPreSpawned;
 
-        Name = Data.Name + "_" + Data.Type + "_" + SelfIndex;
-
-        if (Data.Type.Equals(Constants.COMMUNE))
+        if (!Engine.IsEditorHint())
         {
-            Name = Constants.COMMUNE_EXTERNAL_NAME;
-            LevelManager.Singleton.Purrlament = this;
-        }
+            CallDeferred(MethodName.ConnectSignals);
+        } 
 
-        if (Data.Type == Constants.HOUSE)
+        CallDeferred(MethodName.LoadData);
+
+        if (IsPreSpawned) { CallDeferred(MethodName.PlaceBuilding, this); }
+        IsInitializing = false;
+    }
+
+    protected void LoadData()
+    {
+        if (Type == null)
         {
-            Name = Constants.HOUSE_EXTERNAL_NAME;
+            GD.PushError("Building Type is not set. Please assign it in the editor.");
+            return;
         }
+        Data ??= BuildingEditor.LoadBuildingData(Type, Buildings);
+        Data.Initialize(this);
+    }
 
-        if (Data.Type == Constants.TOWER)
-        {
-            switch (Data.TowerType)
-            {
-                case Constants.FIGHTERS:
-                    Name = Constants.FIGHTERS_TOWER_EXTERNAL_NAME;
-                    break;
-                /*todo implementar o resto*/
-            }
-        }
-
-        if (Data.Type == Constants.RESOURCE)
-        {
-            switch (Data.ResourceType)
-            {
-                case Constants.SALMON:
-                    Name = Constants.FISHERMAN_HOUSE_EXTERNAL_NAME;
-                    break;
-                case Constants.CATNIP:
-                    Name = Constants.DISTILLERY_EXTERNAL_NAME;
-                    break;
-                case Constants.SAND:
-                    Name = Constants.SAND_MINE_EXTERNAL_NAME;
-                    break;
-            }
-        }
-
-        MaxProgress = OS.IsDebugBuild() ? 3 : Data.MaxProgress;
+    public void ConnectSignals()
+    {   
         AboutToInteract += SimulationMode.Singleton.AboutToInteractWithBuilding;
         RemovedInteraction += SimulationMode.Singleton.InteractionWithBuildingRemoved;
         BuildMode.Singleton.ConstructionStarted += ConstructionStarted;
@@ -111,50 +167,18 @@ public partial class Building : Area2D
         BuildTickTimer.Timeout += ConstructionTimeElapsed;
         Destroyed += OnDestroyed;
         AddChild(BuildTickTimer);
-
-        if (!IsPreSpawned)
-        {
-            return;
-        }
-
-        PlaceBuilding(this);
     }
-
 
     public void AddSelfOnList()
     {
-        switch (Data.ResourceType)
-        {
-            case Constants.SALMON:
-                ResourceType = Constants.SALMON;
-                LevelManager.Singleton.SalmonBuildings.Add(this);
-                break;
-            case Constants.CATNIP:
-                ResourceType = Constants.CATNIP;
-                LevelManager.Singleton.CatnipBuildings.Add(this);
-                break;
-            case Constants.SAND:
-                ResourceType = Constants.SAND;
-                LevelManager.Singleton.SandBuildings.Add(this);
-                break;
-        }
+        LevelManager.Singleton.CollectorBuildings.Add(this);
     }
 
     public void RemoveSelfFromList()
     {
-        switch (Data.ResourceType)
-        {
-            case Constants.SALMON:
-                LevelManager.Singleton.SalmonBuildings.Remove(this);
-                break;
-            case Constants.CATNIP:
-                LevelManager.Singleton.CatnipBuildings.Remove(this);
-                break;
-            case Constants.SAND:
-                LevelManager.Singleton.SandBuildings.Remove(this);
-                break;
-        }
+        LevelManager.Singleton.CollectorBuildings.Remove(this);
     }
+
 
     public async void ConstructionStarted(Building building)
     {
@@ -164,9 +188,10 @@ public partial class Building : Area2D
         Sounds.Play();
         await ToSignal(Sounds, AudioStreamPlayer2D.SignalName.Finished);
     }
-    private async void OnDestroyed()
+
+    public async void OnDestroyed()
     {
-        var RefundResource = new Dictionary<string, int>();
+        var RefundResource = new Dictionary<Collectable, int>();
         foreach (var resource in Data.ResourceCosts)
         {
             RefundResource[resource.Key] = resource.Value / 2;
@@ -222,47 +247,45 @@ public partial class Building : Area2D
 
     public override void _ExitTree()
     {
+        if (Engine.IsEditorHint()) return;
         RemoveSelfFromList();
     }
 
 
     public static void PlaceBuilding(Building building)
-    {
-        if (building.IsRotated)
-        {
-            building.Sprite.Texture = building.Data.Structure.RotatedPlacedTexture;
-            building.Sprite.Offset = (building.Sprite.Offset + building.Data.Structure.RotatedPlacedOffset);
-        }
-        else
-        {
-            building.Sprite.Texture = building.Data.Structure.PlacedTexture;
-            building.Sprite.Offset = (building.Sprite.Offset + building.Data.Structure.PlacedOffset);
-        }
-       
+    {      
+        building.IsBuilt = true;
         Modulation.AssignState(building, InteractionStates.FINISHED);
+        building.Data.SetSpriteTexture(building);
+        if (Engine.IsEditorHint()) return; 
 
         building.AddSelfOnList();
         building.CurrentBuilders.Clear();
-        building.IsBuilt = true;
     }
 
     public static void RotateBuildingPreview(Building building)
     {
-        if (building.IsRotated)
+        building.IsRotated = !building.IsRotated;
+        building.Data.SetSpriteTexture(building);
+        building.Data.SetCollisionPolygon(building);
+        building.Data.SetInteractionPolygon(building);
+        building.Data.SetGridPolygon(building);
+    }
+
+    public override void _ValidateProperty(Dictionary property)
+    {
+        if (!Engine.IsEditorHint())
         {
-            building.Sprite.Texture = building.Data.Structure.PreviewTexture;
-            building.BodyShape.Polygon = building.Data.Structure.Collision.Segments;
-            building.InteractionShape.Polygon = building.Data.Structure.Interaction.Segments;
-            building.GridShape.Polygon = building.Data.Structure.GridArea.Segments;
-            building.IsRotated = false;
-        }
-        else
+            base._ValidateProperty(property);
+            return;
+        };
+
+        if (property["name"].AsStringName() == PropertyName.Type)
         {
-            building.Sprite.Texture = building.Data.Structure.RotatedPreviewTexture;
-            building.BodyShape.Polygon = building.Data.Structure.RotatedCollision.Segments;
-            building.InteractionShape.Polygon = building.Data.Structure.RotatedInteraction.Segments;
-            building.GridShape.Polygon = building.Data.Structure.RotatedGridArea.Segments;
-            building.IsRotated = true;
+            var usage = property["usage"].As<PropertyUsageFlags>() | PropertyUsageFlags.ReadOnly;
+            property["hint_string"] = string.Join(",", BuildingLoader.GetBuildingNames(Buildings));
         }
+
+        base._ValidateProperty(property);
     }
 }

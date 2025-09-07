@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://dmpleu5th8yqj"]
+[gd_scene load_steps=24 format=3 uid="uid://dlafn1y1tob36"]
 
 [ext_resource type="Script" uid="uid://dj6hrby0pkdt5" path="res://Scripts/Entities/UI/CommunistMenu.cs" id="1_ehsc1"]
 [ext_resource type="PackedScene" uid="uid://dro8ui4lldrko" path="res://TSCN/UI/Menu/Characters/UnitMenu.tscn" id="2_ru0sl"]
@@ -145,8 +145,7 @@ scale = Vector2(2, 2)
 texture = ExtResource("6_63vcx")
 region_rect = Rect2(128, 0, 64, 64)
 
-[node name="CatnipStorage" type="Control" parent="HContainer/VContainer/GridContainer"]
-custom_minimum_size = Vector2(64, 64)
+[node name="CatnipStorage" parent="HContainer/VContainer/GridContainer" instance=ExtResource("7_acvrd")]
 layout_mode = 2
 size_flags_horizontal = 4
 mouse_filter = 1
@@ -188,4 +187,10 @@ layout_mode = 2
 layout_mode = 2
 
 [node name="AddSandMine" parent="HContainer/VContainer/GridContainer" instance=ExtResource("10_tcg1v")]
+layout_mode = 2
+
+[node name="AddMarketButton" parent="HContainer/VContainer/GridContainer" instance=ExtResource("11_cbwuu")]
+layout_mode = 2
+
+[node name="AddCatnipFarm" parent="HContainer/VContainer/GridContainer" instance=ExtResource("12_dppop")]
 layout_mode = 2

@@ -1,33 +1,54 @@
-[gd_scene load_steps=8 format=3 uid="uid://cnyghgsmgc77a"]
+[gd_scene load_steps=17 format=3 uid="uid://c6n7oxydiul4x"]
 
-[ext_resource type="PackedScene" uid="uid://c73kwxuuwdacc" path="res://TSCN/Levels/Level-1.tscn" id="1_6kvq8"]
 [ext_resource type="Script" uid="uid://0wkhaudw8r7b" path="res://Scripts/Systems/LevelManager.cs" id="1_rxf7b"]
-[ext_resource type="PackedScene" uid="uid://sbqaktg77w31" path="res://TSCN/Systems/GameModes/ModeManager.tscn" id="2_u37th"]
-[ext_resource type="PackedScene" uid="uid://dg1278ax8xp1f" path="res://TSCN/UI/UI.tscn" id="3_bq1ev"]
-[ext_resource type="PackedScene" uid="uid://drliam15ta6fq" path="res://TSCN/Systems/Controller.tscn" id="4_ak1ec"]
-[ext_resource type="Script" uid="uid://ctecux5x35stj" path="res://Scripts/Systems/TerrainBaking/TerrainBaking.cs" id="6_3jkoc"]
-[ext_resource type="Script" uid="uid://dae2eaw5tplkd" path="res://Scripts/Entities/UI/CustomCursor.cs" id="7_b81cf"]
+[ext_resource type="PackedScene" uid="uid://c73kwxuuwdacc" path="res://TSCN/Levels/Level-1.tscn" id="2_b81cf"]
+[ext_resource type="Resource" uid="uid://dhh6g7dtdcny6" path="res://Data/Collectables/Catnip/Catnip.tres" id="2_pu4ws"]
+[ext_resource type="PackedScene" uid="uid://sbqaktg77w31" path="res://TSCN/Systems/GameModes/ModeManager.tscn" id="3_3hgku"]
+[ext_resource type="Resource" uid="uid://n1m0sqcfda43" path="res://Data/Collectables/Salmon/Salmon.tres" id="3_lsrbm"]
+[ext_resource type="PackedScene" uid="uid://dg1278ax8xp1f" path="res://TSCN/UI/UI.tscn" id="4_32t0e"]
+[ext_resource type="Resource" uid="uid://bnm27wrbaa38i" path="res://Data/Collectables/Sand/Sand.tres" id="4_gvqi3"]
+[ext_resource type="PackedScene" uid="uid://drliam15ta6fq" path="res://TSCN/Systems/Controller.tscn" id="5_8vh0k"]
+[ext_resource type="Script" uid="uid://ctecux5x35stj" path="res://Scripts/Systems/TerrainBaking/TerrainBaking.cs" id="6_mrist"]
+[ext_resource type="Script" uid="uid://dae2eaw5tplkd" path="res://Scripts/Entities/UI/CustomCursor.cs" id="7_1w4xk"]
+[ext_resource type="PackedScene" uid="uid://b2scej65ukivw" path="res://TSCN/Systems/BuildingLoader.tscn" id="8_3hgku"]
+[ext_resource type="Script" uid="uid://2ln6ip2go3ni" path="res://Scripts/Entities/Building/BuildingList.cs" id="8_32t0e"]
+[ext_resource type="Script" uid="uid://bo8nk0wvh85wl" path="res://Scripts/Systems/Tooling/CollectableLoader/CollectableLoader.cs" id="13_k6bu5"]
+[ext_resource type="Resource" uid="uid://bok8wu8nfwmsr" path="res://Data/GameSettings/CollectableLoaderSettings.tres" id="14_pu4ws"]
+[ext_resource type="Resource" uid="uid://b6a4igbgv8bpp" path="res://Data/Collectables/CollectableList.tres" id="16_2qqnp"]
+
+[sub_resource type="Resource" id="Resource_pu4ws"]
+script = ExtResource("8_32t0e")
+List = []
 
 [node name="Game" type="Node2D"]
-y_sort_enabled = true
 
 [node name="LevelManager" type="Node2D" parent="."]
 script = ExtResource("1_rxf7b")
-InitialCatnipQuantity = 1000
-InitialSalmonQuantity = 1000
-InitialSandQuantity = 1000
+InitialResources = Dictionary[Object, int]({
+ExtResource("2_pu4ws"): 500,
+ExtResource("3_lsrbm"): 500,
+ExtResource("4_gvqi3"): 500
+})
 
-[node name="Level" parent="LevelManager" instance=ExtResource("1_6kvq8")]
-position = Vector2(16, -92)
+[node name="Level" parent="LevelManager" instance=ExtResource("2_b81cf")]
+position = Vector2(-104, -82)
 
-[node name="ModeManager" parent="." instance=ExtResource("2_u37th")]
+[node name="ModeManager" parent="." instance=ExtResource("3_3hgku")]
 
-[node name="UI" parent="." instance=ExtResource("3_bq1ev")]
+[node name="UI" parent="." instance=ExtResource("4_32t0e")]
 
-[node name="Controller" parent="." instance=ExtResource("4_ak1ec")]
-
-[node name="TerrainBaking" type="Node2D" parent="."]
-script = ExtResource("6_3jkoc")
+[node name="Controller" parent="." instance=ExtResource("5_8vh0k")]
 
 [node name="CustomCursor" type="Node" parent="."]
-script = ExtResource("7_b81cf")
+script = ExtResource("7_1w4xk")
+
+[node name="BuildingLoader" parent="." instance=ExtResource("8_3hgku")]
+Buildings = SubResource("Resource_pu4ws")
+
+[node name="TerrainBaking" type="Node" parent="."]
+script = ExtResource("6_mrist")
+
+[node name="CollectableLoader" type="Node" parent="."]
+script = ExtResource("13_k6bu5")
+Settings = ExtResource("14_pu4ws")
+Collectables = ExtResource("16_2qqnp")

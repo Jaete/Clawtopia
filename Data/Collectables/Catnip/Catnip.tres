@@ -1,0 +1,26 @@
+[gd_resource type="Resource" script_class="Collectable" load_steps=7 format=3 uid="uid://dhh6g7dtdcny6"]
+
+[ext_resource type="Script" uid="uid://31culyiluxic" path="res://Scripts/Entities/Resources/Collectable.cs" id="1_8mbk1"]
+[ext_resource type="SpriteFrames" uid="uid://xdmrkkv6u24t" path="res://Data/Animations/Characters/Economic.tres" id="1_87wt7"]
+[ext_resource type="Resource" uid="uid://porkbmgs6mnv" path="res://Data/Collectables/Catnip/ProgressStructure.tres" id="2_47ruf"]
+[ext_resource type="Texture2D" uid="uid://be2a2t8wmgpwt" path="res://Assets/UI/New UI/scickle-mouse.png" id="2_neffb"]
+
+[sub_resource type="ConcavePolygonShape2D" id="ConcavePolygonShape2D_wm4ii"]
+segments = PackedVector2Array(0, 24, -32, 8, 0, -8, 32, 8)
+
+[sub_resource type="ConcavePolygonShape2D" id="ConcavePolygonShape2D_neffb"]
+segments = PackedVector2Array(24, 16, -24, 16, -24, -16, 24, -16)
+
+[resource]
+script = ExtResource("1_8mbk1")
+Name = "Catnip"
+Description = ""
+CollectorBuildingName = ""
+BodyShape = SubResource("ConcavePolygonShape2D_wm4ii")
+Interaction = SubResource("ConcavePolygonShape2D_neffb")
+HoverCursor = ExtResource("2_neffb")
+ProgressStructure = ExtResource("2_47ruf")
+CollectorAnimations = ExtResource("1_87wt7")
+CollectorAnimationLeft = "catnip_left"
+CollectorAnimationRight = "catnip_right"
+metadata/_custom_type_script = "uid://31culyiluxic"

@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=3 uid="uid://do112iq0j68lm"]
+
+[ext_resource type="Script" uid="uid://h8pm7g1mrlmc" path="res://Scripts/Entities/Resources/CollectPoint.cs" id="1_g16jw"]
+[ext_resource type="Resource" uid="uid://b6a4igbgv8bpp" path="res://Data/Collectables/CollectableList.tres" id="2_4pqc8"]
+[ext_resource type="Script" uid="uid://3atiy2cgerbv" path="res://Scripts/Entities/Resources/CollectPointPolygon.cs" id="3_4pqc8"]
+
+[node name="CollectPoint" type="StaticBody2D" node_paths=PackedStringArray("Interaction", "InteractionShape", "BodyShape")]
+script = ExtResource("1_g16jw")
+Collectables = ExtResource("2_4pqc8")
+Interaction = NodePath("Interaction")
+InteractionShape = NodePath("Interaction/InteractionShape")
+BodyShape = NodePath("BodyShape")
+
+[node name="BodyShape" type="CollisionPolygon2D" parent="." node_paths=PackedStringArray("Point")]
+script = ExtResource("3_4pqc8")
+Point = NodePath("..")
+
+[node name="Interaction" type="Area2D" parent="."]
+
+[node name="InteractionShape" type="CollisionPolygon2D" parent="Interaction" node_paths=PackedStringArray("Point")]
+script = ExtResource("3_4pqc8")
+Point = NodePath("../..")

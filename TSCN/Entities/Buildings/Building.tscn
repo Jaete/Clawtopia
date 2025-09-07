@@ -1,41 +1,42 @@
-[gd_scene load_steps=4 format=3 uid="uid://d2xeg5t6t85er"]
+[gd_scene load_steps=5 format=3 uid="uid://d2xeg5t6t85er"]
 
 [ext_resource type="Script" uid="uid://bnf1bqse85i37" path="res://Scripts/Entities/Building/Building.cs" id="1_pb7cr"]
-[ext_resource type="Texture2D" uid="uid://c3nyrua731gw4" path="res://Assets/Buildings/casa_vila_005_flip.png" id="2_tdwf2"]
-[ext_resource type="Texture2D" uid="uid://bdiutwxamfcfe" path="res://Assets/Buildings/casa_vila_005_flip_build.png" id="2_vutb4"]
+[ext_resource type="Script" uid="uid://cg5auuagwupqw" path="res://Scripts/Entities/Building/BuildingSprite.cs" id="2_qsor8"]
+[ext_resource type="Resource" uid="uid://dfvh701kyops1" path="res://Data/Buildings/BuildingList.tres" id="2_ux2or"]
+[ext_resource type="Script" uid="uid://h5p5om860dbv" path="res://Scripts/Entities/Building/BuildingPolygon.cs" id="4_ux2or"]
 
 [node name="Building" type="Area2D" node_paths=PackedStringArray("BodyShape", "GridShape", "InteractionShape", "Sprite", "StaticBody", "Sounds")]
 y_sort_enabled = true
 script = ExtResource("1_pb7cr")
+Buildings = ExtResource("2_ux2or")
 BodyShape = NodePath("NavigationBody/Shape")
 GridShape = NodePath("GridArea/AreaShape")
 InteractionShape = NodePath("InteractionShape")
 Sprite = NodePath("Sprite2D")
 StaticBody = NodePath("NavigationBody")
 Sounds = NodePath("BuildingSounds")
-Data = ExtResource("2_tdwf2")
 metadata/IsBuilding = true
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("2_vutb4")
-offset = Vector2(0, -32)
+[node name="Sprite2D" type="Sprite2D" parent="." node_paths=PackedStringArray("_building")]
 region_rect = Rect2(8, 758, 114, 141)
+script = ExtResource("2_qsor8")
+_building = NodePath("..")
 
 [node name="NavigationBody" type="StaticBody2D" parent="."]
-visible = false
 
-[node name="Shape" type="CollisionPolygon2D" parent="NavigationBody"]
-polygon = PackedVector2Array(-64, 4, 0, 36, 64, 8, 0, -24)
+[node name="Shape" type="CollisionPolygon2D" parent="NavigationBody" node_paths=PackedStringArray("Building")]
+script = ExtResource("4_ux2or")
+Building = NodePath("../..")
 
 [node name="GridArea" type="Area2D" parent="."]
 input_pickable = false
 
-[node name="AreaShape" type="CollisionPolygon2D" parent="GridArea"]
-position = Vector2(16, -4)
-polygon = PackedVector2Array(-80, 8, -64, 16, -80, 28, -56, 44, -32, 32, -16, 40, 48, 8, -16, -20)
+[node name="AreaShape" type="CollisionPolygon2D" parent="GridArea" node_paths=PackedStringArray("Building")]
+script = ExtResource("4_ux2or")
+Building = NodePath("../..")
 
-[node name="InteractionShape" type="CollisionPolygon2D" parent="."]
-visible = false
-polygon = PackedVector2Array(-61, 5, -61, -56, -19, -98, 49, -65, 70, -51, 64, -43, 64, 8, 0, 37)
+[node name="InteractionShape" type="CollisionPolygon2D" parent="." node_paths=PackedStringArray("Building")]
+script = ExtResource("4_ux2or")
+Building = NodePath("..")
 
 [node name="BuildingSounds" type="AudioStreamPlayer" parent="."]
