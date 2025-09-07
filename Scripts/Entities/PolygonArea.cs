@@ -18,7 +18,6 @@ public partial class PolygonArea : CollisionPolygon2D
         var result = base._Set(property, value);
         if (Engine.IsEditorHint())
         {
-            GD.Print("Signal emitted");
             EmitSignal(SignalName.PolygonChanged);
         }
         return result;

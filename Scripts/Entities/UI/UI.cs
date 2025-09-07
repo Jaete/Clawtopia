@@ -41,9 +41,6 @@ public partial class UI : CanvasLayer
         if (entity is Building building)
         {
             var buildingMenu = GD.Load<PackedScene>(building.Data.UIMenu).Instantiate<BuildingMenu>();
-            GD.Print("datamenu: " + building.Data.UIMenu);
-            GD.Print("buildingmenu: " + buildingMenu);
-            GD.Print("Building: ", building);
             buildingMenu.BuildingLevelID = building.GetInstanceId();
             buildingMenu.Name = building.Name + "_Menu";
             Singleton.CurrentWindow = buildingMenu;
