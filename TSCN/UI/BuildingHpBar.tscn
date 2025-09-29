@@ -1,0 +1,36 @@
+[gd_scene load_steps=6 format=3 uid="uid://046ggyndt5qq"]
+
+[ext_resource type="Texture2D" uid="uid://dobma0uhe8v3a" path="res://Assets/UI/New UI/house-life-frame.png" id="1_gsixr"]
+[ext_resource type="Texture2D" uid="uid://xivdqhshp1j3" path="res://Assets/UI/New UI/house-life-bar.png" id="2_q5bul"]
+[ext_resource type="Texture2D" uid="uid://cnl3gu1mxkt0l" path="res://Assets/UI/New UI/counter-frame4.png" id="3_chxdv"]
+[ext_resource type="Script" uid="uid://c6ao5tkqip4b4" path="res://Scripts/Entities/UI/BuildingHpBar.cs" id="3_g4al6"]
+[ext_resource type="FontFile" uid="uid://cr6wq0358x1n6" path="res://Assets/UI/Old UI/bitfantasy.ttf" id="4_li6kw"]
+
+[node name="BuildingHpBar" type="TextureProgressBar" node_paths=PackedStringArray("hpLabel")]
+offset_right = 66.0
+offset_bottom = 15.0
+scale = Vector2(2, 2)
+value = 100.0
+rounded = true
+texture_under = ExtResource("1_gsixr")
+texture_progress = ExtResource("2_q5bul")
+texture_progress_offset = Vector2(3, 3)
+script = ExtResource("3_g4al6")
+hpLabel = NodePath("Counter/LifeLabel")
+
+[node name="Counter" type="Sprite2D" parent="."]
+position = Vector2(33.5, 21)
+texture = ExtResource("3_chxdv")
+
+[node name="LifeLabel" type="Label" parent="Counter"]
+offset_left = -17.0
+offset_top = -5.0
+offset_right = 53.0
+offset_bottom = 11.0
+scale = Vector2(0.5, 0.5)
+theme_override_colors/font_color = Color(1, 0.760784, 0.501961, 1)
+theme_override_fonts/font = ExtResource("4_li6kw")
+theme_override_font_sizes/font_size = 19
+text = "0/0"
+horizontal_alignment = 1
+justification_flags = 161

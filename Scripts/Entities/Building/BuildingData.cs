@@ -52,7 +52,16 @@ public partial class BuildingData : Resource
 
     [ExportGroup("Mechanic Settings")]
     [Export] public Dictionary<Collectable, int> ResourceCosts = new();
-    [Export] public int Hp;
+    [Export] public Dictionary<string, int> BuildingHP = new()
+    {
+        { "GreatCommune", 1000},
+        { "CatnipFarm", 100},
+        { "House", 100},
+        { "SalmonCottage", 100},
+        { "SandMine", 100}
+    };
+    [Export] public int MaxHp;
+    [Export] public int CurHp;
     [Export] public int MaxProgress;
 
     [ExportGroup("Structure")]
@@ -91,6 +100,14 @@ public partial class BuildingData : Resource
         {
             LevelManager.Singleton.Purrlament = building;
         }
+
+        if (BuildingHP.ContainsKey(building.Type))
+            MaxHp = BuildingHP[building.Type];
+        else
+            MaxHp = 100;
+
+        CurHp = MaxHp;
+
         building.Name = Name;
         building.MaxProgress = OS.IsDebugBuild() ? 3 : MaxProgress;
         building.IsInitializing = false;

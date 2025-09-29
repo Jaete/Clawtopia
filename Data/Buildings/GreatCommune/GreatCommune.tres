@@ -21,7 +21,15 @@ BuildingType = 0
 TowerType = ""
 Name = "GreatCommune"
 ResourceCosts = Dictionary[ExtResource("8_cod3s"), int]({})
-Hp = 0
+BuildingHP = Dictionary[String, int]({
+"CatnipFarm": 100,
+"GreatCommune": 1000,
+"House": 100,
+"SalmonCottage": 100,
+"SandMine": 100
+})
+MaxHp = 0
+CurHp = 0
 MaxProgress = 0
 Structure = ExtResource("1_qa3rg")
 Scale = Vector2(1, 1)
