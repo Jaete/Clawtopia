@@ -11,10 +11,6 @@ public partial class BuildingHpBar : TextureProgressBar
     public void SetBuilding(Building building)
     {
         _building = building;
-        GD.Print("Setting building: ", _building?.Type);
-        GD.Print("Has data: ", _building?.Data != null);
-        GD.Print("Hp: ", ((object) _building?.Data?.BuildingHP[_building.Type] ?? "Not defined"));
-
         if (_building?.Data != null)
         {
             MaxValue = _building.Data.MaxHp;

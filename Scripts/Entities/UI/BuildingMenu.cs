@@ -15,10 +15,6 @@ public partial class BuildingMenu : BaseMenu
         base._Ready();
         _building = (Building)InstanceFromId(BuildingLevelID);
         
-        GD.Print("Opening ", this.Name);
-        GD.Print("Building: ", _building?.Type ?? "Not defined");
-        GD.Print("HPBar node exists: ", hpBar != null);
-        
         if (_building != null && hpBar != null)
             hpBar.SetBuilding(_building);
         
