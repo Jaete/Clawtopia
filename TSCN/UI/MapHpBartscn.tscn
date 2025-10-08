@@ -1,0 +1,15 @@
+[gd_scene load_steps=4 format=3 uid="uid://bc7jmgstiauv1"]
+
+[ext_resource type="Texture2D" uid="uid://dobma0uhe8v3a" path="res://Assets/UI/New UI/house-life-frame.png" id="1_esi2d"]
+[ext_resource type="Texture2D" uid="uid://xivdqhshp1j3" path="res://Assets/UI/New UI/house-life-bar.png" id="2_lgcvi"]
+[ext_resource type="Script" uid="uid://bkx6tiu2fwlbc" path="res://Scripts/Entities/UI/MapHpBar.cs" id="3_lgcvi"]
+
+[node name="MapHpBar" type="TextureProgressBar"]
+offset_right = 40.0
+offset_bottom = 40.0
+value = 100.0
+rounded = true
+texture_under = ExtResource("1_esi2d")
+texture_progress = ExtResource("2_lgcvi")
+texture_progress_offset = Vector2(3, 3)
+script = ExtResource("3_lgcvi")
