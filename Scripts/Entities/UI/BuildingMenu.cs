@@ -13,13 +13,17 @@ public partial class BuildingMenu : BaseMenu
     public override void _Ready()
     {
         base._Ready();
-        if (RemoveBuildingButton is null) return;
-        RemoveBuildingButton.Pressed += RemoveBuilding;
-
         _building = (Building)InstanceFromId(BuildingLevelID);
-
+        
+        GD.Print("Opening ", this.Name);
+        GD.Print("Building: ", _building?.Type ?? "Not defined");
+        GD.Print("HPBar node exists: ", hpBar != null);
+        
         if (_building != null && hpBar != null)
             hpBar.SetBuilding(_building);
+        
+        if (RemoveBuildingButton is null) return;
+        RemoveBuildingButton.Pressed += RemoveBuilding;
     }
 
     public void RemoveBuilding()

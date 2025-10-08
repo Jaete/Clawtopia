@@ -13,26 +13,8 @@
 
 [resource]
 script = ExtResource("1_42v36")
-PlaceBuildingSound = ExtResource("7_xl8e2")
-DestroyBuildingSounds = Array[AudioStream]([ExtResource("2_7enqu"), ExtResource("3_msl3u"), ExtResource("4_6yqs5"), ExtResource("5_nkcge"), ExtResource("6_yr20o")])
-CancelSound = ExtResource("1_0gy2o")
 UIMenu = "uid://cqd1fw7ln0x4l"
-BuildingType = 0
-TowerType = ""
 Name = "House"
-ResourceCosts = Dictionary[ExtResource("8_fbe7i"), int]({})
-BuildingHP = Dictionary[String, int]({
-"CatnipFarm": 100,
-"GreatCommune": 1000,
-"House": 100,
-"SalmonCottage": 100,
-"SandMine": 100
-})
-MaxHp = 0
-CurHp = 0
-MaxProgress = 0
 Structure = ExtResource("8_t405w")
-Scale = Vector2(1, 1)
 Offset = Vector2(4, -36)
-RotatedOffset = Vector2(0, 0)
 metadata/IsBuilding = true

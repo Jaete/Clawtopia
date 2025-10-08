@@ -14,27 +14,9 @@
 
 [resource]
 script = ExtResource("10_b0nrq")
-PlaceBuildingSound = ExtResource("7_4m2h7")
-DestroyBuildingSounds = Array[AudioStream]([ExtResource("2_qahin"), ExtResource("3_g6k4g"), ExtResource("4_lilvf"), ExtResource("5_cn7s1"), ExtResource("6_1jovd")])
-CancelSound = ExtResource("1_dyfq6")
 UIMenu = "uid://dqkgvfijj28a5"
-BuildingType = 0
 Resource = ExtResource("8_qahin")
-TowerType = ""
 Name = "SalmonCottage"
-ResourceCosts = Dictionary[ExtResource("8_dyfq6"), int]({})
-BuildingHP = Dictionary[String, int]({
-"CatnipFarm": 100,
-"GreatCommune": 1000,
-"House": 100,
-"SalmonCottage": 100,
-"SandMine": 100
-})
-MaxHp = 0
-CurHp = 0
-MaxProgress = 0
 Structure = ExtResource("9_3cirx")
-Scale = Vector2(1, 1)
 Offset = Vector2(0, -32)
-RotatedOffset = Vector2(0, 0)
 metadata/IsBuilding = false
