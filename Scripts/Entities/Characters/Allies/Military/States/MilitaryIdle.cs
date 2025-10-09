@@ -8,7 +8,7 @@ public partial class MilitaryIdle : MilitaryState
         Ally.Velocity = Vector2.Zero;
         
         // Avisa UI de militar em IDLE
-        ResourceCount.Singleton.OnIdleUnit(1);
+        ResourceCount.Singleton?.OnIdleUnit(1);
     }
 
     public override void Update(double delta){
