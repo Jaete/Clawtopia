@@ -32,10 +32,10 @@ public partial class AddCommunist : UIButton
     }
 
     private void SpawnCommunist()
-    { 
+    {
         var communist = _scene.Instantiate<Ally>();
         var buildingMenu = UI.Singleton.CurrentWindow as BuildingMenu;
-        var houseNode = (Node2D) InstanceFromId(buildingMenu.BuildingLevelID);
+        var houseNode = (Node2D)InstanceFromId(buildingMenu.BuildingLevelID);
 
         //INICIA SPAWN DOS GATOS CAMPONESES
         ResourceSpawnTimer = GetTree().CreateTimer(SpawnTimer);
@@ -46,7 +46,7 @@ public partial class AddCommunist : UIButton
             {
                 //TODO: colocar implementacao de exibir UI indicando que nao tem recurso, voz, etc.
                 GD.Print("QUANTIDADE INSUFICIENTE DE RECURSO");
-                return;   
+                return;
             }
         }
 
@@ -65,6 +65,9 @@ public partial class AddCommunist : UIButton
                 }
                 ModeManager.Singleton.CurrentLevel.AddChild(communist);
             }
+
+            // Avisa a UI que nasceu um novo gato
+            ResourceCount.Singleton.OnUnitSpawned(CounterNames.ECONOMIC, 1);
         };
     }
 }
