@@ -13,17 +13,7 @@
 
 [resource]
 script = ExtResource("1_r233n")
-PlaceBuildingSound = ExtResource("7_7m6ve")
-DestroyBuildingSounds = Array[AudioStream]([ExtResource("2_e8233"), ExtResource("3_ypyfg"), ExtResource("4_qhf5g"), ExtResource("5_p5u78"), ExtResource("6_y6oqf")])
-CancelSound = ExtResource("1_lgsbq")
 UIMenu = "uid://cj0xphjp3n84w"
-BuildingType = 0
-TowerType = ""
 Name = "GreatCommune"
-ResourceCosts = Dictionary[ExtResource("8_cod3s"), int]({})
-Hp = 0
-MaxProgress = 0
 Structure = ExtResource("1_qa3rg")
-Scale = Vector2(1, 1)
 Offset = Vector2(-10, -10)
-RotatedOffset = Vector2(0, 0)

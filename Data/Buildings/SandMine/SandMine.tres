@@ -14,18 +14,8 @@
 
 [resource]
 script = ExtResource("10_xsbba")
-PlaceBuildingSound = ExtResource("7_8gwuj")
-DestroyBuildingSounds = Array[AudioStream]([ExtResource("2_v7glo"), ExtResource("3_ng5ls"), ExtResource("4_yeksn"), ExtResource("5_7fyb1"), ExtResource("6_hwyv8")])
-CancelSound = ExtResource("1_i01l8")
 UIMenu = "uid://brbtd7y65e1mt"
-BuildingType = 0
 Resource = ExtResource("8_v7glo")
-TowerType = ""
 Name = "SandMine"
-ResourceCosts = Dictionary[ExtResource("8_i01l8"), int]({})
-Hp = 0
-MaxProgress = 0
 Structure = ExtResource("9_ujhc3")
-Scale = Vector2(1, 1)
 Offset = Vector2(0, -32)
-RotatedOffset = Vector2(0, 0)

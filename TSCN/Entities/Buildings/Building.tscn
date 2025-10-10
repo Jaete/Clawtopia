@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://d2xeg5t6t85er"]
+[gd_scene load_steps=6 format=3 uid="uid://d2xeg5t6t85er"]
 
 [ext_resource type="Script" uid="uid://bnf1bqse85i37" path="res://Scripts/Entities/Building/Building.cs" id="1_pb7cr"]
 [ext_resource type="Script" uid="uid://cg5auuagwupqw" path="res://Scripts/Entities/Building/BuildingSprite.cs" id="2_qsor8"]
 [ext_resource type="Resource" uid="uid://dfvh701kyops1" path="res://Data/Buildings/BuildingList.tres" id="2_ux2or"]
 [ext_resource type="Script" uid="uid://h5p5om860dbv" path="res://Scripts/Entities/Building/BuildingPolygon.cs" id="4_ux2or"]
+[ext_resource type="PackedScene" uid="uid://bc7jmgstiauv1" path="res://TSCN/UI/MapHpBartscn.tscn" id="5_slqp3"]
 
 [node name="Building" type="Area2D" node_paths=PackedStringArray("BodyShape", "GridShape", "InteractionShape", "Sprite", "StaticBody", "Sounds")]
 y_sort_enabled = true
@@ -40,3 +41,17 @@ script = ExtResource("4_ux2or")
 Building = NodePath("..")
 
 [node name="BuildingSounds" type="AudioStreamPlayer" parent="."]
+
+[node name="MapHpBar" parent="." instance=ExtResource("5_slqp3")]
+visible = false
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -27.0
+offset_top = 46.0
+offset_right = 39.0
+offset_bottom = 61.0
+grow_horizontal = 2
+grow_vertical = 0

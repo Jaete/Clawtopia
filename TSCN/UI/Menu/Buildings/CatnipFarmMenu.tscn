@@ -1,11 +1,9 @@
-[gd_scene load_steps=22 format=3 uid="uid://s0ttnmsndghb"]
+[gd_scene load_steps=20 format=3 uid="uid://s0ttnmsndghb"]
 
 [ext_resource type="Script" uid="uid://c3msfilbtqe8q" path="res://Scripts/Entities/UI/CatnipFarmMenu.cs" id="1_fuv8e"]
 [ext_resource type="Texture2D" uid="uid://uds1dtcw43fy" path="res://Assets/UI/New UI/house-menu-background.png" id="2_55m2l"]
 [ext_resource type="Texture2D" uid="uid://cdse27kpapcwh" path="res://Assets/UI/New UI/catnip-storage-icon.png" id="3_fuv8e"]
-[ext_resource type="Texture2D" uid="uid://cnl3gu1mxkt0l" path="res://Assets/UI/New UI/counter-frame4.png" id="4_iutrw"]
-[ext_resource type="Texture2D" uid="uid://dobma0uhe8v3a" path="res://Assets/UI/New UI/house-life-frame.png" id="5_ae3nl"]
-[ext_resource type="Texture2D" uid="uid://xivdqhshp1j3" path="res://Assets/UI/New UI/house-life-bar.png" id="6_tan4l"]
+[ext_resource type="PackedScene" uid="uid://046ggyndt5qq" path="res://TSCN/UI/BuildingHpBar.tscn" id="4_8vfp2"]
 [ext_resource type="FontFile" uid="uid://cr6wq0358x1n6" path="res://Assets/UI/Old UI/bitfantasy.ttf" id="7_wj71w"]
 [ext_resource type="Texture2D" uid="uid://7cmipqyyvkms" path="res://Assets/UI/New UI/destroy-house-icon.png" id="8_wr5db"]
 [ext_resource type="Texture2D" uid="uid://pk58aniqmpd5" path="res://Assets/UI/New UI/counter-frame5.png" id="9_epvot"]
@@ -33,7 +31,7 @@
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_auymu"]
 
-[node name="CatnipFarmMenu" type="Control" node_paths=PackedStringArray("RemoveBuildingButton")]
+[node name="CatnipFarmMenu" type="Control" node_paths=PackedStringArray("RemoveBuildingButton", "hpBar")]
 custom_minimum_size = Vector2(532, 294)
 layout_mode = 3
 anchors_preset = 0
@@ -44,6 +42,7 @@ size_flags_vertical = 8
 mouse_filter = 1
 script = ExtResource("1_fuv8e")
 RemoveBuildingButton = NodePath("Control/Building/Stats/RemoveBuilding/Button")
+hpBar = NodePath("Control/Building/Control/BuildingHpBar")
 
 [node name="Control" type="Control" parent="."]
 layout_mode = 1
@@ -80,33 +79,12 @@ grow_horizontal = 2
 scale = Vector2(2.5, 2.5)
 texture = ExtResource("3_fuv8e")
 
-[node name="Counter" type="Sprite2D" parent="Control/Building/Control"]
-position = Vector2(0, 91)
-scale = Vector2(2, 2)
-texture = ExtResource("4_iutrw")
-
-[node name="Frame" type="Sprite2D" parent="Control/Building/Control"]
-position = Vector2(0, 62)
-scale = Vector2(2, 2)
-texture = ExtResource("5_ae3nl")
-
-[node name="Life" type="Sprite2D" parent="Control/Building/Control"]
-position = Vector2(0, 62)
-scale = Vector2(2, 2)
-texture = ExtResource("6_tan4l")
-
-[node name="BuildingLifeLabel" type="Label" parent="Control/Building/Control"]
+[node name="BuildingHpBar" parent="Control/Building/Control" instance=ExtResource("4_8vfp2")]
 layout_mode = 0
-offset_left = -34.5
-offset_top = 82.0
-offset_right = 35.5
-offset_bottom = 99.0
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_fonts/font = ExtResource("7_wj71w")
-theme_override_font_sizes/font_size = 19
-text = "100/100"
-horizontal_alignment = 1
-justification_flags = 161
+offset_left = -66.5
+offset_top = 48.0
+offset_right = -0.5
+offset_bottom = 63.0
 
 [node name="Stats" type="Control" parent="Control/Building"]
 anchors_preset = 0

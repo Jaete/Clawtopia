@@ -111,6 +111,9 @@ public partial class Building : Area2D
     public bool IsBuilt;
     public bool Placed;
 
+    // HP BAR
+    private MapHpBar _hpBar;
+
     // TIMER PARA TICK DE TEMPO DE CONSTRUCAO
     public Timer BuildTickTimer;
     public Array<Ally> CurrentBuilders = new();
@@ -129,6 +132,9 @@ public partial class Building : Area2D
     public override void _Ready()
     {
         CallDeferred(MethodName.Initialize);
+
+        _hpBar = GetNode<MapHpBar>("MapHpBar");
+        _hpBar.SetBuilding(this);
     }
 
     public void Initialize()

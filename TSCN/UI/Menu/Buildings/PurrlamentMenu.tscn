@@ -1,22 +1,20 @@
-[gd_scene load_steps=11 format=3 uid="uid://cj0xphjp3n84w"]
+[gd_scene load_steps=8 format=3 uid="uid://cj0xphjp3n84w"]
 
 [ext_resource type="Script" uid="uid://dx8xe44c3wwj4" path="res://Scripts/Entities/UI/PurrlamentMenu.cs" id="1_1cuu7"]
 [ext_resource type="PackedScene" uid="uid://wo4g4o4cxp7g" path="res://TSCN/UI/Buttons/add_communist.tscn.tscn" id="2_77pqg"]
 [ext_resource type="Texture2D" uid="uid://uds1dtcw43fy" path="res://Assets/UI/New UI/house-menu-background.png" id="2_y3c81"]
 [ext_resource type="Texture2D" uid="uid://dvmm10hkhma3g" path="res://Assets/UI/New UI/commune-life-icon.png" id="3_q2vhc"]
-[ext_resource type="Texture2D" uid="uid://cnl3gu1mxkt0l" path="res://Assets/UI/New UI/counter-frame4.png" id="4_3fd5k"]
-[ext_resource type="Texture2D" uid="uid://dobma0uhe8v3a" path="res://Assets/UI/New UI/house-life-frame.png" id="5_0jswm"]
-[ext_resource type="Texture2D" uid="uid://xivdqhshp1j3" path="res://Assets/UI/New UI/house-life-bar.png" id="6_i4bge"]
+[ext_resource type="PackedScene" uid="uid://046ggyndt5qq" path="res://TSCN/UI/BuildingHpBar.tscn" id="3_tva7m"]
 [ext_resource type="FontFile" uid="uid://cr6wq0358x1n6" path="res://Assets/UI/Old UI/bitfantasy.ttf" id="7_wsagw"]
 [ext_resource type="Texture2D" uid="uid://pk58aniqmpd5" path="res://Assets/UI/New UI/counter-frame5.png" id="8_urpvl"]
-[ext_resource type="Texture2D" uid="uid://dx6en3nh8t46o" path="res://Assets/UI/New UI/cat-icon.png" id="10_h8mek"]
 
-[node name="BaseMenu" type="Control"]
-custom_minimum_size = Vector2(500, 200)
+[node name="BaseMenu" type="Control" node_paths=PackedStringArray("hpBar")]
+custom_minimum_size = Vector2(532, 294)
 layout_mode = 3
 anchors_preset = 0
 mouse_filter = 1
 script = ExtResource("1_1cuu7")
+hpBar = NodePath("Control/Commune/BuildingHpBar")
 
 [node name="Control" type="Control" parent="."]
 layout_mode = 1
@@ -40,6 +38,13 @@ position = Vector2(136, 98)
 scale = Vector2(2, 2)
 texture = ExtResource("2_y3c81")
 
+[node name="BuildingHpBar" parent="Control/Commune" instance=ExtResource("3_tva7m")]
+layout_mode = 0
+offset_left = 5.0
+offset_top = 62.0
+offset_right = 71.0
+offset_bottom = 77.0
+
 [node name="Control" type="Control" parent="Control/Commune"]
 layout_mode = 1
 anchors_preset = 5
@@ -50,36 +55,9 @@ offset_bottom = 12.0
 grow_horizontal = 2
 
 [node name="Icon" type="Sprite2D" parent="Control/Commune/Control"]
+position = Vector2(0, -3)
 scale = Vector2(2.5, 2.5)
 texture = ExtResource("3_q2vhc")
-
-[node name="Counter" type="Sprite2D" parent="Control/Commune/Control"]
-position = Vector2(0, 91)
-scale = Vector2(2, 2)
-texture = ExtResource("4_3fd5k")
-
-[node name="Frame" type="Sprite2D" parent="Control/Commune/Control"]
-position = Vector2(0, 62)
-scale = Vector2(2, 2)
-texture = ExtResource("5_0jswm")
-
-[node name="Life" type="Sprite2D" parent="Control/Commune/Control"]
-position = Vector2(0, 62)
-scale = Vector2(2, 2)
-texture = ExtResource("6_i4bge")
-
-[node name="HouseLifeLabel" type="Label" parent="Control/Commune/Control"]
-layout_mode = 0
-offset_left = -34.5
-offset_top = 82.0
-offset_right = 35.5
-offset_bottom = 99.0
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_fonts/font = ExtResource("7_wsagw")
-theme_override_font_sizes/font_size = 19
-text = "100/100"
-horizontal_alignment = 1
-justification_flags = 161
 
 [node name="Buttons" type="Control" parent="Control/Commune"]
 anchors_preset = 0
@@ -102,9 +80,6 @@ anchor_bottom = 0.0
 grow_horizontal = 1
 grow_vertical = 1
 
-[node name="Icon" parent="Control/Commune/Buttons/Communists" index="1"]
-texture = ExtResource("10_h8mek")
-
 [node name="CatLabel" type="Label" parent="Control/Commune/Buttons/Communists"]
 layout_mode = 0
 offset_left = 39.0
@@ -117,5 +92,3 @@ theme_override_font_sizes/font_size = 17
 text = "1000"
 horizontal_alignment = 1
 justification_flags = 161
-
-[editable path="Control/Commune/Buttons/Communists"]

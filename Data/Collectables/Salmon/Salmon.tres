@@ -14,8 +14,6 @@ segments = PackedVector2Array(0, 16, -32, 0, 0, -18, 32, 0)
 [resource]
 script = ExtResource("1_i5sd3")
 Name = "Salmon"
-Description = ""
-CollectorBuildingName = ""
 BodyShape = SubResource("ConcavePolygonShape2D_juoan")
 Interaction = SubResource("ConcavePolygonShape2D_mo4fj")
 HoverCursor = ExtResource("2_auvri")
