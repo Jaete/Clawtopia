@@ -4,7 +4,7 @@
 [ext_resource type="Script" uid="uid://cg5auuagwupqw" path="res://Scripts/Entities/Building/BuildingSprite.cs" id="2_qsor8"]
 [ext_resource type="Resource" uid="uid://dfvh701kyops1" path="res://Data/Buildings/BuildingList.tres" id="2_ux2or"]
 [ext_resource type="Script" uid="uid://h5p5om860dbv" path="res://Scripts/Entities/Building/BuildingPolygon.cs" id="4_ux2or"]
-[ext_resource type="PackedScene" uid="uid://bc7jmgstiauv1" path="res://TSCN/UI/MapHpBartscn.tscn" id="5_slqp3"]
+[ext_resource type="PackedScene" uid="uid://bc7jmgstiauv1" path="res://TSCN/UI/Elements/Bars/MapHpBartscn.tscn" id="5_slqp3"]
 
 [node name="Building" type="Area2D" node_paths=PackedStringArray("BodyShape", "GridShape", "InteractionShape", "Sprite", "StaticBody", "Sounds")]
 y_sort_enabled = true

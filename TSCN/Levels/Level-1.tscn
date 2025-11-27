@@ -1,22 +1,24 @@
-[gd_scene load_steps=23 format=4 uid="uid://c73kwxuuwdacc"]
+[gd_scene load_steps=25 format=4 uid="uid://c73kwxuuwdacc"]
 
 [ext_resource type="TileSet" uid="uid://c2nkgguv7dacf" path="res://Data/Tilemaps/Tileset.tres" id="1_pkymm"]
 [ext_resource type="PackedScene" uid="uid://dmqsbxvmpraew" path="res://TSCN/Systems/Camera.tscn" id="2_np81b"]
 [ext_resource type="PackedScene" uid="uid://d2xeg5t6t85er" path="res://TSCN/Entities/Buildings/Building.tscn" id="3_wt2d7"]
 [ext_resource type="Resource" uid="uid://mqcdu0esv2dq" path="res://Data/Buildings/GreatCommune/GreatCommune.tres" id="5_k5038"]
+[ext_resource type="Resource" uid="uid://dhh6g7dtdcny6" path="res://Data/Collectables/Catnip/Catnip.tres" id="5_wqt60"]
 [ext_resource type="Resource" uid="uid://n1m0sqcfda43" path="res://Data/Collectables/Salmon/Salmon.tres" id="6_pfvkx"]
 [ext_resource type="PackedScene" uid="uid://do112iq0j68lm" path="res://TSCN/Entities/Resources/Collectable.tscn" id="7_gtnk8"]
 [ext_resource type="SpriteFrames" uid="uid://cbbcav4heu0w2" path="res://Data/Animations/Salmon.tres" id="7_li3ex"]
-[ext_resource type="AudioStream" uid="uid://c6nf3cvt1mwmj" path="res://Assets/Audio/UI/ui-click-cancel.ogg" id="8_0cqqc"]
 [ext_resource type="PackedScene" uid="uid://d3gh4jmuicqic" path="res://TSCN/Entities/Characters/Allies/Economic/Economic.tscn" id="8_xv7v7"]
-[ext_resource type="AudioStream" uid="uid://c11gv7w0q6nrn" path="res://Assets/Audio/SFX/Building/destroy-001.ogg" id="9_ejtus"]
-[ext_resource type="AudioStream" uid="uid://bsh3gnwhsuydr" path="res://Assets/Audio/SFX/Building/destroy-002.ogg" id="10_wqt60"]
-[ext_resource type="AudioStream" uid="uid://bd4t165n2t0s0" path="res://Assets/Audio/SFX/Building/destroy-003.ogg" id="11_4lytn"]
-[ext_resource type="AudioStream" uid="uid://cnx6g6fuhlhlp" path="res://Assets/Audio/SFX/Building/destroy-004.ogg" id="12_1a0uo"]
-[ext_resource type="AudioStream" uid="uid://cx71cf6ffwqvg" path="res://Assets/Audio/SFX/Building/destroy-005.ogg" id="13_dibam"]
-[ext_resource type="AudioStream" uid="uid://865i76f5bwrx" path="res://Assets/Audio/SFX/Building/plot.ogg" id="14_ofoj1"]
-[ext_resource type="Script" uid="uid://31culyiluxic" path="res://Scripts/Entities/Resources/Collectable.cs" id="16_vjwdi"]
+[ext_resource type="Resource" uid="uid://bnm27wrbaa38i" path="res://Data/Collectables/Sand/Sand.tres" id="10_4lytn"]
+[ext_resource type="AudioStream" uid="uid://c6nf3cvt1mwmj" path="res://Assets/Audio/UI/ui-click-cancel.ogg" id="11_1a0uo"]
+[ext_resource type="AudioStream" uid="uid://c11gv7w0q6nrn" path="res://Assets/Audio/SFX/Building/destroy-001.ogg" id="12_dibam"]
+[ext_resource type="AudioStream" uid="uid://bsh3gnwhsuydr" path="res://Assets/Audio/SFX/Building/destroy-002.ogg" id="13_ofoj1"]
+[ext_resource type="AudioStream" uid="uid://bd4t165n2t0s0" path="res://Assets/Audio/SFX/Building/destroy-003.ogg" id="14_vjwdi"]
+[ext_resource type="AudioStream" uid="uid://cnx6g6fuhlhlp" path="res://Assets/Audio/SFX/Building/destroy-004.ogg" id="15_3spsi"]
+[ext_resource type="AudioStream" uid="uid://cx71cf6ffwqvg" path="res://Assets/Audio/SFX/Building/destroy-005.ogg" id="16_ptc1v"]
 [ext_resource type="Resource" uid="uid://w6je8nqk5kvy" path="res://Data/Buildings/SalmonCottage/Structure.tres" id="17_3spsi"]
+[ext_resource type="AudioStream" uid="uid://865i76f5bwrx" path="res://Assets/Audio/SFX/Building/plot.ogg" id="17_wqq0k"]
+[ext_resource type="Script" uid="uid://31culyiluxic" path="res://Scripts/Entities/Resources/Collectable.cs" id="18_6phcs"]
 [ext_resource type="Script" uid="uid://iy7w2gbfhvuy" path="res://Scripts/Entities/Building/BuildingData.cs" id="18_ptc1v"]
 [ext_resource type="Resource" uid="uid://bqcw48sao4aj0" path="res://Data/Buildings/House/Structure.tres" id="19_wqq0k"]
 
@@ -25,23 +27,59 @@ vertices = PackedVector2Array(696.867, 122.281, 1412.31, 480, 728.867, 821.719, 
 polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2), PackedInt32Array(3, 4, 5, 0), PackedInt32Array(0, 2, 6, 3), PackedInt32Array(7, 0, 5), PackedInt32Array(8, 9, 10, 11, 12, 13), PackedInt32Array(14, 15, 13, 12, 16, 17), PackedInt32Array(18, 17, 16), PackedInt32Array(19, 20, 18, 16, 21, 22), PackedInt32Array(23, 24, 22, 21, 11, 25), PackedInt32Array(25, 11, 10)])
 outlines = Array[PackedVector2Array]([PackedVector2Array(657, 1288, -889, 517, 540, -204, 2073, 584)])
 
-[sub_resource type="Resource" id="Resource_6phcs"]
+[sub_resource type="Resource" id="Resource_1a0uo"]
 resource_local_to_scene = true
 script = ExtResource("18_ptc1v")
+PlaceBuildingSound = ExtResource("17_wqq0k")
+DestroyBuildingSounds = Array[AudioStream]([ExtResource("12_dibam"), ExtResource("13_ofoj1"), ExtResource("14_vjwdi"), ExtResource("15_3spsi"), ExtResource("16_ptc1v")])
+CancelSound = ExtResource("11_1a0uo")
 UIMenu = "uid://dqkgvfijj28a5"
+BuildingType = 0
 Resource = ExtResource("6_pfvkx")
+TowerType = ""
 Name = "SalmonCottage"
+ResourceCosts = Dictionary[ExtResource("18_6phcs"), int]({})
+BuildingHP = Dictionary[String, int]({
+"CatnipFarm": 100,
+"GreatCommune": 1000,
+"House": 100,
+"SalmonCottage": 100,
+"SandMine": 100
+})
+MaxHp = 0
+CurHp = 0
+MaxProgress = 0
 Structure = ExtResource("17_3spsi")
+Scale = Vector2(1, 1)
 Offset = Vector2(0, -32)
+RotatedOffset = Vector2(0, 0)
 metadata/IsBuilding = false
 
-[sub_resource type="Resource" id="Resource_y2iau"]
+[sub_resource type="Resource" id="Resource_dibam"]
 resource_local_to_scene = true
 script = ExtResource("18_ptc1v")
+PlaceBuildingSound = ExtResource("17_wqq0k")
+DestroyBuildingSounds = Array[AudioStream]([ExtResource("12_dibam"), ExtResource("13_ofoj1"), ExtResource("14_vjwdi"), ExtResource("15_3spsi"), ExtResource("16_ptc1v")])
+CancelSound = ExtResource("11_1a0uo")
 UIMenu = "uid://cqd1fw7ln0x4l"
+BuildingType = 0
+TowerType = ""
 Name = "House"
+ResourceCosts = Dictionary[ExtResource("18_6phcs"), int]({})
+BuildingHP = Dictionary[String, int]({
+"CatnipFarm": 100,
+"GreatCommune": 1000,
+"House": 100,
+"SalmonCottage": 100,
+"SandMine": 100
+})
+MaxHp = 0
+CurHp = 0
+MaxProgress = 0
 Structure = ExtResource("19_wqq0k")
+Scale = Vector2(1, 1)
 Offset = Vector2(4, -36)
+RotatedOffset = Vector2(0, 0)
 metadata/IsBuilding = true
 
 [node name="Level" type="Node2D"]
@@ -77,10 +115,12 @@ position = Vector2(688, 424)
 [node name="CollectPoint5" parent="." instance=ExtResource("7_gtnk8")]
 position = Vector2(876, 569)
 Collectable = "Catnip"
+Resource = ExtResource("5_wqt60")
 
 [node name="CollectPoint" parent="." instance=ExtResource("7_gtnk8")]
 position = Vector2(272, 646)
 Collectable = "Salmon"
+Resource = ExtResource("6_pfvkx")
 
 [node name="BodyShape" parent="CollectPoint" index="0"]
 polygon = PackedVector2Array(0, 18, -32, 0, 0, -18, 32, 0)
@@ -91,7 +131,7 @@ polygon = PackedVector2Array(0, 16, -32, 0, 0, -18, 32, 0)
 [node name="AnimatedSprite" parent="CollectPoint" index="2"]
 sprite_frames = ExtResource("7_li3ex")
 animation = &"Full"
-frame_progress = 0.55751866
+frame_progress = 0.509245
 
 [node name="Building" parent="." instance=ExtResource("3_wt2d7")]
 position = Vector2(668, 254)
@@ -102,21 +142,23 @@ Data = ExtResource("5_k5038")
 [node name="CollectPoint2" parent="." instance=ExtResource("7_gtnk8")]
 position = Vector2(555.237, 496.937)
 Collectable = "Sand"
+Resource = ExtResource("10_4lytn")
 
 [node name="CollectPoint3" parent="." instance=ExtResource("7_gtnk8")]
 position = Vector2(310.625, 448.451)
 Collectable = "Catnip"
+Resource = ExtResource("5_wqt60")
 
 [node name="Building2" parent="." instance=ExtResource("3_wt2d7")]
 position = Vector2(936, 399)
 IsPreSpawned = true
 Type = "SalmonCottage"
-Data = SubResource("Resource_6phcs")
+Data = SubResource("Resource_1a0uo")
 
 [node name="Building3" parent="." instance=ExtResource("3_wt2d7")]
 position = Vector2(1028, 445)
 IsPreSpawned = true
 Type = "House"
-Data = SubResource("Resource_y2iau")
+Data = SubResource("Resource_dibam")
 
 [editable path="CollectPoint"]

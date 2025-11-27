@@ -1,0 +1,58 @@
+[gd_scene load_steps=6 format=3 uid="uid://c8bhmre0oi4w3"]
+
+[ext_resource type="PackedScene" uid="uid://do6k8jxs5odjj" path="res://TSCN/UI/Menu/Resources/ResourceMenu.tscn" id="1_0oiwu"]
+[ext_resource type="Texture2D" uid="uid://d0solxch24hu0" path="res://Assets/UI/New UI/building-background-frame.png" id="1_u6cyn"]
+[ext_resource type="Texture2D" uid="uid://brxbwlshw7nlu" path="res://Assets/UI/New UI/salmon-icon.png" id="2_0oiwu"]
+[ext_resource type="Script" uid="uid://25cseh1tehnw" path="res://Scripts/Entities/UI/SalmonResourceMenu.cs" id="2_cu0nn"]
+[ext_resource type="PackedScene" uid="uid://bnhdhvpe12jqr" path="res://TSCN/UI/Elements/Bars/CollectPointBar.tscn" id="3_u6cyn"]
+
+[node name="ResourceMenu" node_paths=PackedStringArray("resourceLabel") instance=ExtResource("1_0oiwu")]
+resourceLabel = NodePath("SalmonResourceMenu/VBoxContainer/CollectPointBar/Counter/ResourceLabel")
+
+[node name="SalmonResourceMenu" type="Control" parent="." index="0" node_paths=PackedStringArray("resourceLabel")]
+custom_minimum_size = Vector2(288, 288)
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -288.0
+offset_bottom = 288.0
+grow_horizontal = 0
+mouse_filter = 1
+script = ExtResource("2_cu0nn")
+resourceLabel = NodePath("VBoxContainer/CollectPointBar/Counter/ResourceLabel")
+
+[node name="BackgroundFrame" type="Control" parent="SalmonResourceMenu" index="0"]
+custom_minimum_size = Vector2(224, 224)
+layout_mode = 3
+anchors_preset = 0
+offset_right = 224.0
+offset_bottom = 224.0
+
+[node name="Sprite2D" type="Sprite2D" parent="SalmonResourceMenu/BackgroundFrame" index="0"]
+scale = Vector2(2, 2)
+texture = ExtResource("1_u6cyn")
+centered = false
+
+[node name="VBoxContainer" type="VBoxContainer" parent="SalmonResourceMenu" index="1"]
+layout_mode = 0
+offset_top = 60.0
+offset_right = 89.0
+offset_bottom = 125.0
+scale = Vector2(2.5, 2.5)
+mouse_filter = 0
+alignment = 1
+
+[node name="Icon" type="Control" parent="SalmonResourceMenu/VBoxContainer" index="0"]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="Icon" type="Sprite2D" parent="SalmonResourceMenu/VBoxContainer/Icon" index="0"]
+position = Vector2(0, -19)
+texture = ExtResource("2_0oiwu")
+
+[node name="CollectPointBar" parent="SalmonResourceMenu/VBoxContainer" index="1" instance=ExtResource("3_u6cyn")]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[editable path="SalmonResourceMenu/VBoxContainer/CollectPointBar"]

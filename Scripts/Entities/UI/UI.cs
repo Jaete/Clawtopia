@@ -52,6 +52,33 @@ public partial class UI : CanvasLayer
             allyMenu.Name = unit.Name + "_Menu";
             Singleton.CurrentWindow = allyMenu;
         }
+
+        if (entity is Area2D area && area.GetParent() is CollectPoint collectPoint)
+        {
+            PackedScene menuScene = null;
+
+            switch (collectPoint.Resource.Name)
+            {
+                case Constants.CATNIP:
+                    menuScene = GD.Load<PackedScene>("res://TSCN/UI/Menu/Resources/CatnipResourceMenu.tscn");
+                    break;
+                case Constants.SALMON:
+                    menuScene = GD.Load<PackedScene>("res://TSCN/UI/Menu/Resources/SalmonResourceMenu.tscn");
+                    break;
+                case Constants.SAND:
+                    menuScene = GD.Load<PackedScene>("res://TSCN/UI/Menu/Resources/SandResourceMenu.tscn");
+                    break;
+            }
+
+            if (menuScene == null)
+                return;
+            
+            var resourceMenu = menuScene.Instantiate<ResourceMenu>();
+            resourceMenu.SetCollectPoint(collectPoint);
+            resourceMenu.Name = collectPoint.Name + "_Resource";
+            Singleton.CurrentWindow = resourceMenu;
+        }
+
         var previousMenu = Singleton.Container.GetChild<Control>(0);
 
         if (previousMenu.Name == Singleton.CurrentWindow.Name)
