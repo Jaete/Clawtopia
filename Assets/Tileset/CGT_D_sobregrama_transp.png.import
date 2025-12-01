@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dobma0uhe8v3a"
-path="res://.godot/imported/house-life-frame.png-c480ea62998b3329065e36177af9476f.ctex"
+uid="uid://j4vlrc40sffp"
+path="res://.godot/imported/CGT_D_sobregrama_transp.png-f0559092c69b704e2d1b0efbb9acdbfe.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/UI/New UI/house-life-frame.png"
-dest_files=["res://.godot/imported/house-life-frame.png-c480ea62998b3329065e36177af9476f.ctex"]
+source_file="res://Assets/Tileset/CGT_D_sobregrama_transp.png"
+dest_files=["res://.godot/imported/CGT_D_sobregrama_transp.png-f0559092c69b704e2d1b0efbb9acdbfe.ctex"]
 
 [params]
 
