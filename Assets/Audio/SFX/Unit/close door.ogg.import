@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://cn3rrmyl3wurp"
+path="res://.godot/imported/close door.ogg-e8855d73b2494e57b74e79771f349387.oggvorbisstr"
+
+[deps]
+
+source_file="res://Assets/Audio/SFX/Unit/close door.ogg"
+dest_files=["res://.godot/imported/close door.ogg-e8855d73b2494e57b74e79771f349387.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

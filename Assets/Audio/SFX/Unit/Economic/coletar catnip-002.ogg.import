@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://dvu6q5261s4w3"
+path="res://.godot/imported/coletar catnip-002.ogg-c463509b7fd7975d46b434a436779dfa.oggvorbisstr"
+
+[deps]
+
+source_file="res://Assets/Audio/SFX/Unit/Economic/coletar catnip-002.ogg"
+dest_files=["res://.godot/imported/coletar catnip-002.ogg-c463509b7fd7975d46b434a436779dfa.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4
