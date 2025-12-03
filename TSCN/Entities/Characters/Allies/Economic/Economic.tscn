@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://d3gh4jmuicqic"]
+[gd_scene load_steps=33 format=3 uid="uid://d3gh4jmuicqic"]
 
 [ext_resource type="Script" uid="uid://dgjx0mjlsyyt4" path="res://Scripts/Entities/Characters/Allies/Ally.cs" id="1_kr1my"]
 [ext_resource type="PackedScene" uid="uid://dlafn1y1tob36" path="res://TSCN/UI/Menu/Characters/CommunistMenu.tscn" id="2_jetmm"]
@@ -13,12 +13,70 @@
 [ext_resource type="Script" uid="uid://dcrkjbpgq8px1" path="res://Scripts/EcoDebug.cs" id="9_f5t16"]
 [ext_resource type="SpriteFrames" uid="uid://xdmrkkv6u24t" path="res://Data/Animations/Characters/Economic.tres" id="9_kyvtq"]
 [ext_resource type="Resource" uid="uid://dm5n2rbt2e1tv" path="res://Data/Characters/Allies/States/Economic/BuildingAnimationController.tres" id="9_t3yb3"]
+[ext_resource type="AudioStream" uid="uid://o7msemd3xxg7" path="res://Assets/Audio/SFX/Unit/grass footsteps-001.ogg" id="13_jris2"]
+[ext_resource type="AudioStream" uid="uid://cuw0m0ljrmom0" path="res://Assets/Audio/SFX/Unit/grass footsteps-002.ogg" id="14_lkftx"]
+[ext_resource type="AudioStream" uid="uid://dkpglmxipf1ww" path="res://Assets/Audio/SFX/Unit/grass footsteps-003.ogg" id="15_edler"]
+[ext_resource type="AudioStream" uid="uid://cilpi365rk8q3" path="res://Assets/Audio/SFX/Unit/grass footsteps-004.ogg" id="16_q7lkq"]
+[ext_resource type="AudioStream" uid="uid://s0npkh7tib80" path="res://Assets/Audio/SFX/Unit/Economic/construindo loop.ogg" id="17_oo45u"]
+[ext_resource type="AudioStream" uid="uid://bfegptuynre8r" path="res://Assets/Audio/SFX/Unit/Economic/coletar catnip-001.ogg" id="18_0ht0w"]
+[ext_resource type="AudioStream" uid="uid://dvu6q5261s4w3" path="res://Assets/Audio/SFX/Unit/Economic/coletar catnip-002.ogg" id="19_ctbd8"]
+[ext_resource type="AudioStream" uid="uid://b6h1a5qyuoikf" path="res://Assets/Audio/SFX/Unit/Economic/coletar catnip-003.ogg" id="20_mx7v6"]
+[ext_resource type="AudioStream" uid="uid://dibo0uc6mejl" path="res://Assets/Audio/SFX/Unit/Economic/coletar catnip-004.ogg" id="21_2hcx4"]
+[ext_resource type="AudioStream" uid="uid://br1mifshkmd2y" path="res://Assets/Audio/SFX/Unit/Economic/coletar areia-001.ogg" id="22_lpd7p"]
+[ext_resource type="AudioStream" uid="uid://bunbufaf53et7" path="res://Assets/Audio/SFX/Unit/Economic/coletar areia-002.ogg" id="23_dkvv5"]
+[ext_resource type="AudioStream" uid="uid://bh80k4v0flt5t" path="res://Assets/Audio/SFX/Unit/Economic/coletar areia-003.ogg" id="24_qeuay"]
+[ext_resource type="AudioStream" uid="uid://l50dyx8jl5au" path="res://Assets/Audio/SFX/Unit/Economic/coletar areia-004.ogg" id="25_kbp3b"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_1wlnv"]
 radius = 16.0
 height = 64.0
 
-[node name="Economic" type="CharacterBody2D" node_paths=PackedStringArray("StateMachine", "Navigation", "Sprite", "InteractionShape")]
+[sub_resource type="AudioStreamPlaylist" id="AudioStreamPlaylist_0qy7d"]
+shuffle = true
+stream_count = 4
+stream_0 = ExtResource("13_jris2")
+stream_1 = ExtResource("14_lkftx")
+stream_2 = ExtResource("15_edler")
+stream_3 = ExtResource("16_q7lkq")
+
+[sub_resource type="AudioStreamPlaylist" id="AudioStreamPlaylist_6jr8x"]
+shuffle = true
+stream_count = 4
+stream_0 = ExtResource("18_0ht0w")
+stream_1 = ExtResource("19_ctbd8")
+stream_2 = ExtResource("20_mx7v6")
+stream_3 = ExtResource("21_2hcx4")
+
+[sub_resource type="AudioStreamPlaylist" id="AudioStreamPlaylist_g67ky"]
+shuffle = true
+stream_count = 4
+stream_0 = ExtResource("22_lpd7p")
+stream_1 = ExtResource("23_dkvv5")
+stream_2 = ExtResource("24_qeuay")
+stream_3 = ExtResource("25_kbp3b")
+
+[sub_resource type="AudioStreamInteractive" id="AudioStreamInteractive_m3stq"]
+clip_count = 2
+clip_0/name = &"catnip"
+clip_0/stream = SubResource("AudioStreamPlaylist_6jr8x")
+clip_0/auto_advance = 0
+clip_1/name = &"sand"
+clip_1/stream = SubResource("AudioStreamPlaylist_g67ky")
+clip_1/auto_advance = 0
+
+[sub_resource type="AudioStreamInteractive" id="AudioStreamInteractive_rfior"]
+clip_count = 3
+clip_0/name = &"move"
+clip_0/stream = SubResource("AudioStreamPlaylist_0qy7d")
+clip_0/auto_advance = 0
+clip_1/name = &"build"
+clip_1/stream = ExtResource("17_oo45u")
+clip_1/auto_advance = 0
+clip_2/name = &"collect"
+clip_2/stream = SubResource("AudioStreamInteractive_m3stq")
+clip_2/auto_advance = 0
+
+[node name="Economic" type="CharacterBody2D" node_paths=PackedStringArray("StateMachine", "Navigation", "Sprite", "InteractionShape", "AudioPlayer")]
 script = ExtResource("1_kr1my")
 Category = "Economic"
 UIMenu = ExtResource("2_jetmm")
@@ -27,6 +85,7 @@ StateMachine = NodePath("FSM")
 Navigation = NodePath("Navigation")
 Sprite = NodePath("Sprite")
 InteractionShape = NodePath("InteractionShape")
+AudioPlayer = NodePath("EconomicAudio")
 
 [node name="SelectionCircle" type="Line2D" parent="."]
 visible = false
@@ -70,7 +129,12 @@ offset = Vector2(0, -24)
 position = Vector2(0, -24)
 shape = SubResource("CapsuleShape2D_1wlnv")
 
+[node name="EconomicAudio" type="AudioStreamPlayer2D" parent="."]
+stream = SubResource("AudioStreamInteractive_rfior")
+bus = &"SFX"
+
 [node name="Label" type="Label" parent="."]
+visible = false
 offset_left = -21.0
 offset_right = 19.0
 offset_bottom = 23.0

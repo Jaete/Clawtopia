@@ -1,6 +1,7 @@
 using ClawtopiaCs.Scripts.Entities;
 using ClawtopiaCs.Scripts.Entities.Building;
 using ClawtopiaCs.Scripts.Entities.Characters;
+using ClawtopiaCs.Scripts.Systems.Audio;
 using System.Collections.Generic;
 using Godot;
 using static BuildingData;
@@ -26,6 +27,13 @@ public partial class Ally : Unit
     public Building ConstructionToBuild;
 
     public Vector2 LastDirection { get; private set; } = Vector2.Down;
+
+    private readonly Dictionary<UnitAudioClip, string> ClipNames = new()
+    {
+        { UnitAudioClip.Move, "move" },
+        { UnitAudioClip.Build, "build" },
+        { UnitAudioClip.Collect, "collect" }
+    };
 
     public override void _Ready()
     {
@@ -54,5 +62,25 @@ public partial class Ally : Unit
     public virtual void OnUnhover()
     {
        Modulation.AssignState(this, InteractionStates.UNHOVER);
+    }
+
+    public void UpdateAudioPlayer(UnitAudioClip clip)
+    {
+        var playback = AudioPlayer.GetStreamPlayback as AudioStreamInteractive;
+
+        if (interactive == null)
+        {
+            GD.PrintErr("O AudioPlayer nao e interactive");
+            return;
+        }
+
+        string audioName = ClipNames[clip];
+        string current = (string)interactive.GetParameter("switch_to_clip");
+
+        if (audioName != current)
+        {
+            AudioPlayer.Play();
+            interactive.SetParameter("switch_to_clip", audioName);
+        }
     }
 }
