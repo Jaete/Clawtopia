@@ -1,22 +1,40 @@
 [gd_resource type="Resource" script_class="BuildingData" load_steps=12 format=3 uid="uid://btqpr3ncys8yj"]
 
-[ext_resource type="AudioStream" uid="uid://c6nf3cvt1mwmj" path="res://Assets/Audio/UI/ui-click-cancel.ogg" id="1_dyfq6"]
-[ext_resource type="AudioStream" uid="uid://c11gv7w0q6nrn" path="res://Assets/Audio/SFX/Building/destroy-001.ogg" id="2_qahin"]
-[ext_resource type="AudioStream" uid="uid://bsh3gnwhsuydr" path="res://Assets/Audio/SFX/Building/destroy-002.ogg" id="3_g6k4g"]
-[ext_resource type="AudioStream" uid="uid://bd4t165n2t0s0" path="res://Assets/Audio/SFX/Building/destroy-003.ogg" id="4_lilvf"]
-[ext_resource type="AudioStream" uid="uid://cnx6g6fuhlhlp" path="res://Assets/Audio/SFX/Building/destroy-004.ogg" id="5_cn7s1"]
-[ext_resource type="AudioStream" uid="uid://cx71cf6ffwqvg" path="res://Assets/Audio/SFX/Building/destroy-005.ogg" id="6_1jovd"]
-[ext_resource type="AudioStream" uid="uid://865i76f5bwrx" path="res://Assets/Audio/SFX/Building/plot.ogg" id="7_4m2h7"]
-[ext_resource type="Script" uid="uid://31culyiluxic" path="res://Scripts/Entities/Resources/Collectable.cs" id="8_dyfq6"]
+[ext_resource type="AudioStream" uid="uid://c6nf3cvt1mwmj" path="res://Assets/Audio/UI/ui-click-cancel.ogg" id="1_qahin"]
+[ext_resource type="AudioStream" uid="uid://c11gv7w0q6nrn" path="res://Assets/Audio/SFX/Building/destroy-001.ogg" id="2_g6k4g"]
+[ext_resource type="AudioStream" uid="uid://bsh3gnwhsuydr" path="res://Assets/Audio/SFX/Building/destroy-002.ogg" id="3_lilvf"]
+[ext_resource type="AudioStream" uid="uid://bd4t165n2t0s0" path="res://Assets/Audio/SFX/Building/destroy-003.ogg" id="4_cn7s1"]
+[ext_resource type="AudioStream" uid="uid://cnx6g6fuhlhlp" path="res://Assets/Audio/SFX/Building/destroy-004.ogg" id="5_1jovd"]
+[ext_resource type="AudioStream" uid="uid://cx71cf6ffwqvg" path="res://Assets/Audio/SFX/Building/destroy-005.ogg" id="6_4m2h7"]
+[ext_resource type="AudioStream" uid="uid://865i76f5bwrx" path="res://Assets/Audio/SFX/Building/plot.ogg" id="7_c8dvm"]
 [ext_resource type="Resource" uid="uid://n1m0sqcfda43" path="res://Data/Collectables/Salmon/Salmon.tres" id="8_qahin"]
 [ext_resource type="Resource" uid="uid://w6je8nqk5kvy" path="res://Data/Buildings/SalmonCottage/Structure.tres" id="9_3cirx"]
+[ext_resource type="Script" uid="uid://31culyiluxic" path="res://Scripts/Entities/Resources/Collectable.cs" id="9_b0nrq"]
 [ext_resource type="Script" uid="uid://iy7w2gbfhvuy" path="res://Scripts/Entities/Building/BuildingData.cs" id="10_b0nrq"]
 
 [resource]
 script = ExtResource("10_b0nrq")
+PlaceBuildingSound = ExtResource("7_c8dvm")
+DestroyBuildingSounds = Array[AudioStream]([ExtResource("2_g6k4g"), ExtResource("3_lilvf"), ExtResource("4_cn7s1"), ExtResource("5_1jovd"), ExtResource("6_4m2h7")])
+CancelSound = ExtResource("1_qahin")
 UIMenu = "uid://dqkgvfijj28a5"
+BuildingType = 0
 Resource = ExtResource("8_qahin")
+TowerType = ""
 Name = "SalmonCottage"
+ResourceCosts = Dictionary[ExtResource("9_b0nrq"), int]({})
+BuildingHP = Dictionary[String, int]({
+"CatnipFarm": 100,
+"GreatCommune": 1000,
+"House": 100,
+"SalmonCottage": 100,
+"SandMine": 100
+})
+MaxHp = 0
+CurHp = 0
+MaxProgress = 0
 Structure = ExtResource("9_3cirx")
+Scale = Vector2(1, 1)
 Offset = Vector2(0, -32)
+RotatedOffset = Vector2(0, 0)
 metadata/IsBuilding = false

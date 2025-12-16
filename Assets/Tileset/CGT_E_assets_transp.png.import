@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dobma0uhe8v3a"
-path="res://.godot/imported/house-life-frame.png-c480ea62998b3329065e36177af9476f.ctex"
+uid="uid://bp1timucpn12x"
+path="res://.godot/imported/CGT_E_assets_transp.png-025fd4647762fbaee63fa47c6dbcf28c.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/UI/New UI/house-life-frame.png"
-dest_files=["res://.godot/imported/house-life-frame.png-c480ea62998b3329065e36177af9476f.ctex"]
+source_file="res://Assets/Tileset/CGT_E_assets_transp.png"
+dest_files=["res://.godot/imported/CGT_E_assets_transp.png-025fd4647762fbaee63fa47c6dbcf28c.ctex"]
 
 [params]
 
