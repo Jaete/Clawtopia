@@ -1,0 +1,56 @@
+[gd_scene load_steps=6 format=3 uid="uid://dt7wxeg6cknco"]
+
+[ext_resource type="Texture2D" uid="uid://d0solxch24hu0" path="res://Assets/UI/New UI/building-background-frame.png" id="1_757i0"]
+[ext_resource type="PackedScene" uid="uid://do6k8jxs5odjj" path="res://TSCN/UI/Menu/Resources/ResourceMenu.tscn" id="1_gq51y"]
+[ext_resource type="Texture2D" uid="uid://b0xbfwa1ii00i" path="res://Assets/UI/New UI/catnip-icon.png" id="2_gq51y"]
+[ext_resource type="Script" uid="uid://oheje77g6lie" path="res://Scripts/Entities/UI/CatinpResourceMenu.cs" id="2_v74xi"]
+[ext_resource type="PackedScene" uid="uid://bnhdhvpe12jqr" path="res://TSCN/UI/Elements/Bars/CollectPointBar.tscn" id="3_757i0"]
+
+[node name="ResourceMenu" node_paths=PackedStringArray("resourceLabel") instance=ExtResource("1_gq51y")]
+resourceLabel = NodePath("CatnipResourceMenu/VBoxContainer/CollectPointBar/Counter/ResourceLabel")
+
+[node name="CatnipResourceMenu" type="Control" parent="." index="0"]
+custom_minimum_size = Vector2(288, 288)
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -288.0
+offset_bottom = 288.0
+grow_horizontal = 0
+mouse_filter = 1
+script = ExtResource("2_v74xi")
+
+[node name="BackgroundFrame" type="Control" parent="CatnipResourceMenu" index="0"]
+custom_minimum_size = Vector2(224, 224)
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Sprite2D" type="Sprite2D" parent="CatnipResourceMenu/BackgroundFrame" index="0"]
+scale = Vector2(2, 2)
+texture = ExtResource("1_757i0")
+centered = false
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CatnipResourceMenu" index="1"]
+layout_mode = 0
+offset_top = 60.0
+offset_right = 89.0
+offset_bottom = 125.0
+scale = Vector2(2.5, 2.5)
+mouse_filter = 0
+alignment = 1
+
+[node name="Icon" type="Control" parent="CatnipResourceMenu/VBoxContainer" index="0"]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="Icon" type="Sprite2D" parent="CatnipResourceMenu/VBoxContainer/Icon" index="0"]
+position = Vector2(0, -19)
+texture = ExtResource("2_gq51y")
+
+[node name="CollectPointBar" parent="CatnipResourceMenu/VBoxContainer" index="1" instance=ExtResource("3_757i0")]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[editable path="CatnipResourceMenu/VBoxContainer/CollectPointBar"]

@@ -3,13 +3,13 @@
 [ext_resource type="Script" uid="uid://dj6hrby0pkdt5" path="res://Scripts/Entities/UI/CommunistMenu.cs" id="1_ehsc1"]
 [ext_resource type="PackedScene" uid="uid://dro8ui4lldrko" path="res://TSCN/UI/Menu/Characters/UnitMenu.tscn" id="2_ru0sl"]
 [ext_resource type="Texture2D" uid="uid://d0solxch24hu0" path="res://Assets/UI/New UI/building-background-frame.png" id="3_3rnd2"]
-[ext_resource type="PackedScene" uid="uid://cc5007ymclpse" path="res://TSCN/UI/Buttons/add_house.tscn" id="4_fl6s6"]
+[ext_resource type="PackedScene" uid="uid://cc5007ymclpse" path="res://TSCN/UI/Elements/Buttons/add_house.tscn" id="4_fl6s6"]
 [ext_resource type="Texture2D" uid="uid://b0361h5aik4sx" path="res://Assets/UI/New UI/artist-tower-icon.png" id="5_73bx0"]
 [ext_resource type="Texture2D" uid="uid://dqd3jwlwx70fr" path="res://Assets/UI/New UI/engineer-tower-house.png" id="6_63vcx"]
-[ext_resource type="PackedScene" uid="uid://be6qpul8cdl7" path="res://TSCN/UI/Buttons/add_fighter_tower.tscn" id="8_watps"]
-[ext_resource type="PackedScene" uid="uid://b4expjtsyc8um" path="res://TSCN/UI/Buttons/add_salmon_cottage.tscn" id="9_lg225"]
-[ext_resource type="PackedScene" uid="uid://c06hgevw4voan" path="res://TSCN/UI/Buttons/add_sand_mine.tscn" id="10_tcg1v"]
-[ext_resource type="PackedScene" uid="uid://dtreq5vxxycqb" path="res://TSCN/UI/Buttons/add_catnip_storage.tscn" id="11_xyz12"]
+[ext_resource type="PackedScene" uid="uid://be6qpul8cdl7" path="res://TSCN/UI/Elements/Buttons/add_fighter_tower.tscn" id="8_watps"]
+[ext_resource type="PackedScene" uid="uid://b4expjtsyc8um" path="res://TSCN/UI/Elements/Buttons/add_salmon_cottage.tscn" id="9_lg225"]
+[ext_resource type="PackedScene" uid="uid://c06hgevw4voan" path="res://TSCN/UI/Elements/Buttons/add_sand_mine.tscn" id="10_tcg1v"]
+[ext_resource type="PackedScene" uid="uid://dtreq5vxxycqb" path="res://TSCN/UI/Elements/Buttons/add_catnip_storage.tscn" id="11_xyz12"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_7fdb8"]
 

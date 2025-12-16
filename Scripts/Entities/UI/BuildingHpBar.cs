@@ -20,24 +20,10 @@ public partial class BuildingHpBar : TextureProgressBar
     {
         if (_building?.Data == null) return;
 
-
         if (_building.Data.CurHp > 0)
-        {
-            //Lógica para ver a barrinha descendo, pode apagar
-                timer--;
-                if (timer <= 0)
-                {
-                    _building.Data.CurHp--;
-                    timer = 50;
-                }
-            ////
-    
             Value = _building.Data.CurHp;
-        }
         else
-        {
             Value = 0;
-        }
 
         UpdateLabel();
     }

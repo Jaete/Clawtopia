@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://b10uyneneih0s" path="res://Scripts/Entities/UI/SalmonCottageMenu.cs" id="1_tc6g8"]
 [ext_resource type="Texture2D" uid="uid://uds1dtcw43fy" path="res://Assets/UI/New UI/house-menu-background.png" id="2_t0c70"]
 [ext_resource type="Texture2D" uid="uid://dctwksay4d8ec" path="res://Assets/UI/New UI/salmon-storage-icon.png" id="3_kjgpr"]
-[ext_resource type="PackedScene" uid="uid://046ggyndt5qq" path="res://TSCN/UI/BuildingHpBar.tscn" id="5_p6bbk"]
+[ext_resource type="PackedScene" uid="uid://046ggyndt5qq" path="res://TSCN/UI/Elements/Bars/BuildingHpBar.tscn" id="5_p6bbk"]
 [ext_resource type="FontFile" uid="uid://cr6wq0358x1n6" path="res://Assets/UI/Old UI/bitfantasy.ttf" id="7_6jibu"]
 [ext_resource type="Texture2D" uid="uid://7cmipqyyvkms" path="res://Assets/UI/New UI/destroy-house-icon.png" id="8_lk4mj"]
 [ext_resource type="Texture2D" uid="uid://pk58aniqmpd5" path="res://Assets/UI/New UI/counter-frame5.png" id="9_2ei1d"]

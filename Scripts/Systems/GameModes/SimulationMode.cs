@@ -148,6 +148,7 @@ public partial class SimulationMode : GameMode
        
         var overlappingAreas = SelectionArea.GetOverlappingAreas();
         var ui = GetNode<UI>("/root/Game/UI");
+
         if (overlappingAreas.Count == 0)
         {
             UI.ResetUI();
@@ -155,6 +156,16 @@ public partial class SimulationMode : GameMode
             SelectedBuilding = null;
             EraseSelectionBox();
             return;
+        }
+
+        foreach (var area in overlappingAreas)
+        {
+            if (area.GetParent() is CollectPoint collectPoint)
+            {
+                UI.OpenMenu(area);
+                EraseSelectionBox();
+                return;
+            }
         }
 
         if (treatAsClick)

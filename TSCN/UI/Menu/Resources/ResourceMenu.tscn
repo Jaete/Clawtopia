@@ -1,0 +1,14 @@
+[gd_scene load_steps=2 format=3 uid="uid://do6k8jxs5odjj"]
+
+[ext_resource type="Script" uid="uid://chbhp3yiwbepw" path="res://Scripts/Entities/UI/ResourceMenu.cs" id="1_3te2v"]
+
+[node name="ResourceMenu" type="Control"]
+custom_minimum_size = Vector2(532, 294)
+layout_mode = 3
+anchors_preset = 0
+offset_right = 532.0
+offset_bottom = 294.0
+size_flags_horizontal = 0
+size_flags_vertical = 8
+mouse_filter = 1
+script = ExtResource("1_3te2v")
