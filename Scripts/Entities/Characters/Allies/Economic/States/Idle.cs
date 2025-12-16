@@ -1,5 +1,6 @@
 using Godot;
 using ClawtopiaCs.Scripts.Entities.Characters;
+using ClawtopiaCs.Scripts.Systems;
 
 public partial class Idle : EconomicState
 {
@@ -7,9 +8,16 @@ public partial class Idle : EconomicState
     {
         Ally.Velocity = Vector2.Zero;
         PlayIdleAnimation();
+
+        // Avisa UI de aldeão em IDLE
+        ResourceCount.Singleton?.OnIdleUnit(1);
     }
 
-    public override void Exit() { }
+    public override void Exit()
+    {
+        // Avisa UI de aldeão ocupado
+        ResourceCount.Singleton.OnWorkUnit(1);
+    }
 
     public override void CommandReceived(Vector2 coords)
     {
@@ -19,7 +27,6 @@ public partial class Idle : EconomicState
         }
 
         ChooseNextTargetPosition(coords);
-        ChangeState("Move");
     }
 
     private void PlayIdleAnimation()
