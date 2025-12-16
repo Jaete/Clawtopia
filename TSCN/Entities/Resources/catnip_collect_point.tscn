@@ -1,17 +1,14 @@
-[gd_scene load_steps=5 format=3 uid="uid://cyff605bjg08y"]
+[gd_scene load_steps=4 format=3 uid="uid://cyff605bjg08y"]
 
 [ext_resource type="Script" uid="uid://h8pm7g1mrlmc" path="res://Scripts/Entities/Resources/CollectPoint.cs" id="1_pe6jj"]
 [ext_resource type="Texture2D" uid="uid://cq16jpph5052d" path="res://Assets/Spritesheets/Resources/asset_catnip_material3.png" id="2_6o2av"]
-[ext_resource type="Resource" uid="uid://bp0mgb5whmxtu" path="res://Data/Environment/CatnipCollectPoint.tres" id="2_e53q3"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_66ygv"]
 radius = 22.3607
 
-[node name="CatnipCollectPoint" type="StaticBody2D" node_paths=PackedStringArray("Sprite", "Interaction")]
+[node name="CatnipCollectPoint" type="StaticBody2D" node_paths=PackedStringArray("Interaction")]
 script = ExtResource("1_pe6jj")
-Sprite = NodePath("Sprite")
 Interaction = NodePath("Interaction")
-Structure = ExtResource("2_e53q3")
 
 [node name="Sprite" type="Sprite2D" parent="."]
 texture = ExtResource("2_6o2av")

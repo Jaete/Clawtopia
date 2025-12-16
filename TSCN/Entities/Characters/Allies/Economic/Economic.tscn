@@ -67,6 +67,7 @@ offset = Vector2(0, -24)
 [node name="InteractionShape" type="Area2D" parent="."]
 
 [node name="Shape" type="CollisionShape2D" parent="InteractionShape"]
+visible = false
 position = Vector2(0, -24)
 shape = SubResource("CapsuleShape2D_1wlnv")
 

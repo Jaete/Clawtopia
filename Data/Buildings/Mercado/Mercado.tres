@@ -17,11 +17,20 @@ script = ExtResource("9_7uaje")
 PlaceBuildingSound = ExtResource("7_s46f5")
 DestroyBuildingSounds = Array[AudioStream]([ExtResource("2_qlikx"), ExtResource("3_3ks0b"), ExtResource("4_stg57"), ExtResource("5_lcpvb"), ExtResource("6_0uj4k")])
 CancelSound = ExtResource("1_qm4pe")
+UIMenu = ""
 BuildingType = 0
 TowerType = ""
 Name = "Mercado"
 ResourceCosts = Dictionary[ExtResource("8_ccubv"), int]({})
-Hp = 0
+BuildingHP = Dictionary[String, int]({
+"CatnipFarm": 100,
+"GreatCommune": 1000,
+"House": 100,
+"SalmonCottage": 100,
+"SandMine": 100
+})
+MaxHp = 0
+CurHp = 0
 MaxProgress = 0
 Structure = ExtResource("8_n3ts3")
 Scale = Vector2(1, 1)
