@@ -1,48 +1,31 @@
 using Godot;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
-public partial class AudioController<T> : Node where T : Enum
+namespace ClawtopiaCs.Scripts.Systems.Audio
 {
-    [Export] public NodePath PlayerPath;
-    public AudioStreamPlayer2D Player { get; private set; }
-    private AudioStreamPlaybackInteractive _playback;
-
-    public Dictionary<T, int> ClipMap = new();
-    private int _currentClipIndex = -1;
-
-    public override void _Ready()
+    [Tool]
+    public abstract partial class AudioController<T> : Node where T : struct, Enum
     {
-        Player = GetNode<AudioStreamPlayer2D>(PlayerPath);
-        _playback = Player.GetStreamPlayback() as AudioStreamPlaybackInteractive;
+        public AudioStreamPlayer2D audioPlayer;
 
-        if (_playback == null)
-            GD.PrintErr("AudioPlayer não é interactive");
-    }
+        public Dictionary<T, int> ClipMap { get; set; } = new();
 
-    public void SetClip(T clip)
-    {
-        if (_playback == null) 
-            return;
+        private AudioStreamPlaybackInteractive _playback;
+        private int _currentClipIndex = -1;
 
-        int index = ClipMap[clip];
+        public override void _Ready()
+        {
+            audioPlayer = GetChildren().OfType<AudioStreamPlayer2D>().FirstOrDefault();
 
-        if (_currentClipIndex == index) 
-            return;
+            if (audioPlayer == null)
+            {
+                GD.PrintErr($"{Name}: audioPlayer nao encontrado.");
+                return;
+            }
 
-        _currentClipIndex = index;
-        _playback.SwitchToClip(index);
-
-        if (!Player.Playing)
-            Player.Play();
-    }
-
-    public T GetCurrentClip()
-    {
-        foreach (var kv in ClipMap)
-            if(kv.Value == _currentClipIndex)
-                return kv.Key;
-
-        return default;
+            _playback = audioPlayer.GetStreamPlayback() as AudioStreamPlaybackInteractive;
+        }  
     }
 }

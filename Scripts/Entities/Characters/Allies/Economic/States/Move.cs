@@ -3,6 +3,7 @@ using ClawtopiaCs.Scripts.Systems;
 using Godot;
 using Godot.Collections;
 using ClawtopiaCs.Scripts.Entities.Characters;
+using ClawtopiaCs.Scripts.Systems.Audio;
 
 public partial class Move : EconomicState
 {
@@ -12,6 +13,7 @@ public partial class Move : EconomicState
     public override void Enter()
     {
         isActive = true;
+        Ally.PlayAudio(UnitAudioClip.Move);
     }
 
     public override void Update(double delta)
@@ -26,6 +28,7 @@ public partial class Move : EconomicState
     public override void Exit()
     {
         isActive = false;
+        Ally.StopAudio();
      }
 
     public override void CommandReceived(Vector2 coords)

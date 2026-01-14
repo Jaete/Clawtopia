@@ -1,6 +1,7 @@
 using ClawtopiaCs.Scripts.Entities;
 using ClawtopiaCs.Scripts.Entities.Building;
 using ClawtopiaCs.Scripts.Entities.Characters;
+using ClawtopiaCs.Scripts.Systems.Audio;
 using System.Collections.Generic;
 using Godot;
 using static BuildingData;
@@ -11,6 +12,9 @@ public partial class Ally : Unit
 
     [ExportGroup("UI Settings")]
     [Export] public PackedScene UIMenu;
+
+    [ExportGroup("Audio Settings")]
+    [Export] public UnitAudioController _unitAudioController;
     // DETECTA SE ALIADO ESTA SELECIONADO
     public bool CurrentlySelected;
 
@@ -31,6 +35,9 @@ public partial class Ally : Unit
     public override void _Ready()
     {
         Initialize();
+
+        if (_unitAudioController == null)
+            GD.PrintErr($"[Ally] {Name}: Audio Controller não atribuído e não encontrado como filho.");
     }
 
     public void Initialize()
@@ -57,4 +64,13 @@ public partial class Ally : Unit
        Modulation.AssignState(this, InteractionStates.UNHOVER);
     }
 
+    public void PlayAudio(UnitAudioClip clip)
+    {
+        _unitAudioController?.SetClip(clip);
+    }
+
+    public void StopAudio()
+    {
+        _unitAudioController?.StopClip();
+    }
 }

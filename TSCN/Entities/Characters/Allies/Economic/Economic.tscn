@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=3 uid="uid://d3gh4jmuicqic"]
+[gd_scene load_steps=34 format=3 uid="uid://d3gh4jmuicqic"]
 
 [ext_resource type="Script" uid="uid://dgjx0mjlsyyt4" path="res://Scripts/Entities/Characters/Allies/Ally.cs" id="1_kr1my"]
 [ext_resource type="PackedScene" uid="uid://dlafn1y1tob36" path="res://TSCN/UI/Menu/Characters/CommunistMenu.tscn" id="2_jetmm"]
@@ -26,6 +26,7 @@
 [ext_resource type="AudioStream" uid="uid://bunbufaf53et7" path="res://Assets/Audio/SFX/Unit/Economic/coletar areia-002.ogg" id="23_dkvv5"]
 [ext_resource type="AudioStream" uid="uid://bh80k4v0flt5t" path="res://Assets/Audio/SFX/Unit/Economic/coletar areia-003.ogg" id="24_qeuay"]
 [ext_resource type="AudioStream" uid="uid://l50dyx8jl5au" path="res://Assets/Audio/SFX/Unit/Economic/coletar areia-004.ogg" id="25_kbp3b"]
+[ext_resource type="Script" uid="uid://b374wntlgnpm2" path="res://Scripts/Systems/Audio/UnitAudioController.cs" id="26_lkftx"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_1wlnv"]
 radius = 16.0
@@ -76,16 +77,16 @@ clip_2/name = &"collect"
 clip_2/stream = SubResource("AudioStreamInteractive_m3stq")
 clip_2/auto_advance = 0
 
-[node name="Economic" type="CharacterBody2D" node_paths=PackedStringArray("StateMachine", "Navigation", "Sprite", "InteractionShape", "AudioPlayer")]
+[node name="Economic" type="CharacterBody2D" node_paths=PackedStringArray("_unitAudioController", "StateMachine", "Navigation", "Sprite", "InteractionShape")]
 script = ExtResource("1_kr1my")
 Category = "Economic"
 UIMenu = ExtResource("2_jetmm")
+_unitAudioController = NodePath("EconomicAudio")
 Attributes = ExtResource("2_ku51o")
 StateMachine = NodePath("FSM")
 Navigation = NodePath("Navigation")
 Sprite = NodePath("Sprite")
 InteractionShape = NodePath("InteractionShape")
-AudioPlayer = NodePath("EconomicAudio")
 
 [node name="SelectionCircle" type="Line2D" parent="."]
 visible = false
@@ -131,7 +132,9 @@ shape = SubResource("CapsuleShape2D_1wlnv")
 
 [node name="EconomicAudio" type="AudioStreamPlayer2D" parent="."]
 stream = SubResource("AudioStreamInteractive_rfior")
+max_distance = 519.0
 bus = &"SFX"
+script = ExtResource("26_lkftx")
 
 [node name="Label" type="Label" parent="."]
 visible = false
